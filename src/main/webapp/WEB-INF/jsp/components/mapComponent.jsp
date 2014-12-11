@@ -36,6 +36,7 @@
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(${poi.location[0]}, ${poi.location[1]}),
             map: map,
+            icon:"./dist/img/bigMarker.png",
             title: "${poi.name}"});
     }
     initMap();
