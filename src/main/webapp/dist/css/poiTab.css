@@ -1,0 +1,103 @@
+#articolo > *{
+    line-height: 1.8;
+    font-size: medium;
+
+}
+
+#searchButton{
+    margin-left: auto !important;
+    margin-right: 5px !important;
+}
+#bigImage{
+    overflow: hidden;
+    box-shadow: 0px 0px 10px 0px lightgray;
+    border-radius: 4px 4px 0px 0px;
+    height: 250px;
+}
+
+#bigImage >img{
+
+    width: 100%;
+}
+.box{
+    box-shadow: 0px 0px 10px 0px lightgray; 
+}
+
+.panel{
+    box-shadow: 0px 0px 10px 0px lightgray;
+}
+.panel-title{
+    color: #2b669a !important;
+}
+
+body{
+    color: #2b669a;
+}
+
+#articolo > h1{
+    line-height: 1.8;
+    font-size: 25px;
+}
+
+.nav-pills > .active > a{
+    background: #2b669a !important;
+    box-shadow: 0px 0px 10px 0px gray;
+}
+
+#navigationMenu{
+    z-index: 1000 !important;
+    background: #2b669a !important;
+    border:0px !important;
+    box-shadow: 0px 0px 10px 0px gray !important;
+    border-radius: 0px 0px 4px 4px !important;
+}
+
+.btn{
+    color:#2b669a !important;
+    box-shadow: 0px 0px 10px 0px lightgray;
+}
+
+.navbarLink{
+    color:white !important;
+}
+
+.navbarLink:hover{
+    background-color: #3071a9 !important;
+    color: whitesmoke !important;
+}
+
+#schedaInformativa > *{
+    text-transform: capitalize;
+}
+
+.background{
+    background: #2b669a;
+}
+
+#map{
+    height: 250px;
+    border-radius: 3px 3px 3px 3px;
+}
+
+#central{
+    box-shadow: 0px 0px 10px 0px lightgray !important;
+    border-radius:0px 0px  4px 4px;
+}
+
+#poiList{
+    max-height: 250px;
+    overflow: auto;
+    text-decoration: none; 
+    text-transform: capitalize;
+    list-style: none;
+}
+
+.breadcrumb{
+    border-bottom: 1px solid lightgray;
+    border-top:1px solid lightgray;
+    border-radius: 0px 0px 0px 0px;
+}
+
+.dataTables_filter {
+    display: none; 
+}

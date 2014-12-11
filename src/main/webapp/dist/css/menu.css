@@ -1,0 +1,103 @@
+
+.panel{
+    box-shadow: 0px 0px 10px 0px lightgray;
+    color: #2b669a !important;
+}
+
+body{
+    color: #2b669a
+}
+
+.panel-title{
+    color: #2b669a !important;
+}
+
+.panel-title > a:hover{
+    
+    background: whitesmoke !important;
+    color: #2b669a !important;
+}
+
+#mapDirections{
+    height: 200px;
+}
+
+#facebookFriends{
+    max-height: 185px;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+#menucontainer{
+    position: fixed;
+    top: 50px;
+    bottom:-5px;
+    width: 100%;
+    padding: 0;
+    z-index: 5 !important;
+}
+
+#map{
+    height: 99%;
+    z-index: 0 !important;
+    box-shadow: 0px 5px 20px 0px;
+}
+
+#mapOption{
+    height: 99%;
+    z-index: 1 !important;
+    box-shadow: 0px 0px 10px 0px black;
+    border-radius: 0px 0px 0px 0px !important;
+    overflow: auto;
+}
+
+#pano{
+    height: 500px;
+}
+
+#directionPanel{
+    margin-top: 10px;
+    max-height: 300px;
+    overflow: auto;
+}
+
+#poiList{
+    max-height: 280px;
+    overflow: auto;
+    text-decoration: none; 
+    text-transform: capitalize;
+    list-style: none;
+}
+
+.navbarLink{
+    color:white !important;
+}
+
+.navbarLink:hover{
+    background-color: #3071a9 !important;
+    color: whitesmoke !important;
+}
+
+.btn{
+    color:#2b669a !important;
+    box-shadow: 0px 0px 10px 0px lightgray;
+}
+
+#navigationMenu{
+    z-index: 1000 !important;
+    border-radius: 0px 0px 0px 0px !important;
+    box-shadow: 0px 0px 10px 0px black;
+    background: #2b669a !important;
+    border:0px !important;
+}
+
+#showMenuButton{
+    position: absolute; 
+    top:100px; 
+    z-index: 1000 !important; 
+    left: 0px;
+    border-radius: 0px 10px 10px 0px !important;
+    box-shadow: 0px 0px 10px 0px black !important;
+    height: 50px;
+    width: 30px;
+}

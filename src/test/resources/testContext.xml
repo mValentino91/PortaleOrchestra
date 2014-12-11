@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo.xsd
+        http://www.springframework.org/schema/aop 
+        http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+        http://www.springframework.org/schema/jdbc
+        http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+            
+    <!-- Database just for testing purpose -->
+    <bean id="OrchestraDataSource"
+          class="org.springframework.jdbc.datasource.DriverManagerDataSource"
+          p:driverClassName="com.mysql.jdbc.Driver"
+          p:url="jdbc:mysql://localhost:3306/test_schema"
+          p:username="napolisquare"
+          p:password="ubuntu123">
+    </bean>
+    
+    <!-- Entity Manager -->
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="OrchestraDataSource" />
+        <property name="persistenceUnitName" value="OrchestraPersistenceUnit-Test" />
+    </bean>
+    
+    <!-- Transaction Manager -->
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    
+    <!-- Jpa Repositories -->
+    <jpa:repositories base-package="stubs"/>
+    
+    <!-- Mongo DataSource -->
+    <mongo:mongo id="OrchestraMongoDataSource" host="localhost" port="27017">
+        <mongo:options connections-per-host="8"
+                       threads-allowed-to-block-for-connection-multiplier="4"
+                       connect-timeout="1000"
+                       max-wait-time="1500"
+                       auto-connect-retry="true"
+                       socket-keep-alive="true"
+                       socket-timeout="1500"
+                       slave-ok="true"
+                       write-number="1"
+                       write-timeout="0"
+                       write-fsync="true"/>
+    </mongo:mongo>
+    
+    <!-- Mongo DataSource Factory -->
+    <mongo:db-factory id="mongoDbFactory"
+                      host="localhost"
+                      port="27017"
+                      dbname="testdb"
+                      username="tester"
+                      password="tester"
+                      mongo-ref="OrchestraMongoDataSource" />
+    
+    <!-- Mongo Template -->
+    <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+    </bean>
+    
+</beans>

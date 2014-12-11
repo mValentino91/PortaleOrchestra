@@ -1,0 +1,53 @@
+.cursor-pointer{
+    cursor: pointer;
+}
+.max-zindex{
+    z-index: 5;
+}
+.box{
+    box-shadow:0px 0px 1px 0px midnightblue; 
+    border-radius: 5px 5px 5px 5px;
+}
+.ui-autocomplete {
+    max-height: 200px;
+    width: 0px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+    z-index: 100000 !important;
+}
+
+* html .ui-autocomplete {
+    height: 100px;
+    z-index: 100000 !important;
+}
+.star{
+    color:gold;
+}
+
+.bg-white{
+    background-color: white;
+}
+
+.bg-whitesmoke{
+    background-color: whitesmoke;
+}
+
+.padding-top{
+    padding-top: 10px;
+}
+
+.padding-bottom{
+    padding-bottom: 10px;
+}
+
+.padding-md{
+    padding: 20px;
+}
+.font-size-lager{
+    font-size: larger;
+}
+
+.no-visible{
+    display: none;
+}
