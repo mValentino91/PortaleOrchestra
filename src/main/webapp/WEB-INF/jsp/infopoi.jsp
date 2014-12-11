@@ -68,6 +68,12 @@
                                 <c:if test="${not empty contacts}">
                                     <jsp:include page="components/ContactsComponent.jsp"/>
                                 </c:if>
+                                <c:if test="${not empty workingtime}">
+                                    <jsp:include page="components/WorkingTimeComponent.jsp"/>
+                                </c:if>
+                                <c:if test="${not empty prices}">
+                                    <jsp:include page="components/PricesComponent.jsp"/>
+                                </c:if>
                             </div>
                         </div>
                     </div>

@@ -20,13 +20,12 @@
             <ul class="nav nav-tabs" style="margin-bottom: 15px;">
             <li class="active"><a href="#orari" data-toggle="tab">Orari</a></li>
             <li><a href="#prezzi" data-toggle="tab">Prezzi</a></li>
-             </li>
-      </ul>
+            </ul>
             <div class="tab-pane fade active in" id="orari">
-                <jsp:include page="components/WorkingTimeComponent.jsp"/>
+                <jsp:include page="WorkingTimeComponent.jsp"/>
             </div>
     <div class="tab-pane fade" id="prezzi">
-        <jsp:include page="components/PricesComponent.jsp"/> 
+        <jsp:include page="PricesComponent.jsp"/> 
     </div>
         </c:if>
     </div>

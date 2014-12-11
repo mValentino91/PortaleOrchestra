@@ -9,9 +9,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-
+<div class="panel panel-default">
+    <div class="panel-thumbnail bg-primary" style="padding-bottom: 5px; padding-top: 5px">
+        <center>
+            <i class="fa fa-eur" style="font-size: 35px;"></i>
+        </center>
+    </div>
+    <div class="panel-body">
+        <center>
 <c:forEach var="Tprice" items="${prices.prices}">
 
-    <div title="${Tprice.type_description}">${Tprice.type}:</div> ${Tprice.price}
+    <div style="margin-top: 2px; font-size: 110%; font: Roboto"><b>${Tprice.type}:</b> ${Tprice.price}€ <i title="${Tprice.type_description}" style="color: blue;" class="fa fa-info-circle"></i></div>
 
 </c:forEach>
+        </center>
+    </div>
+</div>

@@ -13,5 +13,6 @@
     </head>
     <body>
         <h1>Impossibile visualizzare il poi richiesto!</h1>
+         ${err}
     </body>
 </html>
