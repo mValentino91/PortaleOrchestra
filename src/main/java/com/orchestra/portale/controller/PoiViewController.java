@@ -8,6 +8,8 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +37,7 @@ public class PoiViewController {
         CompletePOI poi = pm.getCompletePoiById(id);
         //aggiungo il poi al model
         model.addObject("poi", poi);
-        try {
+    //    try {
             //ciclo sulle componenti del poi
             for (AbstractPoiComponent comp : poi.getComponents()) {
 
@@ -44,13 +46,20 @@ public class PoiViewController {
                 int index = slug.lastIndexOf(".");
                 String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
 
-                Class c = Class.forName(slug);
+                Class c;
+            try {
+                c = Class.forName(slug);
                 model.addObject(cname, c.cast(comp));
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(PoiViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                
 
             }
-        } catch (Exception e) {
-            return error;
-        }
+   //     } catch (Exception e) {
+     //       error.addObject("err", ""+e);
+    //        return error;
+    //    }
         return model;
     }
 }

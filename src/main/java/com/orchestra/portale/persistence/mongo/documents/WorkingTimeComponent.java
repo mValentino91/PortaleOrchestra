@@ -6,11 +6,13 @@
 package com.orchestra.portale.persistence.mongo.documents;
 
 import java.util.ArrayList;
+import org.springframework.data.annotation.TypeAlias;
 
 /**
  *
  * @author Alex
  */
+@TypeAlias("com.orchestra.portale.persistence.mongo.documents.WorkingTimeComponent")
 public class WorkingTimeComponent extends AbstractPoiComponent{
     
     private ArrayList<CompactWorkingDays> workingdays;

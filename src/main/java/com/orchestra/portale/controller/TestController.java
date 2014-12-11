@@ -151,7 +151,7 @@ public class TestController {
             
             listComponent.add(contacts_component);
             //ORARI E PREZZI
-            /*
+            
             //Orari Di lavoro compattati
             WorkingHours wh = new WorkingHours();
             wh.setStart("9:00");
@@ -219,7 +219,7 @@ public class TestController {
             pc.setPrices(tpList);
             listComponent.add(pc);
            
-            */
+            
             
             //componente titolo
             TitleComponent title=new TitleComponent();

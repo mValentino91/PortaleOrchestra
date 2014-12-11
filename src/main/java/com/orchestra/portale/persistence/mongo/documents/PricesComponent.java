@@ -6,11 +6,13 @@
 package com.orchestra.portale.persistence.mongo.documents;
 
 import java.util.ArrayList;
+import org.springframework.data.annotation.TypeAlias;
 
 /**
  *
  * @author Alex
  */
+@TypeAlias("com.orchestra.portale.persistence.mongo.documents.PricesComponent")
 public class PricesComponent extends AbstractPoiComponent{
     private ArrayList<TicketPrice> prices;
     
