@@ -24,12 +24,17 @@
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
         <style>
+            body{
+                background-color: lightgray;
+                color: #285e8e;
+            }
         </style>
         <title>MapView</title>
+        <link href="./dist/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     </head>
     <body>
         <jsp:include page="components/sideBar.jsp"/>
-        <div style="position: absolute; width: 100%; height: 100%;">
+        <div style="position: absolute; width: 100%; height: 100%; top:50px;">
             <jsp:include page="components/interactiveMapComponent.jsp"/>
         </div>
     </body>

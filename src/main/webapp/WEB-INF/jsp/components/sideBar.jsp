@@ -124,71 +124,71 @@
     </ul>
 </aside>
 <script>
-            $(document).ready(function() {
-    var overlay = $('.sidebar-overlay');
-            $('.sidebar-toggle').on('click', function() {
-    var sidebar = $('#sidebar');
+    $(document).ready(function() {
+        var overlay = $('.sidebar-overlay');
+        $('.sidebar-toggle').on('click', function() {
+            var sidebar = $('#sidebar');
             sidebar.toggleClass('open');
             if ((sidebar.hasClass('sidebar-fixed-left') || sidebar.hasClass('sidebar-fixed-right')) && sidebar.hasClass('open')) {
-    overlay.addClass('active');
-    } else {
-    overlay.removeClass('active');
-    }
-    });
-            overlay.on('click', function() {
+                overlay.addClass('active');
+            } else {
+                overlay.removeClass('active');
+            }
+        });
+        overlay.on('click', function() {
             $(this).removeClass('active');
-                    $('#sidebar').removeClass('open');
-            });
+            $('#sidebar').removeClass('open');
+        });
     });
-            $(document).ready(function() {
-    var sidebar = $('#sidebar');
-            var sidebarHeader = $('#sidebar .sidebar-header');
-            var sidebarImg = sidebarHeader.css('background-image');
-            var toggleButtons = $('.sidebar-toggle');
-            toggleButtons.css('display', 'none');
-            $('body').css('display', 'table');
-            $('#sidebar-position').change(function() {
-    var value = $(this).val();
+    $(document).ready(function() {
+        var sidebar = $('#sidebar');
+        var sidebarHeader = $('#sidebar .sidebar-header');
+        var sidebarImg = sidebarHeader.css('background-image');
+        var toggleButtons = $('.sidebar-toggle');
+        toggleButtons.css('display', 'none');
+        $('body').css('display', 'table');
+        $('#sidebar-position').change(function() {
+            var value = $(this).val();
             sidebar.removeClass('sidebar-fixed-left sidebar-fixed-right sidebar-stacked').addClass(value).addClass('open');
             if (value == 'sidebar-fixed-left' || value == 'sidebar-fixed-right') {
-    $('.sidebar-overlay').addClass('active');
-    }
-    if (value != '') {
-    toggleButtons.css('display', 'initial');
-            $('body').css('display', 'initial');
-    } else {
-    toggleButtons.css('display', 'none');
-            $('body').css('display', 'table');
-    }
-    });
-            document.getElementById('sidebar-position').value = 'sidebar-fixed-left';
-            $('#sidebar-position').change();
-    });
-            (function($) {
-            var dropdown = $('.dropdown');
-                    dropdown.on('show.bs.dropdown', function(e) {
-                    $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
-                    });
-                    dropdown.on('hide.bs.dropdown', function(e) {
-                    $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
-                    });
-            }(jQuery));
-            (function(removeClass) {
-            jQuery.fn.removeClass = function(value) {
-            if (value && typeof value.test === 'function') {
-            for (var i = 0, l = this.length; i < l; i++) {
-            var elem = this[i];
-                    if (elem.nodeType === 1 && elem.className) {
-            elem.className = jQuery.trim(classNames.join(' '));
+                $('.sidebar-overlay').addClass('active');
             }
-            }
+            if (value != '') {
+                toggleButtons.css('display', 'initial');
+                $('body').css('display', 'initial');
             } else {
-            removeClass.call(this, value);
+                toggleButtons.css('display', 'none');
+                $('body').css('display', 'table');
+            }
+        });
+        document.getElementById('sidebar-position').value = 'sidebar-fixed-left';
+        $('#sidebar-position').change();
+    });
+    (function($) {
+        var dropdown = $('.dropdown');
+        dropdown.on('show.bs.dropdown', function(e) {
+            $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+        });
+        dropdown.on('hide.bs.dropdown', function(e) {
+            $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+        });
+    }(jQuery));
+    (function(removeClass) {
+        jQuery.fn.removeClass = function(value) {
+            if (value && typeof value.test === 'function') {
+                for (var i = 0, l = this.length; i < l; i++) {
+                    var elem = this[i];
+                    if (elem.nodeType === 1 && elem.className) {
+                        elem.className = jQuery.trim(classNames.join(' '));
+                    }
+                }
+            } else {
+                removeClass.call(this, value);
             }
             return this;
-            };
-            }(jQuery.fn.removeClass));
-            //@ sourceURL=pen.js
+        };
+    }(jQuery.fn.removeClass));
+    //@ sourceURL=pen.js
 </script>
 
 <select id="sidebar-position" name="sidebar-position" hidden>
@@ -196,19 +196,25 @@
     <option value="sidebar-fixed-right">Float on right</option>
 </select>
 
-<nav class="navbar navbar-fixed-top header" style="
-     margin: 0 auto;
-     max-width: 1050px;
-     background: transparent">
-    <div class="collapse navbar-collapse" style="background: transparent" id="navbar-collapse1">
-            <ul class="nav navbar-nav navbar-left" style="border-radius:0px 0px 2px 2px; background-color: rgba(255,255,255,0.7);">
-                <li>
+<nav class="navbar navbar-fixed-top header" style="box-shadow: 0px 0px 3px 0px black">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar">
+            <ul class="nav navbar-nav">
+                <li class="sidebar-toggle">
                     <a href="#">
-                        <i class="glyphicon glyphicon-list sidebar-toggle"></i>
+                        <i class="glyphicon glyphicon-list"></i>
                     </a>
                 </li>
             </ul>
-            <ul class="nav navbar-nav navbar-right" style="border-radius:0px 0px 2px 2px; background-color: rgba(255,255,255,0.7);">
+            <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
                     <ul class="dropdown-menu">
@@ -222,6 +228,7 @@
                 <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
                 <li><a href="#"><i class="glyphicon glyphicon-user"></i></a></li>
             </ul>
-    </div>	
+        </div>
+    </div>
 </nav>
 
