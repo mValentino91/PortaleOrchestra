@@ -10,20 +10,20 @@
 <script src='http://s.codepen.io/assets/libs/modernizr.js'></script>
 <!-- Overlay for fixed sidebar -->
 <div class="sidebar-overlay"></div>
-
 <!-- Material sidebar -->
-<aside id="sidebar" class="sidebar sidebar-default open" role="navigation">
+<aside id="sidebar" class="sidebar sidebar-colored open" role="navigation">
     <!-- Sidebar header -->
-    <div class="sidebar-header header-cover">
+    <div class="sidebar-header header-cover" style="">
         <!-- Top bar -->
         <div class="top-bar"></div>
         <!-- Sidebar toggle button -->
         <button type="button" class="sidebar-toggle btn btn-default">
-            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="fa fa-times"
+                  style="color: white"></span>
         </button>
         <!-- Sidebar brand image -->
         <div class="sidebar-image">
-            <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/53474/atom_profile_01.jpg">
+            <img src="./dist/img/logo.png">
         </div>
         <!-- Sidebar brand name -->
         <a data-toggle="dropdown" class="sidebar-brand" href="#settings-dropdown">
@@ -196,21 +196,23 @@
     <option value="sidebar-fixed-right">Float on right</option>
 </select>
 
-<nav class="navbar navbar-fixed-top header" style="box-shadow: 0px 0px 3px 0px black">
-    <div class="container-fluid">
+<nav class="navbar navbar-fixed-top header" style="background-color: #285e8e; box-shadow: 0px 0px 3px 0px black">
+    <div class="container-fluid" style="background-color: #285e8e;">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
+            <button type="button" 
+                    class="navbar-toggle collapsed"
+                    data-toggle="collapse" 
+                    data-target="#navbar" 
+                    aria-expanded="false" 
+                    aria-controls="navbar">
+                <span class="fa fa-plus-square fa-lg" style="color: white;"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse" id="navbar">
+        <div class="collapse navbar-collapse" id="navbar" style="background-color: #285e8e;">
             <ul class="nav navbar-nav">
                 <li class="sidebar-toggle">
                     <a href="#">
-                        <i class="glyphicon glyphicon-list"></i>
+                        <i class="fa fa-bars fa-lg"></i>
                     </a>
                 </li>
             </ul>

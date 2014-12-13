@@ -34,8 +34,6 @@
     </head>
     <body>
         <jsp:include page="components/sideBar.jsp"/>
-        <div style="position: absolute; width: 100%; height: 100%; top:50px;">
-            <jsp:include page="components/interactiveMapComponent.jsp"/>
-        </div>
+        <jsp:include page="components/interactiveMapComponent.jsp"/>
     </body>
 </html>

@@ -10,41 +10,65 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- INCLUSIONE GOOGLE-MAPS -->
-<script type="text/javascript"src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true" >
+<script type="text/javascript" src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true" >
 </script>
-
-<div id="map" style="height: 100%;">
-</div>
-<script>
-    var markers = new Array();
-    var infowindow = new google.maps.InfoWindow();
-
-    function attachInfo(index) {
-
-        map.setCenter(markers[index].getPosition());
-        var contentString =
-                '<center><img src="./dist/img/logo.png" height="55" style="margin: 5px;" alt=""/></center>'
-                + '<div style="max-height: 2px; height: 2px; margin:2px; background-color: #0f9d58;"></div>'
-                + '<div class="container-fluid text-center" style="min-height:170px; max-height:300px; max-width:200px;">'
-                + '<b>'
-                + markers[index].name
-                + '</b><br>'
-                + markers[index].address
-                + '<br><br><p class="text-justify" style="color:gray">'
-                + markers[index].shortDescription + '</p>';
-
-        contentString += '<a target="_blank" href="./getPoi?id='
-                + markers[index].id
-                + '">Maggiori Informazioni</a></div>';
-
-        infowindow.setContent(contentString);
-        infowindow.open(map, markers[index]);
-        markers[index].setAnimation(google.maps.Animation.BOUNCE);
-        window.setTimeout(function() {
-            markers[index].setAnimation(null);
-        }, 1400);
+<script type="text/javascript" src = "./dist/components/interactiveMap/interactiveMap.js">
+</script>
+<style>
+    #mapContainer{
+        position: fixed;
+        top: 50px;
+        bottom:-5px;
+        width: 100%;
+        padding: 0;
     }
-
+    #map{
+        height: 99%;
+    }
+    #pano{
+        height: 400px;
+    }
+</style>
+<!--STREET VIEW
+===================================================-->
+<div class="modal fade"
+     id="panoContainer"
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="mySmallModalLabel" 
+     aria-hidden="true"
+     >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-map-marker">
+                    </span>
+                    &nbsp;Street View
+                </h4>
+            </div>
+            <div class="modal-body">   
+                <div id="pano">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/STREET VIEW
+===================================================-->
+<!--Map
+===================================================-->
+<div id="mapContainer">
+    <div id="map" class="col-md-12">
+    </div>
+</div>
+<!--/Map
+===================================================-->
+<script>
     function initMap() {
         var mapOptions = {
             center: new google.maps.LatLng(40.8485091, 14.25574759999995),
@@ -59,6 +83,14 @@
             },
             mapTypeControlOptions: {
                 position: google.maps.ControlPosition.TOP
+            }
+        };
+
+        var panoramaOptions = {
+            position: new google.maps.LatLng(40.8485091, 14.25574759999995),
+            pov: {
+                heading: 0,
+                pitch: 0
             }
         };
 
@@ -83,6 +115,38 @@
         });
         <%i++;%>
     </c:forEach>
+
+        panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+        streetView = new google.maps.StreetViewService();
+
+        google.maps.event.addListener(map, 'rightclick', function(e) {
+
+            if (rectangle !== null && rectangle !== undefined) {
+
+                rectangle.setMap(null);
+                rectangle = null;
+            }
+            else {
+                bounds = new google.maps.LatLngBounds(
+                        e.latLng,
+                        e.latLng
+                        );
+
+                rectangle = new google.maps.Rectangle({
+                    bounds: bounds,
+                    editable: true,
+                });
+
+                rectangle.setMap(map);
+
+                google.maps.event.addListener(rectangle, 'bounds_changed', function() {
+                    var ne = rectangle.getBounds().getNorthEast();
+                    var sw = rectangle.getBounds().getSouthWest();
+
+                    alert("Nord Est:" + ne + "\nSud Ovest:" + sw);
+                });
+            }
+        });
     }
 
     initMap();
