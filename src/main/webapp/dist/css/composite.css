@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 12-dic-2014, 20.18.09
+    Author     : Alex
+*/
+.ortab {
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    padding-top: 4px; 
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+.ortab.active {
+    border-bottom-color: #009688;
+    color: #009688;
+}
+
+.ortab:hover {
+    color: #80cbc4;
+}
+.ortab.active:hover{
+    color: #009688;
+}
+.hidden {
+    display:none;
+}

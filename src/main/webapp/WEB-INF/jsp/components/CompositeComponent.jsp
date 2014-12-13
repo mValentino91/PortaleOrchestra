@@ -10,23 +10,46 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <div class="panel panel-default">
-    <div class="panel-thumbnail bg-primary" style="padding-bottom: 5px; padding-top: 5px">
+    <div class="panel-thumbnail " style=" background-color: #009688; padding-bottom: 1px; padding-top: 1px">
         <center>
-            <i class="mdi-action-info" style="font-size: 35px;"></i>
+            <i class="fa fa-info-circle" style="font-size: 39px; color: #FFF"></i>
         </center>
     </div>
-    <div class="panel-body">
-        <c:if test="${not empty workingtime && not empty prices}">
-            <ul class="nav nav-tabs" style="margin-bottom: 15px;">
-            <li class="active"><a href="#orari" data-toggle="tab">Orari</a></li>
-            <li><a href="#prezzi" data-toggle="tab">Prezzi</a></li>
-            </ul>
-            <div class="tab-pane fade active in" id="orari">
-                <jsp:include page="WorkingTimeComponent.jsp"/>
+    <div class="panel-body" style="padding-top: 0px; padding-bottom: 2px;">
+        <div class="row">
+
+            <div class="col-md-4 ortab active" id="orari" onclick="show(this.id)">
+                <center>
+                    <p style="font-size: 110%; margin: 0 0 0 0; "><b>ORARI</b></p>
+                </center>
             </div>
-    <div class="tab-pane fade" id="prezzi">
-        <jsp:include page="PricesComponent.jsp"/> 
-    </div>
-        </c:if>
+
+            <div class="col-md-4 ortab" id="prezzi" onclick="show(this.id)">
+                <center>
+                    <p style="font-size: 110%; margin: 0 0 0 0;"><b>PREZZI</b></p>
+                </center>
+            </div>
+            <div class="col-md-4 ortab" id="servizi" onclick="show(this.id)">
+                <center>
+                    <p style="font-size: 110%;margin: 0 0 0 0;"><b>SERVIZI</b></p>
+                </center>
+            </div>
+        </div>
+
+
+        <div class="ortab-panel-container">
+            <div class="ortab-panel show" id="orari-panel">
+                <jsp:include page="leafes/WorkingTimeLeaf.jsp"/>
+            </div>
+            <div class="ortab-panel hidden" id="prezzi-panel">
+                <jsp:include page="leafes/PricesLeaf.jsp"/>
+            </div>
+            <div class="ortab-panel hidden" id="orari-panel">
+                <jsp:include page="leafes/ServicesLeaf.jsp"/>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    fix_height();
+</script>

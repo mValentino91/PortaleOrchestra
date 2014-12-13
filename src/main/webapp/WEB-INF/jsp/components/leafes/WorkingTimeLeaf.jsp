@@ -1,22 +1,15 @@
 <%-- 
-    Document   : WorkingTimeComponent
-    Created on : 11-dic-2014, 12.12.19
+    Document   : WorkingTimeLeaf
+    Created on : 13-dic-2014, 10.18.41
     Author     : Alex
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<div class="panel panel-default" style="margin-right: none;">
-    <div class="panel-thumbnail " style="background-color: #7986cb; padding-bottom: 1px; padding-top: 1px">
-        <center>
-            <i class="fa fa-clock-o" style="font-size: 39px; color: #FFF"></i>
-        </center>
-    </div>
-    <div class="panel-body" style="padding-top: 1px; padding-bottom: 4px;">
-        <center>
+
+  <center>
 <c:forEach var="Wdays" items="${workingtime.workingdays}">
 
     <div style="font-size: 110%; margin-top: 2px;"><b>${Wdays.days}</b></div>
@@ -34,5 +27,3 @@
          </c:forEach>
          </div>
         </center>
-    </div>
-</div>

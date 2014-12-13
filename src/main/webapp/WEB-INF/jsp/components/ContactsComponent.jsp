@@ -20,16 +20,14 @@
             <c:if test="${not empty contacts.emailsList}">   
                 <b>Contatti Email:</b><br>
                 <c:forEach var="contm" items="${contacts.emailsList}">
-                    <b>${contm.label}:</b>
-                    <a href="mailto:${contm.email}" target="_top"> ${contm.email}</a><br>
+                    <a href="mailto:${contm.email}" target="_top" title="${contm.label}"> ${contm.email}</a><br>
                 </c:forEach>
                 <br>
             </c:if>
             <c:if test="${not empty contacts.phoneList}">
                 <b>Contatti Telefonici:</b><br>
                 <c:forEach var="cont" items="${contacts.phoneList}">
-                    <b>${cont.label}:</b>
-                    ${cont.number}<br>
+                    <div title="${cont.label}">${cont.number}</div>
                 </c:forEach>
                 <br>
             </c:if>

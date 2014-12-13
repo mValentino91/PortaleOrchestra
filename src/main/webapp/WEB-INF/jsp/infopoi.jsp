@@ -18,7 +18,9 @@
         <link href="./dist/googlePlusDesign/css/bootstrap.min.css" rel="stylesheet">
         <link href="./dist/googlePlusDesign/css/styles.css" rel="stylesheet">
         <link href="./dist/css/section.css" rel="stylesheet">
+        <link href="./dist/css/composite.css" rel="stylesheet">
         <script src="./dist/js/section.js"></script>
+        <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
         <style>
@@ -65,15 +67,17 @@
                             </div>
                             <div class="col-md-4">
                                 <jsp:include page="components/mapComponent.jsp"/>
+                                 
                                 <c:if test="${not empty contacts}">
                                     <jsp:include page="components/ContactsComponent.jsp"/>
                                 </c:if>
-                                <c:if test="${not empty workingtime}">
-                                    <jsp:include page="components/WorkingTimeComponent.jsp"/>
-                                </c:if>
-                                <c:if test="${not empty prices}">
-                                    <jsp:include page="components/PricesComponent.jsp"/>
-                                </c:if>
+                                    
+                                   <c:if test="${not empty workingtime}">
+                                    <jsp:include page="components/CompositeComponent.jsp"/>
+                                </c:if> 
+                                
+                                    </div>  
+                                </div>
                             </div>
                         </div>
                     </div>
