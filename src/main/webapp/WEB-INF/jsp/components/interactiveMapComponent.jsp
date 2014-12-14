@@ -28,7 +28,45 @@
     #pano{
         height: 400px;
     }
+    #mapInfo {
+        width: 300px;
+        box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
+        background-color: white;
+        padding: 10px;
+        font-family: Roboto, Arial;
+        font-size: 13px;
+        margin: 10px;
+    }
 </style>
+<!--INFO MAP
+===================================================-->
+<div id="mapInfo">
+    <center>
+        <b>
+            <span class="glyphicon glyphicon-map-marker"></span>
+            Dettagli Mappa
+        </b>
+    </center>
+    <div id="categoryOnMap">
+        <b>Categoria: </b>Tutti
+    </div>
+    <div id="bounds" style="display: none">
+        <b>Area:</b>
+        <br>
+        <span id="boundsValue"></span>
+    </div>
+</div>
+<!--/INFO MAP
+===================================================-->
+<div id="mapControls" style="margin: 10px;">
+    <div  class="btn-group" role="group" data-toggle="buttons-checkbox">
+        <button type="button" class="btn btn-default" onclick="drawOnMap()"><i class="fa fa-pencil-square-o"></i></button>
+    </div>
+    <div  class="btn-group" role="group" data-toggle="buttons-checkbox">
+        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-road"></i></button>
+    </div>
+</div>
 <!--STREET VIEW
 ===================================================-->
 <div class="modal fade"
@@ -79,10 +117,10 @@
             mapTypeControl: true,
             streetViewControl: false,
             zoomControlOptions: {
-                position: google.maps.ControlPosition.RIGHT
+                position: google.maps.ControlPosition.LEFT
             },
             mapTypeControlOptions: {
-                position: google.maps.ControlPosition.TOP
+                position: google.maps.ControlPosition.BOTTOM
             }
         };
 
@@ -119,34 +157,11 @@
         panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         streetView = new google.maps.StreetViewService();
 
-        google.maps.event.addListener(map, 'rightclick', function(e) {
+        var mapInfo = document.getElementById('mapInfo');
+        var mapControls = document.getElementById('mapControls');
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(mapInfo);
+        map.controls[google.maps.ControlPosition.TOP].push(mapControls);
 
-            if (rectangle !== null && rectangle !== undefined) {
-
-                rectangle.setMap(null);
-                rectangle = null;
-            }
-            else {
-                bounds = new google.maps.LatLngBounds(
-                        e.latLng,
-                        e.latLng
-                        );
-
-                rectangle = new google.maps.Rectangle({
-                    bounds: bounds,
-                    editable: true,
-                });
-
-                rectangle.setMap(map);
-
-                google.maps.event.addListener(rectangle, 'bounds_changed', function() {
-                    var ne = rectangle.getBounds().getNorthEast();
-                    var sw = rectangle.getBounds().getSouthWest();
-
-                    alert("Nord Est:" + ne + "\nSud Ovest:" + sw);
-                });
-            }
-        });
     }
 
     initMap();

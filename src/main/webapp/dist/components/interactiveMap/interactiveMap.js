@@ -5,13 +5,76 @@ var panorama;
 var streetView;
 var bounds;
 var rectangle;
+var drawState = false;
+
+function drawOnMap() {
+
+    if (!drawState) {
+
+        drawState = true;
+        google.maps.event.addListener(map, 'click', function(e) {
+
+            if (rectangle !== null && rectangle !== undefined) {
+
+                rectangle.setMap(null);
+                rectangle = null;
+                $('#bounds').hide();
+            }
+            else {
+
+                bounds = new google.maps.LatLngBounds(
+                        e.latLng,
+                        e.latLng
+                        );
+
+                rectangle = new google.maps.Rectangle({
+                    bounds: bounds,
+                    editable: true
+                });
+
+                rectangle.setMap(map);
+
+                var ne = rectangle.getBounds().getNorthEast();
+                var sw = rectangle.getBounds().getSouthWest();
+
+                document.getElementById('boundsValue').innerHTML =
+                        "Nord Est:<br>"
+                        + ne
+                        + "<br>Sud Ovest:<br>"
+                        + sw;
+                $('#bounds').show();
+
+                google.maps.event.addListener(rectangle, 'bounds_changed', function() {
+
+                    var ne = rectangle.getBounds().getNorthEast();
+                    var sw = rectangle.getBounds().getSouthWest();
+                    document.getElementById('boundsValue').innerHTML =
+                            "Nord Est:<br>"
+                            + ne
+                            + "<br>Sud Ovest:<br>"
+                            + sw;
+                    $('#bounds').show();
+                });
+            }
+        });
+    }
+    else {
+        google.maps.event.clearListeners(map, 'click');
+        drawState = false;
+        $("#bounds").hide();
+        if (rectangle !== null && rectangle !== undefined) {
+            rectangle.setMap(null);
+            rectangle = null;
+        }
+    }
+}
 
 function viewPanorama(index) {
 
     streetView.getPanoramaByLocation(markers[index].getPosition(), 30, function(result, status) {
 
         if (status === google.maps.StreetViewStatus.OK) {
-            
+
             $("#panoContainer").modal('show');
             window.setTimeout(function() {
                 panorama.setPosition(markers[index].getPosition());
@@ -29,7 +92,7 @@ function viewPanorama(index) {
 
 function attachInfo(index) {
 
-    map.setCenter(markers[index].getPosition());
+    map.panTo(markers[index].getPosition());
     var contentString =
             '<div class="container-fluid text-center" style="min-height:170px; max-height:300px; max-width:200px;">'
             + '<b>'

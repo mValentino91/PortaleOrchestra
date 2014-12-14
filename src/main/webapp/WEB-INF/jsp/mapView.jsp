@@ -27,6 +27,7 @@
             body{
                 background-color: lightgray;
                 color: #285e8e;
+                font-family: Roboto, Arial;
             }
         </style>
         <title>MapView</title>
