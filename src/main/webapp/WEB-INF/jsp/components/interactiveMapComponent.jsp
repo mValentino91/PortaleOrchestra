@@ -3,16 +3,17 @@
     Created on : 11-dic-2014, 17.44.55
     Author     : Marco Valentino
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!-- INCLUSIONE GOOGLE-MAPS -->
-<script type="text/javascript" src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true" >
+<script type="text/javascript" 
+        src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true" >
 </script>
-<script type="text/javascript" src = "./dist/components/interactiveMap/interactiveMap.js">
+<script type="text/javascript" 
+        src = "./dist/components/interactiveMap/interactiveMap.js">
 </script>
 <style>
     #mapContainer{
@@ -58,15 +59,26 @@
 </div>
 <!--/INFO MAP
 ===================================================-->
+<!--CONTROLLI MAPPA
+===================================================-->
 <div id="mapControls" style="margin: 10px;">
     <div  class="btn-group" role="group" data-toggle="buttons-checkbox">
-        <button type="button" class="btn btn-default" onclick="drawOnMap()"><i class="fa fa-pencil-square-o"></i></button>
+        <button type="button" class="btn btn-default" 
+                onclick="interactiveMap.drawOnMap()">
+            <i class="fa fa-pencil-square-o"></i>
+        </button>
     </div>
     <div  class="btn-group" role="group" data-toggle="buttons-checkbox">
-        <button type="button" class="btn btn-primary"><i class="fa fa-search"></i></button>
-        <button type="button" class="btn btn-primary"><i class="glyphicon glyphicon-road"></i></button>
+        <button type="button" class="btn btn-primary">
+            <i class="fa fa-search"></i>
+        </button>
+        <button type="button" class="btn btn-primary">
+            <i class="glyphicon glyphicon-road"></i>
+        </button>
     </div>
 </div>
+<!--/CONTROLLI MAPPA
+===================================================-->
 <!--STREET VIEW
 ===================================================-->
 <div class="modal fade"
@@ -108,6 +120,7 @@
 ===================================================-->
 <script>
     function initMap() {
+
         var mapOptions = {
             center: new google.maps.LatLng(40.8485091, 14.25574759999995),
             zoom: 15,
@@ -132,36 +145,35 @@
             }
         };
 
-        map = new google.maps.Map(document.getElementById("map"),
+        interactiveMap.map = new google.maps.Map(document.getElementById("map"),
                 mapOptions);
 
     <% int i = 0;%>
 
     <c:forEach var = "poi" items = "${poiList}">
-        markers[<%=i%>] = new google.maps.Marker({
+        interactiveMap.markers[<%=i%>] = new google.maps.Marker({
             position: new google.maps.LatLng(${poi.location[0]}, ${poi.location[1]}),
-            map: map,
+            map: interactiveMap.map,
             icon: "./dist/img/marker.png",
             title: "${poi.name}"});
-        markers[<%=i%>].id = "${poi.id}";
-        markers[<%=i%>].name = "${poi.name}";
-        markers[<%=i%>].address = "${poi.address}";
-        markers[<%=i%>].categories = "${poi.categories}";
-        markers[<%=i%>].shortDescription = "${poi.shortDescription}";
-        google.maps.event.addListener(markers[<%=i%>], 'click', function() {
-            attachInfo(<%=i%>);
+        interactiveMap.markers[<%=i%>].id = "${poi.id}";
+        interactiveMap.markers[<%=i%>].name = "${poi.name}";
+        interactiveMap.markers[<%=i%>].address = "${poi.address}";
+        interactiveMap.markers[<%=i%>].categories = "${poi.categories}";
+        interactiveMap.markers[<%=i%>].shortDescription = "${poi.shortDescription}";
+        google.maps.event.addListener(interactiveMap.markers[<%=i%>], 'click', function() {
+            interactiveMap.attachInfo(<%=i%>);
         });
         <%i++;%>
     </c:forEach>
 
-        panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
-        streetView = new google.maps.StreetViewService();
+        interactiveMap.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
+        interactiveMap.streetView = new google.maps.StreetViewService();
 
         var mapInfo = document.getElementById('mapInfo');
         var mapControls = document.getElementById('mapControls');
-        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(mapInfo);
-        map.controls[google.maps.ControlPosition.TOP].push(mapControls);
-
+        interactiveMap.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(mapInfo);
+        interactiveMap.map.controls[google.maps.ControlPosition.TOP].push(mapControls);
     }
 
     initMap();

@@ -60,69 +60,16 @@
         </li>
         <li>
             <a href="#">
-                <i class="sidebar-icon md-inbox"></i>
-                Inbox
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="sidebar-icon md-star"></i>
-                Starred
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="sidebar-icon md-send"></i>
-                Sent Mail
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                <i class="sidebar-icon md-drafts"></i>
-                Drafts
+                <span class="glyphicon glyphicon-home"></span>
+                Home
             </a>
         </li>
         <li class="divider"></li>
-        <li class="dropdown">
-            <a class="ripple-effect dropdown-toggle" href="#" data-toggle="dropdown">
-                All Mail
-                <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <a href="#" tabindex="-1">
-                        Social
-                        <span class="sidebar-badge">12</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#" tabindex="-1">
-                        Promo
-                        <span class="sidebar-badge">0</span>
-                    </a>
-                </li>
-            </ul>
-        </li>
         <li>
-            <a href="#">
-                Trash
-                <span class="sidebar-badge">3</span>
-            </a>
+            <div id="categories" class="test"></div>
         </li>
-        <li>
-            <a href="#">
-                Spam
-                <span class="sidebar-badge">456</span>
-            </a>
-        </li>
-        <li>
-            <a href="#">
-                Follow Up
-                <span class="sidebar-badge badge-circle">i</span>
-            </a>
-        </li>
-    </ul>
 </aside>
+<script src="./dist/js/bootstrap-treeview.js"></script>
 <script>
     $(document).ready(function() {
         var overlay = $('.sidebar-overlay');
@@ -189,6 +136,23 @@
         };
     }(jQuery.fn.removeClass));
     //@ sourceURL=pen.js
+
+    $(function() {
+
+        var menu = '[ { "slug": "culture", "text": "Cultura", "nodes": [ {"slug": "museum", "text": "Musei"}, {"slug": "monument", "text": "Monumenti", "nodes": [{"slug": "church", "text": "Chiese"},{"slug": "building", "text": "Palazzi Storici"},{"slug": "sculpture", "text": "Sculture"}]}, {"slug": "metro_art", "text": "Stazioni dell'+"'"+'Arte"}]}, { "slug": "food", "text": "Enogastronomia", "nodes": [ {"slug": "coffee", "text": "Caffé"}, {"slug": "trattoria", "text": "Trattorie"}, {"slug": "pasticceria", "text": "Pasticcerie"},{"slug": "pizzeria", "text": "Pizzerie"}]}]';
+
+        $('#categories').treeview({
+            data: menu,
+            showBorder: false,
+            levels: 1,
+            onNodeSelected: function(event, node) {
+                // alert('<p>' + node.text + '[' + node.id_cat + ']' + '</p>');
+            }
+
+        });
+
+
+    });
 </script>
 
 <select id="sidebar-position" name="sidebar-position" hidden>
