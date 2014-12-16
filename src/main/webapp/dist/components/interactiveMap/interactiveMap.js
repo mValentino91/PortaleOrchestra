@@ -1,5 +1,5 @@
 var interactiveMap = (function() {
-    
+
     var map;
     var markers = new Array();
     var infowindow = new google.maps.InfoWindow();
@@ -8,7 +8,6 @@ var interactiveMap = (function() {
     var bounds;
     var rectangle;
     var drawState = false;
-
     function drawOnMap() {
 
         if (!interactiveMap.drawState) {
@@ -28,24 +27,19 @@ var interactiveMap = (function() {
                             e.latLng,
                             e.latLng
                             );
-
                     interactiveMap.rectangle = new google.maps.Rectangle({
                         bounds: interactiveMap.bounds,
                         editable: true
                     });
-
                     interactiveMap.rectangle.setMap(interactiveMap.map);
-
                     var ne = interactiveMap.rectangle.getBounds().getNorthEast();
                     var sw = interactiveMap.rectangle.getBounds().getSouthWest();
-
                     document.getElementById('boundsValue').innerHTML =
                             "Nord Est:<br>"
                             + ne
                             + "<br>Sud Ovest:<br>"
                             + sw;
                     $('#bounds').show();
-
                     google.maps.event.addListener(interactiveMap.rectangle, 'bounds_changed', function() {
 
                         var ne = interactiveMap.rectangle.getBounds().getNorthEast();
@@ -106,14 +100,12 @@ var interactiveMap = (function() {
                 + '/cover.jpg" height="60" style="margin: 5px;" alt=""/></center>'
                 + '<p style="color:gray">'
                 + interactiveMap.markers[index].shortDescription + '</p>';
-
         contentString += '<a target="_blank" href="./getPoi?id='
                 + interactiveMap.markers[index].id
                 + '">Maggiori Informazioni</a>'
                 + ' <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('
                 + index
                 + ')"><br>Guarda nei dintorni</a></div>';
-
         interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, interactiveMap.markers[index]);
         interactiveMap.markers[index].setAnimation(google.maps.Animation.BOUNCE);
@@ -122,20 +114,64 @@ var interactiveMap = (function() {
         }, 1400);
     }
 
-    //Return the id list for the object to call
+    function showPois(poi) {
+
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+
+            interactiveMap.markers[i].setMap(null);
+            interactiveMap.markers[i] = null;
+        }
+
+        if (poi) {
+            interactiveMap.markers = new Array();
+            for (var i = 0; i < poi.length; i++) {
+
+                interactiveMap.markers[i] = new google.maps.Marker({
+                    position: new google.maps.LatLng(poi[i].location[0], poi[i].location[1]),
+                    map: interactiveMap.map,
+                    icon: "./dist/img/marker.png",
+                    title: poi.name});
+
+                interactiveMap.markers[i].id = poi[i].id;
+                interactiveMap.markers[i].index = i;
+                interactiveMap.markers[i].name = poi[i].name;
+                interactiveMap.markers[i].address = poi[i].address;
+                interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
+                google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
+                    interactiveMap.attachInfo(this.index);
+                });
+            }
+        }
+    }
+
+    function categoryHandler(event) {
+
+        $.ajax({
+            type: "GET",
+            url: "./Map/JSON",
+            data: "category=" + event.target,
+            success: function(data) {
+
+                var poi = JSON.parse(data);
+                showPois(poi);
+            }
+        });
+    }
+
+//Return the id list for the object to call
     return {
         drawOnMap: drawOnMap,
         viewPanorama: viewPanorama,
         attachInfo: attachInfo,
-        map:map,
-        markers:markers,
-        panorama:panorama,
-        streetView:streetView,
-        bouds:bounds,
-        infowindow:infowindow,
-        rectangle:rectangle,
-        drawState:drawState      
+        categoryHandler: categoryHandler,
+        map: map,
+        markers: markers,
+        panorama: panorama,
+        streetView: streetView,
+        bouds: bounds,
+        infowindow: infowindow,
+        rectangle: rectangle,
+        drawState: drawState
     };
-    
 })();
 
