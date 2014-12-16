@@ -51,5 +51,5 @@
     </div>
 </div>
 <script>
-    fix_height();
+    //fix_height();
 </script>
