@@ -28,10 +28,10 @@ public class MapViewController {
 
     @RequestMapping(params="category=all")
     public ModelAndView getAllPoi(
-            @RequestParam(value = "lat") String lat,
+            /*@RequestParam(value = "lat") String lat,
             @RequestParam(value = "lon") String lon,
             @RequestParam(value = "lat1") String lat1,
-            @RequestParam(value = "lon1") String lon1) {
+            @RequestParam(value = "lon1") String lon1*/) {
         //Creo la view che sarà mostrata all'utente
         ModelAndView model = new ModelAndView("mapView");
         Iterable<CompletePOI> poiList = pm.getAllCompletePoi();
@@ -43,14 +43,14 @@ public class MapViewController {
     
     @RequestMapping()
     public ModelAndView getPoiForCategory(
-            @RequestParam(value = "category") String category,
-            @RequestParam(value = "lat") String lat,
+            @RequestParam(value = "category") String category
+            /*@RequestParam(value = "lat") String lat,
             @RequestParam(value = "lon") String lon,
             @RequestParam(value = "lat1") String lat1,
-            @RequestParam(value = "lon1") String lon1) {
+            @RequestParam(value = "lon1") String lon1*/) {
         //Creo la view che sarà mostrata all'utente
         ModelAndView model = new ModelAndView("mapView");
-        Iterable<CompletePOI> poiList = pm.getAllCompletePoi();
+        Iterable<CompletePOI> poiList = pm.getCompletePoiByCategory(category);
         //aggiungo la lista al model
         model.addObject("poiList", poiList);
         model.addObject("category", category);

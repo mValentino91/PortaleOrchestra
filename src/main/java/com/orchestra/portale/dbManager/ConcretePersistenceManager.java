@@ -14,7 +14,10 @@ import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryReposit
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specifications;
 import org.springframework.data.mongodb.core.MongoOperations;
+import static org.springframework.data.mongodb.core.query.Criteria.where;
+import org.springframework.data.mongodb.core.query.Query;
 
 /**
  *
@@ -69,6 +72,18 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void savePoi(CompletePOI poi) {
         poiMongoRepo.save(poi);
+    }
+
+    @Override
+    public Iterable<CompletePOI> getCompletePoiByCategory(String category) {
+
+        return mongoOps.find(new Query(where("categories").is(category)), CompletePOI.class);
+    }
+
+    @Override
+    public Iterable<CompletePOI> findCompletePoiByName(String name) {
+        
+        return mongoOps.find(new Query(where("name").is(name)), CompletePOI.class);
     }
 
 }

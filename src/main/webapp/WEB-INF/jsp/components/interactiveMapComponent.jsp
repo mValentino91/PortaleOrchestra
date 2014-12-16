@@ -119,7 +119,7 @@
 <!--/Map
 ===================================================-->
 <script>
-    function initMap() {
+    function initInteractiveMap() {
 
         var mapOptions = {
             center: new google.maps.LatLng(40.8485091, 14.25574759999995),
@@ -176,5 +176,5 @@
         interactiveMap.map.controls[google.maps.ControlPosition.TOP].push(mapControls);
     }
 
-    initMap();
+    initInteractiveMap();
 </script>
