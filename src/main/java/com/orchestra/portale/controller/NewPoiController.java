@@ -58,7 +58,7 @@ public class NewPoiController {
         return model;
 }
     @RequestMapping(value= "/insertpoi", method = RequestMethod.POST)
-    public ModelAndView insertPoi(@RequestParam Map<String,String> params, @RequestParam("file") MultipartFile[] files, @RequestParam("cover") MultipartFile cover, HttpServletRequest request) {
+    public ModelAndView insertPoi(@RequestParam Map<String,String> params, @RequestParam("file") MultipartFile[] files, @RequestParam("cover") MultipartFile cover) {
         
          CompletePOI poi = new CompletePOI();
         
@@ -84,11 +84,13 @@ public class NewPoiController {
         ArrayList<AbstractPoiComponent> listComponent = new ArrayList<AbstractPoiComponent>();
         
         //componente cover
+            if(!cover.isEmpty()) {
             CoverImgComponent coverimg=new CoverImgComponent();
             coverimg.setLink(cover.getOriginalFilename());
             listComponent.add(coverimg);
-        
+            }
            //componente galleria immagini
+            if(files.length>0){
            ImageGalleryComponent img_gallery=new ImageGalleryComponent();
            ArrayList<String> links=new ArrayList<String>();
            i=0;
@@ -98,15 +100,17 @@ public class NewPoiController {
            }
            img_gallery.setLinks(links);
            listComponent.add(img_gallery); 
-           
+            }
            //componente contatti
             ContactsComponent contacts_component = new ContactsComponent();
              //Recapiti telefonici
             i=1;
+            boolean contacts=false;
              if(params.containsKey("tel"+i)){
                  ArrayList<PhoneContact> phoneList= new ArrayList<PhoneContact>();
-                 PhoneContact phone=new PhoneContact();
+                 
                  while(params.containsKey("tel"+i)){
+                     PhoneContact phone=new PhoneContact();
                     if(params.containsKey("tel"+i)){
                      phone.setLabel(params.get("desctel"+i));
                     }
@@ -114,14 +118,16 @@ public class NewPoiController {
                     phoneList.add(phone);
                     i=i+1;
                  }
+                 contacts=true;
                  contacts_component.setPhoneList(phoneList);
              }
              //Recapiti mail
               i=1;
              if(params.containsKey("email"+i)){
                  ArrayList<EmailContact> emailList= new ArrayList<EmailContact>();
-                 EmailContact email=new EmailContact();
+                 
                  while(params.containsKey("email"+i)){
+                     EmailContact email=new EmailContact();
                     if(params.containsKey("email"+i)){
                      email.setLabel(params.get("descemail"+i));
                     }
@@ -129,14 +135,16 @@ public class NewPoiController {
                     emailList.add(email);
                     i=i+1;
                  }
+                 contacts=true;
                  contacts_component.setEmailsList(emailList);
              }
              //Recapiti fax
               i=1;
              if(params.containsKey("fax"+i)){
                  ArrayList<FaxContact> faxList= new ArrayList<FaxContact>();
-                 FaxContact fax=new FaxContact();
+                
                  while(params.containsKey("fax"+i)){
+                      FaxContact fax=new FaxContact();
                     if(params.containsKey("fax"+i)){
                      fax.setLabel(params.get("descfax"+i));
                     }
@@ -144,6 +152,7 @@ public class NewPoiController {
                     faxList.add(fax);
                     i=i+1;
                  }
+                 contacts=true;
                  contacts_component.setFaxList(faxList);
              }
              //Social predefiniti
@@ -152,45 +161,56 @@ public class NewPoiController {
                 
                  while(params.containsKey("SN"+i)){
                      if(params.get("SN"+i).equals("facebook")){
+                         contacts=true;
                          contacts_component.setFacebook(params.get("LSN"+i));
                      }
                      if(params.get("SN"+i).equals("twitter")){
+                         contacts=true;
                          contacts_component.setTwitter(params.get("LSN"+i));
                      }
                      if(params.get("SN"+i).equals("google")){
+                         contacts=true;
                          contacts_component.setGoogle(params.get("LSN"+i));
                      }
                      if(params.get("SN"+i).equals("skype")){
+                         contacts=true;
                          contacts_component.setSkype(params.get("LSN"+i));
                      }
                      i=i+1;
                     }
                   }
-               //Social predefiniti
+               //Social personalizzati
               i=1;
              if(params.containsKey("CSN"+i)){
                ArrayList<GenericSocial> customsocial= new ArrayList<GenericSocial>();
-               GenericSocial social= new GenericSocial();
+               
                  while(params.containsKey("CSN"+i)){
+                     GenericSocial social= new GenericSocial();
+                     contacts=true;
                      social.setLabel(params.get("CSN"+i));
                      social.setEmail(params.get("LCSN"+i));
+                     customsocial.add(social);
                      i=i+1;
                     }
+                 contacts_component.setSocialList(customsocial);
                   }
+             if(contacts==true){
              listComponent.add(contacts_component);
-             
+             }
              //DESCRIPTION COMPONENT
              i=1;
              if(params.containsKey("par"+i)) {
                  ArrayList<Section> list = new ArrayList<Section>();
-                Section section = new Section();
+               
                  while(params.containsKey("par"+i)){
+                     Section section = new Section();
                      if(params.containsKey("titolo"+i)) {
                          section.setTitle(params.get("titolo"+i));
                      }
                      section.setDescription(params.get("par"+i));
-                     i=i+1;
                      list.add(section);
+                     i=i+1;
+                     
                  }
              DescriptionComponent description_component = new DescriptionComponent();
             description_component.setSectionsList(list);
@@ -199,19 +219,21 @@ public class NewPoiController {
              //Orari
              i=1;
              int k=1;
-             if(params.containsKey("WD"+i+"start"+k+"H") && !params.get("WD"+i+"start"+k+"H").equals("ore")){
-                WorkingHours wh = new WorkingHours();
-                CompactWorkingDays cwd = new CompactWorkingDays();
+             if(params.containsKey("WD"+i+"start"+k+"H")){
+                
+                
                 ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
                 ArrayList<CompactWorkingDays> workingdays = new ArrayList<CompactWorkingDays>();
                 WorkingTimeComponent workingtime = new WorkingTimeComponent();
                  while(params.containsKey("WD"+i+"day")){
                        while(params.containsKey("WD"+i+"start"+k+"H")){
+                           WorkingHours wh = new WorkingHours();
                         wh.setStart(params.get("WD"+i+"start"+k+"H")+":"+params.get("WD"+i+"start"+k+"M"));
                         wh.setEnd(params.get("WD"+i+"end"+k+"H")+":"+params.get("WD"+i+"end"+k+"M"));
                         Listwh.add(wh);
                         k=k+1;
                        }
+                       CompactWorkingDays cwd = new CompactWorkingDays();
                         cwd.setDays(params.get("WD"+i+"day"));
                         cwd.setWorkinghours(Listwh);
                         workingdays.add(cwd);
@@ -222,6 +244,9 @@ public class NewPoiController {
                  String gg="";
                  while(params.containsKey("RD"+i)){
                      gg=gg+" "+params.get("RD"+i);
+                     i=i+1;
+                 }
+                 if(!gg.equals("")){
                      workingtime.setWeekly_day_of_rest(gg);
                  }
                  i=1;
@@ -229,6 +254,7 @@ public class NewPoiController {
                      ArrayList<String> days_of_rest= new ArrayList<String>();
                  while(params.containsKey("RDA"+i)){
                      days_of_rest.add(params.get("RDA"+i));
+                     i=i+1;
                     }
                  workingtime.setDays_of_rest(days_of_rest);
                  }
@@ -239,23 +265,23 @@ public class NewPoiController {
              
              i=1;
              if(params.containsKey("type"+i)){
-                 TicketPrice tp=new TicketPrice();
+                 
                  PricesComponent pc= new PricesComponent();
             ArrayList<TicketPrice> tpList = new ArrayList<TicketPrice>();
                  while(params.containsKey("type"+i)){
+                     TicketPrice tp=new TicketPrice();
                      tp.setType(params.get("type"+i));
                      double dp=Double.parseDouble(params.get("price"+i));
                      tp.setPrice(dp);
                      tp.setType_description(params.get("typedesc"+i));
                      tpList.add(tp);
+                     i=i+1;
                  }
                  pc.setPrices(tpList);
                  listComponent.add(pc);
              }
               poi.setComponents(listComponent);
-               
-               String rootPath=request.getContextPath();
-               model.addObject("name2", rootPath);
+              
              pm.savePoi(poi);
          /*    CompletePOI poi2=(CompletePOI) pm.findCompletePoiByName(poi.getName());
              
