@@ -5,10 +5,14 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        
         <title>ORCHESTRA - NUOVO POI</title>
         <script>
             function addcat (tasto) {
@@ -445,7 +449,7 @@
     <center>
         <h1>Inserimento di un nuovo punto di interesse</h1>
     </center>
-    <form action="insertpoi" method="POST" enctype="multipart/form-data">
+    <form action="insertpoi" method="POST" enctype="multipart/form-data" accept-charset="ISO-8859-1">
         Nome <input name="name" type="text"><br>
         Indirizzo <input name="address" type="text"><br>
         Latitudine <input name="latitude" type="text"><br>
