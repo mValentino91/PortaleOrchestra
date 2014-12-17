@@ -49,7 +49,7 @@
         </b>
     </center>
     <div id="categoryOnMap">
-        <b>Categoria: </b>Tutti
+        
     </div>
     <div id="bounds" style="display: none">
         <b>Area:</b>
