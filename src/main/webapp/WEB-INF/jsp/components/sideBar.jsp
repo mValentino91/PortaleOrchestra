@@ -164,8 +164,8 @@
     <option value="sidebar-fixed-right">Float on right</option>
 </select>
 
-<nav class="navbar navbar-fixed-top header" style="background-color: #285e8e; box-shadow: 0px 0px 3px 0px black">
-    <div class="container-fluid" style="background-color: #285e8e;">
+<nav class="navbar navbar-fixed-top header" style="background-color: #67b0d1; box-shadow: 0px 0px 3px 0px black">
+    <div class="container-fluid" style="background-color: #67b0d1;">
         <div class="navbar-header">
             <button type="button" 
                     class="navbar-toggle collapsed"
@@ -176,7 +176,7 @@
                 <span class="fa fa-plus-square fa-lg" style="color: white;"></span>
             </button>
         </div>
-        <div class="collapse navbar-collapse" id="navbar" style="background-color: #285e8e;">
+        <div class="collapse navbar-collapse" id="navbar" style="background-color: #67b0d1;">
             <ul class="nav navbar-nav">
                 <li class="sidebar-toggle">
                     <a href="#">
