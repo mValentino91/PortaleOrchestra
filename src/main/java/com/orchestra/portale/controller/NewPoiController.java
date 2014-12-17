@@ -148,7 +148,7 @@ public class NewPoiController {
                     if(params.containsKey("fax"+i)){
                      fax.setLabel(params.get("descfax"+i));
                     }
-                    fax.setEmail(params.get("fax"+i));
+                    fax.setFax(params.get("fax"+i));
                     faxList.add(fax);
                     i=i+1;
                  }
@@ -188,7 +188,7 @@ public class NewPoiController {
                      GenericSocial social= new GenericSocial();
                      contacts=true;
                      social.setLabel(params.get("CSN"+i));
-                     social.setEmail(params.get("LCSN"+i));
+                     social.setSocial(params.get("LCSN"+i));
                      customsocial.add(social);
                      i=i+1;
                     }
@@ -222,10 +222,12 @@ public class NewPoiController {
              if(params.containsKey("WD"+i+"start"+k+"H")){
                 
                 
-                ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
+                
                 ArrayList<CompactWorkingDays> workingdays = new ArrayList<CompactWorkingDays>();
                 WorkingTimeComponent workingtime = new WorkingTimeComponent();
                  while(params.containsKey("WD"+i+"day")){
+                      ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
+                     k=1;
                        while(params.containsKey("WD"+i+"start"+k+"H")){
                            WorkingHours wh = new WorkingHours();
                         wh.setStart(params.get("WD"+i+"start"+k+"H")+":"+params.get("WD"+i+"start"+k+"M"));

@@ -17,7 +17,7 @@ public class GenericSocial {
         return label;
     }
 
-    public String getEmail() {
+    public String getSocial() {
         return social;
     }
 
@@ -25,7 +25,7 @@ public class GenericSocial {
         this.label = label;
     }
 
-    public void setEmail(String social) {
+    public void setSocial(String social) {
         this.social = social;
     }
 }

@@ -17,7 +17,7 @@ public class FaxContact {
         return label;
     }
 
-    public String getEmail() {
+    public String getFax() {
         return fax;
     }
 
@@ -25,7 +25,7 @@ public class FaxContact {
         this.label = label;
     }
 
-    public void setEmail(String fax) {
+    public void setFax(String fax) {
         this.fax = fax;
     }
 }
