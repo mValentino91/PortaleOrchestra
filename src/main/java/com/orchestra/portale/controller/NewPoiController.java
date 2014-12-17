@@ -19,6 +19,7 @@ import com.orchestra.portale.persistence.mongo.documents.ImageGalleryComponent;
 import com.orchestra.portale.persistence.mongo.documents.PhoneContact;
 import com.orchestra.portale.persistence.mongo.documents.PricesComponent;
 import com.orchestra.portale.persistence.mongo.documents.Section;
+import com.orchestra.portale.persistence.mongo.documents.ServicesComponent;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.mongo.documents.WorkingHours;
 import com.orchestra.portale.persistence.mongo.documents.WorkingTimeComponent;
@@ -219,12 +220,14 @@ public class NewPoiController {
              //Orari
              i=1;
              int k=1;
+             boolean ok=false;
+             WorkingTimeComponent workingtime = new WorkingTimeComponent();
              if(params.containsKey("WD"+i+"start"+k+"H")){
                 
                 
-                
+                ok=true;
                 ArrayList<CompactWorkingDays> workingdays = new ArrayList<CompactWorkingDays>();
-                WorkingTimeComponent workingtime = new WorkingTimeComponent();
+                
                  while(params.containsKey("WD"+i+"day")){
                       ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
                      k=1;
@@ -242,6 +245,7 @@ public class NewPoiController {
                         i=i+1;
                  }
                  workingtime.setWorkingdays(workingdays);
+             }
                  i=1;
                  String gg="";
                  while(params.containsKey("RD"+i)){
@@ -249,19 +253,22 @@ public class NewPoiController {
                      i=i+1;
                  }
                  if(!gg.equals("")){
+                     ok=true;
                      workingtime.setWeekly_day_of_rest(gg);
                  }
                  i=1;
-                 if(params.containsKey("RDA"+i)){
-                     ArrayList<String> days_of_rest= new ArrayList<String>();
+                 String ggs="";
                  while(params.containsKey("RDA"+i)){
-                     days_of_rest.add(params.get("RDA"+i));
+                     ggs=ggs+" "+params.get("RDA"+i);
                      i=i+1;
-                    }
-                 workingtime.setDays_of_rest(days_of_rest);
                  }
+                 if(!ggs.equals("")){
+                     ok=true;
+                     workingtime.setDays_of_rest(ggs);
+                 }
+                 if(ok){
                  listComponent.add(workingtime);
-             }
+                 }
              
              
              
@@ -282,10 +289,24 @@ public class NewPoiController {
                  pc.setPrices(tpList);
                  listComponent.add(pc);
              }
+             
+             i=1;
+             if(params.containsKey("SERV"+i)){
+                 ArrayList<String> servList = new ArrayList<String>();
+               while(params.containsKey("SERV"+i)){
+                   servList.add(params.get("SERV"+i));
+                   i=i+1;
+               }
+               ServicesComponent servicescomponent = new ServicesComponent();
+               servicescomponent.setServicesList(servList);
+               listComponent.add(servicescomponent);
+             }
               poi.setComponents(listComponent);
               
              pm.savePoi(poi);
-         /*    CompletePOI poi2=(CompletePOI) pm.findCompletePoiByName(poi.getName());
+             
+            
+            CompletePOI poi2=(CompletePOI) pm.findOneCompletePoiByName(poi.getName());
              
  
        
@@ -296,15 +317,14 @@ public class NewPoiController {
                 byte[] bytes = file.getBytes();
  
                 // Creating the directory to store file
-                String rootPath = System.getProperty("user.dir");
+                String rootPath = System.getProperty("catalina.home");
                 
-                File dir = new File(rootPath + File.separator + "dist" + File.separator + poi2.getId());
+                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  
                 // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()
-                        + File.separator + files[z].getOriginalFilename());
+                File serverFile = new File(dir.getAbsolutePath()+ File.separator + files[z].getOriginalFilename());
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
@@ -312,8 +332,29 @@ public class NewPoiController {
             } catch (Exception e) {
                 return  model;
             }
-        }   
-                 */
+        }
+         MultipartFile file = cover;
+            
+            try {
+                byte[] bytes = file.getBytes();
+ 
+                // Creating the directory to store file
+                String rootPath = System.getProperty("catalina.home");
+                
+                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
+                if (!dir.exists())
+                    dir.mkdirs();
+ 
+                // Create the file on server
+                File serverFile = new File(dir.getAbsolutePath()+ File.separator + cover.getOriginalFilename());
+                BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+                stream.write(bytes);
+                stream.close();
+ 
+            } catch (Exception e) {
+                return  model;
+            }
+                 
         return model;
     }
 }

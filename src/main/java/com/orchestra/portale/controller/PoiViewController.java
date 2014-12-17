@@ -8,6 +8,9 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,35 +34,64 @@ public class PoiViewController {
     @RequestMapping(value = "/getPoi", params = "id")
     public ModelAndView getPoi(@RequestParam(value = "id") String id) {
 
-        //Creo la view che sarà mostrata all'utente
+        //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("infopoi");
         ModelAndView error = new ModelAndView("errorViewPoi");
         CompletePOI poi = pm.getCompletePoiById(id);
         //aggiungo il poi al model
         model.addObject("poi", poi);
-    //    try {
-            //ciclo sulle componenti del poi
-            for (AbstractPoiComponent comp : poi.getComponents()) {
 
-                //associazione delle componenti al model tramite lo slug
-                String slug = comp.slug();
-                int index = slug.lastIndexOf(".");
-                String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+        //ciclo sulle componenti del poi
+        for (AbstractPoiComponent comp : poi.getComponents()) {
 
-                Class c;
+            //associazione delle componenti al model tramite lo slug
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("workingtime")) {
+                GregorianCalendar gc = new GregorianCalendar();
+                
+                String oggi = "";
+                
+                int giorno =gc.get(Calendar.DAY_OF_WEEK);
+                switch (giorno) {
+                    case 2:
+                        oggi = "Lunedì";
+                        break;
+                    case 3:
+                        oggi = "Martedì";
+                        break;
+                    case 4:
+                        oggi = "Mercoledì";
+                        break;
+                    case 5:
+                        oggi = "Giovedì";
+                        break;
+                    case 6:
+                        oggi = "Venerdi";
+                        break;
+                    case 7:
+                        oggi = "Sabato";
+                        break;
+                    case 1:
+                        oggi = "Domenica";
+                        break;
+                }
+                String data=gc.get(Calendar.DAY_OF_MONTH)+"/"+(gc.get(Calendar.MONTH)+1)+"/"+gc.get(Calendar.YEAR);
+                model.addObject("oggi", oggi);
+                model.addObject("data", data);
+                
+            }
+            Class c;
             try {
                 c = Class.forName(slug);
                 model.addObject(cname, c.cast(comp));
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(PoiViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
 
-            }
-   //     } catch (Exception e) {
-     //       error.addObject("err", ""+e);
-    //        return error;
-    //    }
+        }
+
         return model;
     }
 }

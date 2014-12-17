@@ -20,7 +20,7 @@ public interface PersistenceManager {
     public CompletePOI getCompletePoiById(String Id);
     public Iterable<CompletePOI> getAllCompletePoi();
     public Iterable<CompletePOI> getCompletePoiByCategory(String category);
-    public Iterable<CompletePOI> findCompletePoiByName(String name);
+    public CompletePOI findOneCompletePoiByName(String name);
     public void savePoi(CompletePOI poi);
     
 }

@@ -196,7 +196,7 @@ public class TestController {
             days_of_rest.add("25/12");
             days_of_rest.add("26/12");
             days_of_rest.add("1/1");
-            workingtime.setDays_of_rest(days_of_rest);
+            //workingtime.setDays_of_rest(days_of_rest);
             listComponent.add(workingtime);
             
             //ORARI ESTESI(DA FARE)

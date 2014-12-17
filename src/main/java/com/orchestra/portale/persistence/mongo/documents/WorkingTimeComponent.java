@@ -17,7 +17,7 @@ public class WorkingTimeComponent extends AbstractPoiComponent{
     
     private ArrayList<CompactWorkingDays> workingdays;
     private String weekly_day_of_rest;
-    private ArrayList<String> days_of_rest;
+    private String days_of_rest;
 
     public ArrayList<CompactWorkingDays> getWorkingdays() {
         return workingdays;
@@ -27,7 +27,7 @@ public class WorkingTimeComponent extends AbstractPoiComponent{
         return weekly_day_of_rest;
     }
 
-    public ArrayList<String> getDays_of_rest() {
+    public String getDays_of_rest() {
         return days_of_rest;
     }
 
@@ -39,7 +39,7 @@ public class WorkingTimeComponent extends AbstractPoiComponent{
         this.weekly_day_of_rest = weekly_day_of_rest;
     }
 
-    public void setDays_of_rest(ArrayList<String> days_of_rest) {
+    public void setDays_of_rest(String days_of_rest) {
         this.days_of_rest = days_of_rest;
     }
     
