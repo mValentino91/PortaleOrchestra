@@ -20,21 +20,29 @@
             <c:if test="${not empty contacts.emailsList}">   
                 <b>Contatti Email:</b><br>
                 <c:forEach var="contm" items="${contacts.emailsList}">
-                    <a href="mailto:${contm.email}" target="_top" title="${contm.label}"> ${contm.email}</a><br>
+                    <c:if test="${not empty contm.label}">   
+                    <b>${contm.label}:</b>
+                    </c:if>
+                    <a href="mailto:${contm.email}" target="_top"> ${contm.email}</a><br>
                 </c:forEach>
                 <br>
             </c:if>
             <c:if test="${not empty contacts.phoneList}">
                 <b>Contatti Telefonici:</b><br>
                 <c:forEach var="cont" items="${contacts.phoneList}">
-                    <div title="${cont.label}">${cont.number}</div>
+                    <c:if test="${not empty cont.label}">   
+                    <b>${cont.label}:</b>
+                    </c:if>
+                    ${cont.number}<br>
                 </c:forEach>
                 <br>
             </c:if>
             <c:if test="${not empty contacts.faxList}">
                 <b>Fax:</b><br>
                 <c:forEach var="cont" items="${contacts.faxList}">
+                    <c:if test="${not empty cont.label}">   
                     <b>${cont.label}:</b>
+                    </c:if>
                     ${cont.fax}<br>
                 </c:forEach>
                 <br>
@@ -53,7 +61,7 @@
             </c:if>
             <c:if test="${not empty contacts.socialList}">
                 <c:forEach var="cont" items="${contacts.socialList}">
-                    <a href="${cont.social}" class="matbtn matbtn-material-teal matbtn-fab  fa fa-star"></a>
+                    <a href="${cont.social}" class="matbtn matbtn-material-teal matbtn-fab matbtn-fab-mini  fa fa-star"></a>
                 </c:forEach>
             </c:if>
         </center>

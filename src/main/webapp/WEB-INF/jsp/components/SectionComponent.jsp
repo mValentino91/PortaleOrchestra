@@ -15,7 +15,11 @@
         <h2 style="margin: 0 0 0 0; "><span class="glyphicon glyphicon-map-marker"></span> ${poi.name}</h2><br>
         <c:forEach var="sect" items="${description.sectionsList}">
             <article style="margin: 0 0 0 0;">
-            <div class="titolo"> ${sect.title} </div>
+            <div class="titolo"> 
+                <c:if test="${not empty sect.title}">   
+                    <b>${sect.title}:</b>
+                    </c:if>
+            </div>
         <br>
         
         <div class="testo">${sect.description}</div>
