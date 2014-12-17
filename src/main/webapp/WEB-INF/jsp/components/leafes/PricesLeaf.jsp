@@ -11,7 +11,7 @@
  <center>
 <c:forEach var="Tprice" items="${prices.prices}">
 
-    <div style="margin-top: 2px; font-size: 120%; font: Roboto"><b>${Tprice.type}</b> <p style="font-size: 90%; display: inline;">€ ${Tprice.price}</p> <i title="${Tprice.type_description}" style="color: #64b5f6; font-size: 110%" class="fa fa-info-circle"></i></div>
+    <div style="margin-top: 2px; font-size: 120%;"><b><i class="fa fa-ticket"></i> ${Tprice.type.toUpperCase()}</b> <p style="font-size: 90%; display: inline;">€ ${Tprice.price}</p> <i title="${Tprice.type_description}" style="color: #64b5f6; font-size: 110%" class="fa fa-info-circle"></i></div>
     <div class="separator"></div>
 </c:forEach>
         </center>

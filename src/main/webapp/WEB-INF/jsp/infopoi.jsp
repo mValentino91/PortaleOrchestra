@@ -71,11 +71,20 @@
                                 <c:if test="${not empty contacts}">
                                     <jsp:include page="components/ContactsComponent.jsp"/>
                                 </c:if>
-                                    
-                                   <c:if test="${not empty workingtime}">
+                                <c:choose>
+                                   <c:when test="${not empty workingtime && not empty prices && not empty services || not empty workingtime && not empty prices || not empty workingtime && not empty services || not empty prices && not empty services}">
                                     <jsp:include page="components/CompositeComponent.jsp"/>
-                                </c:if> 
-                                
+                                   </c:when> 
+                                    <c:when test="${not empty workingtime}">
+                                        <jsp:include page="components/WorkingTimeComponent.jsp"/>
+                                    </c:when>
+                                   <c:when test="${not empty prices}">
+                                        <jsp:include page="components/PricesComponent.jsp"/>
+                                    </c:when>
+                                   <c:when test="${not empty services}">
+                                        <jsp:include page="components/ServicesComponent.jsp"/>
+                                    </c:when>
+                                </c:choose>
                                     </div>  
                                 </div>
                             </div>
@@ -93,7 +102,7 @@
         </div>
        
         <script>
-             $('article').readmore({ speed: 5, maxHeight: 200, moreLink: '<a href="#" style="text-align: right; font-size:200%; text-decoration: none; margin: 0 0 0 0;"><i class="mdi-navigation-expand-more"></i></a>', lessLink: '<a href="#" style="text-align: right; font-size:300%; text-decoration: none;"><i class="mdi-navigation-expand-less"></i></a>'});
+             $('article').readmore({ speed: 5, maxHeight: 200, moreLink: '<a href="#" style="text-align: right; font-size:200%; text-decoration: none; margin: 0 0 0 0;"><i class="fa fa-chevron-down"></i></a>', lessLink: '<a href="#" style="text-align: right; font-size:200%; text-decoration: none;"><i class="fa fa-chevron-up"></i></a>'});
             </script>
     </body>
 </html>

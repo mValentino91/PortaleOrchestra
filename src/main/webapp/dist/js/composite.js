@@ -14,7 +14,12 @@ function show(id) {
        
 
 }
-
+function show_hourtab(id){
+       $(".showtab").addClass("hiddentab");
+       $(".showtab").removeClass("showtab");
+       $("#"+id+"tab").removeClass("hiddentab");
+       $("#"+id+"tab").addClass("showtab");
+}
 function fix_height() {
     max=0;
     $(".ortab-panel").each(function(i) {

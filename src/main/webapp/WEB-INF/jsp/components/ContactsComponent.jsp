@@ -48,7 +48,7 @@
                 <br>
             </c:if>
             <c:if test="${not empty contacts.facebook}">    
-                <a href="#" class="matbtn matbtn-material-blue matbtn-fab matbtn-fab-mini fa fa-facebook"></a>
+                <a href="${contact.facebook}" class="matbtn matbtn-material-blue matbtn-fab matbtn-fab-mini fa fa-facebook"></a>
             </c:if>
             <c:if test="${not empty contacts.twitter}">    
                 <a href="${contacts.twitter}" class="matbtn matbtn-material-lightblue matbtn-fab matbtn-fab-mini fa fa-twitter"></a>

@@ -10,4 +10,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-<p>SERVIZI</p>
+<center>
+    <c:forEach var="service" items="${services.servicesList}">
+        
+            <div class="col-md-6"><i class="fa fa-certificate"></i> ${service}</div>
+            
+        
+
+    </c:forEach>
+</center>
