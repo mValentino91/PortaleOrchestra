@@ -36,9 +36,9 @@ public class AnmJsonServicesStub {
 			min = previsione.getTimeMin();
 			
 			jsonSingolaPrevisione = "{";
-			jsonSingolaPrevisione += "codice:\"" + codLinea + "\"";
-			jsonSingolaPrevisione += ",time:\"" + time + "\"";
-			jsonSingolaPrevisione += ",min:\"" + min + "\"";
+			jsonSingolaPrevisione += "\"codice\":\"" + codLinea + "\"";
+			jsonSingolaPrevisione += ",\"time\":\"" + time + "\"";
+			jsonSingolaPrevisione += ",\"min\":\"" + min + "\"";
 			jsonSingolaPrevisione += "}";
 
 			jsonListaPrevisioni+=jsonSingolaPrevisione+",";

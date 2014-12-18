@@ -75,6 +75,9 @@
         <button type="button" class="btn btn-primary">
             <i class="glyphicon glyphicon-road"></i>
         </button>
+        <button type="button" class="btn btn-primary" onclick="$('#anmModal').modal('show')">
+            <i class="fa fa-bus"></i>
+        </button>
     </div>
 </div>
 <!--/CONTROLLI MAPPA
@@ -110,6 +113,39 @@
 </div>
 <!--/STREET VIEW
 ===================================================-->
+<div class="modal fade"
+     id="anmModal"
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="mySmallModalLabel" 
+     aria-hidden="true"
+     >
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-map-marker">
+                    </span>
+                    &nbsp;ANM Service
+                </h4>
+            </div>
+            <div class="modal-body"> 
+                <label>
+                    Linea:
+                    <input id="lineValue" class="form-control" type="text" placeholder="Inserisci Linea"/>
+                </label>
+                <br>
+                <button class="btn btn-primary" onclick="interactiveMap.showLine()">
+                    Ok
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!--Map
 ===================================================-->
 <div id="mapContainer">
@@ -169,14 +205,16 @@
 
         interactiveMap.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         interactiveMap.streetView = new google.maps.StreetViewService();
-        
+
         var mapControls = document.getElementById('mapControls');
         interactiveMap.map.controls[google.maps.ControlPosition.TOP].push(mapControls);
-        
-        $(document).bind("category_changed", function(event){interactiveMap.categoryHandler(event);});
-        
+
+        $(document).bind("category_changed", function(event) {
+            interactiveMap.categoryHandler(event);
+        });
+
         interactiveMap.initAnmService();
-        
+
     }
 
     initInteractiveMap();

@@ -10,17 +10,108 @@ var interactiveMap = (function() {
     var rectangle;
     var drawState = false;
     var jqxhr;
+    var anmData;
 
+    function showPrevision(index, code) {
+
+        var contentString = "<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>";
+        interactiveMap.infowindow.setContent(contentString);
+        interactiveMap.infowindow.open(interactiveMap.map, anmStops[index]);
+        anmStops[index].setAnimation(google.maps.Animation.BOUNCE);
+        window.setTimeout(function() {
+            anmStops[index].setAnimation(null);
+        }, 1400);
+
+        $.ajax({
+            type: "GET",
+            url: "./Services/Anm",
+            data: "idStop=" + code,
+            success: function(data) {
+
+                var info = JSON.parse(data);
+
+                var contentString = "<div style='width:100px;'>";
+
+                if (info[0].codice === "null") {
+                    contentString += "Previsioni non disponibili!";
+                }
+                else {
+                    for (var i = 0; i < info.length; i++) {
+
+                        contentString += "Linea: " + info[i].codice + "    " + info[i].time + "<br>";
+                    }
+                }
+
+                contentString += "</div>";
+
+                interactiveMap.infowindow.setContent(contentString);
+            }
+        });
+    }
+
+    function showLine()
+    {
+        $("#anmModal").modal('hide');
+        var value = $("#lineValue").val();
+        var line;
+
+        if (anmData) {
+
+            for (var z = 0; z < anmStops.length; z++) {
+
+                anmStops[z].setMap(null);
+                anmStops[z] = null;
+            }
+
+            anmStops = new Array();
+
+            for (var i = 0; i < anmData.length; i++) {
+
+                if (anmData[i].linea === value)
+                {
+                    line = anmData[i];
+                    break;
+                }
+            }
+
+            for (var j = 0; j < line.percorso.length; j++) {
+                
+                var img='./dist/img/andata.png';
+                
+                if (line.percorso[j].verso === "Di") {
+                    img='./dist/img/ritorno.png';
+                }
+                    
+                    anmStops[j] = new google.maps.Marker({
+                        position: new google.maps.LatLng(line.percorso[j].location[0], line.percorso[j].location[1]),
+                        map: interactiveMap.map,
+                        icon: img,
+                        title: line.percorso[j].nome});
+
+                anmStops[j].code = line.percorso[j].codice;
+                anmStops[j].nome = line.percorso[j].nome;
+                anmStops[j].index = j;
+
+                google.maps.event.addListener(anmStops[j], 'click', function() {
+                    showPrevision(this.index, this.code);
+                });
+
+            }
+
+        }
+    }
     function initAnmService() {
 
         jqxhr = $.getJSON("dist/jsonLinee.json", function() {
             console.log("success");
         })
-                .done(function() {
-                    console.log("second success");
+                .done(function(data) {
+                    anmData = data;
+                    console.log(anmData);
+
                 })
                 .fail(function(jqxhr, textStatus, error) {
-                    console.log(textStatus+error);
+                    console.log(textStatus + error);
                     console.log(jqxhr);
                 })
                 .always(function() {
@@ -178,7 +269,8 @@ var interactiveMap = (function() {
         infowindow: infowindow,
         rectangle: rectangle,
         drawState: drawState,
-        initAnmService: initAnmService
+        initAnmService: initAnmService,
+        showLine: showLine
     };
 })();
 
