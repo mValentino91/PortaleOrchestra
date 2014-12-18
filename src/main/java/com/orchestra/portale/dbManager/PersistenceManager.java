@@ -21,6 +21,7 @@ public interface PersistenceManager {
     public Iterable<CompletePOI> getAllCompletePoi();
     public Iterable<CompletePOI> getCompletePoiByCategory(String category);
     public CompletePOI findOneCompletePoiByName(String name);
+    public void deletePoi(CompletePOI poi);
     public void savePoi(CompletePOI poi);
     
 }

@@ -72,7 +72,7 @@ public class TestController {
         try {
         
             poiMongoRepo.deleteAll();
-
+            
         } catch (RuntimeException e) {
             msg = "error";
             e.printStackTrace();

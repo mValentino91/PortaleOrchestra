@@ -84,5 +84,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
         
         return mongoOps.findOne(new Query(where("name").is(name)), CompletePOI.class);
     }
-
+    @Override
+    public void deletePoi (CompletePOI poi) {
+        poiMongoRepo.delete(poi);
+    }
 }
