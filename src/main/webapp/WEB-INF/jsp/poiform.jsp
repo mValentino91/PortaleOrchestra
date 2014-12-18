@@ -275,6 +275,8 @@
                 var newbr2 = document.createElement("br");
                 newprice.type = "text";
                 newprice.name = "price" + x;
+                newprice.setAttribute("onblur","replace_virgola(this, this.value)");
+                
                 var newtypedesc = document.createElement("input");
                 var newbr3 = document.createElement("br");
                 newtypedesc.type = "text";
@@ -459,6 +461,10 @@
                 cont.insertBefore(newlab, tasto);
                 cont.insertBefore(newbr, tasto);
             }
+            function replace_virgola(inp, testo) {
+                var newtesto= testo.replace(",",".");
+                inp.value=newtesto;
+            }
         </script>
 
     </head>
@@ -466,11 +472,11 @@
     <center>
         <h1>Inserimento di un nuovo punto di interesse</h1>
     </center>
-    <form action="insertpoi" method="POST" enctype="multipart/form-data" accept-charset="ISO-8859-1">
+    <form action="insertpoi" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
         Nome <input name="name" type="text"><br>
         Indirizzo <input name="address" type="text"><br>
-        Latitudine <input name="latitude" type="text"><br>
-        Longitudine <input name="longitude" type="text"><br>
+        Latitudine <input name="latitude" type="text" onblur="replace_virgola(this, this.value)"><br>
+        Longitudine <input name="longitude" type="text" onblur="replace_virgola(this, this.value)"><br>
         Descrizione Breve <textarea name="shortd"></textarea><br><br>
         <div id="categoria">
             Categoria <input name="category1" class="cate" type="text"><br>

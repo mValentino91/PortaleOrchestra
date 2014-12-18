@@ -19,7 +19,6 @@
         <link href="./dist/googlePlusDesign/css/styles.css" rel="stylesheet">
         <link href="./dist/css/section.css" rel="stylesheet">
         <link href="./dist/css/composite.css" rel="stylesheet">
-        <link href="./dist/css/prices.css" rel="stylesheet">
         <script src="./dist/js/section.js"></script>
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>

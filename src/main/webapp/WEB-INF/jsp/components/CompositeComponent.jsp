@@ -146,5 +146,5 @@
 </div>
         </c:if>
 <script>
-    //fix_height();
+    fix_height();
 </script>

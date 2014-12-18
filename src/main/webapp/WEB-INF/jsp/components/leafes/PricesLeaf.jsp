@@ -9,9 +9,16 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
  <center>
-<c:forEach var="Tprice" items="${prices.prices}">
+     <c:forEach var="Tprice" varStatus="status" items="${prices.prices}">
 
-    <div style="margin-top: 2px; font-size: 120%;"><b><i class="fa fa-ticket"></i> ${Tprice.type.toUpperCase()}</b> <p style="font-size: 90%; display: inline;">€ ${Tprice.price}</p> <div style="color: #64b5f6; font-size: 110%; position: relative; width: 20px; display: block;" data-info="${Tprice.type_description}" class="prinf fa fa-info-circle"></div></div>
+    <div style="margin-top: 5px; font-size: 120%;"><b><i class="fa fa-ticket"></i> ${Tprice.type.toUpperCase()}</b> <p style="font-size: 90%; display: inline;">€ ${Tprice.price}</p> <div style="color: #64b5f6; font-size: 110%;" data-toggle="tooltip" data-original-title="${Tprice.type_description}" class="prinf fa fa-info-circle"></div></div>
+    <c:if test="${ ! status.last}" >
     <div class="separator"></div>
+    </c:if>
 </c:forEach>
         </center>
+<script type="text/javascript">
+    $(function(){
+       $('.prinf').tooltip();
+    });
+</script>
