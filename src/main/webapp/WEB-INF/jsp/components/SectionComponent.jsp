@@ -17,7 +17,7 @@
             <article style="margin: 0 0 0 0;">
             <div class="titolo"> 
                 <c:if test="${not empty sect.title}">   
-                    <b>${sect.title}:</b>
+                    <b>${sect.title}</b>
                     </c:if>
             </div>
         <br>

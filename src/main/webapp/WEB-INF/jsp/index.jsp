@@ -5,15 +5,15 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Welcome to Spring Web MVC project</title>
+        <title>Orchestra</title>
     </head>
 
     <body>
-        <p>Hello! This is the default welcome page for a Spring Web MVC project.</p>
-        <p><i>To display a different welcome page for this project, modify</i>
-            <tt>index.jsp</tt> <i>, or create your own welcome page then change
-                the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
-                welcome page and also update the welcome-file setting in</i>
-            <tt>web.xml</tt>.</p>
+        <center>
+        <h1>ORCHESTRA</h1>
+        <a href="Map?category=all"><h2>Visualizza Mappa</h2>
+            <a href="newpoi"><h2>Aggiungi un poi</h2>
+                <a href="deletepoi"><h2>Elimina un poi</h2>
+        </center>
     </body>
 </html>
