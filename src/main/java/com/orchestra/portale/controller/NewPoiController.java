@@ -87,7 +87,7 @@ public class NewPoiController {
         //componente cover
             if(!cover.isEmpty()) {
             CoverImgComponent coverimg=new CoverImgComponent();
-            coverimg.setLink(cover.getOriginalFilename());
+            coverimg.setLink("cover.jpg");
             listComponent.add(coverimg);
             }
            //componente galleria immagini
@@ -96,7 +96,7 @@ public class NewPoiController {
            ArrayList<String> links=new ArrayList<String>();
            i=0;
            while(i < files.length){
-               links.add(files[i].getOriginalFilename());
+               links.add("img"+i+".jpg");
                i=i+1;
            }
            img_gallery.setLinks(links);
@@ -324,7 +324,7 @@ public class NewPoiController {
                     dir.mkdirs();
  
                 // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()+ File.separator + files[z].getOriginalFilename());
+                File serverFile = new File(dir.getAbsolutePath()+ File.separator + "img"+z+".jpg");
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
@@ -346,7 +346,7 @@ public class NewPoiController {
                     dir.mkdirs();
  
                 // Create the file on server
-                File serverFile = new File(dir.getAbsolutePath()+ File.separator + cover.getOriginalFilename());
+                File serverFile = new File(dir.getAbsolutePath()+ File.separator + "cover.jpg");
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
