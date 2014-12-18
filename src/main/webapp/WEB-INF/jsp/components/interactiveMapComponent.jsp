@@ -40,7 +40,7 @@
     }
 </style>
 <!--INFO MAP
-===================================================-->
+===================================================
 <div id="mapInfo">
     <center>
         <b>
@@ -169,13 +169,13 @@
 
         interactiveMap.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         interactiveMap.streetView = new google.maps.StreetViewService();
-
-        var mapInfo = document.getElementById('mapInfo');
+        
         var mapControls = document.getElementById('mapControls');
-        interactiveMap.map.controls[google.maps.ControlPosition.TOP_RIGHT].push(mapInfo);
         interactiveMap.map.controls[google.maps.ControlPosition.TOP].push(mapControls);
         
         $(document).bind("category_changed", function(event){interactiveMap.categoryHandler(event);});
+        
+        interactiveMap.initAnmService();
         
     }
 

@@ -2,12 +2,36 @@ var interactiveMap = (function() {
 
     var map;
     var markers = new Array();
+    var anmStops = new Array();
     var infowindow = new google.maps.InfoWindow();
     var panorama;
     var streetView;
     var bounds;
     var rectangle;
     var drawState = false;
+    var jqxhr;
+
+    function initAnmService() {
+
+        jqxhr = $.getJSON("dist/jsonLinee.json", function() {
+            console.log("success");
+        })
+                .done(function() {
+                    console.log("second success");
+                })
+                .fail(function(jqxhr, textStatus, error) {
+                    console.log(textStatus+error);
+                    console.log(jqxhr);
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+
+        jqxhr.complete(function() {
+            console.log("second complete");
+        });
+    }
+
     function drawOnMap() {
 
         if (!interactiveMap.drawState) {
@@ -19,7 +43,6 @@ var interactiveMap = (function() {
 
                     interactiveMap.rectangle.setMap(null);
                     interactiveMap.rectangle = null;
-                    $('#bounds').hide();
                 }
                 else {
 
@@ -32,24 +55,8 @@ var interactiveMap = (function() {
                         editable: true
                     });
                     interactiveMap.rectangle.setMap(interactiveMap.map);
-                    var ne = interactiveMap.rectangle.getBounds().getNorthEast();
-                    var sw = interactiveMap.rectangle.getBounds().getSouthWest();
-                    document.getElementById('boundsValue').innerHTML =
-                            "Nord Est:<br>"
-                            + ne
-                            + "<br>Sud Ovest:<br>"
-                            + sw;
-                    $('#bounds').show();
-                    google.maps.event.addListener(interactiveMap.rectangle, 'bounds_changed', function() {
 
-                        var ne = interactiveMap.rectangle.getBounds().getNorthEast();
-                        var sw = interactiveMap.rectangle.getBounds().getSouthWest();
-                        document.getElementById('boundsValue').innerHTML =
-                                "Nord Est:<br>"
-                                + ne
-                                + "<br>Sud Ovest:<br>"
-                                + sw;
-                        $('#bounds').show();
+                    google.maps.event.addListener(interactiveMap.rectangle, 'bounds_changed', function() {
                     });
                 }
             });
@@ -57,7 +64,6 @@ var interactiveMap = (function() {
         else {
             google.maps.event.clearListeners(interactiveMap.map, 'click');
             interactiveMap.drawState = false;
-            $("#bounds").hide();
             if (interactiveMap.rectangle !== null && interactiveMap.rectangle !== undefined) {
                 interactiveMap.rectangle.setMap(null);
                 interactiveMap.rectangle = null;
@@ -171,7 +177,8 @@ var interactiveMap = (function() {
         bouds: bounds,
         infowindow: infowindow,
         rectangle: rectangle,
-        drawState: drawState
+        drawState: drawState,
+        initAnmService: initAnmService
     };
 })();
 
