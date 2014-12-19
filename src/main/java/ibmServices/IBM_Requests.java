@@ -86,7 +86,7 @@ public class IBM_Requests {
           connection.setRequestMethod("GET");
           connection.addRequestProperty("token", token);
           connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
-          connection.setRequestProperty("charset", "utf-8");
+          //connection.setRequestProperty("charset", "utf-8");
 	  
           BufferedReader read = new BufferedReader(new InputStreamReader(connection.getInputStream()));
           
@@ -105,8 +105,11 @@ public class IBM_Requests {
           for(JsonElement a : payload){
               JsonObject alb = (JsonObject) a;
              
+              //System.out.println(alb);
+              
               JsonElement name = alb.get("name");
               JsonElement geometry = alb.get("geometry");
+              JsonElement id_j = alb.get("id");
              
               String coord=geometry.getAsString();
               coord=coord.replace("POINT(", "");
@@ -121,8 +124,10 @@ public class IBM_Requests {
               String indirizzo = ( (JsonPrimitive) properties.get("Indirizzo") ).toString();
               String classificazione = ( (JsonPrimitive) properties.get("Classificazione") ).toString();
               String nome = name.getAsString();
+              String id = id_j.getAsString();
               
               JsonObject albergo = new JsonObject();
+              albergo.addProperty("id", id);
               albergo.addProperty("nome", nome);
               albergo.addProperty("indirizzo", indirizzo);
               albergo.addProperty("classificazione", classificazione);
@@ -142,5 +147,63 @@ public class IBM_Requests {
         
         return alberghi_str;
     }
+
+
+    
+    public static String getAlbergo(String id){
+        
+        String albergo_str="";
+ 
+        try {
+          //obtain token
+          String token = getToken();
+            
+          URL url = new URL("http://143.225.131.31/orchestra/api/info/alberghi/"+id);
+          HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+          connection.setRequestMethod("GET");
+          connection.addRequestProperty("token", token);
+          connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
+          //connection.setRequestProperty("charset", "utf-8");
+	  
+          BufferedReader read = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+          
+          String json_alberghi = read.readLine();
+          
+          //System.out.println(json_alberghi);
+          
+          
+          JsonParser parser = new JsonParser();
+		
+	  JsonElement element = parser.parse(json_alberghi);
+          
+          JsonObject j_object = (JsonObject)element;
+                  
+          JsonObject payload = (JsonObject)j_object.get("payload");
+               
+          JsonObject properties = (JsonObject) payload.get("properties");
+          
+          JsonElement email_j = properties.get("Email");
+          String email=email_j.getAsString();
+          JsonElement web_j = properties.get("Web");
+          String web=web_j.getAsString();
+          
+          JsonObject alb_det = new JsonObject();
+              alb_det.addProperty("web", web);
+              alb_det.addProperty("email", email);
+          
+              
+          albergo_str = alb_det.toString();
+          //System.out.println(albergo_str);
+         
+          
+        } catch(MalformedURLException ex) {
+                ex.printStackTrace();
+        } catch(IOException ioex) {
+                ioex.printStackTrace();
+        }  
+        
+        return albergo_str;
+    }
+    
     
 }
