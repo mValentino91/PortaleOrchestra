@@ -16,12 +16,6 @@
         </center>
     </div>
     <div class="panel-body" style= "padding-top: 1px; padding-bottom: 4px;">
-        <center>
-<c:forEach var="Tprice" items="${prices.prices}">
-
-    <div style="margin-top: 2px; font-size: 120%; font: Roboto"><b>${Tprice.type}</b> <div style="font-size: 100%"> ${Tprice.price}€</div> <i title="${Tprice.type_description}" style="color: #64b5f6; font-size: 130%; position: relative;" class="fa fa-info-circle"></i></div>
-
-</c:forEach>
-        </center>
+    <jsp:include page="leafes/PricesLeaf.jsp"/>
     </div>
 </div>
