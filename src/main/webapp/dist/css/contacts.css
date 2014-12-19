@@ -1,0 +1,30 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19-dic-2014, 19.46.21
+    Author     : Alex
+*/
+
+.social {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+ border-radius: 400px;
+-moz-border-radius: 400px;
+-webkit-border-radius: 400px;
+color: #FFF;
+background-color: #009688;
+padding: 13px;
+margin-left: 3px;
+position:relative;
+    
+}
+.social:hover {
+    background-color: #26a69a;
+    text-decoration: none;
+    
+    
+}

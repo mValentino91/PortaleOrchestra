@@ -13,7 +13,7 @@
 <center>
     <c:forEach var="service" items="${services.servicesList}">
         
-            <div class="col-md-6"><i class="fa fa-certificate"></i> ${service}</div>
+            <div><i class="fa fa-certificate"></i> ${service}</div>
             
         
 

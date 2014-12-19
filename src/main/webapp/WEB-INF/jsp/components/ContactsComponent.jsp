@@ -48,7 +48,7 @@
                 <br>
             </c:if>
             <c:if test="${not empty contacts.facebook}">    
-                <a href="${contact.facebook}" class="matbtn matbtn-material-blue matbtn-fab matbtn-fab-mini fa fa-facebook"></a>
+                <a href="${contacts.facebook}" class="matbtn matbtn-material-blue matbtn-fab matbtn-fab-mini fa fa-facebook"></a>
             </c:if>
             <c:if test="${not empty contacts.twitter}">    
                 <a href="${contacts.twitter}" class="matbtn matbtn-material-lightblue matbtn-fab matbtn-fab-mini fa fa-twitter"></a>
@@ -61,13 +61,18 @@
             </c:if>
             <c:if test="${not empty contacts.socialList}">
                 <c:forEach var="cont" items="${contacts.socialList}">
-                    <a href="${cont.social}" class="matbtn matbtn-material-teal matbtn-fab matbtn-fab-mini  fa fa-star"></a>
+                    <a href="${cont.social}" data-toggle="tooltip" data-original-title="${cont.label}" class="social fa fa-star"></a>
                 </c:forEach>
             </c:if>
         </center>
     </div>  
 </div>
 
+<script type="text/javascript">
+    $(function(){
+       $('.social').tooltip();
+    });
+</script>
 
 
 
