@@ -75,18 +75,18 @@ var interactiveMap = (function() {
             }
 
             for (var j = 0; j < line.percorso.length; j++) {
-                
-                var img='./dist/img/andata.png';
-                
+
+                var img = './dist/img/andata.png';
+
                 if (line.percorso[j].verso === "Di") {
-                    img='./dist/img/ritorno.png';
+                    img = './dist/img/ritorno.png';
                 }
-                    
-                    anmStops[j] = new google.maps.Marker({
-                        position: new google.maps.LatLng(line.percorso[j].location[0], line.percorso[j].location[1]),
-                        map: interactiveMap.map,
-                        icon: img,
-                        title: line.percorso[j].nome});
+
+                anmStops[j] = new google.maps.Marker({
+                    position: new google.maps.LatLng(line.percorso[j].location[0], line.percorso[j].location[1]),
+                    map: interactiveMap.map,
+                    icon: img,
+                    title: line.percorso[j].nome});
 
                 anmStops[j].code = line.percorso[j].codice;
                 anmStops[j].nome = line.percorso[j].nome;
@@ -241,18 +241,77 @@ var interactiveMap = (function() {
         }
     }
 
+    function showHotels(index) {
+
+        interactiveMap.map.panTo(interactiveMap.markers[index].getPosition());
+        var contentString =
+                '<div class="container-fluid text-center" style="padding:10px">'
+                + '<b>'
+                + interactiveMap.markers[index].name
+                + '</b><br>'
+                + interactiveMap.markers[index].address
+                + '<div style="color:gray">'
+                + interactiveMap.markers[index].stars + '</div>';
+        interactiveMap.infowindow.setContent(contentString);
+        interactiveMap.infowindow.open(interactiveMap.map, interactiveMap.markers[index]);
+        interactiveMap.markers[index].setAnimation(google.maps.Animation.BOUNCE);
+        window.setTimeout(function() {
+            interactiveMap.markers[index].setAnimation(null);
+        }, 1400);
+
+    }
+
     function categoryHandler(event) {
 
-        $.ajax({
-            type: "GET",
-            url: "./Map/JSON",
-            data: "category=" + event.target,
-            success: function(data) {
+        if (event.target === 'hotel' || event.target === 'accommodation') {
+  
+            $.ajax({
+                type: "GET",
+                url: "./Services/Ibm/Alberghi",
+                data: "",
+                success: function(data) {
 
-                var poi = JSON.parse(data);
-                showPois(poi);
-            }
-        });
+                    var poi = JSON.parse(data);
+                    for (var i = 0; i < interactiveMap.markers.length; i++) {
+
+                        interactiveMap.markers[i].setMap(null);
+                        interactiveMap.markers[i] = null;
+                    }
+
+                    if (poi) {
+                        interactiveMap.markers = new Array();
+                        for (var i = 0; i < poi.length; i++) {
+                            interactiveMap.markers[i] = new google.maps.Marker({
+                                position: new google.maps.LatLng(poi[i].location[0], poi[i].location[1]),
+                                map: interactiveMap.map,
+                                icon: "./dist/img/marker.png",
+                                title: poi.nome});
+
+                            interactiveMap.markers[i].index = i;
+                            interactiveMap.markers[i].name = poi[i].nome;
+                            interactiveMap.markers[i].address = poi[i].indirizzo;
+                            interactiveMap.markers[i].stars = poi[i].classificazione;
+                            google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
+                                showHotels(this.index);
+                            });
+                        }
+                    }
+
+                }
+            });
+        }
+        else {
+            $.ajax({
+                type: "GET",
+                url: "./Map/JSON",
+                data: "category=" + event.target,
+                success: function(data) {
+
+                    var poi = JSON.parse(data);
+                    showPois(poi);
+                }
+            });
+        }
     }
 
 //Return the id list for the object to call

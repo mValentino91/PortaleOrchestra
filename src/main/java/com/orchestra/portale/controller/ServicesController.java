@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.orchestra.portale.controller;
 
 import org.springframework.stereotype.Controller;
@@ -18,12 +17,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/Services")
 public class ServicesController {
-    
+
     @RequestMapping(value = "/Anm")
     public @ResponseBody
     String getPrevision(@RequestParam String idStop) {
-        
-    return anmadvancedservices.AnmJsonServicesStub.getJsonPrevisioniPalina(idStop);
+
+        return anmadvancedservices.AnmJsonServicesStub.getJsonPrevisioniPalina(idStop);
     }
-    
+
+    @RequestMapping(value = "/Ibm/Alberghi")
+    public @ResponseBody
+    String getPrevision() {
+
+        return ibmServices.IBM_Requests.getAlberghi();
+    }
+
 }
