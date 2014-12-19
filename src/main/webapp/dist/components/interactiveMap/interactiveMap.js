@@ -242,16 +242,7 @@ var interactiveMap = (function() {
     }
 
     function showHotels(index) {
-
-        interactiveMap.map.panTo(interactiveMap.markers[index].getPosition());
-        var contentString =
-                '<div class="container-fluid text-center" style="padding:10px">'
-                + '<b>'
-                + interactiveMap.markers[index].name
-                + '</b><br>'
-                + interactiveMap.markers[index].address
-                + '<div style="color:gray">'
-                + interactiveMap.markers[index].stars + '</div>';
+        var contentString = "<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>";
         interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, interactiveMap.markers[index]);
         interactiveMap.markers[index].setAnimation(google.maps.Animation.BOUNCE);
@@ -259,12 +250,36 @@ var interactiveMap = (function() {
             interactiveMap.markers[index].setAnimation(null);
         }, 1400);
 
+        $.ajax({
+            type: "GET",
+            url: "./Services/Ibm/Albergo",
+            data: "idHotel=" + interactiveMap.markers[index].id,
+            success: function(data) {
+
+                var info = JSON.parse(data);
+
+                interactiveMap.map.panTo(interactiveMap.markers[index].getPosition());
+                var contentString =
+                        '<div class="container-fluid text-center" style="padding:10px">'
+                        + '<b>'
+                        + interactiveMap.markers[index].name
+                        + '</b><br>'
+                        + interactiveMap.markers[index].address
+                        + '<br><span>'
+                        + interactiveMap.markers[index].stars + '</span>'
+                        + '<p class="text-left" style="color:gray">Web: ' + info.web +
+                        '<br> Email: ' + info.email +
+                        '</p></div>';
+                interactiveMap.infowindow.setContent(contentString);
+
+            }
+        });
     }
 
     function categoryHandler(event) {
 
         if (event.target === 'hotel' || event.target === 'accommodation') {
-  
+
             $.ajax({
                 type: "GET",
                 url: "./Services/Ibm/Alberghi",
@@ -288,6 +303,7 @@ var interactiveMap = (function() {
                                 title: poi.nome});
 
                             interactiveMap.markers[i].index = i;
+                            interactiveMap.markers[i].id = poi[i].id;
                             interactiveMap.markers[i].name = poi[i].nome;
                             interactiveMap.markers[i].address = poi[i].indirizzo;
                             interactiveMap.markers[i].stars = poi[i].classificazione;

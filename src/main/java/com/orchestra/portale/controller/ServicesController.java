@@ -27,9 +27,15 @@ public class ServicesController {
 
     @RequestMapping(value = "/Ibm/Alberghi")
     public @ResponseBody
-    String getPrevision() {
+    String getHotels() {
 
         return ibmServices.IBM_Requests.getAlberghi();
     }
 
+    @RequestMapping(value = "/Ibm/Albergo")
+    public @ResponseBody
+    String getHotel(@RequestParam String idHotel) {
+
+        return ibmServices.IBM_Requests.getAlbergo(idHotel);
+    }
 }
