@@ -5,8 +5,9 @@
 .carousel {
     height: 400px;
     overflow: hidden;
-    border-radius: 3px 3px 3px 3px;
-    box-shadow: 0px 0px 10px 0px lightgray; 
+    //border-radius: 3px 3px 3px 3px;
+    //box-shadow: 0px 0px 10px 0px lightgray; 
+    background-color: white;
 }
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
@@ -17,11 +18,13 @@
 .carousel .item {
     height: 400px;
     cursor: pointer;
+    background-color: white;
 }
 
 .carousel-inner > .item > img {
-    width: 100%;
-    height: 400px;
+    height: 100%;
+    width: auto;
+    margin:auto;
 }
 
 #bigCarousel > img{

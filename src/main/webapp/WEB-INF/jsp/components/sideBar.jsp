@@ -139,7 +139,7 @@
 
     $(function() {
 
-        var menu = '[{"slug": "accommodation", "text": "Pernottamento", "nodes": [ {"slug": "hotel", "text": "Alberghi"}]},{ "slug": "culturalassociation", "text": "Associazoni Culturali"}, { "slug": "culture", "text": "Cultura", "nodes": [ {"slug": "museum", "text": "Musei"}, {"slug": "monument", "text": "Monumenti", "nodes": [{"slug": "church", "text": "Chiese"},{"slug": "building", "text": "Palazzi Storici"},{"slug": "sculpture", "text": "Sculture"}]}, {"slug": "metro_art", "text": "Stazioni dell' + "'" + 'Arte"}]}, { "slug": "food", "text": "Enogastronomia", "nodes": [ {"slug": "coffee", "text": "Caffé"}, {"slug": "trattoria", "text": "Trattorie"}, {"slug": "pasticceria", "text": "Pasticcerie"},{"slug": "pizzeria", "text": "Pizzerie"}]}]';
+        var menu = '[{"slug": "accommodation", "text": "Pernottamento", "nodes": [ {"slug": "hotel", "text": "Alberghi"}]},{ "slug": "Associazoni Culturali", "text": "Associazoni Culturali"}, { "slug": "culture", "text": "Cultura", "nodes": [ {"slug": "museum", "text": "Musei"}, {"slug": "monument", "text": "Monumenti", "nodes": [{"slug": "church", "text": "Chiese"},{"slug": "building", "text": "Palazzi Storici"},{"slug": "sculpture", "text": "Sculture"}]}, {"slug": "metro_art", "text": "Stazioni dell' + "'" + 'Arte"}]}, { "slug": "food", "text": "Enogastronomia", "nodes": [ {"slug": "coffee", "text": "Caffé"}, {"slug": "trattoria", "text": "Trattorie"}, {"slug": "pasticceria", "text": "Pasticcerie"},{"slug": "pizzeria", "text": "Pizzerie"}]},{"slug": "craft", "text": "Artigiani"}]';
 
         $('#categories').treeview({
             data: menu,

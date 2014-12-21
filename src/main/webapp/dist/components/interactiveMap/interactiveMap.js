@@ -170,7 +170,7 @@ var interactiveMap = (function() {
 
                 $("#panoContainer").modal('show');
                 window.setTimeout(function() {
-                    interactiveMap.panorama.setPosition(markers[index].getPosition());
+                    interactiveMap.panorama.setPosition(interactiveMap.markers[index].getPosition());
                     interactiveMap.map.setStreetView(interactiveMap.panorama);
                     interactiveMap.map.getStreetView().setVisible(true);
                 }, 500);
@@ -194,7 +194,7 @@ var interactiveMap = (function() {
                 + interactiveMap.markers[index].address
                 + '<center><img class="img-rounded" src="./dist/poi/img/'
                 + interactiveMap.markers[index].id
-                + '/cover.jpg" height="60" style="margin: 5px;" alt=""/></center>'
+                + '/cover.jpg" height="60" style="margin: 5px; max-width:110px; height:auto;" alt=""/></center>'
                 + '<p style="color:gray">'
                 + interactiveMap.markers[index].shortDescription + '</p>';
         contentString += '<a target="_blank" href="./getPoi?id='
