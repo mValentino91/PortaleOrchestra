@@ -14,7 +14,7 @@ and open the template in the editor.
     cursor: pointer;
 }
 
-.ortab.active {
+.ortab.active_tab {
     border-bottom-color: #009688;
     color: #009688;
 }
@@ -22,9 +22,9 @@ and open the template in the editor.
 .ortab:hover {
     color: #80cbc4;
 }
-.ortab.active:hover{
+.ortab.active_tab:hover{
     color: #009688;
 }
-.hidden,.hiddentab {
+.hidden_comptab,.hiddentab {
     display:none;
 }

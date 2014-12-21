@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-function show(id) {
-       $(".active").removeClass("active");
-       $("#"+id).addClass("active");
+function show_comptab(id) {
+       $(".active_tab").removeClass("active_tab");
+       $("#"+id).addClass("active_tab");
        
-       $(".show").addClass("hidden");
-       $(".show").removeClass("show");
-       $("#"+id+"-panel").removeClass("hidden");
-       $("#"+id+"-panel").addClass("show");
+       $(".show_comptab").addClass("hidden_comptab");
+       $(".show_comptab").removeClass("show_comptab");
+       $("#"+id+"-panel").removeClass("hidden_comptab");
+       $("#"+id+"-panel").addClass("show_comptab");
        
 
 }
@@ -29,5 +29,4 @@ function fix_height() {
         }
     });
     $(".ortab-panel").css("height",max+"px");
-     $('.ortab-panel').addClass("vCenter");
 }

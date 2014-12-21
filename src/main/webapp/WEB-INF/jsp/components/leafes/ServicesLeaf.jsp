@@ -13,7 +13,7 @@
 <center>
     <c:forEach var="service" items="${services.servicesList}">
         
-            <div><i class="fa fa-certificate"></i> ${service}</div>
+            <div style="font-size: 110%; text-transform: uppercase;"><i class="fa fa-certificate"></i> ${service}</div>
             
         
 
