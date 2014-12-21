@@ -17,7 +17,7 @@
     </div>
     <div class="panel-body">
         ${poi.address}
-        <a href="#" style="float: right; font-size: 200%;" class="glyphicon glyphicon-globe"></a><br>
+        <a href="Map?category=all" style="float: right; font-size: 200%; text-decoration: none;" class="glyphicon glyphicon-globe"></a><br>
 
     </div>
 </div>

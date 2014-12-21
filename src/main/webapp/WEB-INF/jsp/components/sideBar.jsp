@@ -150,7 +150,7 @@
                 var catEvent=  jQuery.Event("category_changed");
                 catEvent.target=node.slug;
                 $(document).trigger(catEvent);
-                // alert('<p>' + node.text + '[' + node.id_cat + ']' + '</p>');
+                
             }
 
         });

@@ -104,7 +104,10 @@
        
         <script>
              $('article').readmore({ speed: 5, maxHeight: 200, moreLink: '<a href="#" style="text-align: right; font-size:200%; text-decoration: none; margin: 0 0 0 0;"><i class="fa fa-chevron-down"></i></a>', lessLink: '<a href="#" style="text-align: right; font-size:200%; text-decoration: none;"><i class="fa fa-chevron-up"></i></a>'});
-            </script>
+        
+           
+      
+        </script>
     </body>
 </html>
 
