@@ -45,10 +45,11 @@
 <!--CONTROLLI MAPPA
 ===================================================-->
 <div id="mapControls" style="margin: 10px;">
-    <div  class="btn-group" role="group" data-toggle="buttons-checkbox">
-        <button type="button" class="btn btn-default" onclick="$('#searchModal').modal('show')">
+    <div  class="btn-group" role="group" data-toggle="buttons">
+        <label id="searchMapCheckButton" type="button" class="btn btn-default" onclick="interactiveMap.searchHandler()">
+            <input type="checkbox" autocomplete="off">
             <i class="fa fa-search"></i>
-        </button>
+        </label>
         <button type="button" class="btn btn-default">
             <i class="glyphicon glyphicon-road"></i>
         </button>
@@ -127,10 +128,8 @@
 ===============================================-->
 <div class="modal fade"
      id="searchModal"
-     tabindex="-1" 
-     role="dialog" 
-     aria-labelledby="mySmallModalLabe2" 
-     aria-hidden="true"
+     data-backdrop="static" 
+     data-keyboard="false"
      >
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -138,7 +137,9 @@
                 <button type="button" 
                         class="close" 
                         data-dismiss="modal" 
-                        aria-hidden="true">&times;</button>
+                        aria-hidden="true"
+                        onclick="interactiveMap.checkSearchButtonChecked()"
+                        >&times;</button>
                 <h4 class="modal-title" id="myModalLabel">
                     <span class="glyphicon glyphicon-search">
                     </span>
@@ -148,23 +149,16 @@
             <div class="modal-body"> 
                 <form>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Nome"/>
+                        <input id="nameInputSearchMap" type="text" class="form-control" placeholder="Nome"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Indirizzo"/>
+                        <input id="addressInputSearchMap" type="text" class="form-control" placeholder="Indirizzo"/>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Categoria"/>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox"> Cerca i POI nei dintorni
-                            </label>
-                        </div>
+                        <input id="categoryInputSearchMap" type="text" class="form-control" placeholder="Categoria"/>
                     </div>
                 </form>
-                <button class="btn btn-primary center-block" onclick="$('#searchResultModal').modal('show')">Cerca!</button>
+                <button class="btn btn-primary center-block" onclick="interactiveMap.searchPoi()">Cerca!</button>
             </div>
         </div>
     </div>
@@ -175,6 +169,8 @@
 ===================================================-->
 <div class="modal fade"
      id="searchResultModal"
+     data-backdrop="static" 
+     data-keyboard="false"
      >
     <div class="modal-dialog" style="width:800px">
         <div class="modal-content">
@@ -182,7 +178,9 @@
                 <button type="button" 
                         class="close" 
                         data-dismiss="modal" 
-                        aria-hidden="true">&times;</button>
+                        aria-hidden="true"
+                        onclick="interactiveMap.checkSearchButtonChecked()"
+                        >&times;</button>
                 <h4 class="modal-title">
                     <span class="glyphicon glyphicon-star">      
                     </span> 
@@ -196,21 +194,40 @@
                             <th></th>
                             <th>Nome</th>
                             <th>Indirizzo</th>
-                            <th>Categoria</th>
+                            <th>Descrizione</th>
                             <th>Nei Dintorni</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"/></td>
-                            <td>Pio Monte della misericordia</td>
-                            <td>Via dei Tribunali 253, 80138 Napoli</td>
-                            <td>Culture</td>
-                            <td><input type="checkbox"/></td>
-                        </tr>
+                    <tbody id="tableBodySearchResultMap" style="max-height: 50px; overflow: auto; margin-bottom: 20px">
                     </tbody>
                 </table>
-                <button class="btn btn-primary center-block" onclick="alert('cerco!')">Mostra Su Mappa!</button>
+                <button class="btn btn-primary center-block" onclick="interactiveMap.showSelectedPois()">Mostra Su Mappa!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade"
+     id="searchNoResultModal"
+     data-backdrop="static" 
+     data-keyboard="false"
+     >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        aria-hidden="true"
+                        onclick="interactiveMap.checkSearchButtonChecked()"
+                        >&times;</button>
+                <h4 class="modal-title">
+                    <span class="glyphicon glyphicon-star">      
+                    </span> 
+                    Risultati
+                </h4>
+            </div>
+            <div class="modal-body"> 
+                <h4 class="text-center">Nessun Risultato!</h4>
             </div>
         </div>
     </div>
