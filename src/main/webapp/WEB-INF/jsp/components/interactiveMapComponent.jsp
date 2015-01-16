@@ -13,6 +13,9 @@
         src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true" >
 </script>
 <script type="text/javascript" 
+        src = "./dist/components/interactiveMap/markerclusterer.js">
+</script>
+<script type="text/javascript" 
         src = "./dist/components/interactiveMap/interactiveMap.js">
 </script>
 <style>
@@ -39,43 +42,17 @@
         margin: 10px;
     }
 </style>
-<!--INFO MAP
-===================================================
-<div id="mapInfo">
-    <center>
-        <b>
-            <span class="glyphicon glyphicon-map-marker"></span>
-            Dettagli Mappa
-        </b>
-    </center>
-    <div id="categoryOnMap">
-        
-    </div>
-    <div id="bounds" style="display: none">
-        <b>Area:</b>
-        <br>
-        <span id="boundsValue"></span>
-    </div>
-</div>
-<!--/INFO MAP
-===================================================-->
 <!--CONTROLLI MAPPA
 ===================================================-->
 <div id="mapControls" style="margin: 10px;">
     <div  class="btn-group" role="group" data-toggle="buttons-checkbox">
-        <button type="button" class="btn btn-default" 
-                onclick="interactiveMap.drawOnMap()">
-            <i class="fa fa-pencil-square-o"></i>
-        </button>
-    </div>
-    <div  class="btn-group" role="group" data-toggle="buttons-checkbox">
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-default" onclick="$('#searchModal').modal('show')">
             <i class="fa fa-search"></i>
         </button>
-        <button type="button" class="btn btn-primary">
+        <button type="button" class="btn btn-default">
             <i class="glyphicon glyphicon-road"></i>
         </button>
-        <button type="button" class="btn btn-primary" onclick="$('#anmModal').modal('show')">
+        <button type="button" class="btn btn-default" onclick="interactiveMap.anmHandler()">
             <i class="fa fa-bus"></i>
         </button>
     </div>
@@ -146,6 +123,100 @@
         </div>
     </div>
 </div>
+<!--SEARCH MODAL
+===============================================-->
+<div class="modal fade"
+     id="searchModal"
+     tabindex="-1" 
+     role="dialog" 
+     aria-labelledby="mySmallModalLabe2" 
+     aria-hidden="true"
+     >
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    <span class="glyphicon glyphicon-search">
+                    </span>
+                    &nbsp; Ricerca Avanzata
+                </h4>
+            </div>
+            <div class="modal-body"> 
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Nome"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Indirizzo"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Categoria"/>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox"> Cerca i POI nei dintorni
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <button class="btn btn-primary center-block" onclick="$('#searchResultModal').modal('show')">Cerca!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/SEARCH MODAL
+===================================================-->
+<!--Search Result Modal
+===================================================-->
+<div class="modal fade"
+     id="searchResultModal"
+     >
+    <div class="modal-dialog" style="width:800px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" 
+                        class="close" 
+                        data-dismiss="modal" 
+                        aria-hidden="true">&times;</button>
+                <h4 class="modal-title">
+                    <span class="glyphicon glyphicon-star">      
+                    </span> 
+                    Risultati
+                </h4>
+            </div>
+            <div class="modal-body"> 
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Nome</th>
+                            <th>Indirizzo</th>
+                            <th>Categoria</th>
+                            <th>Nei Dintorni</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"/></td>
+                            <td>Pio Monte della misericordia</td>
+                            <td>Via dei Tribunali 253, 80138 Napoli</td>
+                            <td>Culture</td>
+                            <td><input type="checkbox"/></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button class="btn btn-primary center-block" onclick="alert('cerco!')">Mostra Su Mappa!</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--/Search Result Modal
+====================================================-->
 <!--Map
 ===================================================-->
 <div id="mapContainer">
@@ -166,7 +237,7 @@
             mapTypeControl: true,
             streetViewControl: false,
             zoomControlOptions: {
-                position: google.maps.ControlPosition.LEFT
+                position: google.maps.ControlPosition.RIGHT
             },
             mapTypeControlOptions: {
                 position: google.maps.ControlPosition.BOTTOM
@@ -184,25 +255,6 @@
         interactiveMap.map = new google.maps.Map(document.getElementById("map"),
                 mapOptions);
 
-    <% int i = 0;%>
-
-    <c:forEach var = "poi" items = "${poiList}">
-        interactiveMap.markers[<%=i%>] = new google.maps.Marker({
-            position: new google.maps.LatLng(${poi.location[0]}, ${poi.location[1]}),
-            map: interactiveMap.map,
-            icon: "./dist/img/marker.png",
-            title: "${poi.name}"});
-        interactiveMap.markers[<%=i%>].id = "${poi.id}";
-        interactiveMap.markers[<%=i%>].name = "${poi.name}";
-        interactiveMap.markers[<%=i%>].address = "${poi.address}";
-        interactiveMap.markers[<%=i%>].categories = "${poi.categories}";
-        interactiveMap.markers[<%=i%>].shortDescription = "${poi.shortDescription}";
-        google.maps.event.addListener(interactiveMap.markers[<%=i%>], 'click', function() {
-            interactiveMap.attachInfo(<%=i%>);
-        });
-        <%i++;%>
-    </c:forEach>
-
         interactiveMap.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         interactiveMap.streetView = new google.maps.StreetViewService();
 
@@ -214,6 +266,28 @@
         });
 
         interactiveMap.initAnmService();
+
+    <% int i = 0;%>
+
+    <c:forEach var = "poi" items = "${poiList}">
+        interactiveMap.markers[<%=i%>] = new google.maps.Marker({
+            position: new google.maps.LatLng(${poi.location[0]}, ${poi.location[1]}),
+            icon: "./dist/img/marker.png",
+            title: "${poi.name}"});
+        interactiveMap.markers[<%=i%>].id = "${poi.id}";
+        interactiveMap.markers[<%=i%>].name = "${poi.name}";
+        interactiveMap.markers[<%=i%>].address = "${poi.address}";
+        interactiveMap.markers[<%=i%>].categories = "${poi.categories}";
+        interactiveMap.markers[<%=i%>].shortDescription = "${poi.shortDescription}";
+        google.maps.event.addListener(interactiveMap.markers[<%=i%>], 'click', function() {
+            interactiveMap.attachInfo(this);
+        });
+        <%i++;%>
+    </c:forEach>
+
+        interactiveMap.mcOptions = {maxZoom: 15};
+
+        interactiveMap.mcluster = new MarkerClusterer(interactiveMap.map, interactiveMap.markers, interactiveMap.mcOptions);
 
     }
 

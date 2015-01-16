@@ -59,9 +59,21 @@
             </ul>
         </li>
         <li>
-            <a href="#">
+            <a href="./">
                 <span class="glyphicon glyphicon-home"></span>
                 Home
+            </a>
+        </li>
+        <li>
+            <a href="./Map?category=all">
+                <span class="glyphicon glyphicon-globe"></span>
+                Mappa Interattiva
+            </a>
+        </li>
+        <li>
+            <a href="#">
+                <span class="glyphicon glyphicon-star"></span>
+                Preferiti
             </a>
         </li>
         <li class="divider"></li>
@@ -146,11 +158,11 @@
             showBorder: false,
             levels: 1,
             onNodeSelected: function(event, node) {
-                
-                var catEvent=  jQuery.Event("category_changed");
-                catEvent.target=node.slug;
+
+                var catEvent = jQuery.Event("category_changed");
+                catEvent.target = node.slug;
                 $(document).trigger(catEvent);
-                
+
             }
 
         });
@@ -185,8 +197,10 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+                <li><a href="./" id="btnToggle"><i class="glyphicon glyphicon-home"></i></a></li>
+                <li><a href="./Map?category=all" id="btnToggle"><i class="glyphicon glyphicon-globe"></i></a></li>
                 <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i></a>
                     <ul class="dropdown-menu">
                         <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
                         <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
@@ -195,8 +209,6 @@
                         <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
                     </ul>
                 </li>
-                <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
-                <li><a href="#"><i class="glyphicon glyphicon-user"></i></a></li>
             </ul>
         </div>
     </div>

@@ -6,26 +6,45 @@ var interactiveMap = (function() {
     var infowindow = new google.maps.InfoWindow();
     var panorama;
     var streetView;
-    var bounds;
-    var rectangle;
-    var drawState = false;
     var jqxhr;
+    var mcOptions;
+    var mcluster;
     var anmData;
+    var anmState = false;
 
-    function showPrevision(index, code) {
+    function anmHandler() {
+
+        //ANM GIA' ATTIVO SULLA MAPPA
+        if (anmState) {
+            for (var z = 0; z < anmStops.length; z++) {
+
+                anmStops[z].setMap(null);
+                anmStops[z] = null;
+            }
+            
+            anmStops=new Array;
+            anmState=false;
+        }
+        else{
+            $('#anmModal').modal('show');
+            anmState=true;
+        }
+    }
+
+    function showPrevision(object) {
 
         var contentString = "<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>";
         interactiveMap.infowindow.setContent(contentString);
-        interactiveMap.infowindow.open(interactiveMap.map, anmStops[index]);
-        anmStops[index].setAnimation(google.maps.Animation.BOUNCE);
+        interactiveMap.infowindow.open(interactiveMap.map, object);
+        object.setAnimation(google.maps.Animation.BOUNCE);
         window.setTimeout(function() {
-            anmStops[index].setAnimation(null);
+            object.setAnimation(null);
         }, 1400);
 
         $.ajax({
             type: "GET",
             url: "./Services/Anm",
-            data: "idStop=" + code,
+            data: "idStop=" + object.code,
             success: function(data) {
 
                 var info = JSON.parse(data);
@@ -49,8 +68,7 @@ var interactiveMap = (function() {
         });
     }
 
-    function showLine()
-    {
+    function showLine() {
         $("#anmModal").modal('hide');
         var value = $("#lineValue").val();
         var line;
@@ -93,13 +111,14 @@ var interactiveMap = (function() {
                 anmStops[j].index = j;
 
                 google.maps.event.addListener(anmStops[j], 'click', function() {
-                    showPrevision(this.index, this.code);
+                    showPrevision(this);
                 });
 
             }
 
         }
     }
+
     function initAnmService() {
 
         jqxhr = $.getJSON("dist/jsonLinee.json", function() {
@@ -123,45 +142,6 @@ var interactiveMap = (function() {
         });
     }
 
-    function drawOnMap() {
-
-        if (!interactiveMap.drawState) {
-
-            interactiveMap.drawState = true;
-            google.maps.event.addListener(interactiveMap.map, 'click', function(e) {
-
-                if (interactiveMap.rectangle !== null && interactiveMap.rectangle !== undefined) {
-
-                    interactiveMap.rectangle.setMap(null);
-                    interactiveMap.rectangle = null;
-                }
-                else {
-
-                    interactiveMap.bounds = new google.maps.LatLngBounds(
-                            e.latLng,
-                            e.latLng
-                            );
-                    interactiveMap.rectangle = new google.maps.Rectangle({
-                        bounds: interactiveMap.bounds,
-                        editable: true
-                    });
-                    interactiveMap.rectangle.setMap(interactiveMap.map);
-
-                    google.maps.event.addListener(interactiveMap.rectangle, 'bounds_changed', function() {
-                    });
-                }
-            });
-        }
-        else {
-            google.maps.event.clearListeners(interactiveMap.map, 'click');
-            interactiveMap.drawState = false;
-            if (interactiveMap.rectangle !== null && interactiveMap.rectangle !== undefined) {
-                interactiveMap.rectangle.setMap(null);
-                interactiveMap.rectangle = null;
-            }
-        }
-    }
-
     function viewPanorama(index) {
 
         interactiveMap.streetView.getPanoramaByLocation(interactiveMap.markers[index].getPosition(), 30, function(result, status) {
@@ -183,39 +163,40 @@ var interactiveMap = (function() {
         );
     }
 
-    function attachInfo(index) {
+    function attachInfo(object) {
 
-        interactiveMap.map.panTo(interactiveMap.markers[index].getPosition());
+        interactiveMap.map.panTo(object.getPosition());
         var contentString =
                 '<div class="container-fluid text-center" style="min-height:170px; max-height:300px; max-width:200px;">'
                 + '<b>'
-                + interactiveMap.markers[index].name
+                + object.name
                 + '</b><br>'
-                + interactiveMap.markers[index].address
+                + object.address
                 + '<center><img class="img-rounded" src="./dist/poi/img/'
-                + interactiveMap.markers[index].id
+                + object.id
                 + '/cover.jpg" height="60" style="margin: 5px; max-width:110px; height:auto;" alt=""/></center>'
                 + '<p style="color:gray">'
-                + interactiveMap.markers[index].shortDescription + '</p>';
-        contentString += '<a target="_blank" href="./getPoi?id='
-                + interactiveMap.markers[index].id
+                + object.shortDescription + '</p>';
+        contentString += '<a href="./getPoi?id='
+                + object.id
                 + '">Maggiori Informazioni</a>'
                 + ' <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('
-                + index
+                + object.index
                 + ')"><br>Guarda nei dintorni</a></div>';
         interactiveMap.infowindow.setContent(contentString);
-        interactiveMap.infowindow.open(interactiveMap.map, interactiveMap.markers[index]);
-        interactiveMap.markers[index].setAnimation(google.maps.Animation.BOUNCE);
+        interactiveMap.infowindow.open(interactiveMap.map, object);
+        object.setAnimation(google.maps.Animation.BOUNCE);
         window.setTimeout(function() {
-            interactiveMap.markers[index].setAnimation(null);
+            object.setAnimation(null);
         }, 1400);
     }
 
     function showPois(poi) {
 
+        interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
+
         for (var i = 0; i < interactiveMap.markers.length; i++) {
 
-            interactiveMap.markers[i].setMap(null);
             interactiveMap.markers[i] = null;
         }
 
@@ -225,7 +206,6 @@ var interactiveMap = (function() {
 
                 interactiveMap.markers[i] = new google.maps.Marker({
                     position: new google.maps.LatLng(poi[i].location[0], poi[i].location[1]),
-                    map: interactiveMap.map,
                     icon: "./dist/img/marker.png",
                     title: poi.name});
 
@@ -235,38 +215,41 @@ var interactiveMap = (function() {
                 interactiveMap.markers[i].address = poi[i].address;
                 interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
                 google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
-                    interactiveMap.attachInfo(this.index);
+                    interactiveMap.attachInfo(this);
                 });
             }
+
+            interactiveMap.mcluster.addMarkers(interactiveMap.markers);
         }
     }
 
-    function showHotels(index) {
+    function showHotels(object) {
+
         var contentString = "<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>";
         interactiveMap.infowindow.setContent(contentString);
-        interactiveMap.infowindow.open(interactiveMap.map, interactiveMap.markers[index]);
-        interactiveMap.markers[index].setAnimation(google.maps.Animation.BOUNCE);
+        interactiveMap.infowindow.open(interactiveMap.map, object);
+        object.setAnimation(google.maps.Animation.BOUNCE);
         window.setTimeout(function() {
-            interactiveMap.markers[index].setAnimation(null);
+            object.setAnimation(null);
         }, 1400);
 
         $.ajax({
             type: "GET",
             url: "./Services/Ibm/Albergo",
-            data: "idHotel=" + interactiveMap.markers[index].id,
+            data: "idHotel=" + object.id,
             success: function(data) {
 
                 var info = JSON.parse(data);
 
-                interactiveMap.map.panTo(interactiveMap.markers[index].getPosition());
+                interactiveMap.map.panTo(object.getPosition());
                 var contentString =
                         '<div class="container-fluid text-center" style="padding:10px">'
                         + '<b>'
-                        + interactiveMap.markers[index].name
+                        + object.name
                         + '</b><br>'
-                        + interactiveMap.markers[index].address
+                        + object.address
                         + '<br><span>'
-                        + interactiveMap.markers[index].stars + '</span>'
+                        + object.stars + '</span>'
                         + '<p class="text-left" style="color:gray">Web: ' + info.web +
                         '<br> Email: ' + info.email +
                         '</p></div>';
@@ -287,9 +270,10 @@ var interactiveMap = (function() {
                 success: function(data) {
 
                     var poi = JSON.parse(data);
+                    interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
+
                     for (var i = 0; i < interactiveMap.markers.length; i++) {
 
-                        interactiveMap.markers[i].setMap(null);
                         interactiveMap.markers[i] = null;
                     }
 
@@ -308,9 +292,11 @@ var interactiveMap = (function() {
                             interactiveMap.markers[i].address = poi[i].indirizzo;
                             interactiveMap.markers[i].stars = poi[i].classificazione;
                             google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
-                                showHotels(this.index);
+                                showHotels(this);
                             });
                         }
+
+                        interactiveMap.mcluster.addMarkers(interactiveMap.markers);
                     }
 
                 }
@@ -332,7 +318,6 @@ var interactiveMap = (function() {
 
 //Return the id list for the object to call
     return {
-        drawOnMap: drawOnMap,
         viewPanorama: viewPanorama,
         attachInfo: attachInfo,
         categoryHandler: categoryHandler,
@@ -340,12 +325,12 @@ var interactiveMap = (function() {
         markers: markers,
         panorama: panorama,
         streetView: streetView,
-        bouds: bounds,
         infowindow: infowindow,
-        rectangle: rectangle,
-        drawState: drawState,
         initAnmService: initAnmService,
-        showLine: showLine
+        anmHandler:anmHandler,
+        showLine: showLine,
+        mcluster: mcluster,
+        mcOptions: mcOptions
     };
 })();
 
