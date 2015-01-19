@@ -18,6 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/Services")
 public class ServicesController {
 
+    @RequestMapping(value = "/AnmLines")
+    public @ResponseBody
+    String getAllStops() {
+
+        return anmadvancedservices.AnmJsonServicesStub.getJsonListaLinee();
+    }
+
     @RequestMapping(value = "/Anm")
     public @ResponseBody
     String getPrevision(@RequestParam String idStop) {
