@@ -9,6 +9,7 @@ import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.GeoResult;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,10 +26,10 @@ public class SearchController {
     //Manager della persistenza
     @Autowired
     PersistenceManager pm;
-    
+
     @RequestMapping(value = "/JSON/Find")
     public @ResponseBody
-    String find(@RequestParam String name,@RequestParam String address,@RequestParam String category) {
+    String find(@RequestParam String name, @RequestParam String address, @RequestParam String category) {
 
         StringBuilder jsonPois = new StringBuilder();
 
@@ -60,25 +61,27 @@ public class SearchController {
                 jsonPois.append(",");
             }
         }
-        
+
         jsonPois.append("]");
 
         return jsonPois.toString();
     }
-    
+
     @RequestMapping(value = "/JSON/Near")
     public @ResponseBody
-    String near(@RequestParam String id,@RequestParam double radius) {
+    String near(@RequestParam String id, @RequestParam double radius) {
 
         StringBuilder jsonPois = new StringBuilder();
 
-        Iterator<CompletePOI> poiList = pm.findNearCompletePoi(id,radius).iterator();
+        Iterator<GeoResult<CompletePOI>> poiList = pm.findNearCompletePoi(id, radius).iterator();
 
         jsonPois.append("[");
 
         while (poiList.hasNext()) {
 
-            CompletePOI poi = poiList.next();
+            GeoResult<CompletePOI> gPoi = poiList.next();
+            
+            CompletePOI poi = gPoi.getContent();
 
             jsonPois.append("{ \"id\":\"")
                     .append(poi.getId())

@@ -13,7 +13,7 @@ var interactiveMap = (function() {
     var searchState = false;
     var searchedPoi;
     var searchedMarkers;
-    var nearRadius = 0.1;
+    var nearRadius = 0.15;
     var supportIntersectIdList;
     
     function searchHandler() {

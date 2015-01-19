@@ -8,6 +8,7 @@ package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Poi;
+import org.springframework.data.geo.GeoResults;
 
 /**
  *
@@ -21,7 +22,7 @@ public interface PersistenceManager {
     public Iterable<CompletePOI> getAllCompletePoi();
     public Iterable<CompletePOI> getCompletePoiByCategory(String category);
     public Iterable<CompletePOI> findCompletePoi(String name, String address, String category);
-    public Iterable<CompletePOI> findNearCompletePoi(String id,double radius);
+    public GeoResults<CompletePOI> findNearCompletePoi(String id,double radius);
     public CompletePOI findOneCompletePoiByName(String name);
     public void deletePoi(CompletePOI poi);
     public void savePoi(CompletePOI poi);
