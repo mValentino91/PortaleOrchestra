@@ -59,13 +59,11 @@ public class SearchController {
 
                 jsonPois.append(",");
             }
-
         }
-
+        
         jsonPois.append("]");
 
         return jsonPois.toString();
-
     }
     
     @RequestMapping(value = "/JSON/Near")
@@ -101,13 +99,10 @@ public class SearchController {
 
                 jsonPois.append(",");
             }
-
         }
 
         jsonPois.append("]");
 
         return jsonPois.toString();
-
     }
-
 }

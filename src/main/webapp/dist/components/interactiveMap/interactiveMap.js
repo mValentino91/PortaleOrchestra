@@ -15,7 +15,7 @@ var interactiveMap = (function() {
     var searchedMarkers;
     var nearRadius = 0.1;
     var supportIntersectIdList;
-
+    
     function searchHandler() {
         if (searchState === false) {
             $('#searchModal').modal('show');
@@ -102,18 +102,12 @@ var interactiveMap = (function() {
         var checkList = $('.checkboxForSearchResult');
         var nearCheckList = $('.checkboxForSearchAround');
         var count = 0;
-
         if (checkList.length > 0) {
-
             searchedMarkers = new Array();
             supportIntersectIdList = new Array();
-
             for (var i = 0; i < checkList.length; i++) {
-
                 if (checkList[i].checked) {
-
                     var temp = searchedPoi[checkList[i].value];
-
                     searchedMarkers[count] = new google.maps.Marker({
                         position: new google.maps.LatLng(
                                 temp.location[0],
@@ -121,32 +115,26 @@ var interactiveMap = (function() {
                         map: interactiveMap.map,
                         icon: './dist/img/bigMarker.png',
                         title: temp.name});
-
                     supportIntersectIdList.push(temp.id);
-
                     searchedMarkers[count].location = temp.location;
                     searchedMarkers[count].id = temp.id;
                     searchedMarkers[count].name = temp.name;
                     searchedMarkers[count].address = temp.address;
                     searchedMarkers[count].shortDescription = temp.shortDescription;
-
                     google.maps.event.addListener(searchedMarkers[count], 'click', function() {
                         attachInfo(this);
                     });
-
                     count++;
                 }
             }
             if (count > 0) {
                 interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
                 for (var i = 0; i < interactiveMap.markers.length; i++) {
-
                     interactiveMap.markers[i] = null;
                 }
                 searchState = true;
             }
             for (var j = 0; j < nearCheckList.length; j++) {
-
                 if (nearCheckList[j].checked)
                     searchNearPois(j);
             }
