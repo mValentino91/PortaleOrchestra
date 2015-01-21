@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/Services")
 public class ServicesController {
 
-    @RequestMapping(value = "/AnmLines")
+    @RequestMapping(value = "/Anm/Lines")
     public @ResponseBody
     String getAllStops() {
 

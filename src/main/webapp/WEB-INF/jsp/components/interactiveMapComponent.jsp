@@ -41,9 +41,13 @@
         font-size: 13px;
         margin: 10px;
     }
+    .infowindowContent{
+        max-width:200px;
+        min-height:250px;
+    }
 </style>
 <!--CONTROLLI MAPPA
-===================================================-->
+===================================================
 <div id="mapControls" style="margin: 10px;">
     <div  class="btn-group" role="group" data-toggle="buttons">
         <label id="searchMapCheckButton" type="button" class="btn btn-default" onclick="interactiveMap.searchHandler()">
@@ -254,10 +258,10 @@
             mapTypeControl: true,
             streetViewControl: false,
             zoomControlOptions: {
-                position: google.maps.ControlPosition.RIGHT
+                position: google.maps.ControlPosition.LEFT
             },
             mapTypeControlOptions: {
-                position: google.maps.ControlPosition.BOTTOM
+                position: google.maps.ControlPosition.TOP
             }
         };
 
@@ -274,9 +278,6 @@
 
         interactiveMap.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         interactiveMap.streetView = new google.maps.StreetViewService();
-
-        var mapControls = document.getElementById('mapControls');
-        interactiveMap.map.controls[google.maps.ControlPosition.TOP].push(mapControls);
 
         $(document).bind("category_changed", function(event) {
             interactiveMap.categoryHandler(event);
@@ -310,3 +311,5 @@
 
     initInteractiveMap();
 </script>
+
+<jsp:include page="poiList.jsp"/>

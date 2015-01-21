@@ -15,7 +15,37 @@ var interactiveMap = (function() {
     var searchedMarkers;
     var nearRadius = 0.15;
     var supportIntersectIdList;
-    
+    var markersEvent = jQuery.Event("markers_changed");
+
+    function markersChangend(markers) {
+
+        markersEvent.target = markers;
+        $(document).trigger(markersEvent);
+    }
+    function poiHoverHandler(id, enable) {
+
+        var object = null;
+
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+
+            if (interactiveMap.markers[i].id === id) {
+
+                object = interactiveMap.markers[i];
+                break;
+            }
+        }
+        if (object !== null) {
+            if (enable) {
+                interactiveMap.map.panTo(object.getPosition());
+                object.setIcon('./dist/img/bigMarker.png');
+                object.setAnimation(google.maps.Animation.BOUNCE);
+                interactiveMap.map.setZoom(16);
+            } else {
+                object.setIcon('./dist/img/marker.png');
+                object.setAnimation(null);
+            }
+        }
+    }
     function searchHandler() {
         if (searchState === false) {
             $('#searchModal').modal('show');
@@ -143,7 +173,7 @@ var interactiveMap = (function() {
         }
     }
     function checkSearchButtonChecked() {
-        var baseClass = 'btn btn-default';
+        var baseClass = 'btn btn-default btn-sm';
         if (searchState === true) {
             var element = document.getElementById('searchMapCheckButton');
             element.className = baseClass + ' active';
@@ -298,14 +328,15 @@ var interactiveMap = (function() {
     function attachInfo(object) {
         interactiveMap.map.panTo(object.getPosition());
         var contentString =
-                '<div class="container-fluid text-center" style="min-height:170px; max-height:300px; max-width:200px;">'
+                '<div class="container-fluid text-center infowindowContent">'
                 + '<b>'
                 + object.name
                 + '</b><br>'
                 + object.address
                 + '<center><img class="img-rounded" src="./dist/poi/img/'
                 + object.id
-                + '/cover.jpg" height="60" style="margin: 5px; max-width:110px; height:auto;" alt=""/></center>'
+                + '/cover.jpg" onError="this.src=' + "'./dist/img/notFound.png';" + '"'
+                + 'height="60" style="margin: 5px; max-width:110px; height:auto;" alt=""/></center>'
                 + '<p style="color:gray">'
                 + object.shortDescription + '</p>';
         contentString += '<a href="./getPoi?id='
@@ -418,6 +449,7 @@ var interactiveMap = (function() {
                 success: function(data) {
                     var poi = JSON.parse(data);
                     showPois(poi);
+                    markersChangend(interactiveMap.markers);
                 }
             });
         }
@@ -440,7 +472,8 @@ var interactiveMap = (function() {
         searchHandler: searchHandler,
         showSelectedPois: showSelectedPois,
         searchPoi: searchPoi,
-        checkSearchButtonChecked: checkSearchButtonChecked
+        checkSearchButtonChecked: checkSearchButtonChecked,
+        poiHoverHandler: poiHoverHandler
     };
 })();
 

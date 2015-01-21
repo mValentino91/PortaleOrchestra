@@ -98,13 +98,6 @@
                 });
             });
         </script>
-
-        <!--[if lt IE 9]><script src="js/respond.min.js"></script><![endif]-->
-        <!--[if gte IE 9]>
-        <style type="text/css">
-            .gradient {filter: none !important;}
-        </style>
-        <![endif]-->
     </head>
 
     <body>
@@ -169,232 +162,8 @@
                     </div>
                     <!--/ row -->
 
-                    <!-- row -->
                     <div class="row">
-                        <div class="col-sm-4">
-                            <!-- Widget Weather -->
-                            <div class="widget-container widget-weather boxed boxed-turquoise">
-                                <div class="weather-highlighted">
-                                    <div class="weather-item clearfix su"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>31&deg;</strong><span>Mostly Sunny</span><span>31&deg;/18&deg;</span></div></div>
-                                    <div class="weather-item clearfix mo"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>20&deg;</strong><span>Rain</span><span>20&deg;/11&deg;</span></div></div>
-                                    <div class="weather-item clearfix tu active"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>27&deg;</strong><span>Partly Cloudy</span><span>27&deg;/15&deg;</span></div></div>
-                                    <div class="weather-item clearfix we"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>23&deg;</strong><span>Cloudy</span><span>23&deg;/14&deg;</span></div></div>
-                                    <div class="weather-item clearfix th"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>26&deg;</strong><span>Mostly Sunny</span><span>26&deg;/16&deg;</span></div></div>
-                                    <div class="weather-item clearfix fr"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>32&deg;</strong><span>Sunny</span><span>32&deg;/19&deg;</span></div></div>
-                                    <div class="weather-item clearfix sa"><i class="icon-weather icon-weather-1"></i><div class="inner"><strong>24&deg;</strong><span>Light Rain</span><span>24&deg;/12&deg;</span></div></div>
-                                </div>
-                                <div class="weather-location clearfix">
-                                    <strong>Bucharest</strong>
-                                    <form id="searchForm2" class="weather-search-form" method="post">
-                                        <input type="text" name="search2" value="" class="weather-search-field" />
-                                        <input type="submit" value="" class="btn weather-search-submit" name="search-send2" />
-                                    </form>
-                                </div>
-                                <ul class="weather-forecast clearfix">
-                                    <li><a href="javascript:;" id="su"><strong>su</strong><span><i class="icon-weather icon-weather-1"></i></span><span>31&deg;</span></a></li>
-                                    <li><a href="javascript:;" id="mo"><strong>mo</strong><span><i class="icon-weather icon-weather-2"></i></span><span>20&deg;</span></a></li>
-                                    <li><a href="javascript:;" id="tu" class="active"><strong>tu</strong><span><i class="icon-weather icon-weather-3"></i></span><span>27&deg;</span></a></li>
-                                    <li><a href="javascript:;" id="we"><strong>we</strong><span><i class="icon-weather icon-weather-4"></i></span><span>23&deg;</span></a></li>
-                                    <li><a href="javascript:;" id="th"><strong>th</strong><span><i class="icon-weather icon-weather-1"></i></span><span>26&deg;</span></a></li>
-                                    <li><a href="javascript:;" id="fr"><strong>fr</strong><span><i class="icon-weather icon-weather-1"></i></span><span>32&deg;</span></a></li>
-                                    <li><a href="javascript:;" id="sa"><strong>sa</strong><span><i class="icon-weather icon-weather-5"></i></span><span>24&deg;</span></a></li>
-                                </ul>
-                            </div>
-                            <!--/ Widget Weather -->
-
-                            <!-- Menu -->
-                            <ul class="dropdown dropdown-icons clearfix boxed boxed-green">
-                                <li class="menu-level-0 hover"><a href="#"><span><i class="icon-menu"></i></span></a>
-                                    <ul class="submenu-1">
-                                        <li class="menu-level-1"><a href="#">Submenu 1</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 2</a>
-                                            <ul class="submenu-1">
-                                                <li class="menu-level-1"><a href="#">Submenu 1</a></li>
-                                                <li class="menu-level-1"><a href="#">Submenu 2</a></li>
-                                                <li class="menu-level-1"><a href="#">Submenu 3</a></li>
-                                                <li class="menu-level-1"><a href="#">Submenu 4</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-level-1"><a href="#">Submenu 3</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-level-0"><a href="#"><span><i class="icon-menu icon-menu-2"></i></span></a>
-                                    <ul class="submenu-1">
-                                        <li class="menu-level-1"><a href="#">Submenu 1</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 2</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 3</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 4</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-level-0"><a href="#"><span><i class="icon-menu icon-menu-3"></i></span></a>
-                                    <ul class="submenu-1">
-                                        <li class="menu-level-1"><a href="#">Submenu 1</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 2</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 3</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 4</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 5</a>
-                                            <ul class="submenu-2">
-                                                <li class="menu-level-2"><a href="#">Submenu 1</a></li>
-                                                <li class="menu-level-2"><a href="#">Submenu 2</a></li>
-                                                <li class="menu-level-2"><a href="#">Submenu 3</a></li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="menu-level-0"><a href="#"><span><i class="icon-menu icon-menu-4"></i></span></a>
-                                    <ul class="submenu-1">
-                                        <li class="menu-level-1"><a href="#">Submenu 1</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 2</a></li>
-                                        <li class="menu-level-1"><a href="#">Submenu 3</a>
-                                            <ul class="submenu-2">
-                                                <li class="menu-level-2"><a href="#">Submenu 1</a></li>
-                                                <li class="menu-level-2"><a href="#">Submenu 2</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-level-1"><a href="#">Submenu 4</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                            <!--/ Menu -->
-
-                            <!-- row level 2 -->
-                            <div class="row">
-                                <div class="col-xs-6 visible-xs"></div>
-                                <div class="col-sm-5 col-sm-offset-7 col-xs-6">
-                                    <!-- tf pagination -->
-                                    <div class="tf_pagination style3 mini red">
-                                        <div class="inner">
-                                            <a class="page_prev" href="#"><span>&lsaquo;</span></a>
-                                            <a class="page_next" href="#"><span>&rsaquo;</span></a>
-                                        </div>
-                                    </div>
-                                    <!--/ tf pagination -->
-                                    <!-- tf pagination -->
-                                    <div class="tf_pagination style3 mini">
-                                        <div class="inner">
-                                            <a class="page_prev" href="#"><span>&plus;</span></a>
-                                            <a class="page_next" href="#"><span>&minus;</span></a>
-                                        </div>
-                                    </div>
-                                    <!--/ tf pagination -->
-                                </div>
-                            </div>
-                            <!--/ row level 2 -->
-                        </div>
-
-                        <div class="col-sm-4">
-                            <!-- Avatar Placeholder -->
-                            <div class="widget-container widget-avatar boxed boxed-yellow">
-                                <div class="inner">
-                                    <h5>Jack Daniels</h5>
-                                    <span class="subtitle">Antepreneur</span>
-                                    <div class="avatar"><img src="images/temp/avatar.png" alt="" /></div>
-                                    <div class="followers"><span class="counter">125</span> followers</div>
-                                    <a href="#" class="btn btn-brown btn-follow"><span><i></i>Follow</span></a>
-                                </div>
-                            </div>
-                            <!--/ Avatar Placeholder -->
-
-                            <!-- Dropdown Menu -->
-                            <div class="dropdownMenu open">
-                                <a id="drop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Sort by filter</a>
-                                <ul class="dropdown-menu" role="menu" aria-labelledby="drop">
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Date</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Popularity</a></li>
-                                    <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Price</a></li>
-                                </ul>
-                            </div>
-                            <!--/ Dropdown Menu -->
-                        </div>
-
-                        <div class="col-sm-4">
-                            <!-- widget calendar-->
-                            <div class="widget-container widget_calendar boxed boxed-red styled">
-                                <div class="inner">
-                                    <input type="text" name="date_departure" class="inputField" value="" id="date_departure">
-                                    <script>
-                                        // <![CDATA[
-                                        jQuery(document).ready(function($) {
-                                            var daysRange = 5;
-
-                                            function assignCalendar(id) {
-                                                $('<div class="calendar" />')
-                                                        .insertAfter($(id))
-                                                        .multiDatesPicker({
-                                                            dateFormat: 'yy-mm-dd',
-                                                            minDate: new Date(),
-                                                            maxDate: '+1y',
-                                                            altField: id,
-                                                            firstDay: 1,
-                                                            showOtherMonths: true
-                                                        }).prev().hide();
-                                            }
-
-                                            assignCalendar('#date_departure');
-                                        });
-                                        // ]]>
-                                    </script>
-                                </div>
-                            </div>
-                            <!--/ widget calendar-->
-
-                            <!-- Carousel -->
-                            <div class="carouFredsel">
-                                <div class="inner">
-                                    <ul id="carouFredsel-1">
-                                        <li><div class="carousel-image"><a href="images/temp/carousel-1.png" data-rel="prettyPhoto" title="Brave"><img src="images/temp/carousel-1.png" alt="" /></a></div></li>
-                                        <li><div class="carousel-image"><a href="images/temp/carousel-2.png" data-rel="prettyPhoto" title="Brave"><img src="images/temp/carousel-2.png" alt="" /></a></div></li>
-                                        <li><div class="carousel-image"><a href="images/temp/carousel-3.png" data-rel="prettyPhoto" title="Brave"><img src="images/temp/carousel-3.png" alt="" /></a></div></li>
-                                        <li><div class="carousel-image"><a href="images/temp/carousel-1.png" data-rel="prettyPhoto" title="Brave"><img src="images/temp/carousel-1.png" alt="" /></a></div></li>
-                                        <li><div class="carousel-image"><a href="images/temp/carousel-2.png" data-rel="prettyPhoto" title="Brave"><img src="images/temp/carousel-2.png" alt="" /></a></div></li>
-                                        <li><div class="carousel-image"><a href="images/temp/carousel-3.png" data-rel="prettyPhoto" title="Brave"><img src="images/temp/carousel-3.png" alt="" /></a></div></li>
-
-                                    </ul>
-                                    <a id="carousel-prev-1" class="prev" href="#">&lsaquo;</a>
-                                    <a id="carousel-next-1" class="next" href="#">&rsaquo;</a>
-                                </div>
-                            </div>
-                            <!--/ Carousel -->
-
-                            <!-- row level 2 -->
-                            <div class="row">
-                                <div class="col-sm-7 col-xs-7">
-                                    <!-- tf pagination -->
-                                    <div class="tf_pagination style3">
-                                        <div class="inner">
-                                            <a class="page_prev" href="#"><span>&lsaquo;</span></a>
-
-                                            <span class="page-numbers page_current">1</span>
-                                            <a href="#" class="page-numbers">2</a>
-                                            <a href="#" class="page-numbers">3</a>
-
-                                            <a class="page_next" href="#"><span>&rsaquo;</span></a>
-                                        </div>
-                                    </div>
-                                    <!--/ tf pagination -->
-                                </div>
-
-                                <div class="col-sm-5 col-xs-5">
-                                    <!-- tf pagination -->
-                                    <div class="tf_pagination style3 small">
-                                        <div class="inner">
-                                            <a class="page_prev" href="#"><span>&lsaquo;</span></a>
-                                            <a class="page-numbers" href="#"></a>
-                                            <a class="page_next" href="#"><span>&rsaquo;</span></a>
-                                        </div>
-                                    </div>
-                                    <!--/ tf pagination -->
-
-                                </div>
-                            </div>
-                            <!--/ row level 2 -->
-                        </div>
-                    </div>
-                    <!--/ row -->
-
-                    <!-- row -->
-                    <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-md-12">
                             <!-- Image Slider -->
                             <div class="widget-container widget-gallery boxed">
                                 <div class="inner">
@@ -425,268 +194,39 @@
                             </div>
                             <!--/ Image Slider -->
                         </div>
+                    </div>
 
-                        <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well">
+                                Napoli (IPA: ['napoli] ascolta[?·info]; Nàpule in napoletano, pronuncia ['nɑːpələ] oppure ['nɑːpulə]) è un comune italiano di 989 846 abitanti[2], terzo in Italia per popolazione. La città è capoluogo della omonima città metropolitana e della regione Campania ed è situata in posizione pressoché centrale nell'omonimo golfo, tra il Vesuvio e l'area vulcanica dei Campi Flegrei. Con oltre 3 000 000 di abitanti[N 2] la città metropolitana di Napoli è la terza d'Italia dopo quella di Roma e quella di Milano, nonché la più popolosa dell'Italia meridionale e dell'Europa mediterranea.
+                                Fondata nell'VIII secolo a.C., fu tra le città egemoni della Magna Graecia,[4] grazie al rapporto privilegiato con Atene,[5] ed esercitò una notevole influenza commerciale, culturale e religiosa sulle popolazioni italiche circostanti[6] tanto da diventare il centro della filosofia epicurea in Italia. Dopo il crollo dell'Impero romano, nell'VIII secolo la città formò un ducato autonomo indipendente dall'Impero bizantino; in seguito, dal XIII secolo e per circa seicento anni, fu capitale del regno di Napoli. Divenuta capitale del Regno delle Due Sicilie sotto i Borbone, conobbe un lungo periodo di sviluppo socioeconomico culminato in una serie di primati civili e tecnologici[7][8] tra cui la costruzione della prima ferrovia in Italia.[9][10] Dopo l'annessione al Regno d'Italia soffrì di un sensibile declino[11] esteso anche a tutto il sud Italia.[12][13] Per motivi storici, artistici, politici ed ambientali è stata, dal IX secolo fino ad oggi, tra i principali centri di riferimento culturale d'Europa.[14][15][16]
+                                Sede della Federico II, la più antica università statale d'Europa,[17] ospita altresì l'Orientale, la più antica università di studi sinologici ed orientalistici del continente[18] e la Nunziatella, una delle più antiche accademie militari al mondo, eletta patrimonio storico e culturale dei Paesi del Mediterraneo da parte dell'Assemblea parlamentare del Mediterraneo.[19] Luogo d'origine della lingua napoletana, ha esercitato ed esercita un forte ruolo in numerosi campi del sapere, della cultura e dell'immaginario collettivo a livello nazionale.
+                            </div>
+                        </div>
+                    </div>
+                    <!-- row -->
+                    <div class="row">
+                        <div class="col-md-6">
                             <!-- Grid Menu -->
                             <div class="grid-menu clearfix">
                                 <div class="grid-box"><a href="#" class="boxed boxed-red"><strong><i class="icon-grid"></i></strong><span>Games</span></a></div>
                                 <div class="grid-box"><a href="#" class="boxed boxed-turquoise"><strong><i class="icon-grid icon-grid-2"></i></strong><span>Contact</span></a></div>
                                 <div class="grid-box grid-box-large"><a href="#" class="boxed boxed-yellow"><strong><i class="icon-grid icon-grid-3"></i></strong><span>Portfolio</span></a></div>
+                                <div class="grid-box grid-box-large"><a href="#" class="boxed boxed-yellow"><strong><i class="icon-grid icon-grid-3"></i></strong><span>Portfolio</span></a></div>
                             </div>
                             <!--/ Grid Menu -->
                         </div>
+                        <div class="col-md-6">
+                            <!-- Grid Menu -->
+                            <div class="grid-menu clearfix">
 
-                        <div class="col-sm-2">
-                            <!-- Vertical Menu -->
-                            <ul class="menu-vertical boxed boxed-green">
-                                <li class="active"><a href="#"><span><i class="icon-menu"></i></span></a></li>
-                                <li><a href="#"><span><i class="icon-menu icon-menu-2"></i></span></a></li>
-                                <li><a href="#"><span><i class="icon-menu icon-menu-3"></i></span></a></li>
-                                <li><a href="#"><span><i class="icon-menu icon-menu-4"></i></span></a></li>
-                                <li><a href="#"><span><i class="icon-menu icon-menu-5"></i></span></a></li>
-                            </ul>
-                            <!--/ Vertical Menu -->
+                                <div class="grid-box grid-box-large"><a href="./Map?category=all" class="boxed boxed-green"><strong><i class="icon-grid icon-grid-3"></i></strong><span>Mappa Interattiva</span></a></div>
+                            </div>
+                            <!--/ Grid Menu -->
                         </div>
                     </div>
                     <!--/ row -->
-
-                    <!-- row -->
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <!-- Video Player -->
-                            <div class="video-player boxed">
-                                <div class="inner">
-                                    <video id="my_video_1" class="video-js" controls loop
-                                           preload="auto" poster="images/temp/vjs-poster2.jpg"
-                                           data-setup="{}">
-                                        <source src="http://test.themefuse.com/artiom/galapagos.mp4" type='video/mp4'>
-                                    </video>
-                                    <script>
-                                        _V_("my_video_1").ready(function() {
-                                            var myPlayer = this;
-                                            var aspectRatio = 330 / 512;
-                                            var width = document.getElementById(myPlayer.id).parentElement.offsetWidth;
-                                            myPlayer.width(width).height(width * aspectRatio);
-
-                                            function resizeVideoJS() {
-                                                var width = document.getElementById(myPlayer.id).parentElement.offsetWidth;
-                                                myPlayer.width(width).height(width * aspectRatio);
-                                            }
-                                            resizeVideoJS();
-                                            window.onresize = resizeVideoJS;
-                                        });
-                                    </script>
-                                </div>
-                            </div>
-                            <!--/ Video Player -->
-                        </div>
-
-                        <div class="col-sm-5">
-                            <div class="controls boxed">
-                                <div class="inner clearfix">
-                                    <!-- Progress Bars -->
-                                    <div class="progressBars">
-                                        <!-- Progress Bar -->
-                                        <div id="progressBar1" class="progressbar">
-                                            <span class="mark-left">0%</span>
-                                            <span class="mark-right">100%</span>
-                                            <div class="percent"></div>
-                                            <div class="pbar"></div>
-                                            <div class="elapsed"></div>
-                                            <div class="remained"></div>
-                                        </div>
-                                        <script type="text/javascript">
-                                            $(document).ready(function() {
-                                                $('#progressBar1').anim_progressbar({
-                                                    totaltime: 120
-                                                });
-                                            });
-                                        </script>
-                                        <!--/ Progress Bar -->
-
-                                        <!-- Range slider -->
-                                        <div class="range-slider styled">
-                                            <input id="price_range" type="text" name="price_range" value="120;720">
-                                        </div>
-                                        <script type="text/javascript" >
-                                            jQuery(document).ready(function($) {
-                                                // Price Range Input
-                                                $("#price_range").rangeslider({
-                                                    from: 0,
-                                                    to: 1000,
-                                                    limits: false,
-                                                    scale: ['$0', '$1000'],
-                                                    heterogeneity: ['50/300'],
-                                                    step: 10,
-                                                    smooth: true,
-                                                    dimension: '$'
-                                                });
-                                            });
-                                        </script>
-                                        <!-- Range slider -->
-
-                                        <!-- Progress Bar Style 2 -->
-                                        <div id="progressBar2" class="progressbar style2">
-                                            <span class="mark-left">0%</span>
-                                            <span class="mark-right">100%</span>
-                                            <div class="percent"></div>
-                                            <div class="pbar"></div>
-                                            <div class="elapsed"></div>
-                                            <div class="remained"></div>
-                                        </div>
-                                        <script type="text/javascript">
-                                            $(document).ready(function() {
-                                                $('#progressBar2').anim_progressbar({
-                                                    totaltime: 180
-                                                });
-                                            });
-                                        </script>
-                                        <!--/ Progress Bar Style 2 -->
-                                    </div>
-                                    <!--/ Progress Bars -->
-
-                                    <!-- Scroll Bars -->
-                                    <div class="scrollBars clearfix">
-                                        <div class="scrollbar">
-                                            <div class="scrollbar-inner">
-                                                <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
-                                            </div>
-                                        </div>
-                                        <div class="scrollbar style2">
-                                            <div class="scrollbar-inner">
-                                                <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
-                                            </div>
-                                        </div>
-                                        <div class="scrollbar style3">
-                                            <div class="scrollbar-inner">
-                                                <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
-                                            </div>
-                                        </div>
-                                        <div class="scrollbar style4">
-                                            <div class="scrollbar-inner">
-                                                <p>These examples show very basic functionality and exist so that I can test that any changes to jScrollPane work cross browser and don't cause any new problems. Note that these examples aren't meant to look pretty, they merely highlight different bits of functionaity which are available. If you want examples of jScrollPane looking good then check out the themes.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--/ Scroll Bars -->
-
-                                    <!-- Checkboxes, radios -->
-                                    <div class="checkBoxes">
-                                        <div class="input_styled checklist pull-left"><div class="rowCheckbox"><input name="signup" checked type="checkbox" id="signup" value="signup"><label for="signup"></label></div></div>
-                                        <div class="input_styled checklist pull-left"><div class="rowCheckbox"><input name="signup2" type="checkbox" id="signup2" value="signup2"><label for="signup2"></label></div></div>
-                                        <div class="input_styled inlinelist pull-left"><div class="rowRadio"><input type="radio" name="signup3" value="radio_v1" id="radio_v1"><label for="radio_v1"></label></div></div>
-                                        <div class="input_styled inlinelist pull-left"><div class="rowRadio"><input type="radio" name="signup3" value="radio_v2" id="radio_v2" checked><label for="radio_v2"></label></div></div>
-                                        <div class="clearfix margin-30"></div>
-                                        <div class="input_styled checklist pull-left"><div class="rowCheckbox checkbox-large checkbox-white"><input name="invoice" type="checkbox" id="invoice" value="invoice"><label for="invoice"></label></div></div>
-                                        <div class="clearfix margin-10"></div>
-                                        <div class="input_styled checklist pull-left"><div class="rowCheckbox checkbox-large checkbox-white"><input name="invoice" type="checkbox" checked id="invoice2" value="invoice2"><label for="invoice2"></label></div></div>
-                                    </div>
-                                    <!--/ Checkboxes, radios -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/ row -->
-
-                    <!-- row -->
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <!-- Widget Social Buttons -->
-                            <div class="widget-container widget-social">
-                                <ul class="clearfix">
-                                    <li class="social-facebook"><a href="#"><i>Facebook</i></a></li>
-                                    <li class="social-twitter"><a href="#"><i>Twitter</i></a></li>
-                                    <li class="social-dribble"><a href="#"><i>Dribble</i></a></li>
-                                    <li class="social-deviantart"><a href="#"><i>DeviantArt</i></a></li>
-                                    <li class="social-google"><a href="#"><i>Google+</i></a></li>
-                                    <li class="social-vimeo"><a href="#"><i>Vimeo</i></a></li>
-                                </ul>
-                            </div>
-                            <!--/ Widget Social Buttons -->
-                        </div>
-                    </div>
-                    <!--/ row -->
-
-                    <!--pricing box-->
-                    <div class="pricing_box">
-                        <ul class="row">
-                            <li class="col-sm-4 price_col">
-                                <!--pricing item-->
-                                <div class="price_item boxed">
-                                    <div class="price_col_head">
-                                        <strong>Start</strong>
-                                    </div>
-                                    <div class="price_col_body">
-                                        <div class="price_body_inner">
-                                            <div class="price_body_top">
-                                                <span class="price"><em>$</em>10<sup>00</sup><sub>/month</sub></span>
-                                            </div>
-                                            <ul>
-                                                <li><span>60 GB</span> Bandwidth</li>
-                                                <li><span>100 GB</span> Disk Space</li>
-                                                <li><span>10</span> Databases</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="price_col_foot">
-                                        <div class="sign_up"><a href="#" class="btn btn-icon-left"><span>Add to cart</span></a></div>
-                                    </div>
-                                </div>
-                                <!--/ pricing-item -->
-                            </li>
-
-                            <li class="col-sm-4 price_col">
-                                <!--pricing item-->
-                                <div class="price_item boxed blue">
-                                    <div class="price_col_head">
-                                        <strong>Premium</strong>
-                                    </div>
-                                    <div class="price_col_body">
-                                        <div class="price_body_inner">
-                                            <div class="price_body_top">
-                                                <span class="price"><em>$</em>19<sup>00</sup><sub>/month</sub></span>
-                                            </div>
-                                            <ul>
-                                                <li><span class="large">&infin;</span> Bandwidth</li>
-                                                <li><span class="large">&infin;</span> Disk Space</li>
-                                                <li><span>25</span> Databases</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="price_col_foot">
-                                        <div class="sign_up"><a href="#" class="btn btn-icon-left"><span>Add to cart</span></a></div>
-                                    </div>
-                                </div>
-                                <!--/ pricing-item -->
-                            </li>
-
-                            <li class="col-sm-4 price_col">
-                                <!--pricing item-->
-                                <div class="price_item boxed red">
-                                    <div class="price_col_head">
-                                        <strong>Business</strong>
-                                    </div>
-                                    <div class="price_col_body">
-                                        <div class="price_body_inner">
-                                            <div class="price_body_top">
-                                                <span class="price"><em>$</em>30<sup>00</sup><sub>/month</sub></span>
-                                            </div>
-                                            <ul>
-                                                <li><span class="large">&infin;</span> Bandwidth</li>
-                                                <li><span class="large">&infin;</span> Disk Space</li>
-                                                <li><span class="large">&infin;</span> Databases</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <div class="price_col_foot">
-                                        <div class="sign_up"><a href="#" class="btn btn-icon-left"><span>Add to cart</span></a></div>
-                                    </div>
-                                </div>
-                                <!--/ pricing-item -->
-                            </li>
-                        </ul>
-                    </div>
-                    <!--/pricing box-->
                 </div>
                 <!--/ content -->
             </div>

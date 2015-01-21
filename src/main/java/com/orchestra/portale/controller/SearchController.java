@@ -80,7 +80,7 @@ public class SearchController {
         while (poiList.hasNext()) {
 
             GeoResult<CompletePOI> gPoi = poiList.next();
-            
+
             CompletePOI poi = gPoi.getContent();
 
             jsonPois.append("{ \"id\":\"")
