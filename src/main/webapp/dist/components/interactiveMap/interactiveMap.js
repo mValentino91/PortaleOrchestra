@@ -22,6 +22,23 @@ var interactiveMap = (function() {
         markersEvent.target = markers;
         $(document).trigger(markersEvent);
     }
+    function poiClickedHandler(id) {
+        var object = null;
+
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+
+            if (interactiveMap.markers[i].id === id) {
+
+                object = interactiveMap.markers[i];
+                break;
+            }
+        }
+        if (object !== null) {
+
+            interactiveMap.map.panTo(object.getPosition());
+            interactiveMap.map.setZoom(16);
+        }
+    }
     function poiHoverHandler(id, enable) {
 
         var object = null;
@@ -36,10 +53,8 @@ var interactiveMap = (function() {
         }
         if (object !== null) {
             if (enable) {
-                interactiveMap.map.panTo(object.getPosition());
                 object.setIcon('./dist/img/bigMarker.png');
                 object.setAnimation(google.maps.Animation.BOUNCE);
-                interactiveMap.map.setZoom(16);
             } else {
                 object.setIcon('./dist/img/marker.png');
                 object.setAnimation(null);
@@ -454,7 +469,6 @@ var interactiveMap = (function() {
             });
         }
     }
-//Return the id list for the object to call
     return {
         viewPanorama: viewPanorama,
         attachInfo: attachInfo,
@@ -473,7 +487,8 @@ var interactiveMap = (function() {
         showSelectedPois: showSelectedPois,
         searchPoi: searchPoi,
         checkSearchButtonChecked: checkSearchButtonChecked,
-        poiHoverHandler: poiHoverHandler
+        poiHoverHandler: poiHoverHandler,
+        poiClickedHandler: poiClickedHandler
     };
 })();
 

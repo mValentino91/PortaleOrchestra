@@ -17,15 +17,17 @@
         right: 5px;
         top: 100px;
         bottom: 25px;
-        width: 260px;
+        width: 280px;
         overflow: auto;
         display: none;
+        padding-left: 0px;
     }
     .poiBox{
         background-color: white;
-        border-bottom: 1px solid lightgray;
+        border: 1px solid lightgray;
         padding-top: 10px;
-        margin-left: 0;
+        padding-bottom: 5px;
+        border-top: none;
     }
     .poiBox:hover{
         background-color: whitesmoke;
@@ -36,16 +38,16 @@
         display: none;
     }
     .filterOnPoiList{
-        z-index: 99999 !important;
         background-color: white;
         position: absolute;
         right: 5px;
         top: 55px;
         height: 40px;
-        width: 260px;
+        width: 280px;
         overflow: auto;
         box-shadow: 0px 10px 5px -10px black;
         padding: 5px;
+        box-shadow: 0px 0px 10px -2px black;
     }
     #poiListComponent::-webkit-scrollbar-track {
         border-radius: 2px;
@@ -78,20 +80,21 @@
     <div id="poiListComponent">
         <c:forEach var = "poi" items = "${poiList}">
             <div id="${poi.id}" class="container-fluid poiBox" 
-                 onmouseover="poiBoxDown('${poi.id}', '${poi.id}', '${poi.id}', true)"
-                 onmouseout="poiBoxDown('${poi.id}', '${poi.id}', '${poi.id}', false)"
-                 onmouseleave="poiBoxUp('${poi.id}','${poi.id}')">
+                 onmouseover="poiList.poiBoxDown('${poi.id}', '${poi.id}', true)"
+                 onmouseout="poiList.poiBoxDown('${poi.id}', '${poi.id}', false)"
+                 onmouseleave="poiList.poiBoxUp('${poi.id}','${poi.id}')"
+                 onclick="poiList.poiClicked('${poi.id}')">
                 <div class="col-md-5"> 
-                    <img class="img-responsive text-center"  style="height:40px;"src="./dist/poi/img/${poi.id}/cover.jpg" onError="this.src='./dist/img/notFound.png';" alt=""/>
-                    <br>
+                    <img class="img-responsive center-block" style="max-height: 45px"
+                         src="./dist/poi/img/${poi.id}/cover.jpg" onError="this.src='./dist/img/notFound.png';" alt=""/>
                 </div>
                 <div class="col-md-7">
-                    <p>
+                    <p class="text-center" style="color: #242424">
                         ${poi.name}
                     </p>
                 </div>   
                 <div class="col-md-12">
-                    <p class="poiBoxShortDescription ${poi.id}">
+                    <p class="poiBoxShortDescription ${poi.id} text-center">
                         <span style="color:gray; font-size: 11px;">${poi.address}</span>
                         <br><br>
                         ${poi.shortDescription}
@@ -102,4 +105,4 @@
         </c:forEach>
     </div>
 </div>
-<script>initPoiList();</script>
+<script>poiList.initPoiList();</script>
