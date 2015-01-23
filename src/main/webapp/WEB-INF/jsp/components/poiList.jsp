@@ -20,7 +20,6 @@
         bottom: 25px;
         width: 305px;
         overflow: auto;
-        display: none;
         padding-left: 5px;
     }
     .categoriesContainer{
@@ -31,8 +30,8 @@
         top: 135px;
         bottom: 25px;
         width: auto;
-        overflow: auto;
         display: none;
+        overflow: auto;
         padding-right: 5px;
     }
     .categoriesBox{
@@ -75,7 +74,6 @@
         width: 300px;
         overflow: visible;
         padding: 5px;
-        display: none;
         box-shadow: 0px 0px 5px -2px black;
     }
     #poiListComponent::-webkit-scrollbar-track {
@@ -102,33 +100,11 @@
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
         background-color: #BFBFBF;
     }
+    .poiListContainer{
+        display: none;
+    }
 
 </style>
-<div class="categoriesContainer">
-    <div class="categoriesBox">
-        <script>
-            $(function() {
-
-                $.getJSON("./jsonDB/categoriesTree", function(data) {
-
-                    $('.categoriesBox').treeview({
-                        data: data,
-                        showBorder: false,
-                        levels: 1,
-                        onNodeSelected: function(event, node) {
-
-                            var catEvent = jQuery.Event("category_changed");
-                            catEvent.target = node.slug;
-                            $(document).trigger(catEvent);
-
-                        }
-                    });
-
-                });
-            });
-        </script>
-    </div>
-</div>
 <div class="buttonBar text-center">
     <div  class="btn-group" role="group" data-toggle="buttons">
         <label id="searchMapCheckButton" type="button" class="btn btn-default btn-sm" onclick="interactiveMap.searchHandler()">
@@ -138,17 +114,41 @@
         <button type="button" class="btn btn-default btn-sm" onclick="interactiveMap.anmHandler()">
             <i class="fa fa-bus"></i>
         </button>
-        <button type="button" class="btn btn-default btn-sm" onclick="$('#poiListComponent').toggle(300);
-                $('.filterOnPoiList').toggle(300);">
+        <button type="button" class="btn btn-default btn-sm" onclick="$('.poiListContainer').toggle()">
             <i class="glyphicon glyphicon-map-marker"></i>
         </button>
     </div>
 </div>
 <div class="poiListContainer well">
+    <div class="categoriesContainer">
+        <div class="categoriesBox">
+            <script>
+                $(function() {
+
+                    $.getJSON("./jsonDB/categoriesTree", function(data) {
+
+                        $('.categoriesBox').treeview({
+                            data: data,
+                            showBorder: false,
+                            levels: 1,
+                            onNodeSelected: function(event, node) {
+
+                                var catEvent = jQuery.Event("category_changed");
+                                catEvent.target = node.slug;
+                                $(document).trigger(catEvent);
+
+                            }
+                        });
+
+                    });
+                });
+            </script>
+        </div>
+    </div>
     <div class="filterOnPoiList">
         <div  class="btn-group" role="group" data-toggle="buttons">
             <button type="button" class="btn btn-default btn-xs" 
-                    onclick="$('.categoriesContainer').slideToggle();">
+                    onclick="$('.categoriesContainer').toggle();">
                 <i class="fa fa-bars"></i>
             </button>
         </div>
