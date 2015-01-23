@@ -17,9 +17,9 @@ var poiList = (function() {
                         + '<img class="img-responsive"  style="height:45px;"src="./dist/poi/img/' + markers[i].id + '/cover.jpg" onError="this.src=' + "'" + './dist/img/notFound.png' + "'" + ';" alt=""/>'
                         + '</div>'
                         + '<div class="col-md-6">'
-                        + '<p class="text-center" style="color: #242424">'
+                        + '<span class="text-center" style="color: #242424">'
                         + markers[i].name
-                        + '</p>'
+                        + '</span>'
                         + '</div>'
                         + '<div class="col-md-1 text-right"><span onmouseover="this.className = ' + "'" + 'fa fa-star fa-2x' + "'" + ';"'
                         + 'onmouseleave="this.className=' + "'" + 'fa fa-star-o fa-2x' + "'" + ';"'
