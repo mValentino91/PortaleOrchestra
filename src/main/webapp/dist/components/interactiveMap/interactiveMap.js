@@ -17,6 +17,31 @@ var interactiveMap = (function() {
     var supportIntersectIdList;
     var markersEvent = jQuery.Event("markers_changed");
 
+    function drawCircleAroundPoi(id, radius, enable) {
+        var marker = null;
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+            if (interactiveMap.markers[i].id === id) {
+                marker = interactiveMap.markers[i];
+                if (enable === false && marker.circle) {
+                    marker.circle.setMap(null);
+                }
+                break;
+            }
+        }
+        if (marker !== null && enable === true) {
+            var circleOptions = {
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.2,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.2,
+                map: interactiveMap.map,
+                center: marker.getPosition(),
+                radius: radius * 1000
+            };
+            marker.circle = new google.maps.Circle(circleOptions);
+        }
+    }
     function markersChangend(markers) {
 
         markersEvent.target = markers;
@@ -488,7 +513,8 @@ var interactiveMap = (function() {
         searchPoi: searchPoi,
         checkSearchButtonChecked: checkSearchButtonChecked,
         poiHoverHandler: poiHoverHandler,
-        poiClickedHandler: poiClickedHandler
+        poiClickedHandler: poiClickedHandler,
+        drawCircleAroundPoi: drawCircleAroundPoi
     };
 })();
 

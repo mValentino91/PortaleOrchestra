@@ -28,7 +28,13 @@ var poiList = (function() {
                         + 'class="fa fa-star-o fa-2x"></span></div>'
                         + '<div class="col-md-12">'
                         + '<p style="padding-top: 5px;" class="poiBoxShortDescription ' + markers[i].id + '">'
-                        + '<span style="color:gray; font-size: 11px;">' + markers[i].address + '</span>'
+                        + '<span style="color:gray; font-size: 11px;">' + markers[i].address
+                        + '<br>'
+                        + '<label>'
+                        + '<input type="checkbox" onclick="interactiveMap.drawCircleAroundPoi(' + "'" + markers[i].id + "'" + ', 0.15, this.checked)">'
+                        + ' Nei dintorni (150 metri)'
+                        + '</label>'
+                        + '</span>'
                         + '<br><br>'
                         + markers[i].shortDescription
                         + '<a href="./getPoi?id=' + markers[i].id + '">Altro...</a>'
