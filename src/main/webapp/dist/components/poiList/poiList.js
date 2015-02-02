@@ -23,7 +23,7 @@ var poiList = (function() {
                         + '</div>'
                         + '<div class="col-md-1 text-right"><span onmouseover="this.className = ' + "'" + 'fa fa-star fa-2x' + "'" + ';"'
                         + 'onmouseleave="this.className=' + "'" + 'fa fa-star-o fa-2x' + "'" + ';"'
-                        + 'onclick="alert(' + "'" + 'aggiungo a preferiti!' + "'" + ')"'
+                        + 'onclick="poiList.addToCart(' + "'" + markers[i].id + "'" + ')"'
                         + 'data-toggle="tooltip" title="Aggiungi Ai Preferiti!"'
                         + 'class="fa fa-star-o fa-2x"></span></div>'
                         + '<div class="col-md-12">'
@@ -64,11 +64,24 @@ var poiList = (function() {
     function poiClicked(id) {
         interactiveMap.poiClickedHandler(id);
     }
+    function addToCart(id) {
+
+        $.ajax({
+            type: "GET",
+            url: "./Cart/AddPoi",
+            data: "id=" + id,
+            success: function(data) {
+
+                alert('Aggiunto a preferiti!');
+            }
+        });
+    }
     return {
         poiBoxUp: poiBoxUp,
         poiBoxDown: poiBoxDown,
         initPoiList: initPoiList,
-        poiClicked: poiClicked
+        poiClicked: poiClicked,
+        addToCart: addToCart
     };
 })();
 

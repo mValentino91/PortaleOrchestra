@@ -8,6 +8,7 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.carrello.Cart;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import java.util.ArrayList;
 import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -22,14 +24,26 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 @Scope("session")
-@RequestMapping("/Cart")
 public class CartController {
 
     private Cart poiCart = new Cart();
     @Autowired
     PersistenceManager pm;
 
-    @RequestMapping(value = "/GetCart")
+    //Richiesta per la visualizzazione di un singolo poi
+    @RequestMapping(value = "/CartView")
+    public ModelAndView getCartView() {
+        
+        //Creo la view che sarà  mostrata all'utente
+        ModelAndView model = new ModelAndView("cartView");
+        ArrayList<CompletePOI> cart = poiCart.getPoiList();
+        //aggiungo i poi al model
+        model.addObject("cart", cart);
+        
+        return model;
+    }
+
+    @RequestMapping(value = "/Cart/GetCart")
     public @ResponseBody
     String getCart() {
         StringBuilder jsonPois = new StringBuilder();
@@ -68,7 +82,7 @@ public class CartController {
         return jsonPois.toString();
     }
 
-    @RequestMapping(value = "/AddPoi")
+    @RequestMapping(value = "/Cart/AddPoi")
     public @ResponseBody
     String addPoi(@RequestParam String id) {
 

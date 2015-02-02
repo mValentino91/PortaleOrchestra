@@ -71,7 +71,7 @@
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="./CartView">
                 <span class="glyphicon glyphicon-star"></span>
                 Preferiti
             </a>

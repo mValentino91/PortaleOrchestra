@@ -181,7 +181,7 @@
                 </div>
                 <div class="col-md-1 text-right"><span onmouseover="this.className = 'fa fa-star fa-2x';" 
                                                        onmouseleave="this.className='fa fa-star-o fa-2x';"
-                                                       onclick="alert('aggiungo a preferiti!')"
+                                                       onclick="poiList.addToCart('${poi.id}')"
                                                        data-toggle="tooltip" title="Aggiungi Ai Preferiti!"
                                                        class="fa fa-star-o fa-2x"></span></div>
                 <div class="col-md-12">
