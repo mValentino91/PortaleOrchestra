@@ -50,4 +50,7 @@
     }, {
         "slug": "craft",
         "text": "Artigiani"
+    }, {
+        "slug": "city_sightseeing",
+        "text": "City Sightseeing"
     }]
