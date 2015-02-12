@@ -59,7 +59,7 @@
             </ul>
         </li>
         <li>
-            <a href="./">
+            <a href="http://www.orchestra.unina.it">
                 <span class="glyphicon glyphicon-home"></span>
                 Home
             </a>
@@ -193,20 +193,6 @@
                     <a href="#">
                         <i class="fa fa-bars fa-lg"></i>
                     </a>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="./" id="btnToggle"><i class="glyphicon glyphicon-home"></i></a></li>
-                <li><a href="./Map?category=all" id="btnToggle"><i class="glyphicon glyphicon-globe"></i></a></li>
-                <li>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-star"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
-                        <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
-                        <li><a href="#"><span class="badge pull-right">0</span>Link</a></li>
-                        <li><a href="#"><span class="label label-info pull-right">1</span>Link</a></li>
-                        <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
-                    </ul>
                 </li>
             </ul>
         </div>
