@@ -39,6 +39,11 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Poi.findByIdmongo", query = "SELECT p FROM Poi p WHERE p.idmongo = :idmongo"),
     @NamedQuery(name = "Poi.findByShortDescription", query = "SELECT p FROM Poi p WHERE p.shortDescription = :shortDescription")})
 public class Poi implements Serializable {
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 300)
+    @Column(name = "address")
+    private String address;
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -167,6 +172,14 @@ public class Poi implements Serializable {
     @Override
     public String toString() {
         return "com.orchestra.portale.persistence.sql.entities.Poi[ id=" + id + " ]";
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
     
 }

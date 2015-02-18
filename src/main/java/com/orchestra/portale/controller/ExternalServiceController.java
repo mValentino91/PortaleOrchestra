@@ -9,11 +9,8 @@ import com.orchestra.portale.external.services.manager.BikeSharingService;
 import com.orchestra.portale.external.services.manager.ServiceManagerDispacher;
 import java.util.Map;
 import org.springframework.context.annotation.Scope;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.WebRequest;
 

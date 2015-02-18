@@ -27,6 +27,16 @@ public class MapViewController {
     @Autowired
     PersistenceManager pm;
 
+    @RequestMapping("/security")
+    public ModelAndView security( /*@RequestParam(value = "lat") String lat,
+             @RequestParam(value = "lon") String lon,
+             @RequestParam(value = "lat1") String lat1,
+             @RequestParam(value = "lon1") String lon1*/) {
+        //Creo la view che sarà mostrata all'utente
+        ModelAndView model = new ModelAndView("security");
+        return model;
+    }
+    
     @RequestMapping(params = "category=all")
     public ModelAndView getAllPoi( /*@RequestParam(value = "lat") String lat,
              @RequestParam(value = "lon") String lon,

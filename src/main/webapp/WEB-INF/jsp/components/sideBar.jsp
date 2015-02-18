@@ -17,7 +17,7 @@
         <!-- Top bar -->
         <div class="top-bar"></div>
         <!-- Sidebar toggle button -->
-        <button type="button" class="sidebar-toggle btn btn-default">
+        <button type="button" id="close-sidebar" class="sidebar-toggle btn btn-default">
             <span class="fa fa-times"
                   style="color: white"></span>
         </button>
@@ -179,6 +179,7 @@
     <div class="container-fluid" style="background-color: #285e8e;">
         <div class="navbar-header">
             <button type="button" 
+                    id="sidebar-button"
                     class="navbar-toggle collapsed"
                     data-toggle="collapse" 
                     data-target="#navbar" 
