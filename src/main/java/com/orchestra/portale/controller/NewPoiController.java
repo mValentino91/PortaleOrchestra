@@ -228,7 +228,7 @@ public class NewPoiController {
                 ok=true;
                 ArrayList<CompactWorkingDays> workingdays = new ArrayList<CompactWorkingDays>();
                 
-                 while(params.containsKey("WD"+i+"day")){
+                 while(params.containsKey("WD"+i)){
                       ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
                      k=1;
                        while(params.containsKey("WD"+i+"start"+k+"H")){
@@ -239,12 +239,40 @@ public class NewPoiController {
                         k=k+1;
                        }
                        CompactWorkingDays cwd = new CompactWorkingDays();
-                        cwd.setDays(params.get("WD"+i+"day"));
+                        cwd.setDays(params.get("WD"+i));
                         cwd.setWorkinghours(Listwh);
                         workingdays.add(cwd);
                         i=i+1;
                  }
-                 workingtime.setWorkingdays(workingdays);
+                 int grn=1;
+                 ArrayList<CompactWorkingDays> wdef = new ArrayList<CompactWorkingDays>();
+                 while(grn<=7){
+                     for(CompactWorkingDays g : workingdays) {
+                         if (grn==1 && g.getDays().equals("Lunedì")){
+                             wdef.add(g);
+                         }
+                         if (grn==2 && g.getDays().equals("Martedì")){
+                             wdef.add(g);
+                         }
+                         if (grn==3 && g.getDays().equals("Mercoledì")){
+                             wdef.add(g);
+                         }
+                         if (grn==4 && g.getDays().equals("Giovedì")){
+                             wdef.add(g);
+                         }
+                         if (grn==5 && g.getDays().equals("Venerdì")){
+                             wdef.add(g);
+                         }
+                         if (grn==6 && g.getDays().equals("Sabato")){
+                             wdef.add(g);
+                         }
+                         if (grn==7 && g.getDays().equals("Domenica")){
+                             wdef.add(g);
+                         }
+                     }
+                     grn++;
+                 }
+                 workingtime.setWorkingdays(wdef);
              }
                  i=1;
                  String gg="";
