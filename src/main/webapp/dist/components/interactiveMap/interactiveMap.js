@@ -278,8 +278,7 @@ var interactiveMap = (function() {
         }, 1400);
         $.ajax({
             type: "GET",
-            url: "./Services/Anm",
-            data: "idStop=" + object.code,
+            url: "./anmServices/stops/prevision/" + object.code,
             success: function(data) {
                 var info = JSON.parse(data);
                 var contentString = "<div style='width:100px;'>";

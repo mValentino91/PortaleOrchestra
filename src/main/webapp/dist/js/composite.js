@@ -28,5 +28,5 @@ function fix_height() {
             max=$(this).height();
         }
     });
-    $(".ortab-panel").css("height",max+"px");
+    $(".ortab-panel").css("min-height",max+"px");
 }
