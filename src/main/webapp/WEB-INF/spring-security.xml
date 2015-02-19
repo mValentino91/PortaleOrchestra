@@ -10,28 +10,13 @@
 		http://www.springframework.org/schema/security/spring-security-3.2.xsd
 		http://www.springframework.org/schema/util 
 		http://www.springframework.org/schema/util/spring-util-4.0.xsd">
-        
-        <!--<http auto-config="true">
-            <intercept-url pattern="/Map/security**" access="ROLE_ADMIN"/>
-            <form-login/>
-            <logout/>
-            <remember-me/>
-        </http>
-        
-    <authentication-manager>
-        <authentication-provider>
-            <user-service>
-                <user name="admin" password="admin" authorities="ROLE_ADMIN" />
-            </user-service>
-        </authentication-provider>
-    </authentication-manager>-->
-	
+ 	
     <http auto-config="true"  use-expressions="true">
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/logout" access="permitAll"/>
         <intercept-url pattern="/denied" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
-        <intercept-url pattern="/Map/security" access="hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/admin**" access="hasRole('ROLE_USER')"/>
 		
         <form-login login-page="/login" 
                             authentication-failure-url="/login/failure" 
