@@ -1,6 +1,6 @@
 <%-- 
-    Document   : poiform
-    Created on : 14-dic-2014, 18.07.24
+    Document   : editform
+    Created on : 18-feb-2015, 17.56.38
     Author     : Alex
 --%>
 
@@ -12,12 +12,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            .obbt::after{
-                color: red;
-                content:'*';
-            }
-        </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>MODIFICA DI UN POI</title>
         <script src="./dist/js/tinymce/tinymce.min.js"></script>
         <script src="./dist/js/section.js"></script>
         <script type="text/javascript">
@@ -28,17 +24,15 @@
             forced_root_block: false,
             remove_linebreaks: false,
             convert_newlines_to_brs: true,
-            language: 'it',
-            plugins: 'wordcount bloccoword preview',
-            
+            language: 'it'
             
                     });
+                    
+                 
         </script>
-        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <title>ORCHESTRA - NUOVO POI</title>
         <script>
-           
+            
             function delcat(tasto) {
                 var name = $(tasto).prev().attr("name");
                 var lastcat = document.getElementsByClassName("cate");
@@ -740,6 +734,18 @@
                  }
                 return ok;
             }
+            function debonifica () {
+                var inps = $("input");
+                for (var i=0; i<inps.length; i++){
+                   if(inps[i].type!="file"){
+                   inps[i].value= inps[i].value.replace(/\\/g,'');
+                  
+               }
+           }
+               var short=tinyMCE.get('short').getContent();
+               short= short.replace(/\\/g,'');
+             tinyMCE.get('short').setContent(short);
+            }
             function bonifica () {
                 var inps = $("input");
                 for (var i=0; i<inps.length; i++){
@@ -888,80 +894,47 @@
             }
           
         </script>
-
     </head>
     <body>
     <center>
-        <h1>Inserimento di un nuovo punto di interesse</h1><br>
-        <h2>I Campi contrassegnati dall'asterisco sono obbligatori!</h2>
-    </center>
-    <form class="inserimento" action="insertpoi" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
-        Nome* <input name="name" class="obb" type="text"><br>
-        Indirizzo* <input name="address" class="obb" type="text"><br>
-        Latitudine* <input name="latitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
-        Longitudine* <input name="longitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
-        Descrizione Breve* <textarea name="shortd" id="short" data-max-length="5"></textarea><br><br>
+        <h1>MODIFICA DI UN POI</h1>
+   </center>
+    <form class="inserimento" action="updatepoi" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
+        <input name="id" type="hidden" value="${id}">
+        Nome* <input name="name" class="obb" type="text" value="${nome}"><br>
+        Indirizzo* <input name="address" class="obb" type="text" value="${addr}"><br>
+        Latitudine* <input name="latitude" class="obb" type="text" onblur="replace_virgola(this, this.value)" value="${loc[0]}"><br>
+        Longitudine* <input name="longitude" class="obb" type="text" onblur="replace_virgola(this, this.value)" value="${loc[1]}"><br>
+        Descrizione Breve* <textarea name="shortd" id="short">${shortD}</textarea><br><br>
         <div id="categoria">
-            Categoria* <input name="category1" class="cate obb" type="text"><br>
-
-            <input type="button" value="Aggiungi categoria" onclick="addcat(this)"><br>
+            
+            <c:forEach var="cats" items="${cat}" varStatus="tot" >
+                Categoria* <input type="text" name="category${tot.count}" class="cate obb" value="${cats}"><br>
+                <c:if test="${tot.count > 1}">
+                    <input type="button" value="Elimina" onclick="delcat(this)"><br>
+                </c:if>
+            </c:forEach>
+                    <input type="button" value="Aggiungi categoria" onclick="addcat(this)">
         </div>
-        Immagine di Copertina* <input name="cover" class="obb" type="file"><br>
-        <div id="galleria">
-            <br><br>
-            <h2> GALLERIA </h2>
-            Immagine per la Galleria 
-
-            <input type="button" value="aggiungi immagine" onclick="addimg(this)"><br><br>
-        </div>
-        <br><br>
         <div id="descrizione">
-            <h2> PARAGRAFI </h2>
-
+            <h2>PARAGRAFI</h2>
+            
+        <c:if test="${not empty description}">
+            <c:forEach var="sect" items="${description.sectionsList}" varStatus="tot">
+                <div id="Par${tot.count}" class="paragrafi">
+                Titolo Paragrafo <input type="text" name="titolo${tot.count}" class="titolo" value="${sect.title}"><br>
+                Paragrafo* <textarea name="par${tot.count}" id="par${tot.count}" class="par obb">${sect.description}</textarea><br>
+                <input type="button" value="Elimina" onclick="delparent2(this)">
+                </div>
+            </c:forEach>
+        </c:if>
+            <br>
             <input type="button" value="nuovo paragrafo" onclick="addpar(this)">
         </div>
-        <div id="contatti">
-            <h2> CONTATTI </h2>
-
-            <input type="button" value="aggiungi indirizzo email" onclick="addmail(this)"><br>
-
-            <input type="button" value="aggiungi numero di telefono" onclick="addtel(this)"><br>
-
-            <input type="button" value="aggiungi numero fax" onclick="addfax(this)"><br>
-
-            <input type="button" value="aggiungi social network" onclick="addsn(this)"><br>
-
-            <input type="button" value="aggiungi link" onclick="addsnp(this)"><br>
-        </div>
-        <div id="orari">
-            <h2>ORARI - periodo di lavoro</h2>
-
-
-
-            <input type="button" id="nuovogiorno" value="Inserisci un  periodo lavorativo" onclick="addwd(this)"><br><br>
-
-
-
-
-            <input type="button" value="Aggiungi un giorno di riposo settimanale" onclick="addrestday(this)"><br>
-
-            <input type="button" value="Aggiungi un giorno di riposo" onclick="addripann(this)"><br>
-        </div>
-        <div id='prezzi'>
-            <h2> PREZZI DI INGRESSO </h2>
-
-            <input type="button" value="aggiungi un biglietto" onclick="addbiglietto(this)">
-        </div>
-        <br>
-        <div id='servizi'>
-            <h2> SERVIZI </h2>
-
-            <input type="button" value="aggiungi un servizio" onclick="addservizio(this)">
-        </div>
-        <center>
-            <input type="button" value="SALVA POI" onclick="pre_submit()">
-        </center>
     </form>
-     
-</body>
+        <input type="button" value="SALVA POI" onclick="pre_submit()">
+        <script>
+           
+            </script>
+    </body>
 </html>

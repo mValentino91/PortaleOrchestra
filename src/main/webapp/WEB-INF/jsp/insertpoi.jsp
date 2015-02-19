@@ -11,7 +11,8 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>POI INSERITO</title>
     </head>
-    <body>
-        <h1>POI INSERITO CON SUCCESSO!</h1>
-    </body>
+    <center>
+        <h1>POI INSERITO CORRETTAMENTE!</h1>
+        <h2><a href="index">Torna a Gestione POI</a></h2>
+            </center>
 </html>
