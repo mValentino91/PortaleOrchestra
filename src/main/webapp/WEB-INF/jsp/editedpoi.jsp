@@ -12,6 +12,9 @@
         <title>POI AGGIORNATO</title>
     </head>
     <body>
+    <center>
         <h1>POI AGGIORNATO CORRETTAMENTE!</h1>
+        <h2><a href="index">Torna a Gestione POI</a></h2>
+            </center>
     </body>
 </html>

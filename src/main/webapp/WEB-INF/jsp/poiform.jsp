@@ -28,7 +28,9 @@
             forced_root_block: false,
             remove_linebreaks: false,
             convert_newlines_to_brs: true,
-            language: 'it'
+            language: 'it',
+            plugins: 'wordcount bloccoword preview',
+            
             
                     });
         </script>
@@ -36,6 +38,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <title>ORCHESTRA - NUOVO POI</title>
         <script>
+           
             function delcat(tasto) {
                 var name = $(tasto).prev().attr("name");
                 var lastcat = document.getElementsByClassName("cate");
@@ -131,8 +134,8 @@
                 var newbr = document.createElement("br");
                 var newbr2 = document.createElement("br");
                 var newbr3 = document.createElement("br");
-                var newtitdesc = document.createTextNode("Titolo Paragrafo " + x);
-                var newpardesc = document.createTextNode("Paragrafo " + x +" *");
+                var newtitdesc = document.createTextNode("Titolo Paragrafo " );
+                var newpardesc = document.createTextNode("Paragrafo*");
                 newcont.appendChild(newtitdesc);
                 newcont.appendChild(newtit);
                 newcont.appendChild(newbr);
@@ -185,7 +188,7 @@
                 newdelgiorno.setAttribute("onclick", "delparent(this)");
 
                 var newgg = document.createElement("h3");
-                newgg.innerHTML = "GIORNO " + x;
+                newgg.innerHTML = "GIORNO " 
                 var newgiorno = document.createTextNode("Giorno*");
                 var newbr4 = document.createElement("br");
                 var newbr5 = document.createElement("br");
@@ -424,7 +427,7 @@
                 newrda.type = "text";
                 newrda.className = "ripann obb";
                 newrda.name = "RDA" + x;
-                var newrd = document.createTextNode(x + "° giorno di riposo (GG/MM/AAAA) *");
+                var newrd = document.createTextNode(" Giorno di riposo (GG/MM/AAAA) *");
 
                 newcont.appendChild(newrd);
                 newcont.appendChild(newrda);
@@ -466,9 +469,9 @@
                 newtypedesc.type = "text";
                 newtypedesc.name = "typedesc" + x;
                 newtypedesc.className ="db";
-                var newt = document.createTextNode("Tipo " + x + "° biglietto*");
-                var newp = document.createTextNode("Prezzo " + x + "° biglietto*");
-                var newpd = document.createTextNode("Descrizione " + x + "° biglietto");
+                var newt = document.createTextNode("Tipo biglietto*");
+                var newp = document.createTextNode("Prezzo biglietto*");
+                var newpd = document.createTextNode("Descrizione biglietto");
 
                
                 newcont.appendChild(newt);
@@ -509,8 +512,8 @@
                 newdescmail.type = "text";
                 newdescmail.name = "descemail" + x;
                 newdescmail.className = "descmail ";
-                var newde = document.createTextNode("Descrizione " + x + "° Email");
-                var newie = document.createTextNode(x + "° Indirizzo Email *");
+                var newde = document.createTextNode("Descrizione  Email");
+                var newie = document.createTextNode("Indirizzo Email *");
                 newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
@@ -546,8 +549,8 @@
                 newdescmail.type = "text";
                 newdescmail.name = "desctel" + x;
                 newdescmail.className = "desctel ";
-                var newde = document.createTextNode("Descrizione " + x + "° Telefono");
-                var newie = document.createTextNode(x + "° Numero Di Telefono *");
+                var newde = document.createTextNode("Descrizione Telefono");
+                var newie = document.createTextNode("Numero Di Telefono *");
                  newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
@@ -580,8 +583,8 @@
                 newdescmail.type = "text";
                 newdescmail.name = "descfax" + x;
                 newdescmail.className = "descfax ";
-                var newde = document.createTextNode("Descrizione " + x + "° Fax");
-                var newie = document.createTextNode(x + "° Numero Fax *");
+                var newde = document.createTextNode("Descrizione Fax");
+                var newie = document.createTextNode("Numero Fax *");
                  newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
@@ -628,7 +631,7 @@
                 newopt4.innerHTML = "Skype";
                 newday.appendChild(newopt4);
 
-                var newde = document.createTextNode(x + "° SocialNetwork (predefinito) * ");
+                var newde = document.createTextNode("SocialNetwork (predefinito) * ");
                 var newie = document.createTextNode("Indirizzo: *");
 
                 var newind = document.createElement("input");
@@ -661,7 +664,7 @@
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
 
-                var newde = document.createTextNode(x + "° SocialNetwork (personalizzato): Nome: *");
+                var newde = document.createTextNode("Link: Nome: *");
                 var newie = document.createTextNode("Indirizzo: *");
 
                 var newind = document.createElement("input");
@@ -704,7 +707,7 @@
                 newlab.name = "SERV" + x;
                 newlab.className = "serv  obb";
 
-                var newde = document.createTextNode(x + "° Servizio: *");
+                var newde = document.createTextNode("Servizio: *");
                 var newbr = document.createElement("br");
 
                 
@@ -897,7 +900,7 @@
         Indirizzo* <input name="address" class="obb" type="text"><br>
         Latitudine* <input name="latitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
         Longitudine* <input name="longitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
-        Descrizione Breve* <textarea name="shortd" id="short" onkeyup="bloccochar()"></textarea><br><br>
+        Descrizione Breve* <textarea name="shortd" id="short" data-max-length="5"></textarea><br><br>
         <div id="categoria">
             Categoria* <input name="category1" class="cate obb" type="text"><br>
 
@@ -928,7 +931,7 @@
 
             <input type="button" value="aggiungi social network" onclick="addsn(this)"><br>
 
-            <input type="button" value="aggiungi social network personalizzato" onclick="addsnp(this)"><br>
+            <input type="button" value="aggiungi link" onclick="addsnp(this)"><br>
         </div>
         <div id="orari">
             <h2>ORARI - periodo di lavoro</h2>

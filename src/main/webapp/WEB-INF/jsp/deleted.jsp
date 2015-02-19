@@ -12,6 +12,9 @@
         <title>Poi Eliminato</title>
     </head>
     <body>
-        <h1>Eliminato</h1>
+        <center>
+        <h1>POI ELIMINATO CORRETTAMENTE!</h1>
+        <h2><a href="index">Torna a Gestione POI</a></h2>
+            </center>
     </body>
 </html>

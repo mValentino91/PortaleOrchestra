@@ -32,6 +32,7 @@
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script>
+            
             function delcat(tasto) {
                 var name = $(tasto).prev().attr("name");
                 var lastcat = document.getElementsByClassName("cate");
@@ -95,9 +96,7 @@
                 cont.insertBefore(newbr3, tasto);
             }
             function delparent2(cont) {
-                cont.parentNode.id="XCONT";
                 var txt= $('#'+cont.parentNode.id+' textarea');
-                txt[0].id='X';
                tinyMCE.triggerSave();
                tinyMCE.EditorManager.execCommand('mceRemoveEditor', false, txt[0].id);
                 cont.parentNode.remove();
@@ -129,8 +128,8 @@
                 var newbr = document.createElement("br");
                 var newbr2 = document.createElement("br");
                 var newbr3 = document.createElement("br");
-                var newtitdesc = document.createTextNode("Titolo Paragrafo " + x);
-                var newpardesc = document.createTextNode("Paragrafo " + x +" *");
+                var newtitdesc = document.createTextNode("Titolo Paragrafo " );
+                var newpardesc = document.createTextNode("Paragrafo*");
                 newcont.appendChild(newtitdesc);
                 newcont.appendChild(newtit);
                 newcont.appendChild(newbr);
@@ -183,7 +182,7 @@
                 newdelgiorno.setAttribute("onclick", "delparent(this)");
 
                 var newgg = document.createElement("h3");
-                newgg.innerHTML = "GIORNO " + x;
+                newgg.innerHTML = "GIORNO " 
                 var newgiorno = document.createTextNode("Giorno*");
                 var newbr4 = document.createElement("br");
                 var newbr5 = document.createElement("br");
@@ -422,7 +421,7 @@
                 newrda.type = "text";
                 newrda.className = "ripann obb";
                 newrda.name = "RDA" + x;
-                var newrd = document.createTextNode(x + "° giorno di riposo (GG/MM/AAAA) *");
+                var newrd = document.createTextNode(" Giorno di riposo (GG/MM/AAAA) *");
 
                 newcont.appendChild(newrd);
                 newcont.appendChild(newrda);
@@ -464,9 +463,9 @@
                 newtypedesc.type = "text";
                 newtypedesc.name = "typedesc" + x;
                 newtypedesc.className ="db";
-                var newt = document.createTextNode("Tipo " + x + "° biglietto*");
-                var newp = document.createTextNode("Prezzo " + x + "° biglietto*");
-                var newpd = document.createTextNode("Descrizione " + x + "° biglietto");
+                var newt = document.createTextNode("Tipo biglietto*");
+                var newp = document.createTextNode("Prezzo biglietto*");
+                var newpd = document.createTextNode("Descrizione biglietto");
 
                
                 newcont.appendChild(newt);
@@ -507,8 +506,8 @@
                 newdescmail.type = "text";
                 newdescmail.name = "descemail" + x;
                 newdescmail.className = "descmail ";
-                var newde = document.createTextNode("Descrizione " + x + "° Email");
-                var newie = document.createTextNode(x + "° Indirizzo Email *");
+                var newde = document.createTextNode("Descrizione  Email");
+                var newie = document.createTextNode("Indirizzo Email *");
                 newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
@@ -544,8 +543,8 @@
                 newdescmail.type = "text";
                 newdescmail.name = "desctel" + x;
                 newdescmail.className = "desctel ";
-                var newde = document.createTextNode("Descrizione " + x + "° Telefono");
-                var newie = document.createTextNode(x + "° Numero Di Telefono *");
+                var newde = document.createTextNode("Descrizione Telefono");
+                var newie = document.createTextNode("Numero Di Telefono *");
                  newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
@@ -578,8 +577,8 @@
                 newdescmail.type = "text";
                 newdescmail.name = "descfax" + x;
                 newdescmail.className = "descfax ";
-                var newde = document.createTextNode("Descrizione " + x + "° Fax");
-                var newie = document.createTextNode(x + "° Numero Fax *");
+                var newde = document.createTextNode("Descrizione Fax");
+                var newie = document.createTextNode("Numero Fax *");
                  newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
@@ -626,7 +625,7 @@
                 newopt4.innerHTML = "Skype";
                 newday.appendChild(newopt4);
 
-                var newde = document.createTextNode(x + "° SocialNetwork (predefinito) * ");
+                var newde = document.createTextNode("SocialNetwork (predefinito) * ");
                 var newie = document.createTextNode("Indirizzo: *");
 
                 var newind = document.createElement("input");
@@ -659,7 +658,7 @@
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
 
-                var newde = document.createTextNode(x + "° SocialNetwork (personalizzato): Nome: *");
+                var newde = document.createTextNode("Link: Nome: *");
                 var newie = document.createTextNode("Indirizzo: *");
 
                 var newind = document.createElement("input");
@@ -702,7 +701,7 @@
                 newlab.name = "SERV" + x;
                 newlab.className = "serv  obb";
 
-                var newde = document.createTextNode(x + "° Servizio: *");
+                var newde = document.createTextNode("Servizio: *");
                 var newbr = document.createElement("br");
 
                 
@@ -735,6 +734,18 @@
                  }
                 return ok;
             }
+            function debonifica () {
+                var inps = $("input");
+                for (var i=0; i<inps.length; i++){
+                   if(inps[i].type!="file"){
+                   inps[i].value= inps[i].value.replace(/\\/g,'');
+                  
+               }
+           }
+               var short=tinyMCE.get('short').getContent();
+               short= short.replace(/\\/g,'');
+             tinyMCE.get('short').setContent(short);
+            }
             function bonifica () {
                 var inps = $("input");
                 for (var i=0; i<inps.length; i++){
@@ -750,20 +761,6 @@
                 short = short.replace(/\n/ig,"<br>");
                 tinyMCE.get('short').setContent(short);
             }
-            
-            function debonifica () {
-                var inps = $("input");
-                for (var i=0; i<inps.length; i++){
-                   if(inps[i].type!="file"){
-                   inps[i].value= inps[i].value.replace(/\\/g,'');
-                  
-               }
-           }
-               var short=tinyMCE.get('short').getContent();
-               short= short.replace(/\\/g,'');
-             tinyMCE.get('short').setContent(short);
-            }
-            
             function pre_submit() {
                  var paragrafi = $(".paragrafi");
                 for(var i=0; i< paragrafi.length; i++){
@@ -778,7 +775,6 @@
                     alert("ERRORE: Rispettare i campi obbligatori!")
                 }
                 else {
-                debonifica();
                 bonifica();
                
                 var mails = $(".mails");
@@ -927,7 +923,7 @@
             <c:forEach var="sect" items="${description.sectionsList}" varStatus="tot">
                 <div id="Par${tot.count}" class="paragrafi">
                 Titolo Paragrafo <input type="text" name="titolo${tot.count}" class="titolo" value="${sect.title}"><br>
-                Paragrafo <textarea name="par${tot.count}" id="par${tot.count}" class="par obb">${sect.description}</textarea><br>
+                Paragrafo* <textarea name="par${tot.count}" id="par${tot.count}" class="par obb">${sect.description}</textarea><br>
                 <input type="button" value="Elimina" onclick="delparent2(this)">
                 </div>
             </c:forEach>

@@ -10,7 +10,7 @@
 
     <body>
         <center>
-        <h1>ORCHESTRA</h1>
+        <h1>ORCHESTRA - GESTIONE POI</h1>
         <a href="Map?category=all"><h2>Visualizza Mappa</h2>
             <a href="newpoi"><h2>Aggiungi un poi</h2>
                 <a href="editpoi"><h2>Modifica un poi</h2>
