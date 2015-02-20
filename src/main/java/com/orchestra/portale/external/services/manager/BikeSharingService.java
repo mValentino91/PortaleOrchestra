@@ -20,11 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 public class BikeSharingService implements ExternalServiceManager {
 
-    @Autowired
-    PersistenceManager pm;
-    private final String baseUrl = "http://www.movinap.it/_CI/api_v1/station/getAllStationsInfo";
-    private final String baseImgUrl = "http://www.bikesharingnapoli.it/wp-content/themes/bikesharing/images/maps/stazioni/";
+    private PersistenceManager pm;
+    private static final String baseUrl = "http://www.movinap.it/_CI/api_v1/station/getAllStationsInfo";
+    private static final String baseImgUrl = "http://www.bikesharingnapoli.it/wp-content/themes/bikesharing/images/maps/stazioni/";
 
+    public BikeSharingService(PersistenceManager manager) {
+        pm = manager;
+    }
+    
     @Override
     public String load() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
