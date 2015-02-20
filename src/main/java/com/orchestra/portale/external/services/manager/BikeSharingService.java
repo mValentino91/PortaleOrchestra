@@ -33,19 +33,10 @@ public class BikeSharingService implements ExternalServiceManager {
     @Override
     public String getResponse(Map<String, String[]> mapParams) {
         try {
-            /*URL url = new URL(baseUrl);
-             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-             connection.setRequestMethod("GET");
-             //connection.addRequestProperty("token", token);
-             connection.setRequestProperty("Content-Type", "application/json");
-             //connection.setRequestProperty("charset", "utf-8");
-             BufferedReader read = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-             //System.out.println(read.readLine());
-             return read.readLine();*/
-
+            
             HttpURLConnection urlConnection = (HttpURLConnection) new URL(baseUrl).openConnection();
-            urlConnection.setConnectTimeout(15000); // set timeout to 10 seconds
-            urlConnection.setReadTimeout(30000); // set timeout to 10 seconds
+            urlConnection.setConnectTimeout(15000);
+            urlConnection.setReadTimeout(30000);
 
             urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString().replace('_', '-'));
 

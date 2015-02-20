@@ -249,10 +249,19 @@
 <script>
     function initInteractiveMap() {
 
+        var mapStyle = [{
+            featureType: "poi",
+            elementType: "labels",
+            stylers: [
+                {visibility: "off"}
+            ]
+        }];
+
         var mapOptions = {
             center: new google.maps.LatLng(40.8485091, 14.25574759999995),
             zoom: 15,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
+            styles: mapStyle,
             zoomControl: true,
             panControl: false,
             mapTypeControl: true,
