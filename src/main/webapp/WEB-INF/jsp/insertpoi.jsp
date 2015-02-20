@@ -13,6 +13,6 @@
     </head>
     <center>
         <h1>POI INSERITO CORRETTAMENTE!</h1>
-        <h2><a href="index">Torna a Gestione POI</a></h2>
+        <h2><a href="../admin">Torna a Gestione POI</a></h2>
             </center>
 </html>

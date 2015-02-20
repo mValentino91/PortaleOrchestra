@@ -14,8 +14,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>MODIFICA DI UN POI</title>
-        <script src="./dist/js/tinymce/tinymce.min.js"></script>
-        <script src="./dist/js/section.js"></script>
+        <script src="../dist/js/tinymce/tinymce.min.js"></script>
+        <script src="../dist/js/section.js"></script>
         <script type="text/javascript">
         tinymce.init({
             selector: "textarea",

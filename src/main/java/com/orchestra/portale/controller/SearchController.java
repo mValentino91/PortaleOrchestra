@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import java.util.Iterator;
@@ -31,81 +32,16 @@ public class SearchController {
     public @ResponseBody
     String find(@RequestParam String name, @RequestParam String address, @RequestParam String category) {
 
-        StringBuilder jsonPois = new StringBuilder();
-
-        Iterator<CompletePOI> poiList = pm.findCompletePoi(name, address, category).iterator();
-
-        jsonPois.append("[");
-
-        while (poiList.hasNext()) {
-
-            CompletePOI poi = poiList.next();
-
-            jsonPois.append("{ \"id\":\"")
-                    .append(poi.getId())
-                    .append("\",\"name\":\"")
-                    .append(poi.getName())
-                    .append("\",\"address\":\"")
-                    .append(poi.getAddress())
-                    .append("\",\"location\":[")
-                    .append(poi.getLocation()[0])
-                    .append(",")
-                    .append(poi.getLocation()[1])
-                    .append("]")
-                    .append(",\"shortDescription\":\"")
-                    .append(poi.getShortDescription())
-                    .append("\"}");
-
-            if (poiList.hasNext()) {
-
-                jsonPois.append(",");
-            }
-        }
-
-        jsonPois.append("]");
-
-        return jsonPois.toString();
+        Gson pois=new Gson();
+        return pois.toJson(pm.findCompletePoi(name, address, category));
     }
 
     @RequestMapping(value = "/JSON/Near")
     public @ResponseBody
     String near(@RequestParam String id, @RequestParam double radius) {
-
-        StringBuilder jsonPois = new StringBuilder();
-
-        Iterator<GeoResult<CompletePOI>> poiList = pm.findNearCompletePoi(id, radius).iterator();
-
-        jsonPois.append("[");
-
-        while (poiList.hasNext()) {
-
-            GeoResult<CompletePOI> gPoi = poiList.next();
-
-            CompletePOI poi = gPoi.getContent();
-
-            jsonPois.append("{ \"id\":\"")
-                    .append(poi.getId())
-                    .append("\",\"name\":\"")
-                    .append(poi.getName())
-                    .append("\",\"address\":\"")
-                    .append(poi.getAddress())
-                    .append("\",\"location\":[")
-                    .append(poi.getLocation()[0])
-                    .append(",")
-                    .append(poi.getLocation()[1])
-                    .append("]")
-                    .append(",\"shortDescription\":\"")
-                    .append(poi.getShortDescription())
-                    .append("\"}");
-
-            if (poiList.hasNext()) {
-
-                jsonPois.append(",");
-            }
-        }
-
-        jsonPois.append("]");
-
-        return jsonPois.toString();
+        
+        Gson pois=new Gson();
+        return pois.toJson(pm.findNearCompletePoi(id, radius));
+        
     }
 }

@@ -18,8 +18,8 @@
                 content:'*';
             }
         </style>
-        <script src="./dist/js/tinymce/tinymce.min.js"></script>
-        <script src="./dist/js/section.js"></script>
+        <script src="../dist/js/tinymce/tinymce.min.js"></script>
+        <script src="../dist/js/section.js"></script>
         <script type="text/javascript">
         tinymce.init({
             selector: "textarea",

@@ -41,6 +41,7 @@ import org.springframework.web.servlet.*;
  * @author Alex
  */
 @Controller
+@RequestMapping(value= "/admin")
 public class NewPoiController {
 
     //Manager della persistenza

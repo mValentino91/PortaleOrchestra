@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Alex
  */
 @Controller
+@RequestMapping(value= "/admin")
 public class DeletePoiController {
     @Autowired
     PersistenceManager pm;

@@ -1,0 +1,481 @@
+{
+    "results": [{
+            "content": {
+                "id": "5496cfecdf6ef624f2d63de7",
+                "name": "Pio Monte della Misericordia",
+                "location": [40.852352, 14.260511],
+                "shortDescription": "Il Pio Monte della Misericordia, istituzione a scopo benefico, ospita il capolavoro di Caravaggio, \u0027Le Sette Opere della Misericordia\u0027.",
+                "address": "Via dei Tribunali, 253",
+                "components": [{
+                        "link": "cover.jpg"
+                    }, {
+                        "links": ["img0.jpg", "img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg", "img6.jpg", "img7.jpg", "img8.jpg", "img9.jpg", "img10.jpg"]
+                    }, {
+                        "phoneList": [{
+                                "label": "",
+                                "number": "081446944"
+                            }],
+                        "emailsList": [{
+                                "label": "",
+                                "email": "segreteria@piomontedellamisericordia.it"
+                            }],
+                        "facebook": "https://www.facebook.com/pages/Pio-Monte-della-Misericordia-pagina-ufficiale/518891888121513?fref\u003dts"
+                    }, {
+                        "sectionsList": [{
+                                "title": "",
+                                "description": "Il Pio Monte della Misericordia, istituzione nata a scopo benefico e ancora oggi attiva, fu fondata nel 1601 da sette nobili napoletani che decisero di dedicarsi alle opere di misericordia corporale. Tra questi, Giovan Battista Manso, raffinato intellettuale, che pare abbia avuto un ruolo importante per l\u0027arrivo del Caravaggio a Napoli e, in particolare, nella commissione del dipinto per l\u0027istituzione. Oggi la chiesa e la quadreria rappresentano un luogo privilegiato per conoscere l\u0027arte a Napoli nel Seicento e nel Settecento."
+                            }, {
+                                "title": "Caravaggio, \u0027Le Sette Opere di Misericordia\u0027, 1607",
+                                "description": "Il dipinto fu commissionato al Caravaggio nel 1606, per l\u0027altare maggiore della chiesa. Il genio rivoluzionario del pittore lo spinse a compiere scelte compositive innovative e coraggiose. Le \u0027Sette Opere di Misericordia\u0027 sembrano ambientate in un vicolo napoletano, alla presenza della Madonna, rappresentata come una popolana che assiste alla scena affacciata al balcone. Le soluzioni iconografiche, spesso basate su colte citazioni, consentirono al pittore di ottimizzare l\u0027uso della superficie della tela. Per leggere in che modo le opere siano state rappresentate, si può partire dal fondo del dipinto: un uomo con una torcia fa luce ad un altro personaggio che sorregge i piedi di un defunto, si tratta della prima opera di misericordia, \u0027seppellire i morti\u0027. Sulla destra, una giovane donna offre il latte del suo seno ad un uomo anziano dietro una grata, citazione di un noto episodio della storia romana: Pero, per amore filiale, nutrì in questo modo il padre Cimone che si trovava in prigione. Tale citazione consentì al pittore di rappresentare insieme due opere di misericordia: \u0027visitare i carcerati\u0027 e \u0027dar da mangiare agli affamati\u0027. Sulla sinistra, un cavaliere con cappello piumato è rappresentato in atto di dividere il suo mantello con un povero, evidente riferimento a San Martino. Il santo compie l\u0027opera di \u0027vestire gli ignudi\u0027, ma al tempo stesso sembra occuparsi dello storpio accovacciato nell\u0027angolo (poco visibile a causa della cattiva conservazione della tela) e, quindi, anche di \u0027curare gli infermi\u0027. Alle spalle di San Martino, un gruppo di uomini - uno indossa un cappello nero con una conchiglia bianca, simbolo dei pellegrini diretti a San Giacomo di Compostela - sembra ricevere indicazioni da un altro personaggio che chiude il gruppo a sinistra, il quale compie, quindi, l\u0027azione misericordiosa di \u0027ospitare i pellegrini\u0027. A completare la scena, sul fondo, \u0027Sansone beve dalla mascella d\u0027asino\u0027, citazione di un episodio biblico che rende Dio stesso protagonista dell\u0027ultima opera di misericordia, \u0027dar da bere agli assetati\u0027."
+                            }, {
+                                "title": "La Chiesa",
+                                "description": "Nel 1604, a seguito dell\u0027acquisto di due precedenti edifici, si diede incarico all\u0027architetto Giovan Giacomo di Conforto di ristrutturare il palazzo e costruire la chiesa, affinché rispondessero alle esigenze dell\u0027associazione. Già nel 1658, però, nuovi interventi si resero necessari e fu chiamato l\u0027architetto Francesco Antonio Picchiatti, cui si deve l\u0027attuale aspetto. La chiesa si articola su una pianta ottagonale, intorno sono disposti sette altari e un\u0027ampia cupola rende l\u0027ambiente particolarmente luminoso. Sull\u0027altare maggiore, di fronte all\u0027ingresso, il dipinto del Caravaggio che, con la sua interpretazione iconografica rivoluzionaria, sintetizza le \u0027Sette Opere di Misericordia corporale\u0027, sugli altari laterali sono collocati dipinti i cui soggetti richiamano alle opere effettivamente praticate dall\u0027istituzione: Battistello Caracciolo, \u0027San Pietro liberato dal carcere\u0027, Fabrizio Santafede, \u0027Cristo ospitato in casa di Marta e Maria\u0027 e \u0027San Pietro resuscita Tabitha\u0027, Luca Giordano, \u0027Deposizione\u0027, Giovan Vincenzo Forli, \u0027Il buon samaritano\u0027, Giovan Bernardino Azzolino, \u0027San Paolino libera lo schiavo\u0027."
+                            }, {
+                                "title": "La quadreria",
+                                "description": "Il museo conta circa 140 dipinti, pervenuti all\u0027istituzione grazie a donazioni o a lasciti testamentari. Il nucleo più importante è costituito da bozzetti e dipinti di Francesco De Mura che nel 1783, per volontà testamentaria, lasciò le opere presenti nel suo studio al Pio Monte della Misericordia. Alcune furono vendute, in realtà lo scopo delle donazioni era essenzialmente quello di finanziare le attività benefiche, ma i Governatori furono sempre attenti, per quanto possibile, alla conservazione del patrimonio artistico, buona parte del nucleo originario è stato, infatti, preservato ed è attualmente esposto. Un\u0027altra significativa donazione di dipinti pervenne nel 1933 da Maria Sofia Capece Galeota, tra le opere più significative, l\u0027Autoritratto di Luca Giordano. Nelle sale della Quadreria sono esposti anche arredi e numerosi oggetti sacri, questi ultimi perlopiù di proprietà di alcune confraternite che li hanno affidati al Pio Monte affinché fossero visibili al pubblico. L\u0027istituzione, oltre ad essere ancora attiva sul piano della beneficenza, si pone in maniera propositiva anche dal punto di vista culturale, sia ospitando esposizioni temporanee, sia promuovendo la mostra \u0027Sette Opere PER la Misericordia\u0027, per la quale importanti artisti contemporanei sono invitati, ogni anno, a realizzare opere connesse al tema."
+                            }]
+                    }, {
+                        "workingdays": [{
+                                "days": "Lunedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "14:00"
+                                    }]
+                            }, {
+                                "days": "Martedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "14:00"
+                                    }]
+                            }, {
+                                "days": "Giovedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "14:00"
+                                    }]
+                            }, {
+                                "days": "Venerdì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "14:00"
+                                    }]
+                            }, {
+                                "days": "Sabato",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "14:00"
+                                    }]
+                            }, {
+                                "days": "Domenica",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "14:00"
+                                    }]
+                            }],
+                        "weekly_day_of_rest": " Mercoledì",
+                        "days_of_rest": " 25/12/2014 05/04/2015"
+                    }, {
+                        "prices": [{
+                                "price": 7.0,
+                                "type": "Intero",
+                                "type_description": ""
+                            }, {
+                                "price": 5.0,
+                                "type": "Ridotto",
+                                "type_description": "Giornalisti, studenti, insegnanti, Carta Più Feltrinelli, Minori di 25 anni, Maggiori di 65 anni, Amici dei Musei, ICOM, FAI, Gruppi superiori alle 10 unità."
+                            }, {
+                                "price": 4.0,
+                                "type": "Ridotto",
+                                "type_description": "Gruppi superiori alle 10 unità del Distretto Culturale di Via Duomo."
+                            }, {
+                                "price": 2.0,
+                                "type": "Scuole",
+                                "type_description": "Scolaresche accompagnate da insegnanti, gratuito per i docenti accompagnatori."
+                            }, {
+                                "price": 14.0,
+                                "type": "Famiglia",
+                                "type_description": "Madre, padre e max tre minori fino a 16 anni."
+                            }, {
+                                "price": 0.0,
+                                "type": "Gratuito",
+                                "type_description": "Associati del Pio Monte della Misericordia, Disabili con accompagnatore, Guide Turistiche della Regione Campania, Bambini fino a 6 anni."
+                            }]
+                    }, {
+                        "servicesList": ["Visite guidate su prenotazione.", "Attività didattiche per le scuole su prenotazione."]
+                    }],
+                "categories": ["culture", "museum", "monument", "church"]
+            },
+            "distance": {
+                "value": 0.0,
+                "metric": "KILOMETERS"
+            }
+        }, {
+            "content": {
+                "id": "5495d9e7df6ef624f2d63de2",
+                "name": "Duomo",
+                "location": [40.853001, 14.259567],
+                "shortDescription": "La cattedrale è un esempio di stratificazione di architetture e decorazioni. Ospita le reliquie di San Gennaro.",
+                "address": "Via Duomo, 147",
+                "components": [{
+                        "link": "cover.jpg"
+                    }, {
+                        "links": ["img0.jpg", "img1.jpg", "img2.jpg", "img3.jpg", "img4.jpg", "img5.jpg", "img6.jpg"]
+                    }, {
+                        "phoneList": [{
+                                "label": "",
+                                "number": "081421609"
+                            }]
+                    }, {
+                        "sectionsList": [{
+                                "title": "",
+                                "description": "La cattedrale di Napoli offre un significativo esempio di stratificazione storica, conservando le tracce di successive modificazioni avvenute nel tempo, la chiesa gotica ha infatti inglobato il battistero del IV-V secolo e una basilica paleocristiana. Nel corso dei secoli anche l\u0027edificio gotico è stato modificato da numerosi interventi decorativi e dall\u0027aggiunta di cappelle, tra cui la Cappella del Tesoro di San Gennaro, dove sono custodite le reliquie del santo.\r\nIl Duomo, dedicato alla Madonna Assunta, fu fondato da Carlo I d\u0027Angiò alla fine del XIII secolo, inglobando precedenti costruzioni come il battistero di San Giovanni in Fonte e la basilica di Santa Restituta. Il battistero è uno degli edifici più antichi, di questa tipologia, sopravvissuti fino ai giorni nostri e conserva buona parte della primitiva decorazione a mosaico. La basilica di Santa Restituta, ora cappella laterale della chiesa di fondazione angioina, è stata più volte modificata, in particolar modo nel Trecento e alla fine del Seicento, ma conserva ancora testimonianze più antiche, come l\u0027affresco di epoca romanica con \u0027Cristo nella Mandorla\u0027, e i mosaici di Lello da Orvieto con \u0027La Madonna del Principio tra i Santi Gennaro e Restituta\u0027 (1322).\r\nL\u0027architettura della chiesa principale conserva i suoi caratteri gotici nella presenza di archi acuti, caratteri tuttavia smussati dalle successive aggiunte di apparati decorativi e del soffitto in legno intagliato e dipinto, con tele incassate.\r\nTra le cappelle laterali che conservano l\u0027aspetto originario, la Cappella Minutolo è sicuramente la più significativa, resa, peraltro, famosa dalla novella \u0027Andreuccio da Perugia\u0027 di Giovanni Boccaccio.\r\nUno stile completamente diverso impronta invece il cosiddetto \u0027Succorpo\u0027, costruito per volere del Cardinale Oliviero Carafa per accogliere le reliquie di San Gennaro, tra la fine del Quattrocento e l\u0027inizio del Cinquecento, in stile pienamente rinascimentale.\r\nA San Gennaro è dedicata anche la Cappella del Tesoro che ospita le ampolle contenenti il sangue miracoloso e costituisce uno dei più significativi esempi del Barocco napoletano, cantiere vivace dove si incontrarono molti degli artisti, napoletani e non, attivi in città nel XVII secolo. In particolare vi lavorarono Cosimo Fanzago, Domenichino, Giovanni Lanfranco e Jusepe de Ribera."
+                            }]
+                    }, {
+                        "workingdays": [{
+                                "days": "Lunedì",
+                                "workinghours": [{
+                                        "start": "8:30",
+                                        "end": "12:30"
+                                    }, {
+                                        "start": "16:30",
+                                        "end": "19:00"
+                                    }]
+                            }, {
+                                "days": "Martedì",
+                                "workinghours": [{
+                                        "start": "8:30",
+                                        "end": "12:30"
+                                    }, {
+                                        "start": "16:30",
+                                        "end": "19:00"
+                                    }]
+                            }, {
+                                "days": "Mercoledì",
+                                "workinghours": [{
+                                        "start": "8:30",
+                                        "end": "12:30"
+                                    }, {
+                                        "start": "16:30",
+                                        "end": "19:00"
+                                    }]
+                            }, {
+                                "days": "Giovedì",
+                                "workinghours": [{
+                                        "start": "8:30",
+                                        "end": "12:30"
+                                    }, {
+                                        "start": "16:30",
+                                        "end": "19:00"
+                                    }]
+                            }, {
+                                "days": "Venerdì",
+                                "workinghours": [{
+                                        "start": "8:30",
+                                        "end": "12:30"
+                                    }, {
+                                        "start": "16:30",
+                                        "end": "19:00"
+                                    }]
+                            }, {
+                                "days": "Sabato",
+                                "workinghours": [{
+                                        "start": "8:30",
+                                        "end": "12:30"
+                                    }, {
+                                        "start": "16:30",
+                                        "end": "19:00"
+                                    }]
+                            }, {
+                                "days": "Domenica",
+                                "workinghours": [{
+                                        "start": "8:00",
+                                        "end": "13:00"
+                                    }, {
+                                        "start": "17:00",
+                                        "end": "19:30"
+                                    }]
+                            }]
+                    }, {
+                        "prices": [{
+                                "price": 0.0,
+                                "type": "Gratuito",
+                                "type_description": ""
+                            }]
+                    }],
+                "categories": ["culture", "monument", "church"]
+            },
+            "distance": {
+                "value": 0.1262767694758392,
+                "metric": "KILOMETERS"
+            }
+        }, {
+            "content": {
+                "id": "5497cecedf6e73933e64a97a",
+                "name": "Museo del Tesoro di San Gennaro",
+                "location": [40.852822, 14.259439],
+                "shortDescription": "La devozione della città al Santo Patrono Gennaro, ha dato vita ad una ricchissima collezione di oggetti preziosi.",
+                "address": "Via Duomo, 149",
+                "components": [{
+                        "link": "cover.jpg"
+                    }, {
+                        "links": ["img0.jpg", "img1.jpg"]
+                    }, {
+                        "phoneList": [{
+                                "label": "",
+                                "number": "081294980"
+                            }, {
+                                "label": "Mobile",
+                                "number": "3383361771"
+                            }, {
+                                "label": "Mobile",
+                                "number": "3206952510"
+                            }],
+                        "emailsList": [{
+                                "label": "",
+                                "email": "info@museosangennaro.it"
+                            }],
+                        "facebook": "https://www.facebook.com/MuseoSanGennaro?fref\u003dts"
+                    }, {
+                        "sectionsList": [{
+                                "title": "",
+                                "description": "Il museo espone parte del ricchissimo tesoro accumulato nel tempo grazie alla devozione verso il santo patrono della città. Lo spazio espositivo è concepito per mostrare a rotazione gli oggetti preziosi attraverso mostre tematiche. Argenti, ori, arredi sacri costituiscono il nucleo principale della collezione che vanta anche dipinti e sculture. Particolarmente significativa è la presenza dei busti in argento dedicati ai santi compatroni di Napoli, importante testimonianza da un lato della devozione, dall\u0027altro dell\u0027alto livello qualitativo raggiunto dagli argentieri napoletani nel corso dei secoli. Accanto ai busti, si trovano reliquiari, calici, pissidi, cestelli, candelabri, ostensori realizzati in metalli preziosi. Altro importantissimo quanto celebre oggetto della collezione, la mitra, ovvero il copricapo vescovile, realizzata dall\u0027orafo Matteo Treglia nel 1713, con diamanti, rubini e smeraldi incastonati."
+                            }]
+                    }, {
+                        "workingdays": [{
+                                "days": "Lunedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "17:30"
+                                    }]
+                            }, {
+                                "days": "Martedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "17:30"
+                                    }]
+                            }, {
+                                "days": "Giovedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "17:30"
+                                    }]
+                            }, {
+                                "days": "Venerdì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "17:30"
+                                    }]
+                            }, {
+                                "days": "Sabato",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "17:30"
+                                    }]
+                            }, {
+                                "days": "Domenica",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "17:00"
+                                    }]
+                            }],
+                        "weekly_day_of_rest": " Mercoledì"
+                    }, {
+                        "prices": [{
+                                "price": 7.0,
+                                "type": "Intero",
+                                "type_description": "Fino al 30 dicembre 2014, prezzo speciale € 3,00."
+                            }, {
+                                "price": 3.0,
+                                "type": "Ridotto",
+                                "type_description": "Gruppi superiori alle 15 unità, visita guidata esclusa. Under 21, Over 65, militari, ministri di culto. "
+                            }, {
+                                "price": 3.0,
+                                "type": "Scuole",
+                                "type_description": "Visita guidata inclusa, prenotazione obbligatoria."
+                            }]
+                    }, {
+                        "servicesList": ["Visite guidate su prenotazione."]
+                    }],
+                "categories": ["culture", "museum"]
+            },
+            "distance": {
+                "value": 0.12966119249118216,
+                "metric": "KILOMETERS"
+            }
+        }, {
+            "content": {
+                "id": "5497437edf6e73933e64a979",
+                "name": "Museo Civico Gaetano Filangieri",
+                "location": [40.849885, 14.260898],
+                "shortDescription": "Eclettica collezione di oltre 3000 pezzi tra maioliche, porcellane, armi, dipinti e sculture.",
+                "address": "Via Duomo, 288",
+                "components": [{
+                        "link": "cover.jpg"
+                    }, {
+                        "links": ["img0.jpg", "img1.jpg"]
+                    }, {
+                        "emailsList": [{
+                                "label": "",
+                                "email": "museofilangieri@libero.it"
+                            }],
+                        "facebook": "https://www.facebook.com/MuseoFilangieri"
+                    }, {
+                        "sectionsList": [{
+                                "title": "",
+                                "description": "Il museo accoglie ed espone la collezione di Gaetano Filangieri, principe di Satriano, raccolta con l\u0027intento di testimoniare la produzione locale di arti applicate e non solo, in una sorta di studio privato o casa-museo. Allestita in Palazzo Cuomo, edificio quattrocentesco, la collezione comprende oltre 3.000 pezzi tra maioliche, porcellane, vetri, avori, armi e armature, figure presepiali, dipinti e sculture dal XV al XIX secolo, una biblioteca e un archivio storico con più di 30.000 volumi. Capolavoro della collezione, il dipinto con \u0027La testa del Battista\u0027 di Jusepe de Ribera (1646), tra le opere più significative dipinti di Bernardino Luini e Francesco Solimena, sculture di Luca della Robbia, Lorenzo Vaccaro e Francesco Jerace."
+                            }]
+                    }],
+                "categories": ["culture", "museum"]
+            },
+            "distance": {
+                "value": 0.2696265376485129,
+                "metric": "KILOMETERS"
+            }
+        }, {
+            "content": {
+                "id": "5497116adf6e73933e64a970",
+                "name": "Pizzeria Di Matteo",
+                "location": [40.851228, 14.258004],
+                "shortDescription": "Bill Clinton è il più prestigioso testimonial.",
+                "address": "Via dei Tribunali, 94",
+                "components": [{
+                        "link": "cover.jpg"
+                    }, {
+                        "links": ["img0.jpg", "img1.jpg", "img2.jpg"]
+                    }, {
+                        "phoneList": [{
+                                "label": "",
+                                "number": "081455262"
+                            }]
+                    }, {
+                        "sectionsList": [{
+                                "title": "",
+                                "description": "Il mangiare di strada è la cosa davvero più caratteristica della gastronomia napoletana. La vetrina della pizzeria Di Matteo è stata il sogno di intere generazioni di napoletani. I fritti, arancini, zeppulelle, scagliuzzi, pizzette, ogni ben di Dio. Lo spazio maggiore della vetrina era, ed è, dedicato alla pizza al forno da chiudere a portafoglio ed alla pizza fritta con ricotta. Poi ci sono i fritti di piccole dimensioni: zeppole e panzarotti, palla di riso (quelle piccoline), melanzane e zucchine fritte, ‘e ciurilli c’a pastetta e ‘e scagliuozze ‘e farenella. Tutte cose di piccole dimensioni che si vendono a pezzo e compongono ‘o cartoccio ‘e fritturine da mangiare al volo Una delle cose eccezionali è l’arancino grosso di riso, l’arancino alla siciliana per intenderci, è stato importato solo pochi anni fa. Di Matteo fa l’arancino grande di due tipi: il rosso ed il bianco. Io mangio sempre il secondo; duro, compatto, ben cotto e dal cuore bollente: con mozzarella piselli e carne. La margherita alla bufala è sublime; anni fa c’era la margherita a rota ‘e carretto, servita in un piatto di metallo e grande il triplo del normale. Eccezionale la pizza fritta completa. Caratteristica è la pizza alla cocca (con l’uovo)."
+                            }, {
+                                "title": "Un po\u0027 di storia...",
+                                "description": "Di Matteo è anche una delle più note pizzerie del centro antico. È stata fondata da Salvatore Di Matteo nel 1936 e fa pizze eccezionali; qualità altissima e ricercata. Anni fa si chiamava pizzeria Lowembrau e sfornava pizzette a centinaia. Così ancora la chiamano molti napoletani del centro storico. Il locale è essenziale, con tutte le caratteristiche della pizzeria antica. Il punto di forza del locale è sicuramente il prezzo, eccezionale a detta di tutti i suoi frequentatori!! I camerieri al piano hanno un sistema di contabilità dei tavoli straordinario; su un grande foglio, si disegna il piano del locale, e ad ogni tavolo cartaceo si aggiungono le varie comande; tutto a penna, altro che computer!"
+                            }, {
+                                "title": "Curiosità",
+                                "description": "Nel luglio del \u002794 Bill Clinton in occasione del G7 a Napoli visitò via Tribunali ed ebbe l\u0027occasione di gustare la tradizionale \"pizza a libretto\".qui alla famosa pizzeria di Di Matteo. Le foto di Clinton che degusta la pizza a libretto di Di Matteo hanno fatto il giro del mondo e campeggiano in tutto il locale. Di Matteo trovò il suo più prestigioso testimonial."
+                            }]
+                    }],
+                "categories": ["food"]
+            },
+            "distance": {
+                "value": 0.3042868444895229,
+                "metric": "KILOMETERS"
+            }
+        }, {
+            "content": {
+                "id": "549704e5df6e73933e64a96e",
+                "name": "Il Capriccio - Bar Pasticceria",
+                "location": [40.85495, 14.262593],
+                "shortDescription": "Pasticceria generalista, ma altamente specializzata in un dolce simbolo: il babà.",
+                "address": "Via Carbonara, 39",
+                "components": [{
+                        "link": "cover.jpg"
+                    }, {
+                        "phoneList": [{
+                                "label": "",
+                                "number": "081440579"
+                            }],
+                        "emailsList": [{
+                                "label": "",
+                                "email": "info@pasticceriacapriccio.com"
+                            }]
+                    }, {
+                        "sectionsList": [{
+                                "title": "",
+                                "description": "Una piccola pasticceria nella via dei carbonari, via che prende il nome dai produttori di carbone appena fuori del centro cittadino. Una storia lunga di competenze e specializzazioni maturata in 3 generazioni. Una pasticceria generalista ma altamente specializzata in uno dei dolci che costituisce il simbolo della pasticceria napoeltana: il babà. Il babà del Capriccio è divenuto negli anni una delle prelibatezze della città partenopea. Si tratta di uno dei più buoni e più grandi babà della città; un babà soffice, alto, bagnato al punto giusto, né asciutto, né grondante. Perfetto, perché il babà è equilibrio e perfezione. La ricetta è segreta, tramandata di padre in figlio. Per mangiare un ottimo babà bisogna consumarlo direttamente in pasticceria, magari verso le 11,30 di mattina quando il babà è appena uscito. Portandolo via si rischia di danneggiarlo. E dopo il babà, il simpaticissimo Paolo ti preparerà un ottimo caffè in bicchierino di vetro; poi due chiacchiere alla cassa con Antonietta, esperta vetrinista e confezionatrice creativa; questa è qualità della vita! Se lo si porta a casa consiglio di girare i babà su se stessi dieci minuti prima di degustarli. In tal modo il rum che si è accumulato nel fondo torna in alto e i babà risulteranno più uniformemente bagnati. La vetrina esterna di mattina è piena di ottimi prodotti da forno: i fazzoletti (delizie dal doppio impasto con un fiocco di crema gialla al centro), le brioches con l’uvetta, con gocce di cioccolato, le pizzette rotonde (mitiche) e i pagnottielli; questi ultimi sono di due tipi: semplici o con doppia farcitura che comprende un bel pezzo di uovo sodo."
+                            }, {
+                                "title": "Un po\u0027 di storia...",
+                                "description": "Raffaele Capparelli, il titolare, è in laboratorio; è riservato, pensa ai fatti e non alle chiacchiere. Sperimenta di continuo, mastrea con le cioccolate bianche e nere, crea nuovi dolciumi e cioccolatini con i quali ha vinto un numero enorme di trofei e riconoscimenti. Basta vedere la carta in cui sono avvolti i babà, piena di attestati. La pasticceria è tra le poche segnalate dal Gambero rosso."
+                            }, {
+                                "title": "Curiosità",
+                                "description": "Raffaele Capparelli è anche un maestro cioccolatiere. Nel concorso \"Il cioccolatino d\u0027autore\" organizzato dalla Perugina, il cioccolatino vincente fu \"Cappuccino\" di Raffaele Capparelli: un chicco di caffè con un guscio di finissimo cioccolato fondente e un delicato ripieno a base di caffè e crema di Baileys."
+                            }]
+                    }],
+                "categories": ["food"]
+            },
+            "distance": {
+                "value": 0.36370498897136067,
+                "metric": "KILOMETERS"
+            }
+        }, {
+            "content": {
+                "id": "5495c7dadf6ef624f2d63de1",
+                "name": "Basilica di San Paolo Maggiore",
+                "location": [40.851784, 14.257121],
+                "shortDescription": "La chiesa fu costruita sui resti dell\u0027antico tempio dei Dioscuri.",
+                "address": "Piazza San Gaetano, 76",
+                "components": [{
+                        "link": "cover.jpg"
+                    }, {
+                        "links": ["img0.jpg", "img1.jpg"]
+                    }, {
+                        "phoneList": [{
+                                "label": "",
+                                "number": "081454048"
+                            }]
+                    }, {
+                        "sectionsList": [{
+                                "title": "",
+                                "description": "La chiesa fu edificata nell\u0027VIII secolo, nel cuore della città antica, sui resti di un tempio pagano dedicato ai Dioscuri, Castore e Polluce. Dal precedente edificio provengono, infatti, le colonne utilizzate per la costruzione, così come l\u0027idea di collocarla su un podio, in posizione elevata, proprio come un tempio antico. \r\nLa chiesa, ormai in decadenza, nel 1538 fu affidata ai padri Teatini che incaricarono del restauro l\u0027architetto dell\u0027ordine Francesco Grimaldi che vi lavorò tra il 1581 e il 1603. Terminati i lavori la basilica fu dedicata ai \u0027Dioscuri della Cristianità\u0027: San Pietro e San Paolo. Danneggiata fortemente durante il terremoto del 1688, la chiesa fu nuovamente ristrutturata, in particolare, del pronao di ingresso con colonne antiche, ne rimasero intatte solo due. \r\nLa pianta, a croce latina con tre navate e cappelle laterali, dona all\u0027edificio un\u0027ampia spazialità. Tra le opere più importanti, gli affreschi dipinti da Francesco Solimena nella sagrestia con la \u0027Caduta di Simon Mago\u0027 e la \u0027Conversione di San Paolo."
+                            }]
+                    }, {
+                        "workingdays": [{
+                                "days": "Lunedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "18:00"
+                                    }]
+                            }, {
+                                "days": "Martedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "18:00"
+                                    }]
+                            }, {
+                                "days": "Mercoledì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "18:00"
+                                    }]
+                            }, {
+                                "days": "Giovedì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "18:00"
+                                    }]
+                            }, {
+                                "days": "Venerdì",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "18:00"
+                                    }]
+                            }, {
+                                "days": "Sabato",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "18:00"
+                                    }]
+                            }, {
+                                "days": "Domenica",
+                                "workinghours": [{
+                                        "start": "9:00",
+                                        "end": "13:00"
+                                    }]
+                            }]
+                    }],
+                "categories": ["culture", "monument", "church"]
+            },
+            "distance": {
+                "value": 0.38231645993004937,
+                "metric": "KILOMETERS"
+            }
+        }],
+    "averageDistance": {
+        "value": 0.22512468471520958,
+        "metric": "KILOMETERS"
+    }
+}

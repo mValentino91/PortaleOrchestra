@@ -12,9 +12,9 @@
         <center>
         <h1>ORCHESTRA - GESTIONE POI</h1>
         <a href="Map?category=all"><h2>Visualizza Mappa</h2>
-            <a href="newpoi"><h2>Aggiungi un poi</h2>
-                <a href="editpoi"><h2>Modifica un poi</h2>
-                <a href="deletepoi"><h2>Elimina un poi</h2>
+            <a href="admin/newpoi"><h2>Aggiungi un poi</h2>
+                <a href="admin/editpoi"><h2>Modifica un poi</h2>
+                <a href="admin/deletepoi"><h2>Elimina un poi</h2>
         </center>
     </body>
 </html>

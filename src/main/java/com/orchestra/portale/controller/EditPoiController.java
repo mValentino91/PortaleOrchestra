@@ -29,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 
 @Controller
+@RequestMapping(value= "/admin")
 public class EditPoiController {
     @Autowired
     PersistenceManager pm;
