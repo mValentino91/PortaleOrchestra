@@ -88,7 +88,13 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public CompletePOI findOneCompletePoiByName(String name) {
 
-        return mongoOps.findOne(new Query(where("name").is(name)), CompletePOI.class);
+        Iterable<CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
+        for (CompletePOI p : pois) {
+            if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
     }
 
     @Override
