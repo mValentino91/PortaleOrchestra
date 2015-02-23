@@ -31,25 +31,25 @@ import org.springframework.data.mongodb.core.query.Query;
 public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
-    CategoryRepository categoryRepository;
+    private CategoryRepository categoryRepository;
 
     @Autowired
-    ComponentRepository componentRepository;
+    private ComponentRepository componentRepository;
 
     @Autowired
-    CompCategoryComponentRepository compCategoryComponentRepository;
+    private CompCategoryComponentRepository compCategoryComponentRepository;
 
     @Autowired
-    PoiRepository poiRepository;
+    private PoiRepository poiRepository;
 
     @Autowired
-    CompPoiCategoryRepository compPoiCategoryRepository;
+    private CompPoiCategoryRepository compPoiCategoryRepository;
 
     @Autowired
-    MongoOperations mongoOps;
+    private MongoOperations mongoOps;
 
     @Autowired
-    PoiMongoRepository poiMongoRepo;
+    private PoiMongoRepository poiMongoRepo;
 
     @Override
     public Poi getPoiById(String Id) {
