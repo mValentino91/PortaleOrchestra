@@ -16,7 +16,11 @@
         <h1>Elimina un POI</h1>
         <form action="deletepoi">
             Digita il nome del Poi <input type="text" name="name"> <input type="submit" value="ELIMINA">
-        </form>             
+        </form>       
+        <h2>Oppure</h2>
+        <form action="deletepoi">
+            Digita l'id del Poi <input type="text" name="id"> <input type="submit" value="ELIMINA">
+        </form>       
     </center>
     </body>
 </html>

@@ -12,33 +12,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-            .obbt::after{
-                color: red;
-                content:'*';
-            }
-        </style>
         <script src="../dist/js/tinymce/tinymce.min.js"></script>
         <script src="../dist/js/section.js"></script>
+        <link href="../dist/googlePlusDesign/css/bootstrap.min.css" rel="stylesheet">
         <script type="text/javascript">
-        tinymce.init({
-            selector: ".par",
-            force_br_newlines : true,
-            force_p_newlines : false,
-            forced_root_block: false,
-            remove_linebreaks: false,
-            convert_newlines_to_brs: true,
-            language: 'it',
-            plugins: 'wordcount preview paste'
-              
-            
-                    });
+            tinymce.init({
+                selector: ".par",
+                force_br_newlines: true,
+                force_p_newlines: false,
+                forced_root_block: false,
+                remove_linebreaks: false,
+                convert_newlines_to_brs: true,
+                language: 'it',
+                plugins: 'wordcount preview paste'
+
+
+            });
         </script>
-        
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <title>ORCHESTRA - NUOVO POI</title>
         <script>
-           
+
             function delcat(tasto) {
                 var name = $(tasto).prev().attr("name");
                 var lastcat = document.getElementsByClassName("cate");
@@ -83,7 +78,7 @@
             function addimg(tasto) {
                 var cont = document.getElementById("galleria");
 
-                
+
                 var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
@@ -98,13 +93,13 @@
                 cont.insertBefore(newbr, tasto);
                 cont.insertBefore(newimg, tasto);
                 cont.insertBefore(newbr2, tasto);
-                cont.insertBefore(newdel,tasto);
+                cont.insertBefore(newdel, tasto);
                 cont.insertBefore(newbr3, tasto);
             }
             function delparent2(cont) {
-                var txt= $('#'+cont.parentNode.id+' textarea');
-               tinyMCE.triggerSave();
-               tinyMCE.EditorManager.execCommand('mceRemoveEditor', false, txt[0].id);
+                var txt = $('#' + cont.parentNode.id + ' textarea');
+                tinyMCE.triggerSave();
+                tinyMCE.EditorManager.execCommand('mceRemoveEditor', false, txt[0].id);
                 cont.parentNode.remove();
             }
             function addpar(tasto) {
@@ -113,28 +108,28 @@
                 var x = lastpar.length;
                 x = x + 1;
                 var newcont = document.createElement("div");
-                newcont.id="Par"+x;
-                newcont.className="paragrafi";
-                
-               var newdel = document.createElement("input");
+                newcont.id = "Par" + x;
+                newcont.className = "paragrafi";
+
+                var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent2(this)");
-        
+
                 var newtit = document.createElement("input");
                 newtit.type = "text";
                 newtit.name = "titolo" + x;
                 newtit.className = "titolo";
-                
+
 
                 var newpar = document.createElement("textarea");
                 newpar.name = "par" + x;
                 newpar.className = "par obb";
-                newpar.id = "par"+x;
+                newpar.id = "par" + x;
                 var newbr = document.createElement("br");
                 var newbr2 = document.createElement("br");
                 var newbr3 = document.createElement("br");
-                var newtitdesc = document.createTextNode("Titolo Paragrafo " );
+                var newtitdesc = document.createTextNode("Titolo Paragrafo ");
                 var newpardesc = document.createTextNode("Paragrafo*");
                 newcont.appendChild(newtitdesc);
                 newcont.appendChild(newtit);
@@ -144,36 +139,36 @@
                 newcont.appendChild(newbr2);
                 newcont.appendChild(newdel);
                 cont.insertBefore(newcont, tasto);
-                tinymce.EditorManager.execCommand('mceAddEditor',true, newpar.id);
-              /* tinymce.init({
-                selector: ".par",
-                language: 'it'
-                    }); */
-               
-            } 
-            function setallchecked(id){
-                var checks=document.getElementById(id).getElementsByTagName("input");
-                var btn=document.getElementById("nuovogiorno");
-                if (checks[0].checked){
-                for(var i=0; i<checks.length; i++){
-                    checks[i].checked=true;
+                tinymce.EditorManager.execCommand('mceAddEditor', true, newpar.id);
+                /* tinymce.init({
+                 selector: ".par",
+                 language: 'it'
+                 }); */
+
+            }
+            function setallchecked(id) {
+                var checks = document.getElementById(id).getElementsByTagName("input");
+                var btn = document.getElementById("nuovogiorno");
+                if (checks[0].checked) {
+                    for (var i = 0; i < checks.length; i++) {
+                        checks[i].checked = true;
+                    }
+                    btn.disabled = true;
                 }
-                btn.disabled=true;
+                else {
+                    for (var i = 0; i < checks.length; i++) {
+                        checks[i].checked = false;
+                    }
+                    btn.disabled = false;
+                }
             }
-            else {
-                for(var i=0; i<checks.length; i++){
-                    checks[i].checked=false;
-            }
-            btn.disabled=false;
-            }
-        }
             function addwd(tasto) {
                 var cont = document.getElementById("orari");
                 var bt = document.getElementById("bt");
                 var lastor = document.getElementsByClassName("giornilav");
                 var x = lastor.length;
                 x = x + 1;
-                
+
                 var newcont = document.createElement("div");
                 newcont.id = "D" + x;
                 newcont.className = "giornilav";
@@ -188,103 +183,103 @@
                 newdelgiorno.setAttribute("onclick", "delparent(this)");
 
                 var newgg = document.createElement("h3");
-                newgg.innerHTML = "GIORNO " 
+                newgg.innerHTML = "GIORNO "
                 var newgiorno = document.createTextNode("Giorno*");
                 var newbr4 = document.createElement("br");
                 var newbr5 = document.createElement("br");
-              
+
                 var newday = document.createElement("div");
                 newday.id = "D" + x + "dayChecks";
                 newday.className = "daysCheck";
                 var newopt = document.createElement("input");
                 if (x == 1) {
-                newopt.type = "checkbox";
-                newopt.name = "Tutti i giorni";
-                newopt.setAttribute("onclick", "setallchecked(this.parentNode.id)");
-                var newoptdesc = document.createTextNode("Tutti i giorni");
-                var newopt1 = document.createElement("input");
+                    newopt.type = "checkbox";
+                    newopt.name = "Tutti i giorni";
+                    newopt.setAttribute("onclick", "setallchecked(this.parentNode.id)");
+                    var newoptdesc = document.createTextNode("Tutti i giorni");
+                    var newopt1 = document.createElement("input");
 
-                newopt1.type = "checkbox";
-                newopt1.name = "Lunedì";
-                newopt1.className = "checks"
-                var newopt1desc = document.createTextNode("Lunedì");
-                var newopt2 = document.createElement("input");
-                newopt2.name = "Martedì";
-                newopt2.type = "checkbox";
-                newopt2.className = "checks"
-                var newopt2desc = document.createTextNode("Martedì");
-                var newopt3 = document.createElement("input");
-                newopt3.name = "Mercoledì";
-                newopt3.type = "checkbox";
-                newopt3.className = "checks"
-                var newopt3desc = document.createTextNode("Mercoledì");
-                var newopt4 = document.createElement("input");
-                newopt4.name = "Giovedì";
-                newopt4.type = "checkbox";
-                newopt4.className = "checks"
-                var newopt4desc = document.createTextNode("Giovedì");
-                var newopt5 = document.createElement("input");
-                newopt5.name = "Venerdì";
-                newopt5.type = "checkbox";
-                newopt5.className = "checks"
-                var newopt5desc = document.createTextNode("Venerdì");
-                var newopt6 = document.createElement("input");
-                newopt6.name = "Sabato";
-                newopt6.type = "checkbox";
-                newopt6.className = "checks"
-                var newopt6desc = document.createTextNode("Sabato");
-                var newopt7 = document.createElement("input");
-                newopt7.name = "Domenica";
-                newopt7.type = "checkbox";
-                newopt7.className = "checks"
-                var newopt7desc = document.createTextNode("Domenica");
-               newday.appendChild(newopt);
-               newday.appendChild(newoptdesc);
-               newday.appendChild(newopt1);
-               newday.appendChild(newopt1desc);
-               newday.appendChild(newopt2);
-               newday.appendChild(newopt2desc);
-               newday.appendChild(newopt3);
-               newday.appendChild(newopt3desc);
-               
-               newday.appendChild(newopt4);
-               newday.appendChild(newopt4desc);
-               newday.appendChild(newopt5);
-               newday.appendChild(newopt5desc);
-               newday.appendChild(newopt6);
-               newday.appendChild(newopt6desc);
-               newday.appendChild(newopt7);
-               newday.appendChild(newopt7desc);
-           }
-           else {
-               
-                var check=document.getElementById("D"+(x-1)+"dayChecks").getElementsByTagName("input");
-                
-                for(var i=0; i<check.length; i++){
-                    if(!check[i].checked && check[i].name!="Tutti i giorni"){
-                        var opt=document.createElement("input");
-                        opt.type = "checkbox";
-                        opt.name = check[i].name;
-                        var newoptdesc = document.createTextNode(check[i].name);
-                        newday.appendChild(opt);
-                        newday.appendChild(newoptdesc);
+                    newopt1.type = "checkbox";
+                    newopt1.name = "Lunedì";
+                    newopt1.className = "checks"
+                    var newopt1desc = document.createTextNode("Lunedì");
+                    var newopt2 = document.createElement("input");
+                    newopt2.name = "Martedì";
+                    newopt2.type = "checkbox";
+                    newopt2.className = "checks"
+                    var newopt2desc = document.createTextNode("Martedì");
+                    var newopt3 = document.createElement("input");
+                    newopt3.name = "Mercoledì";
+                    newopt3.type = "checkbox";
+                    newopt3.className = "checks"
+                    var newopt3desc = document.createTextNode("Mercoledì");
+                    var newopt4 = document.createElement("input");
+                    newopt4.name = "Giovedì";
+                    newopt4.type = "checkbox";
+                    newopt4.className = "checks"
+                    var newopt4desc = document.createTextNode("Giovedì");
+                    var newopt5 = document.createElement("input");
+                    newopt5.name = "Venerdì";
+                    newopt5.type = "checkbox";
+                    newopt5.className = "checks"
+                    var newopt5desc = document.createTextNode("Venerdì");
+                    var newopt6 = document.createElement("input");
+                    newopt6.name = "Sabato";
+                    newopt6.type = "checkbox";
+                    newopt6.className = "checks"
+                    var newopt6desc = document.createTextNode("Sabato");
+                    var newopt7 = document.createElement("input");
+                    newopt7.name = "Domenica";
+                    newopt7.type = "checkbox";
+                    newopt7.className = "checks"
+                    var newopt7desc = document.createTextNode("Domenica");
+                    newday.appendChild(newopt);
+                    newday.appendChild(newoptdesc);
+                    newday.appendChild(newopt1);
+                    newday.appendChild(newopt1desc);
+                    newday.appendChild(newopt2);
+                    newday.appendChild(newopt2desc);
+                    newday.appendChild(newopt3);
+                    newday.appendChild(newopt3desc);
+
+                    newday.appendChild(newopt4);
+                    newday.appendChild(newopt4desc);
+                    newday.appendChild(newopt5);
+                    newday.appendChild(newopt5desc);
+                    newday.appendChild(newopt6);
+                    newday.appendChild(newopt6desc);
+                    newday.appendChild(newopt7);
+                    newday.appendChild(newopt7desc);
+                }
+                else {
+
+                    var check = document.getElementById("D" + (x - 1) + "dayChecks").getElementsByTagName("input");
+
+                    for (var i = 0; i < check.length; i++) {
+                        if (!check[i].checked && check[i].name != "Tutti i giorni") {
+                            var opt = document.createElement("input");
+                            opt.type = "checkbox";
+                            opt.name = check[i].name;
+                            var newoptdesc = document.createTextNode(check[i].name);
+                            newday.appendChild(opt);
+                            newday.appendChild(newoptdesc);
+                        }
                     }
                 }
-            }
                 newcont.appendChild(newgg);
                 newcont.appendChild(newgiorno);
                 newcont.appendChild(newday);
                 newcont.appendChild(newbr4);
                 newcont.appendChild(newaddorari);
-                
+
                 newcont.appendChild(newbr5);
                 newcont.appendChild(newdelgiorno);
                 cont.insertBefore(newcont, tasto);
                 addor(newcont.id, newaddorari);
-            
-            
+
+
             }
-            
+
             function addor(contid, tasto) {
                 var cont = document.getElementById(contid);
 
@@ -335,32 +330,32 @@
                 newcont.appendChild(newpunti2);
                 newcont.appendChild(newendm);
                 newcont.appendChild(newbr3);
-                if (k>1)
-                newcont.appendChild(delel);
-                cont.insertBefore(newcont,tasto);
-                
+                if (k > 1)
+                    newcont.appendChild(delel);
+                cont.insertBefore(newcont, tasto);
+
             }
 
             function delparent(tasto) {
                 tasto.parentNode.remove();
             }
 
-            
+
             function addrestday(tasto) {
                 var cont = document.getElementById("orari");
                 var lastor = document.getElementsByClassName("ripsett");
                 var x = lastor.length;
                 x = x + 1;
-                
+
                 var newcont = document.createElement("div");
-                newcont.id="RD"+x;
-                newcont.className="RDs";
-                
+                newcont.id = "RD" + x;
+                newcont.className = "RDs";
+
                 var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
-                
+
                 var newday = document.createElement("select");
                 newday.name = "RD" + x;
                 newday.className = "ripsett obb";
@@ -404,7 +399,7 @@
                 newcont.appendChild(newday);
                 newcont.appendChild(newbr);
                 newcont.appendChild(newdel);
-                
+
                 cont.insertBefore(newcont, tasto);
             }
             function addripann(tasto) {
@@ -412,16 +407,16 @@
                 var lastor = document.getElementsByClassName("ripann");
                 var x = lastor.length;
                 x = x + 1;
-                
+
                 var newcont = document.createElement("div");
-                newcont.id="RDA"+x;
-                newcont.className="RDAs";
-                
+                newcont.id = "RDA" + x;
+                newcont.className = "RDAs";
+
                 var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
-                
+
                 var newrda = document.createElement("input");
                 var newbr = document.createElement("br");
                 newrda.type = "text";
@@ -433,7 +428,7 @@
                 newcont.appendChild(newrda);
                 newcont.appendChild(newbr);
                 newcont.appendChild(newdel);
-                
+
                 cont.insertBefore(newcont, tasto);
 
             }
@@ -442,16 +437,16 @@
                 var lastor = document.getElementsByClassName("prezzib");
                 var x = lastor.length;
                 x = x + 1;
-                
-                 var newcont = document.createElement("div");
-                newcont.id="Tckt"+x;
-                newcont.className="tickets";
-                
+
+                var newcont = document.createElement("div");
+                newcont.id = "Tckt" + x;
+                newcont.className = "tickets";
+
                 var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
-                
+
                 var newtype = document.createElement("input");
                 var newbr = document.createElement("br");
                 newtype.type = "text";
@@ -461,19 +456,19 @@
                 var newbr2 = document.createElement("br");
                 newprice.type = "text";
                 newprice.name = "price" + x;
-                newprice.className ="pb obb";
+                newprice.className = "pb obb";
                 newprice.setAttribute("onblur", "replace_virgola(this, this.value)");
 
                 var newtypedesc = document.createElement("input");
                 var newbr3 = document.createElement("br");
                 newtypedesc.type = "text";
                 newtypedesc.name = "typedesc" + x;
-                newtypedesc.className ="db";
+                newtypedesc.className = "db";
                 var newt = document.createTextNode("Tipo biglietto*");
                 var newp = document.createTextNode("Prezzo biglietto*");
                 var newpd = document.createTextNode("Descrizione biglietto");
 
-               
+
                 newcont.appendChild(newt);
                 newcont.appendChild(newtype);
                 newcont.appendChild(newbr);
@@ -485,23 +480,23 @@
                 newcont.appendChild(newbr3);
                 newcont.appendChild(newdel);
                 cont.insertBefore(newcont, tasto);
-                
+
             }
             function addmail(tasto) {
                 var cont = document.getElementById("contatti");
                 var lastor = document.getElementsByClassName("email");
                 var x = lastor.length;
                 x = x + 1;
-                
+
                 var newcont = document.createElement("div");
-                newcont.id="Mail"+x;
-                newcont.className="mails";
-                
-               var newdel = document.createElement("input");
+                newcont.id = "Mail" + x;
+                newcont.className = "mails";
+
+                var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
-                
+
                 var newmail = document.createElement("input");
                 var newbr = document.createElement("br");
                 newmail.type = "text";
@@ -522,7 +517,7 @@
                 newcont.appendChild(newbr2);
                 newcont.appendChild(newdel);
                 cont.insertBefore(newcont, tasto);
-                
+
             }
             function addtel(tasto) {
                 var cont = document.getElementById("contatti");
@@ -531,14 +526,14 @@
                 x = x + 1;
 
                 var newcont = document.createElement("div");
-                newcont.id="Tel"+x;
-                newcont.className="telefoni";
-                
-               var newdel = document.createElement("input");
+                newcont.id = "Tel" + x;
+                newcont.className = "telefoni";
+
+                var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
-                
+
                 var newmail = document.createElement("input");
                 var newbr = document.createElement("br");
                 newmail.type = "text";
@@ -551,7 +546,7 @@
                 newdescmail.className = "desctel ";
                 var newde = document.createTextNode("Descrizione Telefono");
                 var newie = document.createTextNode("Numero Di Telefono *");
-                 newcont.appendChild(newde);
+                newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
                 newcont.appendChild(newie);
@@ -566,10 +561,10 @@
                 var x = lastor.length;
                 x = x + 1;
                 var newcont = document.createElement("div");
-                newcont.id="Fax"+x;
-                newcont.className="faxs";
-                
-               var newdel = document.createElement("input");
+                newcont.id = "Fax" + x;
+                newcont.className = "faxs";
+
+                var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
@@ -585,7 +580,7 @@
                 newdescmail.className = "descfax ";
                 var newde = document.createTextNode("Descrizione Fax");
                 var newie = document.createTextNode("Numero Fax *");
-                 newcont.appendChild(newde);
+                newcont.appendChild(newde);
                 newcont.appendChild(newdescmail);
                 newcont.appendChild(newbr);
                 newcont.appendChild(newie);
@@ -599,11 +594,11 @@
                 var lastor = document.getElementsByClassName("sn");
                 var x = lastor.length;
                 x = x + 1;
-                 var newcont = document.createElement("div");
-                newcont.id="SN"+x;
-                newcont.className="predsocials";
-                
-               var newdel = document.createElement("input");
+                var newcont = document.createElement("div");
+                newcont.id = "SN" + x;
+                newcont.className = "predsocials";
+
+                var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
@@ -638,14 +633,14 @@
                 var newbr = document.createElement("br");
                 newind.type = "text";
                 newind.name = "LSN" + x;
-                newind.className="LSN obb";
+                newind.className = "LSN obb";
                 newcont.appendChild(newde);
                 newcont.appendChild(newday);
                 newcont.appendChild(newie);
                 newcont.appendChild(newind);
                 newcont.appendChild(newbr);
                 newcont.appendChild(newdel);
-               cont.insertBefore(newcont,tasto);
+                cont.insertBefore(newcont, tasto);
 
             }
 
@@ -656,10 +651,10 @@
                 x = x + 1;
 
                 var newcont = document.createElement("div");
-                newcont.id="CSN"+x;
-                newcont.className="perssocials";
-                
-               var newdel = document.createElement("input");
+                newcont.id = "CSN" + x;
+                newcont.className = "perssocials";
+
+                var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
@@ -671,7 +666,7 @@
                 var newbr = document.createElement("br");
                 newind.type = "text";
                 newind.name = "LCSN" + x;
-                newind.className ="lcsn obb";
+                newind.className = "lcsn obb";
 
                 var newlab = document.createElement("input");
                 newlab.type = "text";
@@ -683,8 +678,8 @@
                 newcont.appendChild(newind);
                 newcont.appendChild(newbr);
                 newcont.appendChild(newdel);
-               cont.insertBefore(newcont,tasto);
-                
+                cont.insertBefore(newcont, tasto);
+
 
             }
             function addservizio(tasto) {
@@ -692,16 +687,16 @@
                 var lastor = document.getElementsByClassName("services");
                 var x = lastor.length;
                 x = x + 1;
-                
+
                 var newcont = document.createElement("div");
-                newcont.id="SER"+x;
-                newcont.className="services";
-                
-               var newdel = document.createElement("input");
+                newcont.id = "SER" + x;
+                newcont.className = "services";
+
+                var newdel = document.createElement("input");
                 newdel.type = "button";
                 newdel.value = "Elimina";
                 newdel.setAttribute("onclick", "delparent(this)");
-                
+
                 var newlab = document.createElement("input");
                 newlab.type = "text";
                 newlab.name = "SERV" + x;
@@ -710,259 +705,266 @@
                 var newde = document.createTextNode("Servizio: *");
                 var newbr = document.createElement("br");
 
-                
+
                 newcont.appendChild(newde);
                 newcont.appendChild(newlab);
                 newcont.appendChild(newbr);
                 newcont.appendChild(newdel);
-                cont.insertBefore(newcont,tasto);
+                cont.insertBefore(newcont, tasto);
             }
             function replace_virgola(inp, testo) {
                 var newtesto = testo.replace(",", ".");
                 inp.value = newtesto;
             }
             function checkobb() {
-                ok=true;
-                var obb=$("input.obb");
-                for (var i=0; i<obb.length; i++){
-                    if(obb[i].value.trim() == "")
-                        ok=false;
+                ok = true;
+                var obb = $("input.obb");
+                for (var i = 0; i < obb.length; i++) {
+                    if (obb[i].value.trim() == "")
+                        ok = false;
                 }
-                
-                 var short=$('.shortd')[0];
-                 if (short.value.trim() =='')
-                     ok=false;
-                var par=$(".par");
-                 for(var i=0; i<par.length; i++){
-                     var short=tinyMCE.get(par[i].id).getContent();
-                     if (short=='')
-                     ok=false;
-                 }
+
+                var short = $('.shortd')[0];
+                if (short.value.trim() == '')
+                    ok = false;
+                var par = $(".par");
+                for (var i = 0; i < par.length; i++) {
+                    var short = tinyMCE.get(par[i].id).getContent();
+                    if (short == '')
+                        ok = false;
+                }
                 return ok;
             }
-            function bonifica () {
+            function bonifica() {
                 var inps = $("input");
-                for (var i=0; i<inps.length; i++){
-                   if(inps[i].type!="file"){
-                   inps[i].value= inps[i].value.replace(/\'/g,'\\\'');
-                   inps[i].value= inps[i].value.replace(/\"/g,'\\\"');
-                   inps[i].value= inps[i].value.trim();
-               }
-                    
+                for (var i = 0; i < inps.length; i++) {
+                    if (inps[i].type != "file") {
+                        inps[i].value = inps[i].value.replace(/\'/g, '\\\'');
+                        inps[i].value = inps[i].value.replace(/\"/g, '\\\"');
+                        inps[i].value = inps[i].value.trim();
+                    }
+
                 }
-                var short=$('.shortd')[0].value;
-                short= short.replace(/\'/g,'\\\'');
-                short = short.replace(/\"/g,'\\\"');
-                short = short.replace(/\n/ig,"<br>");
-                $('.shortd')[0].value=short;
+                var short = $('.shortd')[0].value;
+                short = short.replace(/\'/g, '\\\'');
+                short = short.replace(/\"/g, '\\\"');
+                short = short.replace(/\n/ig, "<br>");
+                $('.shortd')[0].value = short.trim();
             }
             function pre_submit() {
-                 var paragrafi = $(".paragrafi");
-                for(var i=0; i< paragrafi.length; i++){
-                   var titolo= $("#"+paragrafi[i].id+" .titolo");
-                    var paragrafo = $("#"+paragrafi[i].id+" .par");
-                        paragrafi[i].id="Par"+(i+1);
-                        titolo[0].name="titolo"+(i+1);
-                        paragrafo[0].name="par"+(i+1);
-                       
+                var paragrafi = $(".paragrafi");
+                for (var i = 0; i < paragrafi.length; i++) {
+                    var titolo = $("#" + paragrafi[i].id + " .titolo");
+                    var paragrafo = $("#" + paragrafi[i].id + " .par");
+                    paragrafi[i].id = "Par" + (i + 1);
+                    titolo[0].name = "titolo" + (i + 1);
+                    paragrafo[0].name = "par" + (i + 1);
+
                 }
-                if(!checkobb()){
+                if (!checkobb()) {
                     alert("ERRORE: Rispettare i campi obbligatori!")
                 }
                 else {
-                bonifica();
-               
-                var mails = $(".mails");
-                for (var i=0; i<mails.length; i++){
-                    var descmail= $("#"+mails[i].id+ " .descmail");
-                    var email = $("#"+mails[i].id+ " .email");
-                    mails[i].id="Mails"+(i+1);
-                    descmail[0].name="descmail"+(i+1);
-                    email[0].name="email"+(i+1);
-                }
-                var mails = $(".telefoni");
-                for (var i=0; i<mails.length; i++){
-                    var descmail= $("#"+mails[i].id+ " .desctel");
-                    var email = $("#"+mails[i].id+ " .tel");
-                    mails[i].id="Tel"+(i+1);
-                    descmail[0].name="destel"+(i+1);
-                    email[0].name="tel"+(i+1);
-                }
-                var mails = $(".faxs");
-                for (var i=0; i<mails.length; i++){
-                    var descmail= $("#"+mails[i].id+ " .descfax");
-                    var email = $("#"+mails[i].id+ " .fax");
-                    mails[i].id="Fax"+(i+1);
-                    descmail[0].name="descfax"+(i+1);
-                    email[0].name="fax"+(i+1);
-                }
-                var mails = $(".predsocials");
-                for (var i=0; i<mails.length; i++){
-                    var descmail= $("#"+mails[i].id+ " .sn");
-                    var email = $("#"+mails[i].id+ " .LSN");
-                    mails[i].id="SN"+(i+1);
-                    descmail[0].name="SN"+(i+1);
-                    email[0].name="LSN"+(i+1);
-                }
-                var mails = $(".perssocials");
-                for (var i=0; i<mails.length; i++){
-                    var descmail= $("#"+mails[i].id+ " .csn");
-                    var email = $("#"+mails[i].id+ " .lcsn");
-                    mails[i].id="CSN"+(i+1);
-                    descmail[0].name="CSN"+(i+1);
-                    email[0].name="LCSN"+(i+1);
-                }
-                 var mails = $(".tickets");
-                for (var i=0; i<mails.length; i++){
-                    var descmail= $("#"+mails[i].id+ " .prezzib");
-                    var email = $("#"+mails[i].id+ " .pb");
-                    var desctype = $("#"+mails[i].id+ " .db");
-                    mails[i].id="Tckt"+(i+1);
-                    descmail[0].name="type"+(i+1);
-                    email[0].name="price"+(i+1);
-                    desctype[0].name="typedesc"+(i+1);
-                }
-                 var mails = $(".services");
-                for (var i=0; i<mails.length; i++){
-                    var descmail= $("#"+mails[i].id+ " .serv");
-                    mails[i].id="SER"+(i+1);
-                    descmail[0].name="SERV"+(i+1);
-                   
-                }
-                var days = $(".daysCheck");
-                var form = $(".inserimento")[0];
-               
-                var cont=0;
-                for (var i=0; i< days.length; i++){
-                    var checks=days[i].getElementsByTagName("input");
-                    for( var j=0; j<checks.length; j++){
-                        if(checks[j].name!="Tutti i giorni" && checks[j].checked ){
-                            cont=cont+1;
-                            var newind = document.createElement("input");
-               
-                            newind.type = "text";
-                            newind.name = "WD"+cont;
-                            newind.value= checks[j].name;
-                            var k=1;
-                            var orari=0;
-                            while(orari!= undefined && orari!= null){
-                                orari=document.getElementById("D"+(i+1)+"-"+k);
-                                if(orari != undefined && orari != null){
-                                    orari=orari.getElementsByTagName("input");
-                                    var newind1 = document.createElement("input");
-                                    newind1.type = "text";
-                                    newind1.name = "WD"+cont+"start"+k+"H";
-                                    newind1.value= orari[0].value;
-                                    
-                                    var newind2 = document.createElement("input");
-                                    newind2.type = "text";
-                                    newind2.name = "WD"+cont+"start"+k+"M";
-                                    newind2.value= orari[1].value;
-                                   
-                                    var newind3 = document.createElement("input");
-                                    newind3.type = "text";
-                                    newind3.name = "WD"+cont+"end"+k+"H";
-                                    newind3.value= orari[2].value;
-                                    
-                                    var newind4 = document.createElement("input");
-                                    newind4.type = "text";
-                                    newind4.name = "WD"+cont+"end"+k+"M";
-                                    newind4.value= orari[3].value;
-                                    
-                                    form.appendChild(newind1);
-                                    form.appendChild(newind2);
-                                    form.appendChild(newind3);
-                                    form.appendChild(newind4);
-                                    
+                    bonifica();
+
+                    var mails = $(".mails");
+                    for (var i = 0; i < mails.length; i++) {
+                        var descmail = $("#" + mails[i].id + " .descmail");
+                        var email = $("#" + mails[i].id + " .email");
+                        mails[i].id = "Mails" + (i + 1);
+                        descmail[0].name = "descmail" + (i + 1);
+                        email[0].name = "email" + (i + 1);
+                    }
+                    var mails = $(".telefoni");
+                    for (var i = 0; i < mails.length; i++) {
+                        var descmail = $("#" + mails[i].id + " .desctel");
+                        var email = $("#" + mails[i].id + " .tel");
+                        mails[i].id = "Tel" + (i + 1);
+                        descmail[0].name = "destel" + (i + 1);
+                        email[0].name = "tel" + (i + 1);
+                    }
+                    var mails = $(".faxs");
+                    for (var i = 0; i < mails.length; i++) {
+                        var descmail = $("#" + mails[i].id + " .descfax");
+                        var email = $("#" + mails[i].id + " .fax");
+                        mails[i].id = "Fax" + (i + 1);
+                        descmail[0].name = "descfax" + (i + 1);
+                        email[0].name = "fax" + (i + 1);
+                    }
+                    var mails = $(".predsocials");
+                    for (var i = 0; i < mails.length; i++) {
+                        var descmail = $("#" + mails[i].id + " .sn");
+                        var email = $("#" + mails[i].id + " .LSN");
+                        mails[i].id = "SN" + (i + 1);
+                        descmail[0].name = "SN" + (i + 1);
+                        email[0].name = "LSN" + (i + 1);
+                    }
+                    var mails = $(".perssocials");
+                    for (var i = 0; i < mails.length; i++) {
+                        var descmail = $("#" + mails[i].id + " .csn");
+                        var email = $("#" + mails[i].id + " .lcsn");
+                        mails[i].id = "CSN" + (i + 1);
+                        descmail[0].name = "CSN" + (i + 1);
+                        email[0].name = "LCSN" + (i + 1);
+                    }
+                    var mails = $(".tickets");
+                    for (var i = 0; i < mails.length; i++) {
+                        var descmail = $("#" + mails[i].id + " .prezzib");
+                        var email = $("#" + mails[i].id + " .pb");
+                        var desctype = $("#" + mails[i].id + " .db");
+                        mails[i].id = "Tckt" + (i + 1);
+                        descmail[0].name = "type" + (i + 1);
+                        email[0].name = "price" + (i + 1);
+                        desctype[0].name = "typedesc" + (i + 1);
+                    }
+                    var mails = $(".services");
+                    for (var i = 0; i < mails.length; i++) {
+                        var descmail = $("#" + mails[i].id + " .serv");
+                        mails[i].id = "SER" + (i + 1);
+                        descmail[0].name = "SERV" + (i + 1);
+
+                    }
+                    var days = $(".daysCheck");
+                    var form = $(".inserimento")[0];
+
+                    var cont = 0;
+                    for (var i = 0; i < days.length; i++) {
+                        var checks = days[i].getElementsByTagName("input");
+                        for (var j = 0; j < checks.length; j++) {
+                            if (checks[j].name != "Tutti i giorni" && checks[j].checked) {
+                                cont = cont + 1;
+                                var newind = document.createElement("input");
+
+                                newind.type = "text";
+                                newind.name = "WD" + cont;
+                                newind.value = checks[j].name;
+                                var k = 1;
+                                var orari = 0;
+                                while (orari != undefined && orari != null) {
+                                    orari = document.getElementById("D" + (i + 1) + "-" + k);
+                                    if (orari != undefined && orari != null) {
+                                        orari = orari.getElementsByTagName("input");
+                                        var newind1 = document.createElement("input");
+                                        newind1.type = "text";
+                                        newind1.name = "WD" + cont + "start" + k + "H";
+                                        newind1.value = orari[0].value;
+
+                                        var newind2 = document.createElement("input");
+                                        newind2.type = "text";
+                                        newind2.name = "WD" + cont + "start" + k + "M";
+                                        newind2.value = orari[1].value;
+
+                                        var newind3 = document.createElement("input");
+                                        newind3.type = "text";
+                                        newind3.name = "WD" + cont + "end" + k + "H";
+                                        newind3.value = orari[2].value;
+
+                                        var newind4 = document.createElement("input");
+                                        newind4.type = "text";
+                                        newind4.name = "WD" + cont + "end" + k + "M";
+                                        newind4.value = orari[3].value;
+
+                                        form.appendChild(newind1);
+                                        form.appendChild(newind2);
+                                        form.appendChild(newind3);
+                                        form.appendChild(newind4);
+
+                                    }
+                                    k = k + 1;
                                 }
-                                k=k+1;
+                                form.appendChild(newind);
+
                             }
-                            form.appendChild(newind);
-                        
-                        }    
+                        }
+
+                    }
+                    tinyMCE.triggerSave();
+                    form.submit();
                 }
-                
-                }
-                tinyMCE.triggerSave();
-                form.submit();
             }
-            }
-          
+
         </script>
+        <style>
+            .container{
+                background-color: whitesmoke;
+                padding-bottom: 20px;
+            }
+        </style>
 
     </head>
     <body>
-    <center>
-        <h1>Inserimento di un nuovo punto di interesse</h1><br>
-        <h2>I Campi contrassegnati dall'asterisco sono obbligatori!</h2>
-    </center>
-    <form class="inserimento" action="insertpoi" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
-        Nome* <input name="name" class="obb" type="text"><br>
-        Indirizzo* <input name="address" class="obb" type="text"><br>
-        Latitudine* <input name="latitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
-        Longitudine* <input name="longitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
-        Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="shortd" id="short" class="shortd" rows="4" cols="50" maxlength="150"></textarea><br><br>
-        <div id="categoria">
-            Categoria* <input name="category1" class="cate obb" type="text"><br>
+        <div class="container">
+            <center>
+                <h1>Inserimento di un nuovo punto di interesse</h1><br>
+                <h2>I Campi contrassegnati dall'asterisco sono obbligatori!</h2>
+            </center>
+            <form class="inserimento" action="insertpoi" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
+                Nome* <input name="name" class="obb" type="text"><br>
+                Indirizzo* <input name="address" class="obb" type="text"><br>
+                Latitudine* <input name="latitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
+                Longitudine* <input name="longitude" class="obb" type="text" onblur="replace_virgola(this, this.value)"><br>
+                Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="shortd" id="short" class="shortd" rows="4" cols="50" maxlength="150"></textarea><br><br>
+                <div id="categoria">
+                    Categoria* <input name="category1" class="cate obb" type="text"><br>
 
-            <input type="button" value="Aggiungi categoria" onclick="addcat(this)"><br>
+                    <input type="button" value="Aggiungi categoria" onclick="addcat(this)"><br>
+                </div>
+                Immagine di Copertina* <input name="cover" class="obb" type="file"><br>
+                <div id="galleria">
+                    <br><br>
+                    <h2> GALLERIA </h2>
+                    Immagine per la Galleria 
+
+                    <input type="button" value="aggiungi immagine" onclick="addimg(this)"><br><br>
+                </div>
+                <br><br>
+                <div id="descrizione">
+                    <h2> PARAGRAFI </h2>
+
+                    <input type="button" value="nuovo paragrafo" onclick="addpar(this)">
+                </div>
+                <div id="contatti">
+                    <h2> CONTATTI </h2>
+
+                    <input type="button" value="aggiungi indirizzo email" onclick="addmail(this)"><br>
+
+                    <input type="button" value="aggiungi numero di telefono" onclick="addtel(this)"><br>
+
+                    <input type="button" value="aggiungi numero fax" onclick="addfax(this)"><br>
+
+                    <input type="button" value="aggiungi social network" onclick="addsn(this)"><br>
+
+                    <input type="button" value="aggiungi link" onclick="addsnp(this)"><br>
+                </div>
+                <div id="orari">
+                    <h2>ORARI - periodo di lavoro</h2>
+
+
+
+                    <input type="button" id="nuovogiorno" value="Inserisci un  periodo lavorativo" onclick="addwd(this)"><br><br>
+
+
+
+
+                    <input type="button" value="Aggiungi un giorno di riposo settimanale" onclick="addrestday(this)"><br>
+
+                    <input type="button" value="Aggiungi un giorno di riposo" onclick="addripann(this)"><br>
+                </div>
+                <div id='prezzi'>
+                    <h2> PREZZI DI INGRESSO </h2>
+
+                    <input type="button" value="aggiungi un biglietto" onclick="addbiglietto(this)">
+                </div>
+                <br>
+                <div id='servizi'>
+                    <h2> SERVIZI </h2>
+
+                    <input type="button" value="aggiungi un servizio" onclick="addservizio(this)">
+                </div>
+                <center>
+                    <input type="button" value="SALVA POI" onclick="pre_submit()">
+                </center>
+            </form>
         </div>
-        Immagine di Copertina* <input name="cover" class="obb" type="file"><br>
-        <div id="galleria">
-            <br><br>
-            <h2> GALLERIA </h2>
-            Immagine per la Galleria 
-
-            <input type="button" value="aggiungi immagine" onclick="addimg(this)"><br><br>
-        </div>
-        <br><br>
-        <div id="descrizione">
-            <h2> PARAGRAFI </h2>
-
-            <input type="button" value="nuovo paragrafo" onclick="addpar(this)">
-        </div>
-        <div id="contatti">
-            <h2> CONTATTI </h2>
-
-            <input type="button" value="aggiungi indirizzo email" onclick="addmail(this)"><br>
-
-            <input type="button" value="aggiungi numero di telefono" onclick="addtel(this)"><br>
-
-            <input type="button" value="aggiungi numero fax" onclick="addfax(this)"><br>
-
-            <input type="button" value="aggiungi social network" onclick="addsn(this)"><br>
-
-            <input type="button" value="aggiungi link" onclick="addsnp(this)"><br>
-        </div>
-        <div id="orari">
-            <h2>ORARI - periodo di lavoro</h2>
-
-
-
-            <input type="button" id="nuovogiorno" value="Inserisci un  periodo lavorativo" onclick="addwd(this)"><br><br>
-
-
-
-
-            <input type="button" value="Aggiungi un giorno di riposo settimanale" onclick="addrestday(this)"><br>
-
-            <input type="button" value="Aggiungi un giorno di riposo" onclick="addripann(this)"><br>
-        </div>
-        <div id='prezzi'>
-            <h2> PREZZI DI INGRESSO </h2>
-
-            <input type="button" value="aggiungi un biglietto" onclick="addbiglietto(this)">
-        </div>
-        <br>
-        <div id='servizi'>
-            <h2> SERVIZI </h2>
-
-            <input type="button" value="aggiungi un servizio" onclick="addservizio(this)">
-        </div>
-        <center>
-            <input type="button" value="SALVA POI" onclick="pre_submit()">
-        </center>
-    </form>
-     
-</body>
+    </body>
 </html>

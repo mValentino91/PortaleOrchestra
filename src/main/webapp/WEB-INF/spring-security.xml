@@ -16,7 +16,7 @@
         <intercept-url pattern="/logout" access="permitAll"/>
         <intercept-url pattern="/denied" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/" access="hasRole('ROLE_USER')"/>
-       <intercept-url pattern="/admin/**" access="hasRole('ROLE_USER')"/>
+       
 		
         <form-login login-page="/login" 
                             authentication-failure-url="/login/failure" 

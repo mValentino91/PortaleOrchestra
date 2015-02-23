@@ -12,7 +12,10 @@
         <title>Errore</title>
     </head>
     <body>
-        <h1>Impossibile visualizzare il poi richiesto!</h1>
-         ${err}
+    <center>
+        <h1>ERRORE</h1>
+        <h2>${err}</h2>
+        <h2><a href="../admin">Torna a Gestione POI</a></h2>
+        </center>
     </body>
 </html>

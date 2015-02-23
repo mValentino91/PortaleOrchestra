@@ -16,6 +16,7 @@
         <title>MODIFICA DI UN POI</title>
         <script src="../dist/js/tinymce/tinymce.min.js"></script>
         <script src="../dist/js/section.js"></script>
+        <link href="../dist/googlePlusDesign/css/bootstrap.min.css" rel="stylesheet">
         <script type="text/javascript">
         tinymce.init({
             selector: ".par",
@@ -759,8 +760,10 @@
                   
                }
            }
+           
                var short=$('.shortd')[0].value;
                short= short.replace(/\\/g,'');
+               short = short.replace(/<br>/ig,'\n');
                $('.shortd')[0].value=short;
             }
            
@@ -898,7 +901,14 @@
           
         </script>
     </head>
-    <body>
+    <body onload="debonifica()">
+        <style>
+            .container{
+                background-color: whitesmoke;
+                padding-bottom: 20px;
+            }
+        </style>
+        <div class="container">
     <center>
         <h1>MODIFICA DI UN POI</h1>
    </center>
@@ -939,5 +949,6 @@
         <script>
            
             </script>
+        </div>
     </body>
 </html>
