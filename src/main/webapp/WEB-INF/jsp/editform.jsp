@@ -18,13 +18,14 @@
         <script src="../dist/js/section.js"></script>
         <script type="text/javascript">
         tinymce.init({
-            selector: "textarea",
+            selector: ".par",
             force_br_newlines : true,
             force_p_newlines : false,
             forced_root_block: false,
             remove_linebreaks: false,
             convert_newlines_to_brs: true,
-            language: 'it'
+            language: 'it',
+            plugins: 'wordcount preview paste'
             
                     });
                     
@@ -719,20 +720,36 @@
                 ok=true;
                 var obb=$("input.obb");
                 for (var i=0; i<obb.length; i++){
-                    if(obb[i].value == "")
+                    if(obb[i].value.trim() == "")
                         ok=false;
                 }
                 
-                 var short=tinyMCE.get('short').getContent();
-                 if (short=='')
+                 var short=$('.shortd')[0];
+                 if (short.value.trim() =='')
                      ok=false;
                 var par=$(".par");
                  for(var i=0; i<par.length; i++){
                      var short=tinyMCE.get(par[i].id).getContent();
-                     if (short=='')
+                     if (short.trim()=='')
                      ok=false;
                  }
                 return ok;
+            }
+            function bonifica () {
+                var inps = $("input");
+                for (var i=0; i<inps.length; i++){
+                   if(inps[i].type!="file"){
+                   inps[i].value= inps[i].value.replace(/\'/g,'\\\'');
+                   inps[i].value= inps[i].value.replace(/\"/g,'\\\"');
+                   inps[i].value= inps[i].value.trim();
+               }
+                    
+                }
+                var short=$('.shortd')[0].value;
+                short= short.replace(/\'/g,'\\\'');
+                short = short.replace(/\"/g,'\\\"');
+                short = short.replace(/\n/ig,"<br>");
+                $('.shortd')[0].value=short;
             }
             function debonifica () {
                 var inps = $("input");
@@ -742,25 +759,11 @@
                   
                }
            }
-               var short=tinyMCE.get('short').getContent();
+               var short=$('.shortd')[0].value;
                short= short.replace(/\\/g,'');
-             tinyMCE.get('short').setContent(short);
+               $('.shortd')[0].value=short;
             }
-            function bonifica () {
-                var inps = $("input");
-                for (var i=0; i<inps.length; i++){
-                   if(inps[i].type!="file"){
-                   inps[i].value= inps[i].value.replace(/\'/g,'\\\'');
-                   inps[i].value= inps[i].value.replace(/\"/g,'\\\"');
-               }
-                    
-                }
-                var short=tinyMCE.get('short').getContent();
-                short= short.replace(/\'/g,'\\\'');
-                short = short.replace(/\"/g,'\\\"');
-                short = short.replace(/\n/ig,"<br>");
-                tinyMCE.get('short').setContent(short);
-            }
+           
             function pre_submit() {
                  var paragrafi = $(".paragrafi");
                 for(var i=0; i< paragrafi.length; i++){
@@ -905,7 +908,7 @@
         Indirizzo* <input name="address" class="obb" type="text" value="${addr}"><br>
         Latitudine* <input name="latitude" class="obb" type="text" onblur="replace_virgola(this, this.value)" value="${loc[0]}"><br>
         Longitudine* <input name="longitude" class="obb" type="text" onblur="replace_virgola(this, this.value)" value="${loc[1]}"><br>
-        Descrizione Breve* <textarea name="shortd" id="short">${shortD}</textarea><br><br>
+        Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="shortd" class="shortd" id="short" rows="4" cols="50" maxlength="150">${shortD}</textarea><br><br>
         <div id="categoria">
             
             <c:forEach var="cats" items="${cat}" varStatus="tot" >
