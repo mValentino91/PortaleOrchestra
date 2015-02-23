@@ -13,6 +13,7 @@ import com.orchestra.portale.persistence.sql.repositories.CompCategoryComponentR
 import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
+import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
 import org.springframework.data.geo.GeoResults;
@@ -98,19 +99,19 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public Iterable<CompletePOI> findCompletePoi(String name, String address, String category) {
 
-        return mongoOps.find(new Query(where("categories").regex(category)
-                .and("name").regex(name)
-                .and("address").regex(address)),
+        return mongoOps.find(new Query(where("categories").regex(Pattern.compile(category, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),
                 CompletePOI.class);
     }
 
     @Override
-    public GeoResults<CompletePOI> findNearCompletePoi(String id,double radius) {
+    public GeoResults<CompletePOI> findNearCompletePoi(String id, double radius) {
 
         CompletePOI poi = getCompletePoiById(id);
         Point point = new Point(poi.getLocation()[0], poi.getLocation()[1]);
         NearQuery query = NearQuery.near(point).maxDistance(new Distance(radius, Metrics.KILOMETERS));
-        
-        return mongoOps.geoNear(query, CompletePOI.class); 
+
+        return mongoOps.geoNear(query, CompletePOI.class);
     }
 }
