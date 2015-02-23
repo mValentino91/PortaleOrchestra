@@ -43,6 +43,7 @@ public class EditPoiController {
     @RequestMapping(value= "/editpoi", params="name")
     public ModelAndView editPoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("editform");
+        try {
         CompletePOI poi= pm.findOneCompletePoiByName(name);
         model.addObject("nome", poi.getName());
         model.addObject("loc", poi.getLocation());
@@ -67,6 +68,12 @@ public class EditPoiController {
             }
          }
         return model;
+    }
+    catch(RuntimeException e){
+            ModelAndView model2= new ModelAndView("errorViewPoi");
+            model2.addObject("err", "Errore impossibile trovare il poi: "+name);
+            return model2;
+        }
     }
     
     @RequestMapping(value= "/updatepoi", method = RequestMethod.POST)
@@ -126,5 +133,6 @@ public class EditPoiController {
              poi.setComponents(newlistComponent);
              pm.savePoi(poi);
              return model;
-    }
+             }
+    
 }

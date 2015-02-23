@@ -33,8 +33,32 @@ public class DeletePoiController {
     @RequestMapping(value= "/deletepoi", params="name")
     public ModelAndView deletePoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("deleted");
+        try{
         CompletePOI poi= pm.findOneCompletePoiByName(name);
         pm.deletePoi(poi);
         return model;
+        }
+        catch(RuntimeException e){
+            ModelAndView model2= new ModelAndView("errorViewPoi");
+            model2.addObject("err", "Errore impossibile trovare il poi: "+name);
+            return model2;
+        }
     }
+   
+    
+    @RequestMapping(value= "/deletepoi", params="id")
+    public ModelAndView deletePoiById(@RequestParam(value = "id") String id) {
+        try{
+        ModelAndView model = new ModelAndView("deleted");
+        CompletePOI poi= pm.getCompletePoiById(id);
+        pm.deletePoi(poi);
+        return model;
+    }
+    catch(RuntimeException e){
+            ModelAndView model2= new ModelAndView("errorViewPoi");
+            model2.addObject("err", "Errore impossibile trovare il poi con id: "+id);
+            return model2;
+        }
+    }
+    
 }

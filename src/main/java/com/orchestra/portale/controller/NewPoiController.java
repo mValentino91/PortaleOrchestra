@@ -60,9 +60,16 @@ public class NewPoiController {
     public ModelAndView insertPoi(@RequestParam Map<String,String> params, @RequestParam("file") MultipartFile[] files, @RequestParam("cover") MultipartFile cover) {
         
          CompletePOI poi = new CompletePOI();
+         CompletePOI poitest = new CompletePOI();
         
         ModelAndView model = new ModelAndView("insertpoi");
-        
+        ModelAndView model2 = new ModelAndView("errorViewPoi");
+        poitest=pm.findOneCompletePoiByName(params.get("name"));
+        if(poitest!= null && poitest.getName().toLowerCase().equals(params.get("name").toLowerCase())){
+            model2.addObject("err", "Esiste già un poi chiamato "+params.get("name"));
+            return model2;
+        }
+        else {
         poi.setName(params.get("name"));
         poi.setAddress(params.get("address"));
         double lat= Double.parseDouble(params.get("latitude"));
@@ -382,5 +389,6 @@ public class NewPoiController {
             }
                  
         return model;
+    }
     }
 }
