@@ -26,7 +26,7 @@ public class SearchController {
 
     //Manager della persistenza
     @Autowired
-    PersistenceManager pm;
+    private PersistenceManager pm;
 
     @RequestMapping(value = "/JSON/Find")
     public @ResponseBody

@@ -29,17 +29,18 @@ import org.apache.commons.io.IOUtils;
  * @author Marco Valentino
  */
 public class CiRoService implements ExternalServiceManager {
-    
+
     private PersistenceManager pm;
     private static final String loadUrl = "http://ciro.techmobile.eu:8080/CiRo/prenotazioneService/getPuntiCiro";
     private static final String getUrl = "http://ciro.techmobile.eu:8080/CiRo/administrator/PrenotazioneService/checkDispoVetture";
     private static final String[] categoriesName = {"ciro", "mobility"};
+    private static final String[] categoriesDelete  = {"ciro"};
     private static Gson gson = new Gson();
-    
+
     public CiRoService(PersistenceManager manager) {
         pm = manager;
     }
-    
+
     @Override
     public String load() {
         try {
@@ -54,52 +55,41 @@ public class CiRoService implements ExternalServiceManager {
             JsonArray puntiCiro = json.getAsJsonObject().get("puntiCiro").getAsJsonArray();
             StringBuilder insertedPoi = new StringBuilder();
             for (int i = 0; i < puntiCiro.size(); i++) {
-                
                 insertedPoi.append(createPoi(i, puntiCiro));
-                
             }
             return insertedPoi.toString();
-            
         } catch (Exception e) {
             return "response{code:1,error:" + e.toString() + "}";
         }
-        
     }
-    
+
     @Override
     public String getResponse(Map<String, String[]> mapParams) {
         try {
-            
             HttpURLConnection urlConnection = (HttpURLConnection) new URL(getUrl).openConnection();
             urlConnection.setConnectTimeout(15000);
             urlConnection.setReadTimeout(30000);
-            
             urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString().replace('_', '-'));
-            
             String result = IOUtils.toString(urlConnection.getInputStream());
             urlConnection.disconnect();
-            
             return result;
-            
         } catch (IOException e) {
             return "response{code:1,error:" + e.getMessage() + "}";
         }
     }
-    
+
     private void deletePois() {
-        for (String categoriesName1 : categoriesName) {
-            Iterator<CompletePOI> pois = pm.getCompletePoiByCategory(categoriesName1).iterator();
+        for (String categorie : categoriesDelete) {
+            Iterator<CompletePOI> pois = pm.getCompletePoiByCategory(categorie).iterator();
             while (pois.hasNext()) {
                 CompletePOI poi = pois.next();
                 pm.deletePoi(poi);
             }
         }
     }
-    
+
     private String createPoi(int item, JsonArray puntiCiro) {
-        
         CompletePOI newPoi = new CompletePOI();
-        
         newPoi.setName(puntiCiro.get(item).getAsJsonObject().get("nome").getAsString());
         newPoi.setAddress(puntiCiro.get(item).getAsJsonObject().get("indirizzo").getAsString());
         double[] location = {
@@ -119,10 +109,9 @@ public class CiRoService implements ExternalServiceManager {
         categories.addAll(Arrays.asList(categoriesName));
         newPoi.setCategories(categories);
         newPoi.setComponents(newlistComponent);
-        
+
         pm.savePoi(newPoi);
-        
+
         return gson.toJson(newPoi);
-        
     }
 }

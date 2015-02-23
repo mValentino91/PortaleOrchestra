@@ -8,7 +8,6 @@ package com.orchestra.portale.controller;
 import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
-import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,7 +25,7 @@ public class MapViewController {
 
     //Manager della persistenza
     @Autowired
-    PersistenceManager pm;
+    private PersistenceManager pm;
     
     @RequestMapping(params = "category=all")
     public ModelAndView getAllPoi( /*@RequestParam(value = "lat") String lat,

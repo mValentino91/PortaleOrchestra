@@ -28,7 +28,7 @@ public class CartController {
 
     private Cart poiCart = new Cart();
     @Autowired
-    PersistenceManager pm;
+    private PersistenceManager pm;
 
     //Richiesta per la visualizzazione di un singolo poi
     @RequestMapping(value = "/CartView")

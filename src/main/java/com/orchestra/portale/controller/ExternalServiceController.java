@@ -30,14 +30,14 @@ public class ExternalServiceController {
     private ServiceManagerDispacher serviceDispacher = new ServiceManagerDispacher();
     
     @Autowired
-    PersistenceManager pm;
+    private PersistenceManager pm;
 
     @RequestMapping(value = "/ciro/get")
     public @ResponseBody
     String getCiRo(WebRequest request) {
 
         Map<String, String[]> params = request.getParameterMap();
-        serviceDispacher.setService(new BikeSharingService(pm));
+        serviceDispacher.setService(new CiRoService(pm));
         return serviceDispacher.getExternalServiceResponse(params);
     }
     

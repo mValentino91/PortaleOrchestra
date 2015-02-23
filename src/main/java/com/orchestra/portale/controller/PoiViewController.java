@@ -28,7 +28,7 @@ public class PoiViewController {
 
     //Manager della persistenza
     @Autowired
-    PersistenceManager pm;
+    private PersistenceManager pm;
 
     //Richiesta per la visualizzazione di un singolo poi
     @RequestMapping(value = "/getPoi", params = "id")
