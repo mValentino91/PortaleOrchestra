@@ -447,6 +447,7 @@ var interactiveMap = (function() {
     }
     function categoryHandler(event) {
         disableSearchState();
+        $('#loadingImg').show();
         if (event.target === 'hotel' || event.target === 'accommodation') {
             $.ajax({
                 type: "GET",
@@ -477,6 +478,7 @@ var interactiveMap = (function() {
                         }
                         interactiveMap.mcluster.addMarkers(interactiveMap.markers);
                     }
+                    $('#loadingImg').hide();
                 }
             });
         }
@@ -489,6 +491,7 @@ var interactiveMap = (function() {
                     var poi = JSON.parse(data);
                     showPois(poi);
                     markersChangend(interactiveMap.markers);
+                    $('#loadingImg').hide();
                 }
             });
         }

@@ -19,6 +19,12 @@
         src = "./dist/components/interactiveMap/interactiveMap.js">
 </script>
 <style>
+    .fa{
+        color:#285e8e;
+    }
+    .glyphicon{
+        color:#285e8e;
+    }
     #mapContainer{
         position: fixed;
         top: 50px;
@@ -244,18 +250,24 @@
     <div id="map" class="col-md-12">
     </div>
 </div>
+<img id="loadingImg" src="./dist/img/loading.gif" 
+     style="display:none;position:absolute; 
+     top:50%; left: 50%; 
+     height:50px; width: 50px; 
+     margin-left: -25px; margin-top: -25px;"/>
+
 <!--/Map
 ===================================================-->
 <script>
     function initInteractiveMap() {
 
         var mapStyle = [{
-            featureType: "poi",
-            elementType: "labels",
-            stylers: [
-                {visibility: "off"}
-            ]
-        }];
+                featureType: "poi",
+                elementType: "labels",
+                stylers: [
+                    {visibility: "off"}
+                ]
+            }];
 
         var mapOptions = {
             center: new google.maps.LatLng(40.8485091, 14.25574759999995),
@@ -320,5 +332,4 @@
 
     initInteractiveMap();
 </script>
-
 <jsp:include page="poiList.jsp"/>
