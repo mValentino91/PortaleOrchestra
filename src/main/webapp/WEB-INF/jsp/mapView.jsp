@@ -14,26 +14,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="./dist/googlePlusDesign/css/bootstrap.min.css" rel="stylesheet">
-        <link href="./dist/googlePlusDesign/css/styles.css" rel="stylesheet">
-        <link href="./dist/css/section.css" rel="stylesheet">
-        <script src="./dist/js/section.js"></script>
-        <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
-        <script src="./dist/js/readmore.js"></script>
-        <style>
-            body{
-                background-color: lightgray;
-                color: #285e8e;
-                font-family: Roboto, Arial;
-            }
-        </style>
+        <link href="./dist/css/mapView.css" rel="stylesheet">
+        <!-- INCLUSIONE GOOGLE-MAPS -->
+        <script type="text/javascript" 
+                src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true">
+        </script>
+        <script src="./dist/js/mapView.js"></script>
         <title>MapView</title>
         <link href="./dist/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     </head>
-    <body>
+    <body onload="$('#loadingImg').hide();">
+        <img id="loadingImg" src="./dist/img/loading.gif"/>
         <jsp:include page="components/sideBar.jsp"/>
         <jsp:include page="components/interactiveMapComponent.jsp"/>
     </body>

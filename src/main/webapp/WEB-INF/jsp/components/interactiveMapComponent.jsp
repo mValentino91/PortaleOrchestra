@@ -8,68 +8,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!-- INCLUSIONE GOOGLE-MAPS -->
-<script type="text/javascript" 
-        src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true" >
-</script>
-<script type="text/javascript" 
-        src = "./dist/components/interactiveMap/markerclusterer.js">
-</script>
-<script type="text/javascript" 
-        src = "./dist/components/interactiveMap/interactiveMap.js">
-</script>
-<style>
-    .fa{
-        color:#285e8e;
-    }
-    .glyphicon{
-        color:#285e8e;
-    }
-    #mapContainer{
-        position: fixed;
-        top: 50px;
-        bottom:-5px;
-        width: 100%;
-        padding: 0;
-    }
-    #map{
-        height: 99%;
-    }
-    #pano{
-        height: 400px;
-    }
-    #mapInfo {
-        width: 300px;
-        box-shadow: rgba(0, 0, 0, 0.298039) 0px 1px 4px -1px;
-        background-color: white;
-        padding: 10px;
-        font-family: Roboto, Arial;
-        font-size: 13px;
-        margin: 10px;
-    }
-    .infowindowContent{
-        max-width:200px;
-        min-height:250px;
-    }
-</style>
-<!--CONTROLLI MAPPA
-===================================================
-<div id="mapControls" style="margin: 10px;">
-    <div  class="btn-group" role="group" data-toggle="buttons">
-        <label id="searchMapCheckButton" type="button" class="btn btn-default" onclick="interactiveMap.searchHandler()">
-            <input type="checkbox" autocomplete="off">
-            <i class="fa fa-search"></i>
-        </label>
-        <button type="button" class="btn btn-default">
-            <i class="glyphicon glyphicon-road"></i>
-        </button>
-        <button type="button" class="btn btn-default" onclick="interactiveMap.anmHandler()">
-            <i class="fa fa-bus"></i>
-        </button>
-    </div>
-</div>
-<!--/CONTROLLI MAPPA
-===================================================-->
 <!--STREET VIEW
 ===================================================-->
 <div class="modal fade"
@@ -250,12 +188,6 @@
     <div id="map" class="col-md-12">
     </div>
 </div>
-<img id="loadingImg" src="./dist/img/loading.gif" 
-     style="display:none;position:absolute; 
-     top:50%; left: 50%; 
-     height:50px; width: 50px; 
-     margin-left: -25px; margin-top: -25px;"/>
-
 <!--/Map
 ===================================================-->
 <script>
@@ -304,7 +236,7 @@
             interactiveMap.categoryHandler(event);
         });
 
-        interactiveMap.initAnmService();
+        //interactiveMap.initAnmService();
 
     <% int i = 0;%>
 
@@ -327,9 +259,7 @@
         interactiveMap.mcOptions = {maxZoom: 15};
 
         interactiveMap.mcluster = new MarkerClusterer(interactiveMap.map, interactiveMap.markers, interactiveMap.mcOptions);
-
     }
-
     initInteractiveMap();
 </script>
 <jsp:include page="poiList.jsp"/>

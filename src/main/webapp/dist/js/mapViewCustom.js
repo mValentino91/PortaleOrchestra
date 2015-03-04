@@ -1,3 +1,4 @@
+//interactive map
 var interactiveMap = (function() {
     var map;
     var mcOptions;
@@ -213,7 +214,7 @@ var interactiveMap = (function() {
         }
     }
     function checkSearchButtonChecked() {
-        var baseClass = 'btn btn-default btn-sm';
+        var baseClass = 'btn btn-default btn-xs';
         if (searchState === true) {
             var element = document.getElementById('searchMapCheckButton');
             element.className = baseClass + ' active';
@@ -415,74 +416,10 @@ var interactiveMap = (function() {
             interactiveMap.mcluster.addMarkers(interactiveMap.markers);
         }
     }
-    function showHotels(object) {
-        var contentString = "<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>";
-        interactiveMap.infowindow.setContent(contentString);
-        interactiveMap.infowindow.open(interactiveMap.map, object);
-        object.setAnimation(google.maps.Animation.BOUNCE);
-        window.setTimeout(function() {
-            object.setAnimation(null);
-        }, 1400);
-        $.ajax({
-            type: "GET",
-            url: "./Services/Ibm/Albergo",
-            data: "idHotel=" + object.id,
-            success: function(data) {
-                var info = JSON.parse(data);
-                interactiveMap.map.panTo(object.getPosition());
-                var contentString =
-                        '<div class="container-fluid text-center" style="padding:10px">'
-                        + '<b>'
-                        + object.name
-                        + '</b><br>'
-                        + object.address
-                        + '<br><span>'
-                        + object.stars + '</span>'
-                        + '<p class="text-left" style="color:gray">Web: ' + info.web +
-                        '<br> Email: ' + info.email +
-                        '</p></div>';
-                interactiveMap.infowindow.setContent(contentString);
-            }
-        });
-    }
     function categoryHandler(event) {
         disableSearchState();
         $('#loadingImg').show();
-        if (event.target === 'hotel' || event.target === 'accommodation') {
-            $.ajax({
-                type: "GET",
-                url: "./Services/Ibm/Alberghi",
-                data: "",
-                success: function(data) {
-                    var poi = JSON.parse(data);
-                    interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
-                    for (var i = 0; i < interactiveMap.markers.length; i++) {
-                        interactiveMap.markers[i] = null;
-                    }
-                    if (poi) {
-                        interactiveMap.markers = new Array();
-                        for (var i = 0; i < poi.length; i++) {
-                            interactiveMap.markers[i] = new google.maps.Marker({
-                                position: new google.maps.LatLng(poi[i].location[0], poi[i].location[1]),
-                                map: interactiveMap.map,
-                                icon: "./dist/img/marker.png",
-                                title: poi.nome});
-                            interactiveMap.markers[i].index = i;
-                            interactiveMap.markers[i].id = poi[i].id;
-                            interactiveMap.markers[i].name = poi[i].nome;
-                            interactiveMap.markers[i].address = poi[i].indirizzo;
-                            interactiveMap.markers[i].stars = poi[i].classificazione;
-                            google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
-                                showHotels(this);
-                            });
-                        }
-                        interactiveMap.mcluster.addMarkers(interactiveMap.markers);
-                    }
-                    $('#loadingImg').hide();
-                }
-            });
-        }
-        else {
+       
             $.ajax({
                 type: "GET",
                 url: "./Map/JSON",
@@ -494,7 +431,6 @@ var interactiveMap = (function() {
                     $('#loadingImg').hide();
                 }
             });
-        }
     }
     return {
         viewPanorama: viewPanorama,
@@ -519,4 +455,172 @@ var interactiveMap = (function() {
         drawCircleAroundPoi: drawCircleAroundPoi
     };
 })();
+
+//categoriesTail
+var categoriesTail = (function() {
+    var indexCategories = 0;
+    var openedSlug = new Array();
+    var lastSelected = null;
+
+    function labelHandler(slug, id) {
+        if ($(id).hasClass('in') && lastSelected === slug) {
+            lastSelected = null;
+        }
+        else {
+            triggerEvent(slug);
+        }
+    }
+    function removeCategory(id, slug) {
+        $(id).slideUp(150, function() {
+            $(id).remove();
+        });
+        for (var i = 0; i < openedSlug.length; i++) {
+            if (openedSlug[i] === slug) {
+                delete openedSlug[i];
+            }
+        }
+        if (lastSelected === slug) {
+            lastSelected = null;
+        }
+    }
+
+    function triggerEvent(slug) {
+        lastSelected = slug;
+        var catEvent = jQuery.Event('category_changed');
+        catEvent.target = slug;
+        $(document).trigger(catEvent);
+    }
+
+    function macroCategoryHandler(slug, title) {
+        if (lastSelected !== slug) {
+            triggerEvent(slug);
+            var finded = false;
+            for (var i = 0; i < openedSlug.length; i++) {
+                if (openedSlug[i] === slug) {
+                    finded = true;
+                    break;
+                }
+            }
+            if (!finded) {
+                openedSlug.push(slug);
+                document.getElementById('categoriesPanelGroup').innerHTML +=
+                        '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
+                        + '<div class="panel-heading">'
+                        + '<a onclick="categoriesTail.labelHandler(' + "'" + slug + "'" + ',' + "'#categoryCollapse-" + indexCategories + "'" + ')" class="' + slug + '" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-' + indexCategories + '">'
+                        + title
+                        + '</a>'
+                        + '<button type="button" class="close"'
+                        + 'onclick="categoriesTail.removeCategory(' + "'" + '#categoryPanel-'
+                        + indexCategories
+                        + "'" + ',' + "'" + slug + "'" + ')">'
+                        + '×</button>'
+                        + '</div>'
+                        + '<div id="categoryCollapse-' + indexCategories + '" class=" panel-collapse collapse out">'
+                        + '<div class="panel-body">'
+                        + '</div>'
+                        + '</div>'
+                        + '</div>';
+                $('#categoryPanel-' + indexCategories).show(150);
+                $('.' + slug).trigger('click');
+                indexCategories++;
+            } else {
+                $('.' + slug).trigger('click');
+            }
+        }
+    }
+    return {
+        labelHandler: labelHandler,
+        removeCategory: removeCategory,
+        macroCategoryHandler: macroCategoryHandler
+    };
+})();
+
+//poilist
+var poiList = (function() {
+
+    var timeoutId;
+
+    function initPoiList() {
+        $(document).bind("markers_changed", function(event) {
+            var markers = event.target;
+            document.getElementById('poiListComponent').innerHTML = '';
+            var content = '';
+            for (var i = 0; i < markers.length; i++) {
+                content += ' <div id="' + markers[i].id + '" class="container-fluid poiBox" '
+                        + 'onmouseover="poiList.poiBoxDown(' + "'" + markers[i].id + "'" + ', ' + "'" + markers[i].id + "'" + ', true)"'
+                        + 'onmouseout="poiList.poiBoxDown(' + "'" + markers[i].id + "'" + ', ' + "'" + markers[i].id + "'" + ', false)"'
+                        + 'onmouseleave="poiList.poiBoxUp(' + "'" + markers[i].id + "'" + ',' + "'" + markers[i].id + "'" + ')"'
+                        + 'onclick="poiList.poiClicked(' + "'" + markers[i].id + "'" + ')">'
+                        + '<div class="col-md-4"> '
+                        + '<img class="img-responsive"  style="height:45px;"src="./dist/poi/img/' + markers[i].id + '/cover.jpg" onError="this.src=' + "'" + './dist/img/notFound.png' + "'" + ';" alt=""/>'
+                        + '</div>'
+                        + '<div class="col-md-6">'
+                        + '<span class="text-center" style="color: #242424">'
+                        + markers[i].name
+                        + '</span>'
+                        + '</div>'
+                        + '<div class="col-md-1 text-right"><span onmouseover="this.className = ' + "'" + 'fa fa-star fa-2x' + "'" + ';"'
+                        + 'onmouseleave="this.className=' + "'" + 'fa fa-star-o fa-2x' + "'" + ';"'
+                        + 'onclick="poiList.addToCart(' + "'" + markers[i].id + "'" + ')"'
+                        + 'data-toggle="tooltip" title="Aggiungi Ai Preferiti!"'
+                        + 'class="fa fa-star-o fa-2x"></span></div>'
+                        + '<div class="col-md-12">'
+                        + '<p style="padding-top: 5px;" class="poiBoxShortDescription ' + markers[i].id + '">'
+                        + '<span style="color:gray; font-size: 11px;">' + markers[i].address
+                        + '<br>'
+                        + '<label>'
+                        + '<input type="checkbox" onclick="interactiveMap.drawCircleAroundPoi(' + "'" + markers[i].id + "'" + ', 0.15, this.checked)">'
+                        + ' Nei dintorni (150 metri)'
+                        + '</label>'
+                        + '</span>'
+                        + '<br><br>'
+                        + markers[i].shortDescription
+                        + '<a href="./getPoi?id=' + markers[i].id + '">Altro...</a>'
+                        + '</p>'
+                        + '</div>'
+                        + '</div>';
+            }
+            document.getElementById('poiListComponent').innerHTML = content;
+        });
+    }
+    function  poiBoxDown(nameClass, id, enable) {
+        if (enable) {
+            timeoutId = setTimeout(function() {
+                $('.' + nameClass).slideDown();
+                interactiveMap.poiHoverHandler(id, true);
+            }, 700);
+        } else {
+            if (timeoutId) {
+                clearInterval(timeoutId);
+            }
+        }
+    }
+    function poiBoxUp(nameClass, id) {
+        $('.' + nameClass).slideUp();
+        interactiveMap.poiHoverHandler(id, false);
+    }
+    function poiClicked(id) {
+        interactiveMap.poiClickedHandler(id);
+    }
+    function addToCart(id) {
+
+        $.ajax({
+            type: "GET",
+            url: "./Cart/AddPoi",
+            data: "id=" + id,
+            success: function(data) {
+
+                alert('Aggiunto a preferiti!');
+            }
+        });
+    }
+    return {
+        poiBoxUp: poiBoxUp,
+        poiBoxDown: poiBoxDown,
+        initPoiList: initPoiList,
+        poiClicked: poiClicked,
+        addToCart: addToCart
+    };
+})();
+
 
