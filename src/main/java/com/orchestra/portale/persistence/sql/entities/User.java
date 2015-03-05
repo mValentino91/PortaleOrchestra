@@ -1,15 +1,20 @@
 package com.orchestra.portale.persistence.sql.entities;
 
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity(name="user")
 public class User {
 	
-	@Id
+	@Id @GeneratedValue(strategy=GenerationType.TABLE)
 	private Long id;
 	
 	private String firstName;
@@ -19,8 +24,11 @@ public class User {
 	private String username;
 	private String password;
 	
-	@OneToOne(mappedBy="user", cascade={CascadeType.ALL})
-	private Role role;
+	private String fbUser;
+	private String fbEmail;
+        
+	@OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private List<Role> roles;
 
 	public Long getId() {
 		return id;
@@ -62,11 +70,47 @@ public class User {
 		this.password = password;
 	}
 
-	public Role getRole() {
-		return role;
-	}
+        /**
+         * @return the role
+         */
+        public List<Role> getRoles() {
+            return roles;
+        }
 
-	public void setRole(Role role) {
-		this.role = role;
-	}
+        /**
+         * @param role the role to set
+         */
+        public void setRoles(List<Role> roles) {
+            this.roles = roles;
+        }
+
+        /**
+         * @return the fbUser
+         */
+        public String getFbUser() {
+            return fbUser;
+        }
+
+        /**
+         * @param fbUser the fbUser to set
+         */
+        public void setFbUser(String fbUser) {
+            this.fbUser = fbUser;
+        }
+
+        /**
+         * @return the fbEmail
+         */
+        public String getFbEmail() {
+            return fbEmail;
+        }
+
+        /**
+         * @param fbEmail the fbEmail to set
+         */
+        public void setFbEmail(String fbEmail) {
+            this.fbEmail = fbEmail;
+        }
+
+
 }

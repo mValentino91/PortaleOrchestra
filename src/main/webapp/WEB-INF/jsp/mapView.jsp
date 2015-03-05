@@ -27,5 +27,6 @@
         <img id="loadingImg" src="./dist/img/loading.gif"/>
         <jsp:include page="components/sideBar.jsp"/>
         <jsp:include page="components/interactiveMapComponent.jsp"/>
+        <jsp:include page="access/loginModal.jsp" />
     </body>
 </html>

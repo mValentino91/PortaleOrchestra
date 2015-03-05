@@ -15,8 +15,11 @@
                 <li><a style="color:white" href="http://www.orchestra.unina.it/">
                         Home
                     </a></li>
-                    <li><a style="color:white" href="./Map?category=all">Mappa Interattiva</a></li>
+                <li><a style="color:white" href="./Map?category=all">Mappa Interattiva</a></li>
             </ul>
+            <p id="loginArea" class="navbar-text navbar-right">
+                <jsp:include page="../access/loginArea.jsp" />
+            </p>
         </div>
     </div>
 </nav>

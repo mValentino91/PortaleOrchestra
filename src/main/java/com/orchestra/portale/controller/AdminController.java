@@ -16,9 +16,16 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class AdminController {
-    @RequestMapping(value= "/admin")
+
+    @RequestMapping(value = "/admin")
     public ModelAndView admin() {
-     ModelAndView model = new ModelAndView("admin");
+        ModelAndView model = new ModelAndView("admin");
+        return model;
+    }
+
+    @RequestMapping(value = "/home")
+    public ModelAndView home() {
+        ModelAndView model = new ModelAndView("home");
         return model;
     }
 }

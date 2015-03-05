@@ -1,0 +1,1 @@
+<%=SecurityContextHolder.getContext().getAuthentication().getName()%>

@@ -10,25 +10,30 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class AccessController {
 
 	@RequestMapping("/login")
-	public String login(Model model, @RequestParam(required=false) String message) {
-		model.addAttribute("message", message);
-		return "access/login";
-	}
-	
-	@RequestMapping(value = "/denied")
+	public String login() {
+		return "access/loginForm";
+	}        
+           
+    
+	@RequestMapping("/loginForm")
+	public String loginForm(Model model) {
+                return "access/loginForm";
+	}        
+
+	@RequestMapping(value="/loginForm", params="error")
+	public String loginForm(Model model, @RequestParam(value="error") String error) {
+                model.addAttribute("error", "Username o password errati");
+		return "access/loginForm";
+	}                
+             
+        
+	@RequestMapping("/denied")
  	public String denied() {
 		return "access/denied";
 	}
 	
-	@RequestMapping(value = "/login/failure")
- 	public String loginFailure() {
-		String message = "Login Failure!";
-		return "redirect:/login?message="+message;
-	}
-	
-	@RequestMapping(value = "/logout/success")
- 	public String logoutSuccess() {
-		String message = "Logout Success!";
-		return "redirect:/login?message="+message;
+	@RequestMapping("/loginArea")
+ 	public String loginArea() {
+		return "access/loginArea";
 	}
 }
