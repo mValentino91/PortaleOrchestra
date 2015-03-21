@@ -51,33 +51,707 @@ e._nodes?f.addClass("click-expand"):e.nodes&&f.addClass("click-collapse");f.appe
 indent:'<span class="indent"></span>',iconWrapper:'<span class="icon"></span>',icon:"<i></i>",link:'<a href="#" style="color:inherit;"></a>',badge:'<span class="badge"></span>'},_css:".list-group-item{cursor:pointer;}span.indent{margin-left:10px;margin-right:10px}span.icon{margin-right:5px}"};c.fn.treeview=function(a,b){return this.each(function(){var d=c.data(this,"plugin_treeview");"string"===typeof a?d?c.isFunction(d[a])&&"_"!==a.charAt(0)?("string"===typeof b&&(b=[b]),d[a].apply(d,b)):h.console&&
 h.console.error("No such method : "+a):h.console&&h.console.error("Not initialized, can not call method : "+a):d?d._init(a):c.data(this,"plugin_treeview",new k(this,c.extend(!0,{},a)))})}})(jQuery,window,document);
 //CUSTOM JAVASCRIPT
-var interactiveMap=function(){function l(){if(!0===q){p=null;for(var a=0;a<f.length;a++)if(null!==f[a]&&void 0!==f[a]){null!==f[a].circle&&void 0!==f[a].circle&&f[a].circle.setMap(null);if(null!==f[a].nearPois&&void 0!==f[a].nearPois)for(var c=0;c<f[a].nearPois.length;c++)null!==f[a].nearPois[c]&&void 0!==f[a].nearPois[c]&&(f[a].nearPois[c].setMap(null),f[a].nearPois[c]=null);f[a].setMap(null);f[a]=null}f=[];q=!1}}function d(a){$.ajax({type:"GET",url:"./Search/JSON/Near",data:"id="+f[a].id+"&radius=0.15",
-success:function(c){c=JSON.parse(c);var b={strokeColor:"#FF0000",strokeOpacity:.2,strokeWeight:2,fillColor:"#FF0000",fillOpacity:.2,map:interactiveMap.map,center:new google.maps.LatLng(f[a].location[0],f[a].location[1]),radius:150};f[a].circle=new google.maps.Circle(b);f[a].nearPois=[];for(b=0;b<c.length;b++){for(var d=!1,e=0;e<p.length;e++)if(p[e]===c[b].id){d=!0;break}!1===d&&(f[a].nearPois[b]=new google.maps.Marker({position:new google.maps.LatLng(c[b].location[0],c[b].location[1]),map:interactiveMap.map,
-icon:"./dist/img/marker.png",title:c[b].name}),p.push(c[b].id),f[a].nearPois[b].id=c[b].id,f[a].nearPois[b].name=c[b].name,f[a].nearPois[b].address=c[b].address,f[a].nearPois[b].shortDescription=c[b].shortDescription,f[a].nearPois[b].location=c[b].location,google.maps.event.addListener(f[a].nearPois[b],"click",function(){h(this)}))}}})}function g(){if(!0===q){var a=document.getElementById("searchMapCheckButton");a.className="btn btn-default btn-xs active"}else a=document.getElementById("searchMapCheckButton"),
-a.className="btn btn-default btn-xs"}function e(a){interactiveMap.infowindow.setContent("<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>");interactiveMap.infowindow.open(interactiveMap.map,a);a.setAnimation(google.maps.Animation.BOUNCE);window.setTimeout(function(){a.setAnimation(null)},1400);$.ajax({type:"GET",url:"./anmServices/stops/prevision/"+a.code,success:function(a){a=JSON.parse(a);var b="<div style='width:100px;'>";if("null"===a[0].codice)b+="Previsioni non disponibili!";
-else for(var d=0;d<a.length;d++)b+="Linea: "+a[d].codice+"    "+a[d].time+"<br>";interactiveMap.infowindow.setContent(b+"</div>")}})}function h(a){interactiveMap.map.panTo(a.getPosition());var c='<div class="container-fluid text-center infowindowContent"><b>'+a.name+"</b><br>"+a.address+'<center><img class="img-rounded" src="./dist/poi/img/'+a.id+'/cover.jpg" onError="this.src=\'./dist/img/notFound.png\';"height="60" style="margin: 5px; max-width:110px; height:auto;" alt=""/></center><p style="color:gray">'+
-a.shortDescription+"</p>",c=c+('<a href="./getPoi?id='+a.id+'">Maggiori Informazioni</a> <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('+a.index+')"><br>Guarda nei dintorni</a></div>');interactiveMap.infowindow.setContent(c);interactiveMap.infowindow.open(interactiveMap.map,a);a.setAnimation(google.maps.Animation.BOUNCE);window.setTimeout(function(){a.setAnimation(null)},1400)}function u(a){interactiveMap.mcluster.removeMarkers(interactiveMap.markers);for(var c=0;c<interactiveMap.markers.length;c++)interactiveMap.markers[c]=
-null;if(a){interactiveMap.markers=[];for(c=0;c<a.length;c++)interactiveMap.markers[c]=new google.maps.Marker({position:new google.maps.LatLng(a[c].location[0],a[c].location[1]),icon:"./dist/img/marker.png",title:a.name}),interactiveMap.markers[c].id=a[c].id,interactiveMap.markers[c].index=c,interactiveMap.markers[c].name=a[c].name,interactiveMap.markers[c].address=a[c].address,interactiveMap.markers[c].shortDescription=a[c].shortDescription,google.maps.event.addListener(interactiveMap.markers[c],
-"click",function(){interactiveMap.attachInfo(this)});interactiveMap.mcluster.addMarkers(interactiveMap.markers)}}function n(a){interactiveMap.infowindow.setContent("<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>");interactiveMap.infowindow.open(interactiveMap.map,a);a.setAnimation(google.maps.Animation.BOUNCE);window.setTimeout(function(){a.setAnimation(null)},1400);$.ajax({type:"GET",url:"./Services/Ibm/Albergo",data:"idHotel="+a.id,success:function(c){c=JSON.parse(c);
-interactiveMap.map.panTo(a.getPosition());interactiveMap.infowindow.setContent('<div class="container-fluid text-center" style="padding:10px"><b>'+a.name+"</b><br>"+a.address+"<br><span>"+a.stars+'</span><p class="text-left" style="color:gray">Web: '+c.web+"<br> Email: "+c.email+"</p></div>")}})}var r=new google.maps.InfoWindow,v=!1,k=[],t,q=!1,w,f,p,x=jQuery.Event("markers_changed");return{viewPanorama:function(a){interactiveMap.streetView.getPanoramaByLocation(interactiveMap.markers[a].getPosition(),
-30,function(c,b){b===google.maps.StreetViewStatus.OK?($("#panoContainer").modal("show"),window.setTimeout(function(){interactiveMap.panorama.setPosition(interactiveMap.markers[a].getPosition());interactiveMap.map.setStreetView(interactiveMap.panorama);interactiveMap.map.getStreetView().setVisible(!0)},500)):alert("Il panorama del Punto Di Interesse non e' disponibile!")})},attachInfo:h,categoryHandler:function(a){l();$("#loadingImg").show();"hotel"===a.target||"accommodation"===a.target?$.ajax({type:"GET",
-url:"./Services/Ibm/Alberghi",data:"",success:function(a){a=JSON.parse(a);interactiveMap.mcluster.removeMarkers(interactiveMap.markers);for(var b=0;b<interactiveMap.markers.length;b++)interactiveMap.markers[b]=null;if(a){interactiveMap.markers=[];for(b=0;b<a.length;b++)interactiveMap.markers[b]=new google.maps.Marker({position:new google.maps.LatLng(a[b].location[0],a[b].location[1]),map:interactiveMap.map,icon:"./dist/img/marker.png",title:a.nome}),interactiveMap.markers[b].index=b,interactiveMap.markers[b].id=
-a[b].id,interactiveMap.markers[b].name=a[b].nome,interactiveMap.markers[b].address=a[b].indirizzo,interactiveMap.markers[b].stars=a[b].classificazione,google.maps.event.addListener(interactiveMap.markers[b],"click",function(){n(this)});interactiveMap.mcluster.addMarkers(interactiveMap.markers)}$("#loadingImg").hide()}}):$.ajax({type:"GET",url:"./Map/JSON",data:"category="+a.target,success:function(a){a=JSON.parse(a);u(a);x.target=interactiveMap.markers;$(document).trigger(x);$("#loadingImg").hide()}})},
-map:void 0,markers:[],panorama:void 0,streetView:void 0,infowindow:r,initAnmService:function(){$.getJSON("dist/jsonLinee.json",function(){console.log("success")}).done(function(a){t=a}).fail(function(a,c,b){console.log(c+b);console.log(a)}).always(function(){console.log("complete")})},anmHandler:function(){if(v){for(var a=0;a<k.length;a++)k[a].setMap(null),k[a]=null;k=[];v=!1}else $("#anmModal").modal("show"),v=!0},showLine:function(){$("#anmModal").modal("hide");var a=$("#lineValue").val(),c;if(t){for(var b=
-0;b<k.length;b++)k[b].setMap(null),k[b]=null;k=[];for(b=0;b<t.length;b++)if(t[b].linea===a){c=t[b];break}for(a=0;a<c.percorso.length;a++)b="./dist/img/andata.png","Di"===c.percorso[a].verso&&(b="./dist/img/ritorno.png"),k[a]=new google.maps.Marker({position:new google.maps.LatLng(c.percorso[a].location[0],c.percorso[a].location[1]),map:interactiveMap.map,icon:b,title:c.percorso[a].nome}),k[a].code=c.percorso[a].codice,k[a].nome=c.percorso[a].nome,k[a].index=a,google.maps.event.addListener(k[a],"click",
-function(){e(this)})}},mcluster:void 0,mcOptions:void 0,searchHandler:function(){!1===q?$("#searchModal").modal("show"):l()},showSelectedPois:function(){var a=$(".checkboxForSearchResult"),c=$(".checkboxForSearchAround"),b=0;if(0<a.length){f=[];p=[];for(var e=0;e<a.length;e++)if(a[e].checked){var m=w[a[e].value];f[b]=new google.maps.Marker({position:new google.maps.LatLng(m.location[0],m.location[1]),map:interactiveMap.map,icon:"./dist/img/bigMarker.png",title:m.name});p.push(m.id);f[b].location=
-m.location;f[b].id=m.id;f[b].name=m.name;f[b].address=m.address;f[b].shortDescription=m.shortDescription;google.maps.event.addListener(f[b],"click",function(){h(this)});b++}if(0<b){interactiveMap.mcluster.removeMarkers(interactiveMap.markers);for(e=0;e<interactiveMap.markers.length;e++)interactiveMap.markers[e]=null;q=!0}for(a=0;a<c.length;a++)c[a].checked&&d(a);$("#searchResultModal").modal("hide");g()}},searchPoi:function(){var a=$("#nameInputSearchMap").val(),c=$("#addressInputSearchMap").val(),
-b=$("#categoryInputSearchMap").val();$.ajax({type:"GET",url:"./Search/JSON/Find",data:"name="+a+"&address="+c+"&category="+b,success:function(a){$("#searchModal").modal("hide");w=a=JSON.parse(a);if(0===a.length)$("#searchNoResultModal").modal("show");else{for(var b="",c=0;c<a.length;c++)b+="<tr><td><input type='checkbox' class='checkboxForSearchResult' checked='true' value='"+c+"'/></td><td>"+a[c].name+"</td><td>"+a[c].address+"</td><td>"+a[c].shortDescription+"</td><td><input type='checkbox' class='checkboxForSearchAround'/></td></tr>";
-document.getElementById("tableBodySearchResultMap").innerHTML=b;$("#searchResultModal").modal("show")}}})},checkSearchButtonChecked:g,poiHoverHandler:function(a,c){for(var b=null,d=0;d<interactiveMap.markers.length;d++)if(interactiveMap.markers[d].id===a){b=interactiveMap.markers[d];break}null!==b&&(c?(b.setIcon("./dist/img/bigMarker.png"),b.setAnimation(google.maps.Animation.BOUNCE)):(b.setIcon("./dist/img/marker.png"),b.setAnimation(null)))},poiClickedHandler:function(a){for(var c=null,b=0;b<interactiveMap.markers.length;b++)if(interactiveMap.markers[b].id===
-a){c=interactiveMap.markers[b];break}null!==c&&(interactiveMap.map.panTo(c.getPosition()),interactiveMap.map.setZoom(16))},drawCircleAroundPoi:function(a,c,b){for(var d=null,e=0;e<interactiveMap.markers.length;e++)if(interactiveMap.markers[e].id===a){d=interactiveMap.markers[e];!1===b&&d.circle&&d.circle.setMap(null);break}null!==d&&!0===b&&(a={strokeColor:"#FF0000",strokeOpacity:.2,strokeWeight:2,fillColor:"#FF0000",fillOpacity:.2,map:interactiveMap.map,center:d.getPosition(),radius:1E3*c},d.circle=
-new google.maps.Circle(a))}}}(),categoriesTail=function(){function l(d){e=d;var g=jQuery.Event("category_changed");g.target=d;$(document).trigger(g)}var d=0,g=[],e=null;return{labelHandler:function(d,g){$(g).hasClass("in")&&e===d?e=null:l(d)},removeCategory:function(d,l){$(d).slideUp(150,function(){$(d).remove()});for(var n=0;n<g.length;n++)g[n]===l&&delete g[n];e===l&&(e=null)},macroCategoryHandler:function(h,u){if(e!==h){l(h);for(var n=!1,r=0;r<g.length;r++)if(g[r]===h){n=!0;break}n?$("."+h).trigger("click"):
-(g.push(h),document.getElementById("categoriesPanelGroup").innerHTML+='<div class="panel panel-default" style="display:none" id="categoryPanel-'+d+'"><div class="panel-heading"><a onclick="categoriesTail.labelHandler(\''+h+"','#categoryCollapse-"+d+'\')" class="'+h+'" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-'+d+'">'+u+'</a><button type="button" class="close"onclick="categoriesTail.removeCategory(\'#categoryPanel-'+d+"','"+h+'\')">\u00d7</button></div><div id="categoryCollapse-'+
-d+'" class=" panel-collapse collapse out"><div class="panel-body"></div></div></div>',$("#categoryPanel-"+d).show(150),$("."+h).trigger("click"),d++)}}}}(),poiList=function(){var l;return{poiBoxUp:function(d,g){$("."+d).slideUp();interactiveMap.poiHoverHandler(g,!1)},poiBoxDown:function(d,g,e){e?l=setTimeout(function(){$("."+d).slideDown();interactiveMap.poiHoverHandler(g,!0)},700):l&&clearInterval(l)},initPoiList:function(){$(document).bind("markers_changed",function(d){d=d.target;for(var g=document.getElementById("poiListComponent").innerHTML=
-"",e=0;e<d.length;e++)g+=' <div id="'+d[e].id+'" class="container-fluid poiBox" onmouseover="poiList.poiBoxDown(\''+d[e].id+"', '"+d[e].id+"', true)\"onmouseout=\"poiList.poiBoxDown('"+d[e].id+"', '"+d[e].id+"', false)\"onmouseleave=\"poiList.poiBoxUp('"+d[e].id+"','"+d[e].id+"')\"onclick=\"poiList.poiClicked('"+d[e].id+'\')"><div class="col-md-4"> <img class="img-responsive"  style="height:45px;"src="./dist/poi/img/'+d[e].id+'/cover.jpg" onError="this.src=\'./dist/img/notFound.png\';" alt=""/></div><div class="col-md-6"><span class="text-center" style="color: #242424">'+
-d[e].name+'</span></div><div class="col-md-1 text-right"><span onmouseover="this.className = \'fa fa-star fa-2x\';"onmouseleave="this.className=\'fa fa-star-o fa-2x\';"onclick="poiList.addToCart(\''+d[e].id+'\')"data-toggle="tooltip" title="Aggiungi Ai Preferiti!"class="fa fa-star-o fa-2x"></span></div><div class="col-md-12"><p style="padding-top: 5px;" class="poiBoxShortDescription '+d[e].id+'"><span style="color:gray; font-size: 11px;">'+d[e].address+'<br><label><input type="checkbox" onclick="interactiveMap.drawCircleAroundPoi(\''+
-d[e].id+"', 0.15, this.checked)\"> Nei dintorni (150 metri)</label></span><br><br>"+d[e].shortDescription+'<a href="./getPoi?id='+d[e].id+'">Altro...</a></p></div></div>';document.getElementById("poiListComponent").innerHTML=g})},poiClicked:function(d){interactiveMap.poiClickedHandler(d)},addToCart:function(d){$.ajax({type:"GET",url:"./Cart/AddPoi",data:"id="+d,success:function(d){alert("Aggiunto a preferiti!")}})}}}();
+//interactive map
+var interactiveMap = (function() {
+    var map;
+    var mcOptions;
+    var mcluster;
+    var markers = new Array();
+    var infowindow = new google.maps.InfoWindow();
+    var panorama;
+    var streetView;
+    var anmState = false;
+    var anmStops = new Array();
+    var anmData;
+    var anmLineeJson;
+    var searchState = false;
+    var searchedPoi;
+    var searchedMarkers;
+    var nearRadius = 0.15;
+    var supportIntersectIdList;
+    var markersEvent = jQuery.Event("markers_changed");
+
+    function drawCircleAroundPoi(id, radius, enable) {
+        var marker = null;
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+            if (interactiveMap.markers[i].id === id) {
+                marker = interactiveMap.markers[i];
+                if (enable === false && marker.circle) {
+                    marker.circle.setMap(null);
+                }
+                break;
+            }
+        }
+        if (marker !== null && enable === true) {
+            var circleOptions = {
+                strokeColor: '#FF0000',
+                strokeOpacity: 0.2,
+                strokeWeight: 2,
+                fillColor: '#FF0000',
+                fillOpacity: 0.2,
+                map: interactiveMap.map,
+                center: marker.getPosition(),
+                radius: radius * 1000
+            };
+            marker.circle = new google.maps.Circle(circleOptions);
+        }
+    }
+    function markersChangend(markers) {
+
+        markersEvent.target = markers;
+        $(document).trigger(markersEvent);
+    }
+    function poiClickedHandler(id) {
+        var object = null;
+
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+
+            if (interactiveMap.markers[i].id === id) {
+
+                object = interactiveMap.markers[i];
+                break;
+            }
+        }
+        if (object !== null) {
+
+            interactiveMap.map.panTo(object.getPosition());
+            interactiveMap.map.setZoom(16);
+        }
+    }
+    function poiHoverHandler(id, enable) {
+
+        var object = null;
+
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+
+            if (interactiveMap.markers[i].id === id) {
+
+                object = interactiveMap.markers[i];
+                break;
+            }
+        }
+        if (object !== null) {
+            if (enable) {
+                object.setIcon('./dist/img/bigMarker.png');
+                object.setAnimation(google.maps.Animation.BOUNCE);
+            } else {
+                object.setIcon('./dist/img/marker.png');
+                object.setAnimation(null);
+            }
+        }
+    }
+    function searchHandler() {
+        if (searchState === false) {
+            $('#searchModal').modal('show');
+        }
+        else {
+            disableSearchState();
+        }
+    }
+    function disableSearchState() {
+        if (searchState === true) {
+            supportIntersectIdList = null;
+            for (var z = 0; z < searchedMarkers.length; z++) {
+                if (searchedMarkers[z] !== null && searchedMarkers[z] !== undefined) {
+                    if (searchedMarkers[z].circle !== null && searchedMarkers[z].circle !== undefined)
+                        searchedMarkers[z].circle.setMap(null);
+                    if (searchedMarkers[z].nearPois !== null && searchedMarkers[z].nearPois !== undefined) {
+                        for (var k = 0; k < searchedMarkers[z].nearPois.length; k++) {
+                            if (searchedMarkers[z].nearPois[k] !== null && searchedMarkers[z].nearPois[k] !== undefined) {
+                                searchedMarkers[z].nearPois[k].setMap(null);
+                                searchedMarkers[z].nearPois[k] = null;
+                            }
+                        }
+                    }
+                    searchedMarkers[z].setMap(null);
+                    searchedMarkers[z] = null;
+                }
+            }
+            searchedMarkers = new Array();
+            searchState = false;
+        }
+    }
+    function searchNearPois(index) {
+        $.ajax({
+            type: "GET",
+            url: "./Search/JSON/Near",
+            data: "id=" + searchedMarkers[index].id + "&radius=" + nearRadius,
+            success: function(data) {
+                var pois = JSON.parse(data);
+                var circleOptions = {
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.2,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.2,
+                    map: interactiveMap.map,
+                    center: new google.maps.LatLng(
+                            searchedMarkers[index].location[0],
+                            searchedMarkers[index].location[1]),
+                    radius: nearRadius * 1000
+                };
+                searchedMarkers[index].circle = new google.maps.Circle(circleOptions);
+                searchedMarkers[index].nearPois = new Array();
+                for (var i = 0; i < pois.length; i++) {
+                    var finded = false;
+                    for (var j = 0; j < supportIntersectIdList.length; j++) {
+                        if (supportIntersectIdList[j] === pois[i].id) {
+                            finded = true;
+                            break;
+                        }
+                    }
+                    if (finded === false) {
+                        searchedMarkers[index].nearPois[i] = new google.maps.Marker({
+                            position: new google.maps.LatLng(pois[i].location[0],
+                                    pois[i].location[1]),
+                            map: interactiveMap.map,
+                            icon: './dist/img/marker.png',
+                            title: pois[i].name});
+                        supportIntersectIdList.push(pois[i].id);
+                        searchedMarkers[index].nearPois[i].id = pois[i].id;
+                        searchedMarkers[index].nearPois[i].name = pois[i].name;
+                        searchedMarkers[index].nearPois[i].address = pois[i].address;
+                        searchedMarkers[index].nearPois[i].shortDescription = pois[i].shortDescription;
+                        searchedMarkers[index].nearPois[i].location = pois[i].location;
+
+                        google.maps.event.addListener(searchedMarkers[index].nearPois[i], 'click', function() {
+                            attachInfo(this);
+                        });
+                    }
+                }
+            }
+        });
+    }
+    function showSelectedPois() {
+        var checkList = $('.checkboxForSearchResult');
+        var nearCheckList = $('.checkboxForSearchAround');
+        var count = 0;
+        if (checkList.length > 0) {
+            searchedMarkers = new Array();
+            supportIntersectIdList = new Array();
+            for (var i = 0; i < checkList.length; i++) {
+                if (checkList[i].checked) {
+                    var temp = searchedPoi[checkList[i].value];
+                    searchedMarkers[count] = new google.maps.Marker({
+                        position: new google.maps.LatLng(
+                                temp.location[0],
+                                temp.location[1]),
+                        map: interactiveMap.map,
+                        icon: './dist/img/bigMarker.png',
+                        title: temp.name});
+                    supportIntersectIdList.push(temp.id);
+                    searchedMarkers[count].location = temp.location;
+                    searchedMarkers[count].id = temp.id;
+                    searchedMarkers[count].name = temp.name;
+                    searchedMarkers[count].address = temp.address;
+                    searchedMarkers[count].shortDescription = temp.shortDescription;
+                    google.maps.event.addListener(searchedMarkers[count], 'click', function() {
+                        attachInfo(this);
+                    });
+                    count++;
+                }
+            }
+            if (count > 0) {
+                interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
+                for (var i = 0; i < interactiveMap.markers.length; i++) {
+                    interactiveMap.markers[i] = null;
+                }
+                searchState = true;
+            }
+            for (var j = 0; j < nearCheckList.length; j++) {
+                if (nearCheckList[j].checked)
+                    searchNearPois(j);
+            }
+            $('#searchResultModal').modal('hide');
+            checkSearchButtonChecked();
+        }
+    }
+    function checkSearchButtonChecked() {
+        var baseClass = 'btn btn-default btn-xs';
+        if (searchState === true) {
+            var element = document.getElementById('searchMapCheckButton');
+            element.className = baseClass + ' active';
+        } else {
+            var element = document.getElementById('searchMapCheckButton');
+            element.className = baseClass;
+        }
+    }
+    function searchPoi() {
+        var name = $('#nameInputSearchMap').val();
+        var address = $('#addressInputSearchMap').val();
+        var category = $('#categoryInputSearchMap').val();
+        $.ajax({
+            type: "GET",
+            url: "./Search/JSON/Find",
+            data: "name=" + name + "&address=" + address + "&category=" + category,
+            success: function(data) {
+                $('#searchModal').modal('hide');
+                var pois = JSON.parse(data);
+                searchedPoi = pois;
+                if (pois.length === 0) {
+                    $('#searchNoResultModal').modal('show');
+                }
+                else {
+                    var contentString = "";
+                    for (var i = 0; i < pois.length; i++) {
+                        contentString += "<tr><td><input type='checkbox' class='checkboxForSearchResult' checked='true' value='"
+                                + i + "'/></td>"
+                                + "<td>" + pois[i].name + "</td>"
+                                + "<td>" + pois[i].address + "</td>"
+                                + "<td>" + pois[i].shortDescription + "</td>"
+                                + "<td><input type='checkbox' class='checkboxForSearchAround'/></td></tr>";
+                    }
+                    document.getElementById('tableBodySearchResultMap').innerHTML = contentString;
+                    $('#searchResultModal').modal('show');
+                }
+            }
+        });
+    }
+    function anmHandler() {
+        //ANM GIA' ATTIVO SULLA MAPPA
+        if (anmState) {
+            for (var z = 0; z < anmStops.length; z++) {
+                anmStops[z].setMap(null);
+                anmStops[z] = null;
+            }
+            anmStops = new Array();
+            anmState = false;
+        }
+        else {
+            $('#anmModal').modal('show');
+            anmState = true;
+        }
+    }
+    function showPrevision(object) {
+        var contentString = "<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>";
+        interactiveMap.infowindow.setContent(contentString);
+        interactiveMap.infowindow.open(interactiveMap.map, object);
+        object.setAnimation(google.maps.Animation.BOUNCE);
+        window.setTimeout(function() {
+            object.setAnimation(null);
+        }, 1400);
+        $.ajax({
+            type: "GET",
+            url: "./anmServices/stops/prevision/" + object.code,
+            success: function(data) {
+                var info = JSON.parse(data);
+                var contentString = "<div style='width:100px;'>";
+                if (info[0].codice === "null") {
+                    contentString += "Previsioni non disponibili!";
+                }
+                else {
+                    for (var i = 0; i < info.length; i++) {
+
+                        contentString += "Linea: " + info[i].codice + "    " + info[i].time + "<br>";
+                    }
+                }
+                contentString += "</div>";
+                interactiveMap.infowindow.setContent(contentString);
+            }
+        });
+    }
+    function showLine() {
+        $("#anmModal").modal('hide');
+        var value = $("#lineValue").val();
+        var line;
+        if (anmData) {
+            for (var z = 0; z < anmStops.length; z++) {
+                anmStops[z].setMap(null);
+                anmStops[z] = null;
+            }
+            anmStops = new Array();
+            for (var i = 0; i < anmData.length; i++) {
+                if (anmData[i].linea === value)
+                {
+                    line = anmData[i];
+                    break;
+                }
+            }
+            for (var j = 0; j < line.percorso.length; j++) {
+                var img = './dist/img/andata.png';
+                if (line.percorso[j].verso === "Di") {
+                    img = './dist/img/ritorno.png';
+                }
+                anmStops[j] = new google.maps.Marker({
+                    position: new google.maps.LatLng(line.percorso[j].location[0],
+                            line.percorso[j].location[1]),
+                    map: interactiveMap.map,
+                    icon: img,
+                    title: line.percorso[j].nome});
+                anmStops[j].code = line.percorso[j].codice;
+                anmStops[j].nome = line.percorso[j].nome;
+                anmStops[j].index = j;
+                google.maps.event.addListener(anmStops[j], 'click', function() {
+                    showPrevision(this);
+                });
+            }
+        }
+    }
+    function initAnmService() {
+        anmLineeJson = $.getJSON("dist/jsonLinee.json", function() {
+            console.log("success");
+        })
+                .done(function(data) {
+                    anmData = data;
+                })
+                .fail(function(anmLineeJson, textStatus, error) {
+                    console.log(textStatus + error);
+                    console.log(anmLineeJson);
+                })
+                .always(function() {
+                    console.log("complete");
+                });
+    }
+    function viewPanorama(index) {
+        interactiveMap.streetView.getPanoramaByLocation(interactiveMap.markers[index].getPosition(), 30, function(result, status) {
+            if (status === google.maps.StreetViewStatus.OK) {
+                $("#panoContainer").modal('show');
+                window.setTimeout(function() {
+                    interactiveMap.panorama.setPosition(interactiveMap.markers[index].getPosition());
+                    interactiveMap.map.setStreetView(interactiveMap.panorama);
+                    interactiveMap.map.getStreetView().setVisible(true);
+                }, 500);
+            }
+            else {
+                alert("Il panorama del Punto Di Interesse non e' disponibile!");
+            }
+        }
+        );
+    }
+    function attachInfo(object) {
+        interactiveMap.map.panTo(object.getPosition());
+        var contentString =
+                '<div class="container-fluid text-center infowindowContent">'
+                + '<b>'
+                + object.name
+                + '</b><br>'
+                + object.address
+                + '<center><img class="img-rounded" src="./dist/poi/img/'
+                + object.id
+                + '/cover.jpg" onError="this.src=' + "'./dist/img/notFound.png';" + '"'
+                + 'height="60" style="margin: 5px; max-width:110px; height:auto;" alt=""/></center>'
+                + '<p style="color:gray">'
+                + object.shortDescription + '</p>';
+        contentString += '<a href="./getPoi?id='
+                + object.id
+                + '">Maggiori Informazioni</a>'
+                + ' <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('
+                + object.index
+                + ')"><br>Guarda nei dintorni</a></div>';
+        interactiveMap.infowindow.setContent(contentString);
+        interactiveMap.infowindow.open(interactiveMap.map, object);
+        object.setAnimation(google.maps.Animation.BOUNCE);
+        window.setTimeout(function() {
+            object.setAnimation(null);
+        }, 1400);
+    }
+    function showPois(poi) {
+        interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
+        for (var i = 0; i < interactiveMap.markers.length; i++) {
+            interactiveMap.markers[i] = null;
+        }
+        if (poi) {
+            interactiveMap.markers = new Array();
+            for (var i = 0; i < poi.length; i++) {
+                interactiveMap.markers[i] = new google.maps.Marker({
+                    position: new google.maps.LatLng(poi[i].location[0], poi[i].location[1]),
+                    icon: "./dist/img/marker.png",
+                    title: poi.name});
+                interactiveMap.markers[i].id = poi[i].id;
+                interactiveMap.markers[i].index = i;
+                interactiveMap.markers[i].name = poi[i].name;
+                interactiveMap.markers[i].address = poi[i].address;
+                interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
+                google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
+                    interactiveMap.attachInfo(this);
+                });
+            }
+            interactiveMap.mcluster.addMarkers(interactiveMap.markers);
+        }
+    }
+    function categoryHandler(event) {
+        disableSearchState();
+        $('#loadingImg').show();
+
+        $.ajax({
+            type: "GET",
+            url: "./Map/JSON",
+            data: "category=" + event.target,
+            success: function(data) {
+                var poi = JSON.parse(data);
+                showPois(poi);
+                markersChangend(interactiveMap.markers);
+                $('#loadingImg').hide();
+            }
+        });
+    }
+    return {
+        viewPanorama: viewPanorama,
+        attachInfo: attachInfo,
+        categoryHandler: categoryHandler,
+        map: map,
+        markers: markers,
+        panorama: panorama,
+        streetView: streetView,
+        infowindow: infowindow,
+        initAnmService: initAnmService,
+        anmHandler: anmHandler,
+        showLine: showLine,
+        mcluster: mcluster,
+        mcOptions: mcOptions,
+        searchHandler: searchHandler,
+        showSelectedPois: showSelectedPois,
+        searchPoi: searchPoi,
+        checkSearchButtonChecked: checkSearchButtonChecked,
+        poiHoverHandler: poiHoverHandler,
+        poiClickedHandler: poiClickedHandler,
+        drawCircleAroundPoi: drawCircleAroundPoi
+    };
+})();
+
+//categoriesTail
+var categoriesTail = (function() {
+    var indexCategories = 0;
+    var openedSlug = new Array();
+    var lastSelected = null;
+
+    function init() {
+        
+
+    }
+
+    function parseJsonCategories() {
+
+        $.getJSON("./jsonDB/categoriesTree", function(data) {
 
 
+        });
+    }
+        function searchNode(tree, slug) {
 
+        if (tree) {
+            if (tree.slug === slug){
+                return tree;
+            }
+            var result;
+            if(tree.nodes){
+            for (var i = 0; i < tree.nodes.length; i++) {
+
+                result = searchNode(tree.nodes[i], slug);
+
+                if (result)
+                    return result;
+            }
+        }
+        }
+        return undefined;
+    }
+    function searchSubTree(slug, container, level) {
+        $.getJSON("./jsonDB/categoriesTree", function(data) {
+
+            var result;
+            
+            for (var i = 0; i < data.length; i++) {
+                 result=searchNode(data[i],slug)
+                 if(result)
+                     break;
+            }
+            
+            showSubCategories(result,container, level);
+        });
+    }
+    function subCategoryHandler(checked,slug,container,level){
+        if(!checked){
+            $('.body-'+slug).remove();
+        }
+        else{
+            searchSubTree(slug,container,level);
+            triggerEvent(slug);
+        }
+    }
+    function showSubCategories(tree,container, level) {
+        if(tree && tree.nodes){
+            if(level>0){
+             $(container).append(
+                 '<div class="body-'+tree.slug+'">'
+         +'<div class=col-md-12" style="font-size:11px; border-top:1px solid lightgray;">'
+                     +tree.text+'</div></div>');
+         }   
+            for(var i=0; i<tree.nodes.length; i++)
+            {
+                   $(container).append(
+                        '<label class="body-'+tree.slug+'" style="font-size:10px;">'
+                            +'<input type="checkbox" onclick="'
+                            + 'categoriesTail.subCategoryHandler(this.checked,'+"'"+tree.nodes[i].slug+"'"+','+"'"+container+"',"
+                            +(level+1)+')'
+                    +'" style="height:10px; cursor:pointer;">'
+                    +'&nbsp'+ tree.nodes[i].text+'&nbsp&nbsp'
+                         +'</label>');
+            }
+        }
+    }
+    function labelHandler(slug, id) {
+        if ($(id).hasClass('in') && lastSelected === slug) {
+            lastSelected = null;
+        }
+        else {
+            triggerEvent(slug);
+        }
+    }
+    function removeCategory(id, slug) {
+        $(id).slideUp(150, function() {
+            $(id).remove();
+        });
+        for (var i = 0; i < openedSlug.length; i++) {
+            if (openedSlug[i] === slug) {
+                delete openedSlug[i];
+            }
+        }
+        if (lastSelected === slug) {
+            lastSelected = null;
+        }
+    }
+
+    function triggerEvent(slug) {
+        lastSelected = slug;
+        var catEvent = jQuery.Event('category_changed');
+        catEvent.target = slug;
+        $(document).trigger(catEvent);
+    }
+
+    function macroCategoryHandler(slug, title) {
+        if (lastSelected !== slug) {
+            triggerEvent(slug);
+            var finded = false;
+            for (var i = 0; i < openedSlug.length; i++) {
+                if (openedSlug[i] === slug) {
+                    finded = true;
+                    break;
+                }
+            }
+            if (!finded) {
+                openedSlug.push(slug);
+                $('#categoriesPanelGroup').append(
+                        '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
+                        + '<div class="panel-heading">'
+                        + '<a onclick="categoriesTail.labelHandler(' + "'" + slug + "'" + ',' + "'#categoryCollapse-" + indexCategories + "'" + ')" class="' + slug + '" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-' + indexCategories + '">'
+                        + '<b>'+title+'</b>'
+                        + '</a>'
+                        + '<button type="button" class="close"'
+                        + 'onclick="categoriesTail.removeCategory(' + "'" + '#categoryPanel-'
+                        + indexCategories
+                        + "'" + ',' + "'" + slug + "'" + ')">'
+                        + '×</button>'
+                        + '</div>'
+                        + '<div id="categoryCollapse-' + indexCategories + '" class=" panel-collapse collapse out">'
+                        + '<div class="panel-body" id="body-'+slug+'">'
+                        + '</div>'
+                        + '</div>'
+                        + '</div>');
+                searchSubTree(slug,'#body-'+slug,0);
+                $('#categoryPanel-' + indexCategories).show(150);
+                $('.' + slug).trigger('click');
+                indexCategories++;
+            } else {
+                $('.' + slug).trigger('click');
+            }
+        }
+    }
+    return {
+        labelHandler: labelHandler,
+        removeCategory: removeCategory,
+        macroCategoryHandler: macroCategoryHandler,
+        init:init,
+        subCategoryHandler:subCategoryHandler
+    };
+})();
+
+//poilist
+var poiList = (function() {
+
+    var timeoutId;
+
+    function initPoiList() {
+        $(document).bind("markers_changed", function(event) {
+            var markers = event.target;
+            document.getElementById('poiListComponent').innerHTML = '';
+            var content = '';
+            for (var i = 0; i < markers.length; i++) {
+                content += ' <div id="' + markers[i].id + '" class="container-fluid poiBox" '
+                        + 'onmouseover="poiList.poiBoxDown(' + "'" + markers[i].id + "'" + ', ' + "'" + markers[i].id + "'" + ', true)"'
+                        + 'onmouseout="poiList.poiBoxDown(' + "'" + markers[i].id + "'" + ', ' + "'" + markers[i].id + "'" + ', false)"'
+                        + 'onmouseleave="poiList.poiBoxUp(' + "'" + markers[i].id + "'" + ',' + "'" + markers[i].id + "'" + ')"'
+                        + 'onclick="poiList.poiClicked(' + "'" + markers[i].id + "'" + ')">'
+                        + '<div class="col-md-4"> '
+                        + '<img class="img-responsive"  style="height:45px;"src="./dist/poi/img/' + markers[i].id + '/cover.jpg" onError="this.src=' + "'" + './dist/img/notFound.png' + "'" + ';" alt=""/>'
+                        + '</div>'
+                        + '<div class="col-md-6">'
+                        + '<span class="text-center" style="color: #242424">'
+                        + markers[i].name
+                        + '</span>'
+                        + '</div>'
+                        + '<div class="col-md-1 text-right"><span onmouseover="this.className = ' + "'" + 'fa fa-star fa-2x' + "'" + ';"'
+                        + 'onmouseleave="this.className=' + "'" + 'fa fa-star-o fa-2x' + "'" + ';"'
+                        + 'onclick="poiList.addToCart(' + "'" + markers[i].id + "'" + ')"'
+                        + 'data-toggle="tooltip" title="Aggiungi Ai Preferiti!"'
+                        + 'class="fa fa-star-o fa-2x"></span></div>'
+                        + '<div class="col-md-12">'
+                        + '<p style="padding-top: 5px;" class="poiBoxShortDescription ' + markers[i].id + '">'
+                        + '<span style="color:gray; font-size: 11px;">' + markers[i].address
+                        + '<br>'
+                        + '<label>'
+                        + '<input type="checkbox" onclick="interactiveMap.drawCircleAroundPoi(' + "'" + markers[i].id + "'" + ', 0.15, this.checked)">'
+                        + ' Nei dintorni (150 metri)'
+                        + '</label>'
+                        + '</span>'
+                        + '<br><br>'
+                        + markers[i].shortDescription
+                        + '<a href="./getPoi?id=' + markers[i].id + '">Altro...</a>'
+                        + '</p>'
+                        + '</div>'
+                        + '</div>';
+            }
+            document.getElementById('poiListComponent').innerHTML = content;
+        });
+    }
+    function  poiBoxDown(nameClass, id, enable) {
+        if (enable) {
+            timeoutId = setTimeout(function() {
+                $('.' + nameClass).slideDown();
+                interactiveMap.poiHoverHandler(id, true);
+            }, 700);
+        } else {
+            if (timeoutId) {
+                clearInterval(timeoutId);
+            }
+        }
+    }
+    function poiBoxUp(nameClass, id) {
+        $('.' + nameClass).slideUp();
+        interactiveMap.poiHoverHandler(id, false);
+    }
+    function poiClicked(id) {
+        interactiveMap.poiClickedHandler(id);
+    }
+    function addToCart(id) {
+
+        $.ajax({
+            type: "GET",
+            url: "./Cart/AddPoi",
+            data: "id=" + id,
+            success: function(data) {
+
+                alert('Aggiunto a preferiti!');
+            }
+        });
+    }
+    return {
+        poiBoxUp: poiBoxUp,
+        poiBoxDown: poiBoxDown,
+        initPoiList: initPoiList,
+        poiClicked: poiClicked,
+        addToCart: addToCart
+    };
+})();
 
 

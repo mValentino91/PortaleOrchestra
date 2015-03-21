@@ -419,18 +419,18 @@ var interactiveMap = (function() {
     function categoryHandler(event) {
         disableSearchState();
         $('#loadingImg').show();
-       
-            $.ajax({
-                type: "GET",
-                url: "./Map/JSON",
-                data: "category=" + event.target,
-                success: function(data) {
-                    var poi = JSON.parse(data);
-                    showPois(poi);
-                    markersChangend(interactiveMap.markers);
-                    $('#loadingImg').hide();
-                }
-            });
+
+        $.ajax({
+            type: "GET",
+            url: "./Map/JSON",
+            data: "category=" + event.target,
+            success: function(data) {
+                var poi = JSON.parse(data);
+                showPois(poi);
+                markersChangend(interactiveMap.markers);
+                $('#loadingImg').hide();
+            }
+        });
     }
     return {
         viewPanorama: viewPanorama,
@@ -462,6 +462,81 @@ var categoriesTail = (function() {
     var openedSlug = new Array();
     var lastSelected = null;
 
+    function init() {
+        
+
+    }
+
+    function parseJsonCategories() {
+
+        $.getJSON("./jsonDB/categoriesTree", function(data) {
+
+
+        });
+    }
+        function searchNode(tree, slug) {
+
+        if (tree) {
+            if (tree.slug === slug){
+                return tree;
+            }
+            var result;
+            if(tree.nodes){
+            for (var i = 0; i < tree.nodes.length; i++) {
+
+                result = searchNode(tree.nodes[i], slug);
+
+                if (result)
+                    return result;
+            }
+        }
+        }
+        return undefined;
+    }
+    function searchSubTree(slug, container, level) {
+        $.getJSON("./jsonDB/categoriesTree", function(data) {
+
+            var result;
+            
+            for (var i = 0; i < data.length; i++) {
+                 result=searchNode(data[i],slug)
+                 if(result)
+                     break;
+            }
+            
+            showSubCategories(result,container, level);
+        });
+    }
+    function subCategoryHandler(checked,slug,container,level){
+        if(!checked){
+            $('.body-'+slug).remove();
+        }
+        else{
+            searchSubTree(slug,container,level);
+            triggerEvent(slug);
+        }
+    }
+    function showSubCategories(tree,container, level) {
+        if(tree && tree.nodes){
+            if(level>0){
+             $(container).append(
+                 '<div class="body-'+tree.slug+'">'
+         +'<div class=col-md-12" style="font-size:11px; border-top:1px solid lightgray;">'
+                     +tree.text+'</div></div>');
+         }   
+            for(var i=0; i<tree.nodes.length; i++)
+            {
+                   $(container).append(
+                        '<label class="body-'+tree.slug+'" style="font-size:10px;">'
+                            +'<input type="checkbox" onclick="'
+                            + 'categoriesTail.subCategoryHandler(this.checked,'+"'"+tree.nodes[i].slug+"'"+','+"'"+container+"',"
+                            +(level+1)+')'
+                    +'" style="height:10px; cursor:pointer;">'
+                    +'&nbsp'+ tree.nodes[i].text+'&nbsp&nbsp'
+                         +'</label>');
+            }
+        }
+    }
     function labelHandler(slug, id) {
         if ($(id).hasClass('in') && lastSelected === slug) {
             lastSelected = null;
@@ -503,11 +578,11 @@ var categoriesTail = (function() {
             }
             if (!finded) {
                 openedSlug.push(slug);
-                document.getElementById('categoriesPanelGroup').innerHTML +=
+                $('#categoriesPanelGroup').append(
                         '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
                         + '<div class="panel-heading">'
                         + '<a onclick="categoriesTail.labelHandler(' + "'" + slug + "'" + ',' + "'#categoryCollapse-" + indexCategories + "'" + ')" class="' + slug + '" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-' + indexCategories + '">'
-                        + title
+                        + '<b>'+title+'</b>'
                         + '</a>'
                         + '<button type="button" class="close"'
                         + 'onclick="categoriesTail.removeCategory(' + "'" + '#categoryPanel-'
@@ -516,10 +591,11 @@ var categoriesTail = (function() {
                         + '×</button>'
                         + '</div>'
                         + '<div id="categoryCollapse-' + indexCategories + '" class=" panel-collapse collapse out">'
-                        + '<div class="panel-body">'
+                        + '<div class="panel-body" id="body-'+slug+'">'
                         + '</div>'
                         + '</div>'
-                        + '</div>';
+                        + '</div>');
+                searchSubTree(slug,'#body-'+slug,0);
                 $('#categoryPanel-' + indexCategories).show(150);
                 $('.' + slug).trigger('click');
                 indexCategories++;
@@ -531,7 +607,9 @@ var categoriesTail = (function() {
     return {
         labelHandler: labelHandler,
         removeCategory: removeCategory,
-        macroCategoryHandler: macroCategoryHandler
+        macroCategoryHandler: macroCategoryHandler,
+        init:init,
+        subCategoryHandler:subCategoryHandler
     };
 })();
 
@@ -622,5 +700,3 @@ var poiList = (function() {
         addToCart: addToCart
     };
 })();
-
-

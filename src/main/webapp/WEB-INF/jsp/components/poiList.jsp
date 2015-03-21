@@ -81,6 +81,7 @@
 
                 });
             });
+            categoriesTail.init();
         </script>
     </div>
 </div>
