@@ -1,3 +1,4 @@
+//CUSTOM JAVASCRIPT
 //interactive map
 var interactiveMap = (function() {
     var map;
@@ -461,35 +462,41 @@ var categoriesTail = (function() {
     var indexCategories = 0;
     var openedSlug = new Array();
     var lastSelected = null;
-
     function init() {
-        
-
+        parseJsonCategories();
     }
-
     function parseJsonCategories() {
 
         $.getJSON("./jsonDB/categoriesTree", function(data) {
+            for (var i = 0; i < data.length; i++) {
+                $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
+                        + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
+                        + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
+                        + data[i].text + "'" + ')"'
+                        + 'title="' + data[i].text + '"'
+                        + 'style="background-color:' + data[i].color + '">'
 
-
+                        + '<i class="fa fa-university"></i>'
+                        + '</button>');
+            }
         });
     }
-        function searchNode(tree, slug) {
+    function searchNode(tree, slug) {
 
         if (tree) {
-            if (tree.slug === slug){
+            if (tree.slug === slug) {
                 return tree;
             }
             var result;
-            if(tree.nodes){
-            for (var i = 0; i < tree.nodes.length; i++) {
+            if (tree.nodes) {
+                for (var i = 0; i < tree.nodes.length; i++) {
 
-                result = searchNode(tree.nodes[i], slug);
+                    result = searchNode(tree.nodes[i], slug);
 
-                if (result)
-                    return result;
+                    if (result)
+                        return result;
+                }
             }
-        }
         }
         return undefined;
     }
@@ -497,43 +504,45 @@ var categoriesTail = (function() {
         $.getJSON("./jsonDB/categoriesTree", function(data) {
 
             var result;
-            
+
             for (var i = 0; i < data.length; i++) {
-                 result=searchNode(data[i],slug)
-                 if(result)
-                     break;
+                result = searchNode(data[i], slug)
+                if (result)
+                    break;
             }
-            
-            showSubCategories(result,container, level);
+
+            showSubCategories(result, container, level);
         });
     }
-    function subCategoryHandler(checked,slug,container,level){
-        if(!checked){
-            $('.body-'+slug).remove();
+    function subCategoryHandler(checked, slug, container, level) {
+        if (!checked) {
+            $('.body-' + slug).remove();
         }
-        else{
-            searchSubTree(slug,container,level);
+        else {
+            searchSubTree(slug, container, level);
             triggerEvent(slug);
         }
     }
-    function showSubCategories(tree,container, level) {
-        if(tree && tree.nodes){
-            if(level>0){
-             $(container).append(
-                 '<div class="body-'+tree.slug+'">'
-         +'<div class=col-md-12" style="font-size:11px; border-top:1px solid lightgray;">'
-                     +tree.text+'</div></div>');
-         }   
-            for(var i=0; i<tree.nodes.length; i++)
+    function showSubCategories(tree, container, level) {
+        if (tree && tree.nodes) {
+            if (level > 0) {
+                $(container).append(
+                        '<div class="body-' + tree.slug + '">'
+                        + '<div class=col-md-12" style="font-size:11px;border-top:1px solid lightgray;'
+                        + 'margin-top:5px; border-bottom:1px solid lightgray;">'
+                        + tree.text + '</div></div>');
+            }
+            for (var i = 0; i < tree.nodes.length; i++)
             {
-                   $(container).append(
-                        '<label class="body-'+tree.slug+'" style="font-size:10px;">'
-                            +'<input type="checkbox" onclick="'
-                            + 'categoriesTail.subCategoryHandler(this.checked,'+"'"+tree.nodes[i].slug+"'"+','+"'"+container+"',"
-                            +(level+1)+')'
-                    +'" style="height:10px; cursor:pointer;">'
-                    +'&nbsp'+ tree.nodes[i].text+'&nbsp&nbsp'
-                         +'</label>');
+                $(container).append(
+                        '<label class="body-' + tree.slug + '" style="font-size:10px;">'
+                        + '<input type="checkbox" onclick="'
+                        + 'categoriesTail.subCategoryHandler(this.checked,'
+                        + "'" + tree.nodes[i].slug + "'" + ',' + "'" + container + "',"
+                        + (level + 1) + ')'
+                        + '" style="height:10px; cursor:pointer;">'
+                        + '&nbsp' + tree.nodes[i].text + '&nbsp&nbsp'
+                        + '</label>');
             }
         }
     }
@@ -566,7 +575,7 @@ var categoriesTail = (function() {
         $(document).trigger(catEvent);
     }
 
-    function macroCategoryHandler(slug, title) {
+    function macroCategoryHandler(color, slug, title) {
         if (lastSelected !== slug) {
             triggerEvent(slug);
             var finded = false;
@@ -582,7 +591,7 @@ var categoriesTail = (function() {
                         '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
                         + '<div class="panel-heading">'
                         + '<a onclick="categoriesTail.labelHandler(' + "'" + slug + "'" + ',' + "'#categoryCollapse-" + indexCategories + "'" + ')" class="' + slug + '" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-' + indexCategories + '">'
-                        + '<b>'+title+'</b>'
+                        + '<b style="color:' + color + '">' + title + '</b>'
                         + '</a>'
                         + '<button type="button" class="close"'
                         + 'onclick="categoriesTail.removeCategory(' + "'" + '#categoryPanel-'
@@ -591,11 +600,11 @@ var categoriesTail = (function() {
                         + '×</button>'
                         + '</div>'
                         + '<div id="categoryCollapse-' + indexCategories + '" class=" panel-collapse collapse out">'
-                        + '<div class="panel-body" id="body-'+slug+'">'
+                        + '<div class="panel-body" id="body-' + slug + '">'
                         + '</div>'
                         + '</div>'
                         + '</div>');
-                searchSubTree(slug,'#body-'+slug,0);
+                searchSubTree(slug, '#body-' + slug, 0);
                 $('#categoryPanel-' + indexCategories).show(150);
                 $('.' + slug).trigger('click');
                 indexCategories++;
@@ -608,8 +617,8 @@ var categoriesTail = (function() {
         labelHandler: labelHandler,
         removeCategory: removeCategory,
         macroCategoryHandler: macroCategoryHandler,
-        init:init,
-        subCategoryHandler:subCategoryHandler
+        init: init,
+        subCategoryHandler: subCategoryHandler
     };
 })();
 

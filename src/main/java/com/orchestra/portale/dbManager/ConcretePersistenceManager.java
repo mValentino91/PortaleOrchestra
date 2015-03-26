@@ -80,9 +80,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public Iterable<CompletePOI> getCompletePoiByCategory(String category) {
+    public Iterable<CompletePOI> getCompletePoiByCategories(String [] categories) {
 
-        return mongoOps.find(new Query(where("categories").is(category)), CompletePOI.class);
+        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
     }
 
     @Override

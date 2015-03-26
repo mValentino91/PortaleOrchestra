@@ -59,7 +59,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
 }
 #poiListComponent{
     background-color: transparent;
-    width: 300px;
+    width: 332px;
     overflow: auto;
     max-height: 170px;
     margin-top: 5px;
@@ -71,7 +71,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
     z-index: 10 !important;
     background-color: transparent;
     position: absolute;
-    right: 345px;
+    right: 375px;
     top: 95px;
     bottom: 25px;
     width: auto;
@@ -102,7 +102,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
     position: absolute;
     right: 5px;
     top: 55px;
-    width: 340px;
+    width: 372px;
     overflow: auto;
     box-shadow: 0px 0px 5px -2px black;
 }
@@ -113,7 +113,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
     position: absolute;
     right: 45px;
     top: 127px;
-    width: 300px;
+    width: 332px;
     overflow: visible;
     padding: 0;
 }
@@ -121,7 +121,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
     position: absolute;
     right: 45px;
     top: 178px;
-    width: 300px;
+    width: 332px;
     overflow: visible;
 }
 .panel-group .panel{
@@ -153,7 +153,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
 }
 .categoriesTailsInner{
     background-color: white;
-    width: 300px;
+    width: 332px;
     max-height: 100px;
     box-shadow: 0px 0px 5px 0px #242424;
 }
@@ -169,7 +169,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
     position: absolute;
     right: 45px;
     top: 95px;
-    width: 300px;
+    width: 332px;
     overflow: visible;
     padding: 2px;
     box-shadow: 0px 0px 5px -2px black;

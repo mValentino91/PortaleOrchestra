@@ -79,13 +79,13 @@ public class CiRoService implements ExternalServiceManager {
     }
 
     private void deletePois() {
-        for (String categorie : categoriesDelete) {
-            Iterator<CompletePOI> pois = pm.getCompletePoiByCategory(categorie).iterator();
+        /*for (String categorie : categoriesDelete) {
+            Iterator<CompletePOI> pois = pm.getCompletePoiByCategories(categorie).iterator();
             while (pois.hasNext()) {
                 CompletePOI poi = pois.next();
                 pm.deletePoi(poi);
             }
-        }
+        }*/
     }
 
     private String createPoi(int item, JsonArray puntiCiro) {

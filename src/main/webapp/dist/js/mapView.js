@@ -514,17 +514,23 @@ var categoriesTail = (function() {
     var indexCategories = 0;
     var openedSlug = new Array();
     var lastSelected = null;
-
     function init() {
-        
-
+        parseJsonCategories();
     }
-
-    function parseJsonCategories() {
+    function parseJsonCategories(){
 
         $.getJSON("./jsonDB/categoriesTree", function(data) {
-
-
+            for(var i=0; i<data.length; i++){
+         $('.categoriesTails').append( '<button type="button" class="btn btn-default btn-lg"'
+                +'onclick="categoriesTail.macroCategoryHandler('+"'"
+                +data[i].color+"',"+"'"+data[i].slug+"',"+"'"
+                +data[i].text+"'"+')"'
+                +'title="'+data[i].text+'"'
+        +'style="background-color:'+data[i].color+'">'
+        
+            +'<i class="fa fa-university"></i>'
+           +'</button>');
+            }
         });
     }
         function searchNode(tree, slug) {
@@ -574,7 +580,8 @@ var categoriesTail = (function() {
             if(level>0){
              $(container).append(
                  '<div class="body-'+tree.slug+'">'
-         +'<div class=col-md-12" style="font-size:11px; border-top:1px solid lightgray;">'
+         +'<div class=col-md-12" style="font-size:11px;border-top:1px solid lightgray;'
+         +'margin-top:5px; border-bottom:1px solid lightgray;">'
                      +tree.text+'</div></div>');
          }   
             for(var i=0; i<tree.nodes.length; i++)
@@ -582,7 +589,8 @@ var categoriesTail = (function() {
                    $(container).append(
                         '<label class="body-'+tree.slug+'" style="font-size:10px;">'
                             +'<input type="checkbox" onclick="'
-                            + 'categoriesTail.subCategoryHandler(this.checked,'+"'"+tree.nodes[i].slug+"'"+','+"'"+container+"',"
+                            + 'categoriesTail.subCategoryHandler(this.checked,'
+                            +"'"+tree.nodes[i].slug+"'"+','+"'"+container+"',"
                             +(level+1)+')'
                     +'" style="height:10px; cursor:pointer;">'
                     +'&nbsp'+ tree.nodes[i].text+'&nbsp&nbsp'
@@ -619,7 +627,7 @@ var categoriesTail = (function() {
         $(document).trigger(catEvent);
     }
 
-    function macroCategoryHandler(slug, title) {
+    function macroCategoryHandler(color, slug, title) {
         if (lastSelected !== slug) {
             triggerEvent(slug);
             var finded = false;
@@ -635,7 +643,7 @@ var categoriesTail = (function() {
                         '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
                         + '<div class="panel-heading">'
                         + '<a onclick="categoriesTail.labelHandler(' + "'" + slug + "'" + ',' + "'#categoryCollapse-" + indexCategories + "'" + ')" class="' + slug + '" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-' + indexCategories + '">'
-                        + '<b>'+title+'</b>'
+                        + '<b style="color:'+color+'">'+title+'</b>'
                         + '</a>'
                         + '<button type="button" class="close"'
                         + 'onclick="categoriesTail.removeCategory(' + "'" + '#categoryPanel-'

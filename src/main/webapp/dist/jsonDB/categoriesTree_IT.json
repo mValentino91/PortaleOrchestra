@@ -1,19 +1,32 @@
 [{
         "slug": "accommodation",
         "text": "Pernottamento",
+        "color": "whitesmoke",
         "nodes": [{
                 "slug": "hotel",
                 "text": "Alberghi"
             }]
     }, {
-        "slug": "Associazioni Culturali",
-        "text": "Associazioni Culturali"
+        "slug": "cultural_association",
+        "text": "Associazioni Culturali",
+        "color": "green"
     }, {
         "slug": "culture",
         "text": "Cultura",
+        "color": "green",
         "nodes": [{
                 "slug": "museum",
-                "text": "Musei"
+                "text": "Musei",
+                "nodes": [{
+                        "slug": "church",
+                        "text": "Chiese"
+                    }, {
+                        "slug": "building",
+                        "text": "Palazzi Storici"
+                    }, {
+                        "slug": "sculpture",
+                        "text": "Sculture"
+                    }]
             }, {
                 "slug": "monument",
                 "text": "Monumenti",
@@ -34,6 +47,7 @@
     }, {
         "slug": "food",
         "text": "Enogastronomia",
+        "color": "gray",
         "nodes": [{
                 "slug": "coffee",
                 "text": "Caffé"
@@ -49,10 +63,12 @@
             }]
     }, {
         "slug": "craft",
-        "text": "Artigiani"
+        "text": "Artigiani",
+        "color": "gold"
     }, {
         "slug": "mobility",
         "text": "Mobilità",
+        "color": "black",
         "nodes": [{
                 "slug": "ciro",
                 "text": "Ci.Ro."

@@ -43,17 +43,17 @@ public class MapViewController {
 
      @RequestMapping()
     public ModelAndView getPoiForCategory(
-            @RequestParam(value = "category") String category
+            @RequestParam(value = "category") String[] categories
     /*@RequestParam(value = "lat") String lat,
      @RequestParam(value = "lon") String lon,
      @RequestParam(value = "lat1") String lat1,
      @RequestParam(value = "lon1") String lon1*/) {
         //Creo la view che sarà mostrata all'utente
         ModelAndView model = new ModelAndView("mapView");
-        Iterable<CompletePOI> poiList = pm.getCompletePoiByCategory(category);
+        Iterable<CompletePOI> poiList = pm.getCompletePoiByCategories(categories);
         //aggiungo la lista al model
         model.addObject("poiList", poiList);
-        model.addObject("category", category);
+        model.addObject("categories", categories);
 
         return model;
     }
@@ -68,10 +68,10 @@ public class MapViewController {
 
     @RequestMapping(value = "/JSON")
     public @ResponseBody
-    String getJsonForCategory(@RequestParam String category) {
+    String getJsonForCategory(@RequestParam String[] category) {
         
         Gson pois=new Gson();
-        return pois.toJson(pm.getCompletePoiByCategory(category));
+        return pois.toJson(pm.getCompletePoiByCategories(category));
 
     }
 

@@ -37,23 +37,7 @@
 </div>
 <div class="categoriesTailMacro">
     <div class="categoriesTails">
-        <button type="button" class="btn btn-danger btn-lg"
-                onclick="categoriesTail.macroCategoryHandler('culture', 'Cultura')"
-                title="Cultura">
-            <i class="fa fa-university"></i>
-        </button>
-        <button type="button" class="btn btn-info btn-lg"
-                onclick="categoriesTail.macroCategoryHandler('mobility', 'Mobilità')"
-                title="Mobilità">
-            <i class="fa fa-bus"></i>
-        </button>
-        <button type="button" class="btn btn-success btn-lg"
-                onclick="categoriesTail.macroCategoryHandler('food', 'Enogastronomia')"
-                title="Enogastronomia">
-            <i class="fa fa-glass"></i>
-        </button>
     </div>
-
     <div class="panel-group" id="categoriesPanelGroup">
     </div>
     <div id="poiListComponent">
