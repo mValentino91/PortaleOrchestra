@@ -18,6 +18,7 @@ var interactiveMap = (function() {
     var nearRadius = 0.15;
     var supportIntersectIdList;
     var markersEvent = jQuery.Event("markers_changed");
+    var categoryStack = new Array();
 
     function drawCircleAroundPoi(id, radius, enable) {
         var marker = null;
@@ -417,14 +418,109 @@ var interactiveMap = (function() {
             interactiveMap.mcluster.addMarkers(interactiveMap.markers);
         }
     }
-    function categoryHandler(event) {
+    function categoryAddHandler(event) {
         disableSearchState();
         $('#loadingImg').show();
+        var parameters = '';
+        var first = true;
+        var finded = false;
+        //rimuovo il padre e aggiungo la categoria selezionata e costruisco la stringa per i parametri
+        for (var i = 0; i < categoryStack.length; i++)
+        {
+            if (event.target.toString() === categoryStack[i].toString()) {
+                finded = true;
+                categoryStack[i].isVisible = true;
+                break;
+            }
+        }
+        if (!finded) {
+            categoryStack.push(event.target);
+            categoryStack[categoryStack.length - 1].isVisible = true;
+        }
 
+        for (var i = 0; i < categoryStack.length; i++) {
+            if (categoryStack[i] && event.target.parent !== null
+                    && event.target.parent.toString() === categoryStack[i].toString()) {
+                categoryStack[i].isVisible = false;
+                categoryStack[i].hasActiveChild = true;
+            }
+            else if (categoryStack[i] && categoryStack[i].isVisible) {
+                if (first) {
+                    parameters += 'category=' + categoryStack[i];
+                    first = false;
+                }
+                else {
+                    parameters += '&category=' + categoryStack[i];
+                }
+            }
+        }
         $.ajax({
             type: "GET",
             url: "./Map/JSON",
-            data: "category=" + event.target,
+            data: parameters,
+            success: function(data) {
+                var poi = JSON.parse(data);
+                showPois(poi);
+                markersChangend(interactiveMap.markers);
+                $('#loadingImg').hide();
+            }
+        });
+    }
+    function categoryRemoveHandler(event) {
+        disableSearchState();
+        $('#loadingImg').show();
+        var parameters = "";
+        var first = true;
+        var finded = false;
+        for (var i = 0; i < categoryStack.length; i++)
+        {
+            if (event.target.toString() === categoryStack[i].toString()) {
+                categoryStack[i].isVisible = false;
+                categoryStack[i].hasActiveChild = false;
+                break;
+            }
+        }
+        for (var i = 0; i < categoryStack.length; i++) {
+            if (categoryStack[i].tail !== null && categoryStack[i].parent !== null &&
+                    (categoryStack[i].tail.toString() === event.target.toString() ||
+                            categoryStack[i].parent.toString() === event.target.toString())) {
+                categoryStack[i].isVisible = false;
+                categoryStack[i].hasActiveChild = false;
+            }
+            else if (event.target.parent !== null && categoryStack[i].parent !== null &&
+                    event.target.parent.toString() === categoryStack[i].parent.toString() &&
+                    (categoryStack[i].isVisible || categoryStack[i].hasActiveChild)) {
+                finded = true;
+            }
+        }
+        if (!finded && event.target.parent !== null) {
+            for (var i = 0; i < categoryStack.length; i++) {
+                if (categoryStack[i].toString() === event.target.parent.toString()) {
+                    categoryStack[i].isVisible = true;
+                    categoryStack[i].hasActiveChild = false;
+                }
+            }
+        }
+        var added = 0;
+        for (var i = 0; i < categoryStack.length; i++) {
+
+            if (categoryStack[i] && categoryStack[i].isVisible) {
+                if (first) {
+                    parameters += 'category=' + categoryStack[i];
+                    first = false;
+                }
+                else {
+                    parameters += '&category=' + categoryStack[i];
+                }
+                added++;
+            }
+        }
+        if (added === 0)
+            parameters += 'category=null';
+        $.ajax({
+            type: "GET",
+            url: "./Map/JSON",
+            data: parameters,
             success: function(data) {
                 var poi = JSON.parse(data);
                 showPois(poi);
@@ -436,7 +532,8 @@ var interactiveMap = (function() {
     return {
         viewPanorama: viewPanorama,
         attachInfo: attachInfo,
-        categoryHandler: categoryHandler,
+        categoryAddHandler: categoryAddHandler,
+        categoryRemoveHandler: categoryRemoveHandler,
         map: map,
         markers: markers,
         panorama: panorama,
@@ -462,12 +559,13 @@ var categoriesTail = (function() {
     var indexCategories = 0;
     var openedSlug = new Array();
     var lastSelected = null;
+    var parsedTree;
     function init() {
         parseJsonCategories();
     }
     function parseJsonCategories() {
-
         $.getJSON("./jsonDB/categoriesTree", function(data) {
+            parsedTree = data;
             for (var i = 0; i < data.length; i++) {
                 $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
                         + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
@@ -482,7 +580,6 @@ var categoriesTail = (function() {
         });
     }
     function searchNode(tree, slug) {
-
         if (tree) {
             if (tree.slug === slug) {
                 return tree;
@@ -501,26 +598,30 @@ var categoriesTail = (function() {
         return undefined;
     }
     function searchSubTree(slug, container, level) {
-        $.getJSON("./jsonDB/categoriesTree", function(data) {
-
-            var result;
-
-            for (var i = 0; i < data.length; i++) {
-                result = searchNode(data[i], slug)
-                if (result)
-                    break;
-            }
-
-            showSubCategories(result, container, level);
-        });
+        var result;
+        for (var i = 0; i < parsedTree.length; i++) {
+            result = searchNode(parsedTree[i], slug);
+            if (result)
+                break;
+        }
+        showSubCategories(result, container, level);
     }
     function subCategoryHandler(checked, slug, container, level) {
+        var result;
+        var tail;
+        for (var i = 0; i < parsedTree.length; i++) {
+            result = searchNode(parsedTree[i], slug);
+            tail = parsedTree[i].slug;
+            if (result)
+                break;
+        }
         if (!checked) {
             $('.body-' + slug).remove();
+            triggerEvent(slug, result.parent, result.nodes, tail, 'remove');
         }
         else {
             searchSubTree(slug, container, level);
-            triggerEvent(slug);
+            triggerEvent(slug, result.parent, result.nodes, tail, 'add');
         }
     }
     function showSubCategories(tree, container, level) {
@@ -551,7 +652,7 @@ var categoriesTail = (function() {
             lastSelected = null;
         }
         else {
-            triggerEvent(slug);
+            lastSelected = slug;
         }
     }
     function removeCategory(id, slug) {
@@ -566,18 +667,37 @@ var categoriesTail = (function() {
         if (lastSelected === slug) {
             lastSelected = null;
         }
+        var result;
+        var tail;
+        for (var i = 0; i < parsedTree.length; i++) {
+            result = searchNode(parsedTree[i], slug);
+            tail = parsedTree[i];
+            if (result)
+                break;
+        }
+        triggerEvent(slug, result.parent, result.nodes, tail, 'remove');
     }
-
-    function triggerEvent(slug) {
-        lastSelected = slug;
-        var catEvent = jQuery.Event('category_changed');
-        catEvent.target = slug;
-        $(document).trigger(catEvent);
+    function triggerEvent(slug, parent, childs, tail, event) {
+        if (event === 'add') {
+            var obj = new Object(slug);
+            obj.parent = parent;
+            obj.childs = childs;
+            obj.tail = tail;
+            var catEvent = jQuery.Event('category_added');
+            catEvent.target = obj;
+            $(document).trigger(catEvent);
+        } else {
+            var obj = new Object(slug);
+            obj.parent = parent;
+            obj.childs = childs;
+            obj.tail = tail;
+            var catEvent = jQuery.Event('category_removed');
+            catEvent.target = obj;
+            $(document).trigger(catEvent);
+        }
     }
-
     function macroCategoryHandler(color, slug, title) {
         if (lastSelected !== slug) {
-            triggerEvent(slug);
             var finded = false;
             for (var i = 0; i < openedSlug.length; i++) {
                 if (openedSlug[i] === slug) {
@@ -587,6 +707,7 @@ var categoriesTail = (function() {
             }
             if (!finded) {
                 openedSlug.push(slug);
+                triggerEvent(slug, null, null, null, 'add');
                 $('#categoriesPanelGroup').append(
                         '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
                         + '<div class="panel-heading">'

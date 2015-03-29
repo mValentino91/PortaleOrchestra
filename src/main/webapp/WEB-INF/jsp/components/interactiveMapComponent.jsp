@@ -225,17 +225,18 @@
                 pitch: 0
             }
         };
-
         interactiveMap.map = new google.maps.Map(document.getElementById("map"),
                 mapOptions);
 
         interactiveMap.panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), panoramaOptions);
         interactiveMap.streetView = new google.maps.StreetViewService();
 
-        $(document).bind("category_changed", function(event) {
-            interactiveMap.categoryHandler(event);
+        $(document).bind("category_added", function(event) {
+            interactiveMap.categoryAddHandler(event);
         });
-
+        $(document).bind("category_removed", function(event) {
+            interactiveMap.categoryRemoveHandler(event);
+        });
         //interactiveMap.initAnmService();
 
     <% int i = 0;%>

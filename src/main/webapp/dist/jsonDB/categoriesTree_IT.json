@@ -1,88 +1,99 @@
 [{
         "slug": "accommodation",
+        "parent": null,
         "text": "Pernottamento",
-        "color": "whitesmoke",
+        "color": "#6495ED",
         "nodes": [{
                 "slug": "hotel",
+                "parent": "accomodation",
                 "text": "Alberghi"
             }]
     }, {
         "slug": "cultural_association",
+        "parent": null,
         "text": "Associazioni Culturali",
-        "color": "green"
+        "color": "#8FBC8F"
     }, {
         "slug": "culture",
+        "parent": null,
         "text": "Cultura",
-        "color": "green",
+        "color": "#DC143C",
         "nodes": [{
                 "slug": "museum",
-                "text": "Musei",
-                "nodes": [{
-                        "slug": "church",
-                        "text": "Chiese"
-                    }, {
-                        "slug": "building",
-                        "text": "Palazzi Storici"
-                    }, {
-                        "slug": "sculpture",
-                        "text": "Sculture"
-                    }]
+                "parent": "culture",
+                "text": "Musei"
             }, {
                 "slug": "monument",
+                "parent": "culture",
                 "text": "Monumenti",
                 "nodes": [{
                         "slug": "church",
+                        "parent": "monument",
                         "text": "Chiese"
                     }, {
                         "slug": "building",
+                        "parent": "monument",
                         "text": "Palazzi Storici"
                     }, {
                         "slug": "sculpture",
+                        "parent": "monument",
                         "text": "Sculture"
                     }]
             }, {
                 "slug": "metro_art",
+                "parent": "culture",
                 "text": "Stazioni dell'Arte"
             }]
     }, {
         "slug": "food",
+        "parent": null,
         "text": "Enogastronomia",
-        "color": "gray",
+        "color": "#DA70D6",
         "nodes": [{
                 "slug": "coffee",
+                "parent": "food",
                 "text": "Caffé"
             }, {
                 "slug": "trattoria",
+                "parent": "food",
                 "text": "Trattorie"
             }, {
                 "slug": "pasticceria",
+                "parent": "food",
                 "text": "Pasticcerie"
             }, {
                 "slug": "pizzeria",
+                "parent": "food",
                 "text": "Pizzerie"
             }]
     }, {
         "slug": "craft",
+        "parent": null,
         "text": "Artigiani",
-        "color": "gold"
+        "color": "#20B2AA"
     }, {
         "slug": "mobility",
+        "parent": null,
         "text": "Mobilità",
-        "color": "black",
+        "color": "OrangeRed",
         "nodes": [{
                 "slug": "ciro",
+                "parent": "mobility",
                 "text": "Ci.Ro."
             },
             {
                 "slug": "bikesharing",
+                "parent": "mobility",
                 "text": "Bike Sharing"
             },
             {
                 "slug": "city_sightseeing",
+                "parent": "mobility",
                 "text": "City Sightseeing"
             },
             {
                 "slug": "igoon",
+                "parent": "mobility",
                 "text": "iGoOn"
             }
         ]
