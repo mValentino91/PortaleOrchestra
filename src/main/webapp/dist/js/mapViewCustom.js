@@ -630,7 +630,7 @@ var categoriesTail = (function() {
                 $(container).append(
                         '<div class="body-' + tree.slug + '">'
                         + '<div class=col-md-12" style="font-size:11px;border-top:1px solid lightgray;'
-                        + 'margin-top:5px; border-bottom:1px solid lightgray;">'
+                        + 'margin-top:5px; border-bottom:1px solid lightgray;">- '
                         + tree.text + '</div></div>');
             }
             for (var i = 0; i < tree.nodes.length; i++)
@@ -710,9 +710,9 @@ var categoriesTail = (function() {
                 triggerEvent(slug, null, null, null, 'add');
                 $('#categoriesPanelGroup').append(
                         '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
-                        + '<div class="panel-heading">'
+                        + '<div class="panel-heading" style="background:'+color+'">'
                         + '<a onclick="categoriesTail.labelHandler(' + "'" + slug + "'" + ',' + "'#categoryCollapse-" + indexCategories + "'" + ')" class="' + slug + '" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-' + indexCategories + '">'
-                        + '<b style="color:' + color + '">' + title + '</b>'
+                        + '<span style="font-size:15px;color:white">' + title + '</span>'
                         + '</a>'
                         + '<button type="button" class="close"'
                         + 'onclick="categoriesTail.removeCategory(' + "'" + '#categoryPanel-'
