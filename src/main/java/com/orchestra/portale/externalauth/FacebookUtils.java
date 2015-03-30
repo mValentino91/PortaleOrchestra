@@ -148,7 +148,7 @@ public class FacebookUtils {
         Map<String, String> user_data = new HashMap<String, String>();
         
         String url="https://graph.facebook.com/v2.2/"
-            + "me?fields=id,email,first_name,last_name" 
+            + "me?fields=id,email,first_name,last_name,picture.type(large)" 
             + "&access_token=" + access_token;
 
         try{
@@ -164,6 +164,13 @@ public class FacebookUtils {
             user_data.put("email", j_object.get("email").getAsString());
             user_data.put("firstName", j_object.get("first_name").getAsString());
             user_data.put("lastName", j_object.get("last_name").getAsString());
+                        
+            //picture elaboration
+            JsonObject pic_j = (JsonObject) j_object.get("picture");
+            pic_j =(JsonObject) pic_j.get("data");
+            String pic_url = pic_j.get("url").getAsString();
+            user_data.put("img", pic_url);
+          
             
         } catch(MalformedURLException ex) {
                 throw new FacebookException();

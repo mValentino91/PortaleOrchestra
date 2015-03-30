@@ -34,7 +34,7 @@
     <body>
 	<div id="fb-root"></div>
 	<script>
-         /*Facebook login script
+         //Facebook login script
 	 window.fbAsyncInit = function() {
 		FB.init({
 		  appId      : '1507821126169380', // App ID
@@ -44,8 +44,8 @@
 		  xfbml      : true  // parse XFBML
 		});
 	 };   
-         */   
-         //Facebook login script
+            
+         /*Facebook login script
 	 window.fbAsyncInit = function() {
 		FB.init({
 		  appId      : '1507821126169380', // App ID
@@ -55,7 +55,8 @@
 		  xfbml      : true  // parse XFBML
 		});
 	 };
-
+         */
+        
 	/*Load the SDK asynchronously*/
         (function(d){
                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];

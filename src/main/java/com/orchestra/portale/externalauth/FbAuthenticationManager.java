@@ -26,6 +26,12 @@ import java.security.SecureRandom;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 
+import com.orchestra.portale.externalauth.NetworkUtils;
+import java.io.BufferedOutputStream;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.net.MalformedURLException;
+
 /**
  *
  * @author barnap
@@ -93,6 +99,29 @@ public class FbAuthenticationManager  {
                         
                         /*Save User*/
                         userRepository.save(new_user);
+                        
+                        /*Save user image*/
+                        try{
+                            String img_url = userData.get("img");
+                            System.out.println(img_url);
+                            BufferedReader in = NetworkUtils.doConnection(img_url);
+                            BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream( "immagine_profilo.jpg" ));
+                            // until the end of data, keep saving into file.
+                            int i;
+                            while ((i = in.read()) != -1) {
+                                out.write(i);
+                            }
+                            out.flush();
+                            
+                            // closing all the shits
+                            out.close();
+                            in.close();
+                        } 
+                        catch(MalformedURLException ex) {
+                            throw new FacebookException();
+                        } catch(IOException ioexc) {
+                            throw new FacebookException();
+                        }  
                         
                         /*Create Spring User*/
                         boolean enabled = true;
