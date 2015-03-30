@@ -8,12 +8,15 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.geo.GeoResult;
+import org.springframework.data.geo.GeoResults;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -68,7 +71,7 @@ public class PoiViewController {
                         oggi = "Giovedì";
                         break;
                     case 6:
-                        oggi = "Venerdi";
+                        oggi = "Venerdì";
                         break;
                     case 7:
                         oggi = "Sabato";
@@ -91,7 +94,16 @@ public class PoiViewController {
             }
 
         }
-
+        GeoResults<CompletePOI> poilist;
+        poilist= pm.findNearCompletePoi(id, 0.3);
+        
+        ArrayList<CompletePOI> poivicini = new ArrayList<CompletePOI>();
+      
+        for (GeoResult<CompletePOI> p : poilist) {
+            poivicini.add(p.getContent());
+            
+        }
+            model.addObject("poivicini", poivicini);
         return model;
     }
 }

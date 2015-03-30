@@ -7,6 +7,7 @@
 package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import org.springframework.data.geo.GeoResults;
 
@@ -26,5 +27,6 @@ public interface PersistenceManager {
     public CompletePOI findOneCompletePoiByName(String name);
     public void deletePoi(CompletePOI poi);
     public void savePoi(CompletePOI poi);
+    public void saveEnPoi(EnCompletePOI enpoi);
     
 }

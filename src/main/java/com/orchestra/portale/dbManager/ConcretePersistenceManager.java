@@ -6,6 +6,8 @@
 package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
+import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
@@ -50,6 +52,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
     private PoiMongoRepository poiMongoRepo;
+
+    @Autowired
+    private EnPoiMongoRepository enPoiMongoRepo;
 
     @Override
     public Poi getPoiById(String Id) {
@@ -120,4 +125,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
         return mongoOps.geoNear(query, CompletePOI.class);
     }
+    @Override
+     public void saveEnPoi(EnCompletePOI enpoi) {
+         enPoiMongoRepo.save(enpoi);
+}
 }
