@@ -568,13 +568,13 @@ var categoriesTail = (function() {
             parsedTree = data;
             for (var i = 0; i < data.length; i++) {
                 $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
-                        + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
+                        + 'style="width:50px" onclick="categoriesTail.macroCategoryHandler(' + "'"
                         + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
                         + data[i].text + "'" + ')"'
                         + 'title="' + data[i].text + '"'
                         + 'style="background-color:' + data[i].color + '">'
 
-                        + '<i class="fa fa-university"></i>'
+                        + '<i class="'+data[i].icon+'"></i>'
                         + '</button>');
             }
         });

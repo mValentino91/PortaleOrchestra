@@ -1,23 +1,9 @@
 [{
-        "slug": "accommodation",
-        "parent": null,
-        "text": "Pernottamento",
-        "color": "#6495ED",
-        "nodes": [{
-                "slug": "hotel",
-                "parent": "accomodation",
-                "text": "Alberghi"
-            }]
-    }, {
-        "slug": "cultural_association",
-        "parent": null,
-        "text": "Associazioni Culturali",
-        "color": "#8FBC8F"
-    }, {
         "slug": "culture",
         "parent": null,
         "text": "Cultura",
-        "color": "#DC143C",
+        "color": "#f5926f",
+        "icon": "fa fa-university",
         "nodes": [{
                 "slug": "museum",
                 "parent": "culture",
@@ -45,10 +31,22 @@
                 "text": "Stazioni dell'Arte"
             }]
     }, {
+        "slug": "accommodation",
+        "parent": null,
+        "text": "Pernottamento",
+        "color": "#6cb9f1",
+        "icon": "fa fa-bed",
+        "nodes": [{
+                "slug": "hotel",
+                "parent": "accomodation",
+                "text": "Alberghi"
+            }]
+    },{
         "slug": "food",
         "parent": null,
         "text": "Enogastronomia",
-        "color": "#DA70D6",
+        "color": "#f4d03e",
+        "icon": "fa fa-cutlery",
         "nodes": [{
                 "slug": "coffee",
                 "parent": "food",
@@ -67,15 +65,11 @@
                 "text": "Pizzerie"
             }]
     }, {
-        "slug": "craft",
-        "parent": null,
-        "text": "Artigiani",
-        "color": "#20B2AA"
-    }, {
         "slug": "mobility",
         "parent": null,
         "text": "Mobilità",
-        "color": "OrangeRed",
+        "color": "#87d37b",
+        "icon": "fa fa-bus",
         "nodes": [{
                 "slug": "ciro",
                 "parent": "mobility",
@@ -97,4 +91,17 @@
                 "text": "iGoOn"
             }
         ]
+    },
+     {
+        "slug": "craft",
+        "parent": null,
+        "icon": "fa fa-paint-brush",
+        "text": "Artigiani",
+        "color": "#bf90d4"
+    },{
+        "slug": "cultural_association",
+        "parent": null,
+        "icon": "fa fa-calendar",
+        "text": "Associazioni Culturali",
+        "color": "#1ba39c"
     }]

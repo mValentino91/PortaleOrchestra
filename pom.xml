@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     
     <groupId>com.orchestra</groupId>
-    <artifactId>PortaleOrchestraMVC2</artifactId>
+    <artifactId>orchestra</artifactId>
     <version>1.0</version>
     <packaging>war</packaging>
 
-    <name>PortaleOrchestraMVC2</name>
+    <name>orchestra</name>
 
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
