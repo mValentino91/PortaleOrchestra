@@ -1,5 +1,5 @@
 /*Server Variables*/
-var SEND_TOKEN = "http://localhost:8084/Orchestra_Users/fbLoginJs"
+var SEND_TOKEN = "http://localhost:8080/PortaleOrchestraMVC2/fbLoginJs"
 
 
 /*Facebook Login*/	
@@ -8,7 +8,7 @@ function FbLogin()
     FB.login(function(response) {
             if (response.authResponse){	                
               var access_token =   FB.getAuthResponse()['accessToken'];
-              alert(access_token);
+              //alert(access_token);
               $.FbSendToken(access_token);
 
             } 
@@ -42,7 +42,7 @@ $.extend({
                      }
                 },
                 error: function(richiesta,stato,errori){
-                   alert("error!");
+                 //  alert("error!");
                 } 
              });
         }

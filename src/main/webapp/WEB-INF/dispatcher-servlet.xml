@@ -56,6 +56,9 @@
     <bean id="concretePersistence" class="com.orchestra.portale.dbManager.ConcretePersistenceManager"/>
     <context:component-scan base-package="com.orchestra.portale.dbManager" />
     
+    <!-- Scan user profiling component-->
+    <context:component-scan base-package="com.orchestra.portale.profiler" />
+    
     <mvc:resources mapping="/dist/**" location="/dist/"/> 
     
     <mvc:annotation-driven />
