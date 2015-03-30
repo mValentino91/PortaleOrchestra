@@ -33,6 +33,9 @@
         <button type="button" class="btn btn-default btn-xs" onclick="$('#poiListComponent').slideToggle(150)">
             <i class="glyphicon glyphicon-map-marker"></i>
         </button>
+        <button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFbPois()">
+            <i class="fa fa-facebook-f"></i>
+        </button>
     </div>
 </div>
 <div class="categoriesTailMacro">

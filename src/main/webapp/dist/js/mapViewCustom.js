@@ -466,6 +466,20 @@ var interactiveMap = (function() {
             }
         });
     }
+    function showFbPois(){
+        disableSearchState();
+        $('#loadingImg').show();
+        $.ajax({
+            type: "GET",
+            url: "./Map/fbPois",
+            success: function(data) {
+                var poi = JSON.parse(data);
+                showPois(poi);
+                markersChangend(interactiveMap.markers);
+                $('#loadingImg').hide();
+            }
+        });   
+    }
     function categoryRemoveHandler(event) {
         disableSearchState();
         $('#loadingImg').show();
@@ -550,7 +564,8 @@ var interactiveMap = (function() {
         checkSearchButtonChecked: checkSearchButtonChecked,
         poiHoverHandler: poiHoverHandler,
         poiClickedHandler: poiClickedHandler,
-        drawCircleAroundPoi: drawCircleAroundPoi
+        drawCircleAroundPoi: drawCircleAroundPoi,
+        showFbPois: showFbPois
     };
 })();
 
@@ -568,7 +583,7 @@ var categoriesTail = (function() {
             parsedTree = data;
             for (var i = 0; i < data.length; i++) {
                 $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
-                        + 'style="width:50px" onclick="categoriesTail.macroCategoryHandler(' + "'"
+                        + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
                         + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
                         + data[i].text + "'" + ')"'
                         + 'title="' + data[i].text + '"'

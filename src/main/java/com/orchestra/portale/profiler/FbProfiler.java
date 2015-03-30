@@ -176,7 +176,7 @@ public class FbProfiler{
           List<String> poi_list = new ArrayList<String>();
           
           for(JsonElement p : j_poi_list){
-              poi_list.add(p.toString());
+              poi_list.add(p.toString().replace("\"", ""));
           }
           
           return poi_list;

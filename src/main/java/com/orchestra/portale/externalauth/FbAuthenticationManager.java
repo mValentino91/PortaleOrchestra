@@ -100,7 +100,7 @@ public class FbAuthenticationManager  {
                         /*Save User*/
                         userRepository.save(new_user);
                         
-                        /*Save user image*/
+                        /*Save user image
                         try{
                             String img_url = userData.get("img");
                             System.out.println(img_url);
@@ -121,7 +121,7 @@ public class FbAuthenticationManager  {
                             throw new FacebookException();
                         } catch(IOException ioexc) {
                             throw new FacebookException();
-                        }  
+                        }*/
                         
                         /*Create Spring User*/
                         boolean enabled = true;

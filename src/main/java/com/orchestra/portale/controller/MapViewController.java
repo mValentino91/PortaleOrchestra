@@ -8,7 +8,9 @@ package com.orchestra.portale.controller;
 import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.profiler.FbProfiler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,12 +22,15 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Marco Valentino
  */
 @Controller
+@Scope("request")
 @RequestMapping("/Map")
 public class MapViewController {
 
     //Manager della persistenza
     @Autowired
     private PersistenceManager pm;
+    @Autowired
+    private FbProfiler fbProfiler;
     
     @RequestMapping(params = "category=all")
     public ModelAndView getAllPoi( /*@RequestParam(value = "lat") String lat,
@@ -72,6 +77,14 @@ public class MapViewController {
         
         Gson pois=new Gson();
         return pois.toJson(pm.getCompletePoiByCategories(category));
+
+    }
+    
+     @RequestMapping(value = "/fbPois")
+    public @ResponseBody
+    String getFbPois() {
+        Gson pois=new Gson();
+        return pois.toJson(pm.getCompletePoisById(fbProfiler.getPoiStereotype()));
 
     }
 

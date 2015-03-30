@@ -72,11 +72,16 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return null;
 
     }
+    
+    @Override
+    public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id){
+        return poiMongoRepo.findAll(id);
+    }
 
     @Override
-    public CompletePOI getCompletePoiById(String Id) {
+    public CompletePOI getCompletePoiById(String id) {
 
-        return poiMongoRepo.findOne(Id);
+        return poiMongoRepo.findOne(id);
     }
 
     @Override
