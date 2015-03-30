@@ -5,12 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div style="
-     height: 400px; 
-     overflow: hidden; 
-     background: url(./dist/poi/img/${poi.id}/${coverimg.link});
-     background-size: cover;
-     width: 100%;
-     margin-bottom:20px;">
+<div class="cover_img" style="background: url(./dist/poi/img/${poi.id}/${coverimg.link});">
+
 </div>
      

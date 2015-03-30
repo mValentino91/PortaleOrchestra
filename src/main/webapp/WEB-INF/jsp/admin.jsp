@@ -5,16 +5,26 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Orchestra</title>
+         <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="./dist/css/poi_view.css" rel="stylesheet">
+        <title>Orchestra - GESTIONE POI </title>
     </head>
 
     <body>
-        <center>
-        <h1>ORCHESTRA - GESTIONE POI</h1>
-        <a href="Map?category=all"><h2>Visualizza Mappa</h2>
-            <a href="admin/newpoi"><h2>Aggiungi un poi</h2>
-                <a href="admin/editpoi"><h2>Modifica un poi</h2>
-                <a href="admin/deletepoi"><h2>Elimina un poi</h2>
-        </center>
+         <center>
+        <article class="component component-text"  style="max-width: 450px; margin-top: 50px;">
+				  <div class="big-header contact">
+					  <span class="caps">gestione poi</span>
+				  </div> 
+           
+				<div class="details" style="text-align: center;">
+     
+                                    <a class="btn btn-primary" style="width: 200px; margin-bottom: 5px;" href="Map?category=all"><h2>Visualizza Mappa</h2></a>
+                                    <a class="btn btn-success" style="width: 200px; margin-bottom:5px;" href="admin/newpoi"><h2>Aggiungi un poi</h2></a>
+                                    <a class="btn btn-warning" style="width: 200px; margin-right:0" href="admin/editpoi"><h2>Modifica un poi</h2></a>
+                                    <a class="btn btn-danger" style="width: 200px; margin-right: 0" href="admin/deletepoi"><h2>Elimina un poi</h2></a>
+                                </div>
+            </center>
+        </article>
     </body>
 </html>

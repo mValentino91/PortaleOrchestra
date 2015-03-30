@@ -9,27 +9,23 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<div class="panel panel-default">
-    <div style="max-height: 3px; height: 3px; background-color: #9ccc65;"></div>
-    <div class="panel-body">
-        <h2 style="margin: 0 0 0 0; "><span class="glyphicon glyphicon-map-marker"></span> ${poi.name}</h2><br>
+<article class="component component-text">
+    <div class="details">
+	<h2>${poi.name}</h2>
         <c:forEach var="sect" items="${description.sectionsList}">
-            <article style="margin: 0 0 0 0;">
-            <div class="titolo"> 
-                <c:if test="${not empty sect.title}">   
-                    <b>${sect.title}</b>
-                    </c:if>
+            <div class="paragrafo">
+            <c:if test="${not empty sect.title}">   
+                    <strong>${sect.title}</strong>
+                    <br>
+            </c:if>
+            ${sect.description}
             </div>
-        <br>
-        
-        <div class="testo">${sect.description}</div>
-        
-        
-        </article>
-            <div class="separator"></div>
-            <br>
+          
+            
         </c:forEach>
-        
+      <!-- <div class="intents">
+	<span class="count">Cultura | Museo</span>
+	</div> -->
     </div>
-</div>
+</article>
         

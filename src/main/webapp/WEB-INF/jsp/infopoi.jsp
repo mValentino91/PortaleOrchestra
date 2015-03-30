@@ -14,37 +14,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
+          <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
+  <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
+  
+
+<script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
+<link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
+  <link rel='stylesheet' href='./dist/css/bootstrap.min.css'>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href="./dist/googlePlusDesign/css/bootstrap.min.css" rel="stylesheet">
-        <link href="./dist/googlePlusDesign/css/styles.css" rel="stylesheet">
-        <link href="./dist/css/section.css" rel="stylesheet">
+        <link href="./dist/css/poi_view.css" rel="stylesheet">
+        <link href="./dist/css/OrchestraIconFont.css" rel="stylesheet"> 
         <link href="./dist/css/composite.css" rel="stylesheet">
-        <link href="./dist/css/contacts.css" rel="stylesheet">
         <script src="./dist/js/section.js"></script>
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
-        <style>
-            /* Custom container */
-            body{
-                background-color: lightgray;
-                color: #285e8e;
-            }
-            .container-fixed {
-                margin: 0 auto;
-                max-width: 1150px;
-                background-color: whitesmoke;
-            }
-            .container-fixed > hr {
-                margin: 30px 0;
-            }
-
-            #footer{
-                padding-top: 100px;
-                padding-bottom: 20px;
-            }
-        </style>
-        <title>${poi.name}</title>   
+        
+        <title>Orchestra - ${poi.name}</title>   
     </head>
     <body>
         
@@ -52,23 +38,26 @@
            
             <jsp:include page="components/sideBar.jsp"/>
             <c:if test="${not empty coverimg}">
+                <div class="col-xs-12">
                 <jsp:include page="components/CoverComponent.jsp"/>
+                </div>
             </c:if>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-8">
+            
+                    <div class="col-xs-12 col-sm-8 col-md-8 padding_dx">
                                 <c:if test="${not empty description}">
                                 <jsp:include page="components/SectionComponent.jsp"/> 
                                 </c:if>
-                                <c:if test="${not empty imagegallery}">
-                                    <jsp:include page="components/ImgGalleryComponent.jsp"/> 
-                                </c:if>
-                            </div>
-                            <div class="col-md-4">
                                 <jsp:include page="components/mapComponent.jsp"/>
-                                 
+                    </div>
+                               
+                            
+                            <div class="col-xs-12 col-sm-4 col-md-4 padding_sx">
+                                
+                                <c:if test="${not empty imggallery}">
+                                    <jsp:include page="components/ImgGalleryComponent2.jsp"/> 
+                                </c:if>
+                                
+                            
                                 <c:if test="${not empty contacts}">
                                     <jsp:include page="components/ContactsComponent.jsp"/>
                                 </c:if>
@@ -86,24 +75,27 @@
                                         <jsp:include page="components/ServicesComponent.jsp"/>
                                     </c:when>
                                 </c:choose>
+                                <c:if test="${not empty eventsdate}">
+                                       <jsp:include page="components/EventsDatesComponent.jsp"/>
+                                </c:if>
+                            
+                                
                                     </div>  
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                
+                         
                 
-                <div class="row">
-                    <div class="col-md-12" id="footer">
+                
+                    <div class="col-xs-12" id="footer">
                         <center>
                             <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
                         </center>
                     </div>
-                </div>
+               
             </div>
        
        
         <script>
-             $('article').readmore({ speed: 5, maxHeight: 200, moreLink: '<a href="#" style="text-align: right; font-size:200%; text-decoration: none; margin: 0 0 0 0;"><i class="fa fa-chevron-down"></i></a>', lessLink: '<a href="#" style="text-align: right; font-size:200%; text-decoration: none;"><i class="fa fa-chevron-up"></i></a>'});
+             $('.paragrafo').readmore({ speed: 5, maxHeight: 150, moreLink: '<a href="#" style="text-align: right; margin-top: -20px!important; font-size:100%; text-decoration: none; margin: 0 0 0 0;"><i class="fa fa-chevron-down"></i></a>', lessLink: '<a href="#" style="text-align: right; font-size:100%; margin-top: -20px!important;  text-decoration: none;"><i class="fa fa-chevron-up"></i></a>'});
         
            
       
