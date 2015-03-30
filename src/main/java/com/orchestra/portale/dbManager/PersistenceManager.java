@@ -9,6 +9,7 @@ package com.orchestra.portale.dbManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Poi;
+import com.orchestra.portale.persistence.sql.entities.User;
 import org.springframework.data.geo.GeoResults;
 
 /**
@@ -28,5 +29,9 @@ public interface PersistenceManager {
     public void deletePoi(CompletePOI poi);
     public void savePoi(CompletePOI poi);
     public void saveEnPoi(EnCompletePOI enpoi);
-    
+    public User findUserByUsername(String username);
+    public User findUserByFbUser(String fbUser);
+    public User findUserByFbEmail(String fbEmail);
+    public User findUserByFbEmailOrFbUser(String fbEmail, String fbUser);
+    public void saveUser(User user);
 }

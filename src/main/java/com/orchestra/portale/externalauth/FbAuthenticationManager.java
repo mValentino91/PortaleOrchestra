@@ -11,6 +11,7 @@ import com.orchestra.portale.externalauth.exception.UserNotFoundException;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import com.orchestra.portale.externalauth.exception.FacebookException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -21,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import java.security.SecureRandom;
+import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 
 /**
  *
@@ -67,13 +71,44 @@ public class FbAuthenticationManager  {
                         user = fbUserCheck(id, email, userRepository);
                     }
                     catch(UserNotFoundException ioex) {
-                        /*Retrieve User Data to Registration
+                        /*Retrieve User Data to Registration*/
                         Map<String, String> userData = FacebookUtils.getUserData(access_token);
-                        System.out.println(userData.get("id"));
-                        System.out.println(userData.get("email"));
-                        System.out.println(userData.get("firstName"));
-                        System.out.println(userData.get("lastName"));
-                        */
+                        
+                        /*Create User*/
+                        com.orchestra.portale.persistence.sql.entities.User new_user = new com.orchestra.portale.persistence.sql.entities.User();
+                        new_user.setFbEmail(userData.get("email"));
+                        new_user.setFbUser(userData.get("id"));
+                        new_user.setUsername(userData.get("email"));
+                        new_user.setFirstName(userData.get("firstName"));
+                        new_user.setLastName(userData.get("lastName"));
+                        new_user.setPassword(new BigInteger(130, new SecureRandom()).toString(32));
+               
+                        /*Create Role*/
+                        com.orchestra.portale.persistence.sql.entities.Role new_user_role = new com.orchestra.portale.persistence.sql.entities.Role();
+                        new_user_role.setRole("ROLE_USER");
+                        new_user_role.setUser(new_user);
+                        ArrayList<com.orchestra.portale.persistence.sql.entities.Role> new_user_roles = new ArrayList<com.orchestra.portale.persistence.sql.entities.Role>();
+                        new_user_roles.add(new_user_role);
+                        new_user.setRoles(new_user_roles);
+                        
+                        /*Save User*/
+                        userRepository.save(new_user);
+                        
+                        /*Create Spring User*/
+                        boolean enabled = true;
+                        boolean accountNonExpired = true;
+                        boolean credentialsNonExpired = true;
+                        boolean accountNonLocked = true;
+                        
+                        user = new User(new_user.getUsername(), 
+                            new_user.getPassword().toLowerCase(),
+                            enabled,
+                            accountNonExpired,
+                            credentialsNonExpired,
+                            accountNonLocked,
+                            getAuthorities(new_user.getRoles()));
+                        
+                        
                     }  
                     
                 }

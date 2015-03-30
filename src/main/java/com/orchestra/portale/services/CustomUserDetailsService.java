@@ -1,5 +1,7 @@
 package com.orchestra.portale.services;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
+import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Role;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,8 +26,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 	
-	@Autowired
-	private UserRepository userRepository;
+	
+	PersistenceManager pm = new ConcretePersistenceManager();
+        
+        @Autowired
+        UserRepository usr;
 
 	/**
 	 * Returns a populated {@link UserDetails} object. 
@@ -34,7 +39,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 	 */
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-			com.orchestra.portale.persistence.sql.entities.User domainUser = userRepository.findByUsername(username);
+			com.orchestra.portale.persistence.sql.entities.User domainUser = usr.findByUsername(username);
 			
 			boolean enabled = true;
 			boolean accountNonExpired = true;

@@ -10,11 +10,13 @@ import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import com.orchestra.portale.persistence.sql.entities.Poi;
+import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompCategoryComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
+import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
@@ -55,6 +57,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
     private EnPoiMongoRepository enPoiMongoRepo;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public Poi getPoiById(String Id) {
@@ -129,4 +134,28 @@ public class ConcretePersistenceManager implements PersistenceManager {
      public void saveEnPoi(EnCompletePOI enpoi) {
          enPoiMongoRepo.save(enpoi);
 }
+     @Override
+    public User findUserByUsername(String username) {
+        User usr=userRepository.findByUsername(username);
+        return usr;
+    }
+    @Override
+    public User findUserByFbUser(String fbUser) {
+        User usr= userRepository.findByFbUser(fbUser);
+        return usr;
+    }
+    @Override
+    public User findUserByFbEmail(String fbEmail){
+        User usr = userRepository.findByFbEmail(fbEmail);
+        return usr;
+    }
+    @Override
+    public User findUserByFbEmailOrFbUser(String fbEmail, String fbUser){
+        User usr = userRepository.findByFbEmailOrFbUser(fbEmail, fbUser);
+        return usr;
+    }
+    @Override
+    public void saveUser(User user){
+        userRepository.save(user);
+    }
 }

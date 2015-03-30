@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 @Entity(name="user")
 public class User {
 	
-	@Id @GeneratedValue(strategy=GenerationType.TABLE)
+	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
 	private String firstName;
