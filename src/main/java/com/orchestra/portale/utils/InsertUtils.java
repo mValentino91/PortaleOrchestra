@@ -16,7 +16,7 @@ public class InsertUtils {
    public static String delimg(String id, String nameimg){
         String esito= "";
         String rootPath = System.getProperty("catalina.home");
-        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+id);
+        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+id);
         
         File img=new File(dir.getAbsolutePath()+ File.separator + nameimg);
         if(img.delete())

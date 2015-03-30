@@ -23,7 +23,7 @@ public class ImageBackupRestoreController {
     public ModelAndView backup() throws IOException {
         ModelAndView model = new ModelAndView("showResult");
         String rootPath = System.getProperty("catalina.home");
-               File dir = new File(rootPath + File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist"+File.separator+"poi");
+               File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"poi");
              copy(dir.getCanonicalPath(),rootPath);
              model.addObject("mess", "Tutte le immagini sono state copiate");
         return model;
@@ -32,7 +32,7 @@ public class ImageBackupRestoreController {
     public ModelAndView restore() throws IOException {
         ModelAndView model = new ModelAndView("showResult");
         String rootPath = System.getProperty("catalina.home");
-               File dir = new File(rootPath + File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist");
+               File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist");
              copy(rootPath+File.separator+"poi",dir.getCanonicalPath());
              model.addObject("mess", "Tutte le immagini sono state ripristinate");
         return model;

@@ -401,7 +401,7 @@ public class NewPoiController {
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
                 
-                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
+                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  
