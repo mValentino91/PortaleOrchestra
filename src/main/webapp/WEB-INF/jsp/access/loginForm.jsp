@@ -38,7 +38,7 @@
 	 window.fbAsyncInit = function() {
 		FB.init({
 		  appId      : '1507821126169380', // App ID
-		  channelUrl : 'http://localhost:8080/PortaleOrchestraMVC2-1.0/dist/fb_js_pack/channel.html', // Channel File
+		  channelUrl : 'http://localhost:8080/orchestra/dist/fb_js_pack/channel.html', // Channel File
 		  status     : true, // check login status
 		  cookie     : true, // enable cookies to allow the server to access the session
 		  xfbml      : true  // parse XFBML

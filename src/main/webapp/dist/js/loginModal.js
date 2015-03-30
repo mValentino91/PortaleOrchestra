@@ -15,6 +15,6 @@ $.extend({
 
 //Reload Access Area
 function reload_access_area () {
-    $.reloadElement("loginArea", "/PortaleOrchestraMVC2/loginArea");
+    $.reloadElement("loginArea", "/orchestra/loginArea");
 
 }

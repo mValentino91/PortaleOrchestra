@@ -1,5 +1,5 @@
 /*Server Variables*/
-var SEND_TOKEN = "http://localhost:8080/PortaleOrchestraMVC2/fbLoginJs"
+var SEND_TOKEN = "http://localhost:8080/orchestra/fbLoginJs"
 
 
 /*Facebook Login*/	
