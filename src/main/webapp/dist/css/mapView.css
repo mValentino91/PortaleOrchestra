@@ -141,7 +141,7 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
     padding: 5px;
 }
 .categoriesTails{
-    background-color: white;
+    background-color: transparent;
     width: 100%;
     overflow: auto;
     padding:2px;
