@@ -39,7 +39,7 @@
 <div class="container" style="padding-top: 60px;">
      <jsp:include page="components/sideBar.jsp"/>
   <h1 class="page-header">Sign In</h1>
-  <form:form class="form-horizontal" enctype="multipart/form-data"  action="userSignIn" method="POST">
+  <form:form class="form-horizontal" enctype="multipart/form-data"  action="userEditProfile" method="POST">
   <div class="row">
     <!-- left column -->
     <div class="col-md-4 col-sm-6 col-xs-12">
@@ -58,31 +58,31 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">First name:</label>
           <div class="col-lg-8">
-            <form:input class="form-control" path="firstName" required='required' />
+            <form:input class="form-control" path="firstName" value="${user.firstName}" required='required' />
           </div>
         </div>
         <div class="form-group">
           <label class="col-lg-3 control-label">Last name:</label>
           <div class="col-lg-8">
-            <form:input class="form-control" path="lastName" type="text" required='required' />
+            <form:input class="form-control" path="lastName" value="${user.lastName}" type="text" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Email:</label>
+          <label class="col-lg-3 control-label">Username:</label>
           <div class="col-lg-8">
-            <form:input class="form-control" path="username" type="text" required='required' />
+            <form:input class="form-control" path="username" value="${user.username}" type="text" required='required' />
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Password:</label>
           <div class="col-md-8">
-            <form:input class="form-control" id='p' path="password" type="password" required='required' />
+            <form:input class="form-control" id='p' path="password" type="password"  />
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Confirm password:</label>
           <div class="col-md-8">
-            <input class="form-control" id="confermap" onblur="checkpassword()" type="password" required>
+            <input class="form-control" id="confermap" onblur="checkpassword()" type="password">
           </div>
         </div>
         <div class="form-group">

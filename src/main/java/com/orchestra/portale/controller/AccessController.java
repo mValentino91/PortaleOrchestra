@@ -1,5 +1,6 @@
 package com.orchestra.portale.controller;
 
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,4 +37,9 @@ public class AccessController {
  	public String loginArea() {
 		return "access/loginArea";
 	}
+        @RequestMapping("/test")
+        @Secured("ROLE_USER")
+        public String test() {
+            return "access/test";
+        }
 }

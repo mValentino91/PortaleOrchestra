@@ -1037,7 +1037,6 @@ function delcat(tasto) {
                             var cont=0;
                             while(orari!= undefined && orari!= null){
                                 orari=$("#"+mails[i].id+" .fasciaoraria")[cont];
-                                alert(orari);
                                 if(orari != undefined && orari != null){
                                     orari=orari.getElementsByTagName("input");
                                     var newind1 = document.createElement("input");

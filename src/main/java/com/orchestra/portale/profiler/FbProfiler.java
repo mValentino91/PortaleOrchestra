@@ -191,7 +191,7 @@ public class FbProfiler{
     }
     
     /*MOM*/
-    public String getFBCategories(){
+    public Map<String, List<String[]> > getFBCategories(){
          if(access_token==null){
             return null;
         }
@@ -217,32 +217,26 @@ public class FbProfiler{
           
           List<String[]> likes_array = new ArrayList<String[]>();
           for(JsonElement like : likes){
-              String [] l = {like.getAsJsonObject().get("name").getAsString(), like.getAsJsonObject().get("name").getAsString()};
+              String [] l = {like.getAsJsonObject().get("name").getAsString(), like.getAsJsonObject().get("weight").getAsString()};
               likes_array.add(l);
           }
           cat_ret.put("likes", likes_array);
           
           List<String[]> photos_array = new ArrayList<String[]>();
           for(JsonElement photo : photos){
-              String [] p = {photo.getAsJsonObject().get("name").getAsString(), photo.getAsJsonObject().get("name").getAsString()};
+              String [] p = {photo.getAsJsonObject().get("name").getAsString(), photo.getAsJsonObject().get("weight").getAsString()};
               likes_array.add(p);
           }
           cat_ret.put("photos", photos_array);
           
           List<String[]> places_array = new ArrayList<String[]>();
           for(JsonElement place : places){
-              String [] pl = {place.getAsJsonObject().get("name").getAsString(), place.getAsJsonObject().get("name").getAsString()};
+              String [] pl = {place.getAsJsonObject().get("name").getAsString(), place.getAsJsonObject().get("weight").getAsString()};
               likes_array.add(pl);
           }
           cat_ret.put("places", places_array);
           
-          System.out.println(likes);
-          System.out.println(photos);
-          System.out.println(places);
-          
-          
-          
-          return null;
+          return cat_ret;
           
         } catch(MalformedURLException ex) {
                 ex.printStackTrace();

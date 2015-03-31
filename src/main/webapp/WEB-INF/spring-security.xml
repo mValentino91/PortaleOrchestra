@@ -16,7 +16,7 @@
         <intercept-url pattern="/login" access="permitAll"/>
         <intercept-url pattern="/denied" access="hasRole('ROLE_USER')"/>
         <intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')"/>
-		
+		 
         <form-login login-page="/loginForm" 
                             authentication-failure-url="/loginForm?error=true" 
                             default-target-url="/loginForm"
@@ -36,4 +36,6 @@
             <password-encoder hash="md5"/>
         </authentication-provider>
     </authentication-manager>
+    
+    <global-method-security secured-annotations="enabled" />
 </beans:beans>

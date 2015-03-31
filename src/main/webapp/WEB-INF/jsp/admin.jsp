@@ -23,6 +23,7 @@
                                     <a class="btn btn-success" style="width: 200px; margin-bottom:5px;" href="admin/newpoi"><h2>Aggiungi un poi</h2></a>
                                     <a class="btn btn-warning" style="width: 200px; margin-right:0" href="admin/editpoi"><h2>Modifica un poi</h2></a>
                                     <a class="btn btn-danger" style="width: 200px; margin-right: 0" href="admin/deletepoi"><h2>Elimina un poi</h2></a>
+                                    <a class="btn btn-success" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/newevent"><h2>Nuovo Evento</h2></a>
                                 </div>
             </center>
         </article>
