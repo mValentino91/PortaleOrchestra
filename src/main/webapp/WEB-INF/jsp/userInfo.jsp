@@ -145,70 +145,47 @@ $(document).ready(function(){
                                     if(cat_list!=null){
                                         List<String[]> likes = cat_list.get("likes");
                                         for(String[] l : likes){
-                                            System.out.println("<p class=\"fb_pill\">"+l[0]+"<span class=\"badge\">"+l[1]+"</span></p>");
+                                            %>
+                                            <p class="fb_pill"><%= l[0] %> <span class="badge"> <%= l[1] %> </span></p>
+                                            <%
                                         }
                                     }
 
                               
                               %>
-                              
-				  
-				  				  				  				  
 			  </div>
 			</div>
 			<div class="row drop_down_container">
 			  <div class="col-md-12"><strong>Photos Top Categories  <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
 			  <div class="col-md-12 drop_down_content" style="display: none;">
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>	
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>					  			  				  				  
-			  </div>
+                              <% 
+                                   if(cat_list!=null){
+                                        List<String[]> photos = cat_list.get("photos");
+                                        for(String[] l : photos){
+                                            %>
+                                            <p class="fb_pill"><%= l[0] %> <span class="badge"> <%= l[1] %> </span></p>
+                                            <%
+                                        }
+                                    }
+
+                              
+                              %>			  </div>
 			</div>
 			<div class="row drop_down_container">
 			  <div class="col-md-12"><strong>Places Top Categories  <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
 			  <div class="col-md-12 drop_down_content" style="display: none">
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>	
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>	
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>	
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>
-				  <p class="fb_pill">Restaurant <span class="badge">42</span></p>
-				  <p class="fb_pill">Lake <span class="badge">10</span></p>
-				  <p class="fb_pill">Church <span class="badge">2</span></p>		
+                              <% 
+                                    if(cat_list!=null){
+                                        List<String[]> places = cat_list.get("places");
+                                        for(String[] l : places){
+                                            %>
+                                            <p class="fb_pill"><%= l[0] %> <span class="badge"> <%= l[1] %> </span></p>
+                                            <%
+                                        }
+                                    }
+
+                              
+                              %>		
 			  </div>
 			</div>			
 		</div>		

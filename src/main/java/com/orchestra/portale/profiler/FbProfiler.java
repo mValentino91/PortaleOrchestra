@@ -225,14 +225,14 @@ public class FbProfiler{
           List<String[]> photos_array = new ArrayList<String[]>();
           for(JsonElement photo : photos){
               String [] p = {photo.getAsJsonObject().get("name").getAsString(), photo.getAsJsonObject().get("weight").getAsString()};
-              likes_array.add(p);
+              photos_array.add(p);
           }
           cat_ret.put("photos", photos_array);
           
           List<String[]> places_array = new ArrayList<String[]>();
           for(JsonElement place : places){
               String [] pl = {place.getAsJsonObject().get("name").getAsString(), place.getAsJsonObject().get("weight").getAsString()};
-              likes_array.add(pl);
+              places_array.add(pl);
           }
           cat_ret.put("places", places_array);
           
