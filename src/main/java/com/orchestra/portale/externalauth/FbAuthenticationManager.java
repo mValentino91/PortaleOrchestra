@@ -109,7 +109,7 @@ public class FbAuthenticationManager {
 
                         //Save user image
                         try {
-                            String destination = userRepository.findByUsername(new_user.getUsername()).getId() + File.separator + "avatar.jpg";
+                            String destination = userRepository.findByUsername(new_user.getUsername()).getId().toString() + ".jpg";
                             saveImage(img_url, destination);
                         } catch (MalformedURLException ex) {
                             throw new FacebookException();
