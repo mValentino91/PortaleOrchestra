@@ -190,7 +190,8 @@ public class FbAuthenticationManager  {
                 Role r = roles_iter.next();
                 roles.add(r.getRole());
             }
-
+            
+            roles.add("ROLE_FB");
             List<GrantedAuthority> authList = getGrantedAuthorities(roles);
             return authList;
     }

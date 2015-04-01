@@ -5,7 +5,24 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<style>
+    .navbar-nav>li{
+        padding-bottom:0px;
+        padding-top: 0px;
+    }
+    .navbar-nav>li>a{
+        padding-bottom:15px;
+        padding-top: 10px;
+    }
+    .navbar-nav>li>a:hover{
+        background-color: transparent;
+        color:white;
+    }
+    .profile-image{
+        height: 25px !important;
+        width: 25px !important;    
+    }
+</style>
 <nav class="navbar navbar-fixed-top header" style="
      box-shadow: 0px 0px 3px 0px black;
      background:#285e8e; ">

@@ -16,12 +16,12 @@
     </span>
 </div>
 <div class="filterOnPoiList well">
-    <div  class="btn-group" role="group" data-toggle="buttons">
+    <!--<div  class="btn-group" role="group" data-toggle="buttons">
         <button type="button" class="btn btn-default btn-xs" 
                 onclick="$('.categoriesContainer').toggle();">
             <i class="fa fa-bars"></i>
         </button>
-    </div>
+    </div>-->
     <div  class="btn-group" role="group" data-toggle="buttons">
         <label id="searchMapCheckButton" type="button" class="btn btn-default btn-xs" onclick="interactiveMap.searchHandler()">
             <input type="checkbox" autocomplete="off">
