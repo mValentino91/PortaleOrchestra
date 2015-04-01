@@ -13,8 +13,8 @@ $.extend({
     }
 });
 
-//Reload Access Area
-function reload_access_area () {
-    $.reloadElement("loginArea", "/orchestra/loginArea");
-
+//trigger event
+function login_event(){
+    var loginEvent=$.Event("loginDone");
+    $(document).trigger(loginEvent);
 }

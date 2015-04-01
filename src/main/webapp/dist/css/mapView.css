@@ -44,6 +44,24 @@ body{background-color:#e0e0e0;-webkit-font-smoothing:antialiased;font:normal 14p
     font-size: 13px;
     margin: 10px;
 }
+
+.navbar-nav>li{
+    padding-bottom:0px;
+    padding-top: 0px;
+}
+.navbar-nav>li>a{
+    padding-bottom:15px;
+    padding-top: 10px;
+}
+.navbar-nav>li>a:hover{
+    background-color: transparent;
+    color:white;
+}
+.profile-image{
+    height: 25px !important;
+    width: 25px !important;    
+}
+
 .infowindowContent{
     max-width:200px;
     min-height:250px;

@@ -14,12 +14,13 @@
             <ul class="nav navbar-nav">
                 <li><a style="color:white" href="http://www.orchestra.unina.it/">
                         Home
-                    </a></li>
+                    </a>
+                </li>
                 <li><a style="color:white" href="./Map?category=all">Mappa Interattiva</a></li>
             </ul>
-            <p id="loginArea" class="navbar-text navbar-right">
+            <ul id="loginArea" class="nav navbar-nav navbar-right">
                 <jsp:include page="../access/loginArea.jsp" />
-            </p>
+            </ul>
         </div>
     </div>
 </nav>

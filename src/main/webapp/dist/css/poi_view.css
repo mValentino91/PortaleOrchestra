@@ -1,9 +1,22 @@
 * {
   box-sizing: border-box;
 }
-
-
-
+.navbar-nav>li{
+    padding-bottom:0px;
+    padding-top: 0px;
+}
+.navbar-nav>li>a{
+    padding-bottom:15px;
+    padding-top: 10px;
+}
+.navbar-nav>li>a:hover{
+    background-color: transparent;
+    color:white;
+}
+.profile-image{
+    height: 25px !important;
+    width: 25px !important;    
+}
 body {
   font-family: 'Open Sans', sans-serif;
   color: rgba(0,0,0, 0.65)!important;

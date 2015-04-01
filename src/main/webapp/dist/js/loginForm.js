@@ -25,5 +25,5 @@ function fb_login() {
 /*Login Done*/
 function loginDone() {
     close_modal();
-    window.parent.reload_access_area();
+    window.parent.login_event();
 }
