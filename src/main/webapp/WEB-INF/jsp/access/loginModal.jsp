@@ -30,7 +30,7 @@
       		<div class="modal-footer login_modal_footer">
                     <div style="font-size:85%" >
                         Don't have an account? 
-                        <a href="#">
+                        <a href="userSignIn">
                             Sign Up Here!
                         </a>
                     </div>

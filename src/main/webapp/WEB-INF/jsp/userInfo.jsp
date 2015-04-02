@@ -11,7 +11,7 @@
 <html>
     <head>
         <link rel="stylesheet" type="text/css" href="./dist/css/bootstrap.min.css">
-
+<link rel="stylesheet" type="text/css" href="./dist/css/poi_view.css">
         <link rel="stylesheet" type="text/css" href="./dist/css/font-awesome.min.css">
 
         <script src="./dist/js/jquery.js"></script>
@@ -102,8 +102,8 @@
     <body>
         <jsp:include page="components/sideBar.jsp"/>
 
-        <div class="container" style="padding-top: 60px;">
-            <h1 class="page-header">Your Profile  <a href=""><i class="fa fa-pencil-square-o edit_profile_icon"></i></a></h1>
+        <div class="container-fixed" style="padding-top: 60px;">
+            <h1 class="page-header">Your Profile  <a href="userEditProfile"><i class="fa fa-pencil-square-o edit_profile_icon"></i></a></h1>
 
             <div class="row">
                 <!-- left column -->

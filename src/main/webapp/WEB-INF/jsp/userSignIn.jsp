@@ -3,19 +3,61 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="./dist/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./dist/css/poi_view.css">
+<link rel="stylesheet" type="text/css" href="./dist/css/font-awesome.min.css">
 <script src="./dist/js/jquery.js"></script>
 <script src="./dist/js/bootstrap.min.js"></script>
     <script>
     function checkpassword() {
         var pass1= document.getElementById("p");
         var pass2= document.getElementById("confermap");
-        
+        var label= document.getElementById("perror");
         if(pass1.value != pass2.value){
-            alert("Le due password non combaciano!");
+            var label= document.createElement("label");
+            label.id="confermaperror";
+            label.innerHTML = "Le password inserite non combaciano";
+            label.setAttribute("style","color: red");
+            $(label).insertAfter("#confermap");
+          
+            pass2.setAttribute("style", "border-color: red");
             pass2.value="";
         }
     }
+    function checkPassLen() {
+        var pass1= document.getElementById("p");
+        if(pass1.value.length < 8 && pass1.value.length > 0){
+            var label= document.createElement("label");
+            label.id="perror";
+            label.innerHTML = "La password deve essere di almeno 8 caratteri";
+            label.setAttribute("style","color: red");
+            $(label).insertAfter("#p");
+            pass1.value="";
+            pass1.setAttribute("style","border-color:red");
+        }
+    }
+    function removeAttributes(obj) {
+        var label= document.getElementById(obj.id+"error");
+        if (label != undefined)
+                label.remove();
+        obj.removeAttribute("style");
+       
+    }
     
+    function validateEmail(email) {
+        if(email != "") {
+    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+    if (!re.test(email)) {
+       var label= document.createElement("label");
+            label.id="emerror";
+            label.innerHTML = "Inserisci un indirizzo email corretto";
+            label.setAttribute("style","color: red");
+            $(label).insertAfter("#em");
+            var em= document.getElementById("em");
+            em.value="";
+            em.setAttribute("style", "border-color: red");
+    }
+        }
+}
     function readURL(input) {
 
     if (input.files && input.files[0]) {
@@ -36,7 +78,7 @@
     
            
            
-<div class="container" style="padding-top: 60px;">
+<div class="container-fixed" style="padding-top: 60px;">
      <jsp:include page="components/sideBar.jsp"/>
   <h1 class="page-header">Sign In</h1>
   <form:form class="form-horizontal" enctype="multipart/form-data"  action="userSignIn" method="POST">
@@ -70,19 +112,21 @@
         <div class="form-group">
           <label class="col-lg-3 control-label">Email:</label>
           <div class="col-lg-8">
-            <form:input class="form-control" path="username" type="text" required='required' />
+            <form:input class="form-control" id="em" path="username" type="text" onfocus="removeAttributes(this)" onblur="validateEmail(this.value)" required='required' />
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Password:</label>
           <div class="col-md-8">
-            <form:input class="form-control" id='p' path="password" type="password" required='required' />
+            <form:input class="form-control" id='p' path="password" onblur="checkPassLen()" onfocus="removeAttributes(this)" type="password" required='required' />
+            
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label">Confirm password:</label>
           <div class="col-md-8">
-            <input class="form-control" id="confermap" onblur="checkpassword()" type="password" required>
+            <input class="form-control" id="confermap" onfocus="removeAttributes(this)" onblur="checkpassword()" type="password" required>
+            
           </div>
         </div>
         <div class="form-group">
