@@ -15,28 +15,8 @@
         <i class="glyphicon glyphicon-search"></i>
     </span>
 </div>
-<div class="filterOnPoiList well">
-    <!--<div  class="btn-group" role="group" data-toggle="buttons">
-        <button type="button" class="btn btn-default btn-xs" 
-                onclick="$('.categoriesContainer').toggle();">
-            <i class="fa fa-bars"></i>
-        </button>
-    </div>-->
-    <div  class="btn-group" role="group" data-toggle="buttons">
-        <label id="searchMapCheckButton" type="button" class="btn btn-default btn-xs" onclick="interactiveMap.searchHandler()">
-            <input type="checkbox" autocomplete="off">
-            <i class="fa fa-search"></i>
-        </label>
-        <button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.anmHandler()">
-            <i class="fa fa-bus"></i>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" onclick="$('#poiListComponent').slideToggle(150)">
-            <i class="glyphicon glyphicon-map-marker"></i>
-        </button>
-        <button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFbPois()">
-            <i class="fa fa-facebook-f"></i>
-        </button>
-    </div>
+<div id="filterOnPoiList" class="filterOnPoiList well">
+    <jsp:include page="./filterOnPoiList.jsp" />
 </div>
 <div class="categoriesTailMacro">
     <div class="categoriesTails">

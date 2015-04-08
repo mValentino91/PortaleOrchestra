@@ -131,6 +131,7 @@
                     </div>		
                 </div>
                 <sec:authorize access="hasRole('ROLE_FB')">
+                    <c:if test="${not empty categories}">
                     <div class="col-md-8 col-sm-6 col-xs-12 personal-info drop_down_container">
                         <h3>Facebook Info <i class="fa fa-caret-down drop_down_icon"></i></h3>
                         <div class="info_container drop_down_content">
@@ -187,6 +188,7 @@
                             </div>			
                         </div>		
                     </div>
+                    </c:if>
                 </sec:authorize>
 
             </div>

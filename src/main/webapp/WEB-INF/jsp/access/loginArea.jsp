@@ -15,7 +15,7 @@
 <script>
 $(document).on("loginDone",reload_access_area);
 function reload_access_area(event){
-    $.reloadElement("loginArea","./loginArea");
+   $.reloadElement("loginArea","./loginArea");
 }
 </script>
 
@@ -36,7 +36,7 @@ function reload_access_area(event){
 <sec:authorize access="isAuthenticated()">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="./dist/img/profilo.jpg" class="profile-image img-circle">
+            <img src="${avatar}" class="profile-image img-circle">
         </a>
         <ul class="dropdown-menu">
             <li><a href="./userInfo"><i class="fa fa-cog"></i> Il tuo profilo</a></li>

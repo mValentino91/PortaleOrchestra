@@ -18,6 +18,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -144,12 +145,14 @@ public class FbProfiler{
           return true;
           
         } catch(MalformedURLException ex) {
-                ex.printStackTrace();
+            //ex.printStackTrace();
+            return false;
         } catch(IOException ioex) {
-                ioex.printStackTrace();
-        }
+            //ioex.printStackTrace();
+            return false;
+        } 
         
-        return false;
+        
     }
     
     
@@ -239,13 +242,13 @@ public class FbProfiler{
           return cat_ret;
           
         } catch(MalformedURLException ex) {
-                ex.printStackTrace();
+                //ex.printStackTrace();
+                return null;
         } catch(IOException ioex) {
-                ioex.printStackTrace();
+                //ioex.printStackTrace();
+                return null;
         }
         
-        return null;    
-    
     
     }
         

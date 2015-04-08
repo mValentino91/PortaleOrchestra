@@ -31,8 +31,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -103,19 +105,26 @@ public class FbAuthenticationManager {
 
                         /*Save User*/
                         userRepository.save(new_user);
-                        String img_url = userData.get("img");
-                        System.out.println("IMG*********************************************");
-                        System.out.println(img_url);
-
+                        
                         //Save user image
                         try {
-                            String destination = userRepository.findByUsername(new_user.getUsername()).getId().toString() + ".jpg";
-                            saveImage(img_url, destination);
+                            String img_url = userData.get("img");
+                            String user_id_img = userRepository.findByUsername(new_user.getUsername()).getId().toString();
+                            
+                            HttpSession session = request.getSession();
+                            ServletContext sc = session.getServletContext();
+                            
+                            String destination = sc.getRealPath("/")+ "dist" + File.separator + "user" + File.separator + "img" + File.separator + user_id_img + File.separator;
+                            
+                            NetworkUtils.saveImageFromURL(img_url, destination, "avatar.jpg");
+                            
                         } catch (MalformedURLException ex) {
                             throw new FacebookException();
                         } catch (IOException ioexc) {
                             ioexc.getMessage();
                         }
+                        
+                        
                         /*Create Spring User*/
                         boolean enabled = true;
                         boolean accountNonExpired = true;
@@ -143,30 +152,7 @@ public class FbAuthenticationManager {
         return user;
     }
 
-    public static void saveImage(String imageUrl, String destinationFile) throws IOException {
-        System.out.println("IMGURL:" + imageUrl + "DESTINATION:" + destinationFile);
-        // Creating the directory to store file
-        String rootPath = System.getProperty("catalina.home");
-        String destName = rootPath + File.separator + "webapps" + File.separator + "orchestra" + File.separator + "dist" + File.separator + "user" + File.separator + "img" + File.separator + destinationFile;
-        System.out.println(destName);
-
-        URL url = new URL(imageUrl);
-        InputStream in = new BufferedInputStream(url.openStream());
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-        byte[] buf = new byte[1024];
-        int n = 0;
-        while (-1 != (n = in.read(buf))) {
-            out.write(buf, 0, n);
-        }
-        out.close();
-        in.close();
-        byte[] response = out.toByteArray();
-
-        FileOutputStream fos = new FileOutputStream(destName);
-        fos.write(response);
-        fos.close();
-
-    }
+    
 
     private static User fbUserCheck(String userFbId, String userFbMail, UserRepository userRepository) throws UserNotFoundException {
         // Recupera i dati dell'utente userServiceId dal repository 
@@ -206,6 +192,7 @@ public class FbAuthenticationManager {
         }
 
         roles.add("ROLE_FB");
+        
         List<GrantedAuthority> authList = getGrantedAuthorities(roles);
         return authList;
     }

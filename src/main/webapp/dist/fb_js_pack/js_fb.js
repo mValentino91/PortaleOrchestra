@@ -1,6 +1,6 @@
 /*Server Variables*/
-var SEND_TOKEN = "http://www.smile.unina.it:8080/orchestra/fbLoginJs"
-//var SEND_TOKEN = "http://localhost:8080/orchestra/fbLoginJs"
+//var SEND_TOKEN = "http://www.smile.unina.it:8080/orchestra/fbLoginJs"
+var SEND_TOKEN = "http://localhost:8080/orchestra/fbLoginJs"
 
 /*Facebook Login*/	
 function FbLogin()
@@ -37,8 +37,8 @@ $.extend({
                 data: "access_token="+access_token, 
                 type: "GET", 	
                 success: function(result, stato){
-                     if(result.login=="ok"){
-                         loginDone();
+                     if(result.login=="ok"){ 
+                        loginDone();
                      }
                 },
                 error: function(richiesta,stato,errori){

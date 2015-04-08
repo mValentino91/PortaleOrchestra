@@ -49,14 +49,14 @@ public class AccessController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         if(user != null) {
-        String rootPath = System.getProperty("catalina.home");
-        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"user"+File.separator+"img"+File.separator+user.getId()+File.separator+"avatar.jpg");
-       if (dir.exists()) {
+            String rootPath = System.getProperty("catalina.home");
+            File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"user"+File.separator+"img"+File.separator+user.getId()+File.separator+"avatar.jpg");
+        if (dir.exists()) {
           model.addObject("avatar", "./dist/user/img/"+user.getId()+"/avatar.jpg");
-       }
-       else {
+        }
+        else {
            model.addObject("avatar", "./dist/img/default_avatar.png");
-       }
+        }
        
         
 		
