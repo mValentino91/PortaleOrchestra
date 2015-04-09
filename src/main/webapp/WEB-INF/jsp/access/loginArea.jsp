@@ -30,6 +30,8 @@ function reload_access_area(event){
                     <i class="fa fa-sign-in"></i> Login
                 </a>
             </li>
+            <li class="divider"></li>
+            <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>
         </ul>
     </li>
 </sec:authorize>    
@@ -40,6 +42,8 @@ function reload_access_area(event){
         </a>
         <ul class="dropdown-menu">
             <li><a href="./userInfo"><i class="fa fa-cog"></i> Il tuo profilo</a></li>
+            <li class="divider"></li>
+            <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>            
             <li class="divider"></li>
             <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
