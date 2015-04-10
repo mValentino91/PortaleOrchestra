@@ -33,7 +33,7 @@
                         Home
                     </a>
                 </li>
-                <li><a style="color:white" href="./Map?category=all">Mappa Interattiva</a></li>
+                <li><a style="color:white" href="./Map?category=all">Interactive Map</a></li>
             </ul>
             <ul id="loginArea" class="nav navbar-nav navbar-right">
                 <jsp:include page="../access/loginArea.jsp" />

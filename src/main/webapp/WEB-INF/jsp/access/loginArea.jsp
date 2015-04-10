@@ -41,7 +41,7 @@ function reload_access_area(event){
             <img src="${avatar}" class="profile-image img-circle">
         </a>
         <ul class="dropdown-menu">
-            <li><a href="./userInfo"><i class="fa fa-cog"></i> Il tuo profilo</a></li>
+            <li><a href="./userInfo"><i class="fa fa-cog"></i> Your Profile</a></li>
             <li class="divider"></li>
             <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>            
             <li class="divider"></li>
