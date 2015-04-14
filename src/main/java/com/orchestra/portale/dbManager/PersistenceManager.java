@@ -8,6 +8,7 @@ package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
 import org.springframework.data.geo.GeoResults;
@@ -35,4 +36,6 @@ public interface PersistenceManager {
     public User findUserByFbEmail(String fbEmail);
     public User findUserByFbEmailOrFbUser(String fbEmail, String fbUser);
     public void saveUser(User user);
+    public void savePage(Pages page);
+    public Pages findPageById(String id);
 }
