@@ -2,7 +2,7 @@ $.extend({
     formSubmitEnable : function (button_id, form_id) {
         $( "#"+button_id ).click(function() {
             $( "#"+form_id ).submit();
-
+            window.parent.user_img_loading();
         });
 
     }

@@ -22,7 +22,7 @@ function reload_access_area(event){
 <sec:authorize access="isAnonymous()">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="./dist/img/default_avatar.png" class="profile-image img-circle">
+            <img id="userImg" src="./dist/img/default_avatar.png" class="profile-image img-circle">
         </a>
         <ul class="dropdown-menu">
             <li>        
@@ -38,7 +38,7 @@ function reload_access_area(event){
 <sec:authorize access="isAuthenticated()">
     <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="${avatar}" class="profile-image img-circle">
+            <img id="userImg" src="${avatar}" class="profile-image img-circle">
         </a>
         <ul class="dropdown-menu">
             <li><a href="./userInfo"><i class="fa fa-cog"></i> Your Profile</a></li>

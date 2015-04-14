@@ -18,3 +18,8 @@ function login_event(){
     var loginEvent=$.Event("loginDone");
     $(document).trigger(loginEvent);
 }
+
+
+function user_img_loading(){
+    $('#userImg').attr("src", "./dist/img/loading.gif");
+}

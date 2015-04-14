@@ -9,8 +9,8 @@ function FbLogin()
             if (response.authResponse){	                
               var access_token =   FB.getAuthResponse()['accessToken'];
               //alert(access_token);
+              window.parent.user_img_loading();
               $.FbSendToken(access_token);
-
             } 
             else {
              console.log('User cancelled login or did not fully authorize.');
@@ -31,7 +31,6 @@ function FbLogout()
  */
 $.extend({
 	FbSendToken : function (access_token) {  
-            $("#loginArea").html('<img class="profile-image-loading" src="./dist/img/loading.gif"/>');     
             $.ajax({
                 dataType: "json",
                 url: SEND_TOKEN,
