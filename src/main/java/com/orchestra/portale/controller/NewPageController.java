@@ -5,10 +5,13 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.documents.Tile;
 import java.util.ArrayList;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -17,9 +20,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class NewPageController {
+    @Autowired
+    PersistenceManager pm;
     
+    @RequestMapping("/newpage")
     public ModelAndView newPage() {
-        ModelAndView model = new ModelAndView("bho");
+        ModelAndView model = new ModelAndView("insertpoi");
         
         Pages page= new Pages();
         page.setTitle("TEST");
@@ -32,6 +38,7 @@ public class NewPageController {
         ArrayList<Tile> tilelist= new ArrayList<Tile>();
         tilelist.add(tile1);
         page.setTilesList(tilelist);
+        pm.savePage(page);
         
         return model;
     }

@@ -30,7 +30,8 @@ function FbLogout()
  * Send token to authentication
  */
 $.extend({
-	FbSendToken : function (access_token) {
+	FbSendToken : function (access_token) {  
+            $("#loginArea").html('<img class="profile-image-loading" src="./dist/img/loading.gif"/>');     
             $.ajax({
                 dataType: "json",
                 url: SEND_TOKEN,

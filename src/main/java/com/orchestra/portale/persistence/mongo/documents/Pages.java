@@ -19,13 +19,39 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Pages {
     @Id
     private String id;
-    
+    private String slug;
     private String title;
     private String description;
     private ArrayList<Tile> tilesList;
     private ArrayList<CategorySubMenu> submenu;
     private List<AbstractPoiComponent> components;
     private ArrayList<String> imgList;
+    private ArrayList<String> categorySlugList;
+    private ArrayList<String> idPoiList;
+
+    public void setSlug(String slug) {
+        this.slug = slug;
+    }
+
+    public void setCategorySlugList(ArrayList<String> categorySlugList) {
+        this.categorySlugList = categorySlugList;
+    }
+
+    public void setIdPoiList(ArrayList<String> idPoiList) {
+        this.idPoiList = idPoiList;
+    }
+
+    public String getSlug() {
+        return slug;
+    }
+
+    public ArrayList<String> getCategorySlugList() {
+        return categorySlugList;
+    }
+
+    public ArrayList<String> getIdPoiList() {
+        return idPoiList;
+    }
 
     public ArrayList<String> getImgList() {
         return imgList;
