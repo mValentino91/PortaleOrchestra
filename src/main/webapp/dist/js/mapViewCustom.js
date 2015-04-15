@@ -404,13 +404,14 @@ var interactiveMap = (function() {
             for (var i = 0; i < poi.length; i++) {
                 interactiveMap.markers[i] = new google.maps.Marker({
                     position: new google.maps.LatLng(poi[i].location[0], poi[i].location[1]),
-                    icon: "./dist/img/marker.png",
+                    icon: "./dist/img/markers/" + poi[i].categories[0] + "/marker.png",
                     title: poi.name});
                 interactiveMap.markers[i].id = poi[i].id;
                 interactiveMap.markers[i].index = i;
                 interactiveMap.markers[i].name = poi[i].name;
                 interactiveMap.markers[i].address = poi[i].address;
                 interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
+                interactiveMap.markers[i].category = poi[i].categories[0];
                 google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
                     interactiveMap.attachInfo(this);
                 });
@@ -466,7 +467,7 @@ var interactiveMap = (function() {
             }
         });
     }
-    function showFbPois(){
+    function showFbPois() {
         disableSearchState();
         $('#loadingImg').show();
         $.ajax({
@@ -478,7 +479,7 @@ var interactiveMap = (function() {
                 markersChangend(interactiveMap.markers);
                 $('#loadingImg').hide();
             }
-        });   
+        });
     }
     function categoryRemoveHandler(event) {
         disableSearchState();
@@ -589,7 +590,7 @@ var categoriesTail = (function() {
                         + 'title="' + data[i].text + '"'
                         + 'style="background-color:' + data[i].color + '">'
 
-                        + '<i class="'+data[i].icon+'"></i>'
+                        + '<i class="' + data[i].icon + '"></i>'
                         + '</button>');
             }
         });
@@ -725,7 +726,7 @@ var categoriesTail = (function() {
                 triggerEvent(slug, null, null, null, 'add');
                 $('#categoriesPanelGroup').append(
                         '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
-                        + '<div class="panel-heading" style="background:'+color+'">'
+                        + '<div class="panel-heading" style="background:' + color + '">'
                         + '<a onclick="categoriesTail.labelHandler(' + "'" + slug + "'" + ',' + "'#categoryCollapse-" + indexCategories + "'" + ')" class="' + slug + '" data-toggle="collapse" data-parent="#categoriesPanelGroup" href="#categoryCollapse-' + indexCategories + '">'
                         + '<span style="font-size:15px;color:white">' + title + '</span>'
                         + '</a>'

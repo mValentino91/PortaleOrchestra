@@ -244,7 +244,7 @@
     <c:forEach var = "poi" items = "${poiList}">
         interactiveMap.markers[<%=i%>] = new google.maps.Marker({
             position: new google.maps.LatLng(${poi.location[0]}, ${poi.location[1]}),
-            icon: "./dist/img/marker.png",
+            icon: "./dist/img/markers/${poi.categories[0]}/marker.png",
             title: "${poi.name}"});
         interactiveMap.markers[<%=i%>].id = "${poi.id}";
         interactiveMap.markers[<%=i%>].name = "${poi.name}";
