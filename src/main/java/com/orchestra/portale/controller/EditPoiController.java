@@ -31,7 +31,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import static java.time.Instant.now;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

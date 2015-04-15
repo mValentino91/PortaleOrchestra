@@ -7,7 +7,9 @@ package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository;
+import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -60,6 +62,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired PagesMongoRepository pagesRepo;
 
     @Override
     public Poi getPoiById(String Id) {
@@ -162,5 +166,14 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void saveUser(User user){
         userRepository.save(user);
+    }
+    @Override 
+    public void savePage(Pages page) {
+      pagesRepo.save(page);
+    }
+    @Override
+    public Pages findPageById(String id) {
+       Pages page= pagesRepo.findOne(id);
+       return page;
     }
 }

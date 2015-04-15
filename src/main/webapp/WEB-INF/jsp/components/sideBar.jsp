@@ -22,6 +22,12 @@
         height: 25px !important;
         width: 25px !important;    
     }
+    .profile-image-loading {
+        height: 25px !important;
+        width: 25px !important;
+        margin-right: 15px !important;
+        margin-top: 12x !important;
+    }
 </style>
 <nav class="navbar navbar-fixed-top header" style="
      box-shadow: 0px 0px 3px 0px black;
@@ -33,7 +39,7 @@
                         Home
                     </a>
                 </li>
-                <li><a style="color:white" href="./Map?category=all">Mappa Interattiva</a></li>
+                <li><a style="color:white" href="./Map?category=all">Interactive Map</a></li>
             </ul>
             <ul id="loginArea" class="nav navbar-nav navbar-right">
                 <jsp:include page="../access/loginArea.jsp" />

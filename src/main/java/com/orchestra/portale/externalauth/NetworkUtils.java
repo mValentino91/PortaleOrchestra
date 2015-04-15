@@ -7,8 +7,12 @@ package com.orchestra.portale.externalauth;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,4 +33,31 @@ public class NetworkUtils {
             return read;
             
     }
+    
+    
+    public static void saveImageFromURL(String imageUrl, String destinationPath, String destinationFile) throws IOException {
+            
+            System.out.println("***********************");
+            System.out.println("imgUrl: " + imageUrl);
+            System.out.println("destinatioPath: " + destinationPath);
+            System.out.println("destinatioFile: " + destinationFile);
+            System.out.println("***********************");
+        
+        
+            new File(destinationPath).mkdirs();
+            
+            URL url = new URL(imageUrl);
+            InputStream is = url.openStream();
+            OutputStream os = new FileOutputStream(destinationPath+"/"+destinationFile);
+
+            byte[] b = new byte[2048];
+            int length;
+
+            while ((length = is.read(b)) != -1) {
+                    os.write(b, 0, length);
+            }
+
+            is.close();
+            os.close();
+    }    
 }

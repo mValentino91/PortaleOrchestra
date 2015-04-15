@@ -74,8 +74,8 @@
                       host="localhost"
                       port="27017"
                       dbname="portale"
-                      username="admin"
-                      password="ubuntu123"
+                      username=""
+                      password=""
                       mongo-ref="OrchestraMongoDataSource" />
     
     <!-- Mongo Template -->

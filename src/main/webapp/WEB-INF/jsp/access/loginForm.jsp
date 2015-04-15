@@ -44,6 +44,7 @@
 		  xfbml      : true  // parse XFBML
 		});
 	 };
+           
          /*Facebook login script
 	 window.fbAsyncInit = function() {
 		FB.init({
@@ -53,8 +54,8 @@
 		  cookie     : true, // enable cookies to allow the server to access the session
 		  xfbml      : true  // parse XFBML
 		});
-	 };*/
-        
+	 };
+        */
 	/*Load the SDK asynchronously*/
         (function(d){
                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
