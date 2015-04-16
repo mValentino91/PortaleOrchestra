@@ -47,7 +47,7 @@
 <!-- Add Scrollator -->
 
   <script>
-   $(document).ready(function() {
+   $(document).load(function() {
        
      $(".fancybox").attr('rel', 'gallery');
     $(".fancybox").fancybox({

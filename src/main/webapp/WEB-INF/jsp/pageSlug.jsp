@@ -9,14 +9,14 @@
 
         <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
 
-        <link rel="stylesheet" href="./dist/css/poi_view.css">
-        <link rel="stylesheet" href="./dist/css/struttura.css">
-        <link rel="stylesheet" href="./dist/css/OrchestraFontIcon.css">
+        <link rel="stylesheet" href="../dist/css/poi_view.css">
+        <link rel="stylesheet" href="../dist/css/struttura.css">
+        <link rel="stylesheet" href="../dist/css/OrchestraFontIcon.css">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
-        <link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
+        <script type="text/javascript" src="../dist/nanoscroller/jquery.nanoscroller.min.js"></script>
+        <link rel="stylesheet" href="../dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
         <style>
             .nano {width: 100%;}
             .nano .nano-pane   { background: #d9d9d9!important; }

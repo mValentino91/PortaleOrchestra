@@ -23,9 +23,17 @@ public class Pages {
     private String title;
     private String description;
     private ArrayList<Tile> tilesList;
-    private ArrayList<CategorySubMenu> submenu;
+    private SubMenu submenu;
+
+    public void setSubmenu(SubMenu submenu) {
+        this.submenu = submenu;
+    }
+
+    public SubMenu getSubmenu() {
+        return submenu;
+    }
     private List<AbstractPoiComponent> components;
-    private ArrayList<String> imgList;
+    private ArrayList<CarouselPages> imgList;
     private ArrayList<String> categorySlugList;
     private ArrayList<String> idPoiList;
 
@@ -53,13 +61,7 @@ public class Pages {
         return idPoiList;
     }
 
-    public ArrayList<String> getImgList() {
-        return imgList;
-    }
-
-    public void setImgList(ArrayList<String> imgList) {
-        this.imgList = imgList;
-    }
+   
 
     public void setId(String id) {
         this.id = id;
@@ -77,9 +79,7 @@ public class Pages {
         this.tilesList = tilesList;
     }
 
-    public void setSubmenu(ArrayList<CategorySubMenu> submenu) {
-        this.submenu = submenu;
-    }
+   
 
     public void setComponents(List<AbstractPoiComponent> components) {
         this.components = components;
@@ -101,11 +101,16 @@ public class Pages {
         return tilesList;
     }
 
-    public ArrayList<CategorySubMenu> getSubmenu() {
-        return submenu;
-    }
-
     public List<AbstractPoiComponent> getComponents() {
         return components;
     }
+
+    public ArrayList<CarouselPages> getImgList() {
+        return imgList;
+    }
+
+    public void setImgList(ArrayList<CarouselPages> imgList) {
+        this.imgList = imgList;
+    }
+    
 }
