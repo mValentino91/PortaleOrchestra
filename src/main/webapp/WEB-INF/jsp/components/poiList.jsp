@@ -9,12 +9,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<div class="searchBar input-group">
-    <input type="text" class="form-control" placeholder="Search" aria-describedby="searchSpan">
-    <span class="input-group-addon" id="searchSpan">
-        <i class="glyphicon glyphicon-search"></i>
-    </span>
-</div>
 <div id="filterOnPoiList" class="filterOnPoiList well">
     <jsp:include page="./filterOnPoiList.jsp" />
 </div>
