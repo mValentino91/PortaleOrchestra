@@ -627,6 +627,7 @@ var categoriesTail = (function() {
     var indexCategories = 0;
     var openedSlug = new Array();
     var lastSelected = null;
+    var maxTail= 5;
     var parsedTree;
     function init() {
         parseJsonCategories();
@@ -634,7 +635,7 @@ var categoriesTail = (function() {
     function parseJsonCategories() {
         $.getJSON("./jsonDB/categoriesTree", function(data) {
             parsedTree = data;
-            for (var i = 0; i < data.length; i++) {
+            for (var i = 0; i < data.length && i< maxTail; i++) {
                 $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
                         + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
                         + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
@@ -645,7 +646,45 @@ var categoriesTail = (function() {
                         + '<i class="' + data[i].icon + '"></i>'
                         + '</button>');
             }
+            $('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
+                        + 'onclick="categoriesTail.viewMoreCategories()"'
+                        + 'title="view more..."'
+                        + 'style="background-color:#285e8e;">'
+
+                        + '<i class="fa fa-plus"></i>'
+                        + '</button>');
+            $('.categoriesTails').append('<button type="button" class="btn btn-minus-cat btn-default btn-lg"'
+                        + 'onclick="categoriesTail.viewLessCategories()"'
+                        + 'title="view less..."'
+                        + 'style="background-color:#285e8e;display:none">'
+
+                        + '<i class="fa fa-minus"></i>'
+                        + '</button>');
         });
+    }
+    function viewMoreCategories() {
+        $.getJSON("./jsonDB/categoriesTree", function(data) {
+            parsedTree = data;
+            
+            for (var i = maxTail; i < data.length; i++) {
+                $('.categoriesTails').append('<button type="button" class="moreCategories btn btn-default btn-lg"'
+                        + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
+                        + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
+                        + data[i].text + "'" + ')"'
+                        + 'title="' + data[i].text + '"'
+                        + 'style="background-color:' + data[i].color + '">'
+
+                        + '<i class="' + data[i].icon + '"></i>'
+                        + '</button>');
+            }
+            $('.btn-minus-cat').show();
+            $('.btn-plus-cat').hide();
+        });
+    }
+    function viewLessCategories() {
+            $('.moreCategories').remove();
+            $('.btn-minus-cat').hide();
+            $('.btn-plus-cat').show();           
     }
     function searchNode(tree, slug) {
         if (tree) {
@@ -807,7 +846,9 @@ var categoriesTail = (function() {
         removeCategory: removeCategory,
         macroCategoryHandler: macroCategoryHandler,
         init: init,
-        subCategoryHandler: subCategoryHandler
+        subCategoryHandler: subCategoryHandler,
+        viewMoreCategories:viewMoreCategories,
+        viewLessCategories:viewLessCategories
     };
 })();
 

@@ -58,10 +58,13 @@
     color:whitesmoke;
 }
 #poiListComponent{
+    /* position: absolute; */
+    /* top: 55px; */
+    /* right: 335px; */
     background-color: transparent;
     width: 332px;
     overflow: auto;
-    max-height: 170px;
+    max-height: 230px;
     margin-top: 5px;
     padding: 0px;
     display: none;
@@ -111,10 +114,10 @@
 }
 .categoriesTailMacro{
     position: absolute;
-    right: 45px;
-    top: 127px;
+    right: 10px;
+    top: 85px;
     width: 332px;
-    text-align: center;
+    /* text-align: center; */
     overflow: visible;
     padding: 0;
 }
@@ -177,8 +180,8 @@
 .filterOnPoiList{
     background-color: white;
     position: absolute;
-    right: 45px;
-    top: 95px;
+    right: 10px;
+    top: 55px;
     width: 332px;
     overflow: visible;
     padding: 2px;

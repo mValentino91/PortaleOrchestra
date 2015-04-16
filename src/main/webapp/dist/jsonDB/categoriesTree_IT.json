@@ -104,4 +104,22 @@
         "icon": "fa fa-calendar",
         "text": "Associazioni Culturali",
         "color": "#1ba39c"
+    },{
+        "slug": "cultural_association",
+        "parent": null,
+        "icon": "fa fa-calendar",
+        "text": "Associazioni Culturali",
+        "color": "#1ba39c"
+    },{
+        "slug": "cultural_association",
+        "parent": null,
+        "icon": "fa fa-calendar",
+        "text": "Associazioni Culturali",
+        "color": "#1ba39c"
+    },{
+        "slug": "cultural_association",
+        "parent": null,
+        "icon": "fa fa-calendar",
+        "text": "Associazioni Culturali",
+        "color": "#1ba39c"
     }]
