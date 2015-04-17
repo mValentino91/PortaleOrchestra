@@ -8,6 +8,7 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.User;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,12 +49,15 @@ public class FavoriteController {
     }        
 
 
-    @RequestMapping(value = "/getFavorites", method = RequestMethod.GET)
-    public @ResponseBody
-    String getFavorites(@RequestParam String id_user) {
+    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
+    public ModelAndView favorites(@RequestParam String id_user) {
         
-        pm.findFavoritesByIdUser(Integer.parseInt(id_user));
-        return "ok";
+        Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(id_user));
+                
+        ModelAndView model = new ModelAndView("favorites");
+        model.addObject("favorites", favorites);
+        
+        return model;
     }        
     
 }

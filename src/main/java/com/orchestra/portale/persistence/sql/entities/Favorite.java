@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Favorite.findAll", query = "SELECT f FROM Favorite f"),
     @NamedQuery(name = "Favorite.findById", query = "SELECT f FROM Favorite f WHERE f.id = :id"),
-    @NamedQuery(name = "Favorite.findByIdUser", query = "SELECT f FROM Favorite f WHERE f.idUser = :idUser"),
+    //@NamedQuery(name = "Favorite.findByIdUser", query = "SELECT f FROM Favorite f WHERE f.idUser = :idUser"),
     @NamedQuery(name = "Favorite.findByIdPoi", query = "SELECT f FROM Favorite f WHERE f.idPoi = :idPoi"),
     @NamedQuery(name = "Favorite.findByRating", query = "SELECT f FROM Favorite f WHERE f.rating = :rating")})
 public class Favorite implements Serializable {
@@ -42,7 +42,7 @@ public class Favorite implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "idUser")
-    private Integer idUser;
+    private int idUser;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -60,7 +60,7 @@ public class Favorite implements Serializable {
         this.id = id;
     }
 
-    public Favorite(Integer id, Integer idUser, String idPoi, int rating) {
+    public Favorite(Integer id, int idUser, String idPoi, int rating) {
         this.id = id;
         this.idUser = idUser;
         this.idPoi = idPoi;
@@ -75,11 +75,11 @@ public class Favorite implements Serializable {
         this.id = id;
     }
 
-    public Integer getIdUser() {
+    public int getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
+    public void setIdUser(int idUser) {
         this.idUser = idUser;
     }
 

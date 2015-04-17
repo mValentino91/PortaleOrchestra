@@ -21,6 +21,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     Integer updateFavoriteRating(Integer rating, Integer id_user, String id_poi);    
     
     
-    Iterable<Favorite> findByIdUser(Integer idUser);
+    Iterable<Favorite> findByIdUser(int idUser);
  
 }
