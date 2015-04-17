@@ -41,12 +41,12 @@ public class Favorite implements Serializable {
     private Integer id;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "id_user")
-    private int idUser;
+    @Column(name = "idUser")
+    private Integer idUser;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "id_poi")
+    @Column(name = "idPoi")
     private String idPoi;
     @Basic(optional = false)
     @NotNull
@@ -60,7 +60,7 @@ public class Favorite implements Serializable {
         this.id = id;
     }
 
-    public Favorite(Integer id, int idUser, String idPoi, int rating) {
+    public Favorite(Integer id, Integer idUser, String idPoi, int rating) {
         this.id = id;
         this.idUser = idUser;
         this.idPoi = idPoi;
@@ -75,11 +75,11 @@ public class Favorite implements Serializable {
         this.id = id;
     }
 
-    public int getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 

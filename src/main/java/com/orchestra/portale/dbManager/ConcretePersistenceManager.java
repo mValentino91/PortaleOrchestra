@@ -191,10 +191,17 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi){
         favoriteRepo.updateFavoriteRating(rating, id_user, id_poi);
     }
-    
+        
     @Override
     public Iterable<Favorite> findFavoritesByIdUser(Integer idUser){
         Iterable<Favorite> favorites = favoriteRepo.findByIdUser(idUser);
         return favorites;
     }
+    
+    @Override
+    public Favorite findFavorite(Integer id){
+        Favorite favorite = favoriteRepo.findOne(id);
+        return favorite;
+    }
+    
 }

@@ -14,12 +14,13 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author antonio
  */
-public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
+public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     @Modifying
     @Transactional(readOnly=false)
     @Query("update Favorite f set f.rating= ?1 where f.idUser = ?2 AND f.idPoi = ?3")
     Integer updateFavoriteRating(Integer rating, Integer id_user, String id_poi);    
     
     
-    Iterable<Favorite> findByIdUser(Integer id_user);
+    Iterable<Favorite> findByIdUser(Integer idUser);
+ 
 }
