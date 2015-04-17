@@ -53,7 +53,6 @@ public class FavoriteController {
     String getFavorites(@RequestParam String id_user) {
         
         pm.findFavoritesByIdUser(Integer.parseInt(id_user));
-        
         return "ok";
     }        
     
