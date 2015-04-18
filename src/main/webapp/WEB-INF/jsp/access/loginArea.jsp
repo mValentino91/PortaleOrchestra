@@ -34,6 +34,12 @@ function reload_access_area(event){
             <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>
         </ul>
     </li>
+    <script type="text/javascript">
+        function ifAuth()
+        {
+            return false;
+        }        
+    </script>    
 </sec:authorize>    
 <sec:authorize access="isAuthenticated()">
     <li class="dropdown">
@@ -48,5 +54,16 @@ function reload_access_area(event){
             <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
     </li>
+    <script type="text/javascript">
+        function getUserId()
+        {
+            return ${uid};
+        }
+        
+        function ifAuth()
+        {
+            return true;
+        }        
+    </script>
 </sec:authorize>
 
