@@ -6,9 +6,11 @@
 package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.mongo.repositories.DeepeningPageMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
@@ -72,6 +74,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Autowired
     HomeMongoRepository homeRepo;
 
+    @Autowired
+    DeepeningPageMongoRepository deepRepo;
+    
     @Override
     public Poi getPoiById(String Id) {
         return null;
@@ -200,5 +205,24 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void saveHome(Home home) {
         homeRepo.save(home);
+    }
+    
+    @Override
+    public void saveDeepeningPage(DeepeningPage dp) {
+        deepRepo.save(dp);
+    }
+    @Override
+    public DeepeningPage findDeepeningPage(String id) {
+        return deepRepo.findOne(id);
+    }
+    @Override
+    public DeepeningPage findDeepeningPageByName(String name) {
+         Iterable<DeepeningPage> dp = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), DeepeningPage.class);
+        for (DeepeningPage p : dp) {
+            if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
     }
 }

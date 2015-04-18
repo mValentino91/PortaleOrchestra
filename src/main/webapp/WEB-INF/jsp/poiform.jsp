@@ -34,149 +34,157 @@
         <script src="../dist/js/form.js"></script>
         <link href="../dist/css/poi_view.css" rel="stylesheet">
         <title>ORCHESTRA - NUOVO POI</title>
-        
-       
+
+
 
     </head>
     <body>
-       
-            <div class="col-md-12" style="background-color: #0081c2; color:#FFFFFF; text-align: center; margin-bottom:20px;">
-                <h1><b>Inserimento di un nuovo punto di interesse</b></h1><br>
-                <h2><b>I Campi contrassegnati dall'asterisco sono obbligatori!</b></h2>
-            </div>
+
+        <div class="col-md-12" style="background-color: #0081c2; color:#FFFFFF; text-align: center; margin-bottom:20px;">
+            <h1><b>Inserimento di un nuovo punto di interesse</b></h1><br>
+            <h2><b>I Campi contrassegnati dall'asterisco sono obbligatori!</b></h2>
+        </div>
         <div class="container-fixed">
             <form class="inserimento" action="insertpoi" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
                 <div class="row">
-                <article class="col-md-12 component component-text">
-				  <div class="big-header contact">
-					  <span class="caps">Info Generali</span>
-				  </div> 
-                    
-		<div class="details">
-                    <center>
-                    <div class="row">
-                        <div class="col-md-6">Nome* <input name="name" class="form-control obb" type="text"> </div>
-                        <div class="col-md-6">Indirizzo* <input name="address" class="form-control obb" type="text"></div>
-                        <div class="col-md-6">Latitudine* <input name="latitude" class="form-control obb" type="text"  onblur="replace_virgola(this, this.value)"></div>
-                        <div class="col-md-6">Longitudine* <input name="longitude" class="form-control obb" type="text"  onblur="replace_virgola(this, this.value)"></div><br>
-                        <div class="col-md-12">Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="shortd"  id="short" class="form-control shortd" rows="4" cols="50" maxlength="150"></textarea></div><br><br>
+                    <article class="col-md-12 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Info Generali</span>
+                        </div> 
+
+                        <div class="details">
+                            <center>
+                                <div class="row">
+                                    <div class="col-md-6">Nome* <input name="name" class="form-control obb" type="text"> </div>
+                                    <div class="col-md-6">Indirizzo* <input name="address" class="form-control obb" type="text"></div>
+                                    <div class="col-md-6">Latitudine* <input name="latitude" class="form-control obb" type="text"  onblur="replace_virgola(this, this.value)"></div>
+                                    <div class="col-md-6">Longitudine* <input name="longitude" class="form-control obb" type="text"  onblur="replace_virgola(this, this.value)"></div><br>
+                                    <div class="col-md-12">Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="shortd"  id="short" class="form-control shortd" rows="4" cols="50" maxlength="150"></textarea></div><br><br>
+                                </div>
+                                <div class="row">
+                                    <div id="categoria" class="col-md-6">
+                                        Categoria* <input name="category1" class="form-control cate obb"  type="text"><br>
+                                        <input type="button" class="btn btn-success" style="margin-top: 5px;" value="Aggiungi categoria" onclick="addcat(this)">
+                                    </div>
+                                    <div class="col-md-6">Immagine di Copertina* <input name="cover" class="form-control obb"  type="file"></div>
+
+                                </div>
+                                <div class="row">
+                     
+                                    
+                                    <div class="col-md-6">Visibilità <select name="visibility" class="form-control"> <option value="1" <c:if test="${visibility == '1'}">selected</c:if>>Visibile</option>
+                                            <option value="0">Solo preview</option></select>
+                                    </div>
+                                    
+                                </div>
+                            </center>
                         </div>
-                        <div class="row">
-                        <div id="categoria" class="col-md-6">
-                            Categoria* <input name="category1" class="form-control cate obb"  type="text"><br>
-                    <input type="button" class="btn btn-success" style="margin-top: 5px;" value="Aggiungi categoria" onclick="addcat(this)">
-                </div>
-                        <div class="col-md-6">Immagine di Copertina* <input name="cover" class="form-control obb"  type="file"></div>
-                
-                </div>
-                    </center>
-                </div>
-                </article>
+                    </article>
                 </div>
                 <div class="row">
-                <article class="col-md-12 component component-text">
-				  <div class="big-header contact">
-					  <span class="caps">Paragrafi</span>
-				  </div> 
-                    
-		<div class="details">
-                    <center>
-                <div id="descrizione">
-                    
-                    <input type="button" class="btn btn-success" value="Nuovo paragrafo" onclick="addpar(this)">
-                    
-                </div>
-                    </center>
-                </div>
-                </article>
+                    <article class="col-md-12 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Paragrafi</span>
+                        </div> 
+
+                        <div class="details">
+                            <center>
+                                <div id="descrizione">
+
+                                    <input type="button" class="btn btn-success" value="Nuovo paragrafo" onclick="addpar(this)">
+
+                                </div>
+                            </center>
+                        </div>
+                    </article>
                 </div>
                 <div class="row">
-                <article class="col-md-6 component component-text">
-				  <div class="big-header contact">
-					  <span class="caps">Galleria</span>
-				  </div> 
-                    
-		<div class="details">
-                    <center>
-                <div id="galleria">
-                        <input type="button" class="btn btn-success" value="Aggiungi immagine" onclick="addimg(this)">
-                </div>
-                    </center>
-                </div>
-                </article>
-                <article class="col-md-6 component component-text">
-				  <div class="big-header contact">
-					  <span class="caps">Contatti</span>
-				  </div> 
-                    
-		<div class="details">
-                    <center>
-                <div id="contatti">
-                    
+                    <article class="col-md-6 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Galleria</span>
+                        </div> 
 
-                    <input type="button" class="btn btn-success" style="width: 250px;" value="Aggiungi indirizzo email" onclick="addmail(this)"><br>
+                        <div class="details">
+                            <center>
+                                <div id="galleria">
+                                    <input type="button" class="btn btn-success" value="Aggiungi immagine" onclick="addimg(this)">
+                                </div>
+                            </center>
+                        </div>
+                    </article>
+                    <article class="col-md-6 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Contatti</span>
+                        </div> 
 
-                    <input type="button" class="btn btn-success" style="width: 250px; margin-top: 15px;" value="Aggiungi numero di telefono" onclick="addtel(this)"><br>
+                        <div class="details">
+                            <center>
+                                <div id="contatti">
 
-                    <input type="button" class="btn btn-success" style="width: 250px; margin-top: 15px;" value="Aggiungi numero fax" onclick="addfax(this)"><br>
 
-                    <input type="button" class="btn btn-success" style="width: 250px; margin-top:15px;" value="Aggiungi social network" onclick="addsn(this)"><br>
+                                    <input type="button" class="btn btn-success" style="width: 250px;" value="Aggiungi indirizzo email" onclick="addmail(this)"><br>
 
-                    <input type="button" class="btn btn-success" style="width: 250px; margin-top:15px;" value="Aggiungi link" onclick="addsnp(this)"><br>
-                </div>
-                    </center>
-                </div>
-                </article>
+                                    <input type="button" class="btn btn-success" style="width: 250px; margin-top: 15px;" value="Aggiungi numero di telefono" onclick="addtel(this)"><br>
+
+                                    <input type="button" class="btn btn-success" style="width: 250px; margin-top: 15px;" value="Aggiungi numero fax" onclick="addfax(this)"><br>
+
+                                    <input type="button" class="btn btn-success" style="width: 250px; margin-top:15px;" value="Aggiungi social network" onclick="addsn(this)"><br>
+
+                                    <input type="button" class="btn btn-success" style="width: 250px; margin-top:15px;" value="Aggiungi link" onclick="addsnp(this)"><br>
+                                </div>
+                            </center>
+                        </div>
+                    </article>
                 </div>
                 <div class="row">
-                <article class="col-md-6 component component-text">
-				  <div class="big-header contact">
-					  <span class="caps">Orari</span>
-				  </div> 
-                    
-		<div class="details">
-                    <center>
-                <div id="orari">
-                    <input type="button" id="nuovogiorno" class="btn btn-success" value="Inserisci un  periodo lavorativo" onclick="addwd(this)"><br><br>
-                        <input type="button" class="btn btn-success" value="Aggiungi un giorno di riposo" onclick="addripann(this)"><br>
-                </div>
-                    </center>
-                </div>
-                </article>
-                     <article class="col-md-6 component component-text">
-				  <div class="big-header contact">
-					  <span class="caps">Prezzi</span>
-				  </div> 
-                    
-		<div class="details">
-                    <center>
-                <div id='prezzi'>
-                    <input type="button" class="btn btn-success" value="Aggiungi un biglietto" onclick="addbiglietto(this)">
-                </div>
-                    </center>
-                </div>
-                     </article>
-                </div>
-                <div class="row">
-                <article class="col-md-6 component component-text">
-				  <div class="big-header contact">
-					  <span class="caps">Servizi</span>
-				  </div> 
-                    
-		<div class="details">
-                    <center>
-                <div id='servizi'>
-                   <input type="button" class="btn btn-success" value="Aggiungi un servizio" onclick="addservizio(this)">
-                </div>
-                    </center>
-                </div>
-                </article>
-                <div class="col-md-6"></div>
+                    <article class="col-md-6 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Orari</span>
+                        </div> 
+
+                        <div class="details">
+                            <center>
+                                <div id="orari">
+                                    <input type="button" id="nuovogiorno" class="btn btn-success" value="Inserisci un  periodo lavorativo" onclick="addwd(this)"><br><br>
+                                    <input type="button" class="btn btn-success" value="Aggiungi un giorno di riposo" onclick="addripann(this)"><br>
+                                </div>
+                            </center>
+                        </div>
+                    </article>
+                    <article class="col-md-6 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Prezzi</span>
+                        </div> 
+
+                        <div class="details">
+                            <center>
+                                <div id='prezzi'>
+                                    <input type="button" class="btn btn-success" value="Aggiungi un biglietto" onclick="addbiglietto(this)">
+                                </div>
+                            </center>
+                        </div>
+                    </article>
                 </div>
                 <div class="row">
-                <center>
-                    <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA POI" onclick="pre_submit()">
-                </center>
+                    <article class="col-md-6 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Servizi</span>
+                        </div> 
+
+                        <div class="details">
+                            <center>
+                                <div id='servizi'>
+                                    <input type="button" class="btn btn-success" value="Aggiungi un servizio" onclick="addservizio(this)">
+                                </div>
+                            </center>
+                        </div>
+                    </article>
+                    <div class="col-md-6"></div>
+                </div>
+                <div class="row">
+                    <center>
+                        <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA POI" onclick="pre_submit()">
+                    </center>
                 </div>
             </form>
         </div>

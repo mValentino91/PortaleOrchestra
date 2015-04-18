@@ -75,6 +75,7 @@ public class EditPoiController {
         model.addObject("id", poi.getId());
         model.addObject("shortD", poi.getShortDescription());
         model.addObject("addr", poi.getAddress());
+        model.addObject("visibility", poi.getVisibility());
        
          for (AbstractPoiComponent comp : poi.getComponents()) {
 
@@ -114,6 +115,7 @@ public class EditPoiController {
         model.addObject("id", poi.getId());
         model.addObject("shortD", poi.getShortDescription());
         model.addObject("addr", poi.getAddress());
+        model.addObject("visibility", poi.getVisibility());
         
          for (AbstractPoiComponent comp : poi.getComponents()) {
 
@@ -163,6 +165,7 @@ public class EditPoiController {
         
         
         poi.setName(params.get("name"));
+        poi.setVisibility(params.get("visibility"));
         poi.setAddress(params.get("address"));
         double lat= Double.parseDouble(params.get("latitude"));
         double longi= Double.parseDouble(params.get("longitude"));

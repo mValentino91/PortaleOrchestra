@@ -52,10 +52,12 @@
                                 <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
                                     <div class="item <c:if test="${cont.count == 1}"> active </c:if> >">
                                         <img src="${img.link}"  >
+                                        <c:if test="${not empty img.titolo || not empty img.testo}">
                                         <div class="carousel-caption">
                                             <h5>${img.titolo}</h5>
                                             <p>${img.testo}</p>
                                         </div>
+                                        </c:if>
                                     </div>
                                 </c:forEach>
 

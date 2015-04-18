@@ -7,6 +7,7 @@
 package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
@@ -42,4 +43,7 @@ public interface PersistenceManager {
     public Pages findPageById(String id);
     public Pages findPageBySlug(String slug);
     public void saveHome(Home home);
+    public void saveDeepeningPage(DeepeningPage dp);
+    public DeepeningPage findDeepeningPage(String id);
+    public DeepeningPage findDeepeningPageByName(String name);
 }

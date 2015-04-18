@@ -18,6 +18,7 @@ public class CompletePOI {
     @Id
     private String id;
     private String name;
+    private String visibility;
     private double[] location;
     private String shortDescription;
     private String address;
@@ -32,6 +33,16 @@ public class CompletePOI {
     public String getId() {
         return id;
     }
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
+    }
+
+    
 
     /**
      * @param id the id to set
