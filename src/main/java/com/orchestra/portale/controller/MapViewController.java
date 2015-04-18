@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.profiler.FbProfiler;
-import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -49,7 +48,7 @@ public class MapViewController {
 
      @RequestMapping()
     public ModelAndView getPoiForCategory(
-            @RequestParam(value = "category") ArrayList<String> categories
+            @RequestParam(value = "category") String[] categories
     /*@RequestParam(value = "lat") String lat,
      @RequestParam(value = "lon") String lon,
      @RequestParam(value = "lat1") String lat1,
@@ -74,7 +73,7 @@ public class MapViewController {
 
     @RequestMapping(value = "/JSON")
     public @ResponseBody
-    String getJsonForCategory(@RequestParam ArrayList<String> category) {
+    String getJsonForCategory(@RequestParam String[] category) {
         
         Gson pois=new Gson();
         return pois.toJson(pm.getCompletePoiByCategories(category));

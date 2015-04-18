@@ -115,12 +115,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
         poiMongoRepo.save(poi);
     }
 
-    @Override
-    public ArrayList<CompletePOI> getCompletePoiByCategories(ArrayList<String> categories) {
+  
+     @Override
+    public Iterable<CompletePOI> getCompletePoiByCategories(String [] categories) {
 
-        return (ArrayList<CompletePOI>) mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
+        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
     }
-
     @Override
     public CompletePOI findOneCompletePoiByName(String name) {
 

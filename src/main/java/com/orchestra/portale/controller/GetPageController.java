@@ -35,16 +35,19 @@ public class GetPageController {
       Pages page=pm.findPageById(id);
       model.addObject("pages", page);
        ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();
+       
       if(page.getIdPoiList() != null ){
          pois= (ArrayList<CompletePOI>) pm.getCompletePoisById(page.getIdPoiList());
+         model.addObject("poivicini", pois);
       }
       else {
           if (page.getCategorySlugList()!=null) {
               
-            pois= (ArrayList<CompletePOI>) pm.getCompletePoiByCategories(page.getCategorySlugList());
+            Iterable<CompletePOI> poilist =  pm.getCompletePoiByCategories(page.getCategorySlugList());
+             model.addObject("poivicini", poilist);
           }
       }
-      model.addObject("poivicini", pois);
+     
       
       if(page.getComponents()!=null) {
       for (AbstractPoiComponent comp : page.getComponents()) {
@@ -73,18 +76,19 @@ public class GetPageController {
           }
       Pages page=pm.findPageBySlug(sluginp);
       model.addObject("pages", page);
-       ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();
+      ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();
+       
       if(page.getIdPoiList() != null ){
          pois= (ArrayList<CompletePOI>) pm.getCompletePoisById(page.getIdPoiList());
+         model.addObject("poivicini", pois);
       }
       else {
           if (page.getCategorySlugList()!=null) {
               
-            pois= (ArrayList<CompletePOI>) pm.getCompletePoiByCategories(page.getCategorySlugList());
+            Iterable<CompletePOI> poilist =  pm.getCompletePoiByCategories(page.getCategorySlugList());
+             model.addObject("poivicini", poilist);
           }
       }
-      model.addObject("poivicini", pois);
-      
       if(page.getComponents()!=null) {
       for (AbstractPoiComponent comp : page.getComponents()) {
 
