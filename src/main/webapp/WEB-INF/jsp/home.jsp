@@ -85,7 +85,7 @@
 
                                             <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                        <img src="${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -106,7 +106,7 @@
                                         <div class="box-orc">
                                             <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                        <img src="${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -147,7 +147,7 @@
                                         <div class="box-orc">
                                             <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                        <img src="${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -167,7 +167,7 @@
                                         <div class="box-orc">
                                             <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                        <img src="${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -204,4 +204,5 @@
 
             </div>
         </body>
+         <jsp:include page="access/loginModal.jsp" />
     </html>

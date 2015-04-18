@@ -52,8 +52,5 @@ public interface PersistenceManager {
     public Iterable<Favorite> findFavoritesByIdUser(Integer idUser);
     public Favorite findFavorite(Integer id);
     public Boolean ifFavorite(int idUser, String idPoi);
-    public void saveFavorite(Favorite favorite);
-    public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi);
-    public Iterable<Favorite> findFavoritesByIdUser(Integer idUser);
-    public Favorite findFavorite(Integer id);
+    
 }
