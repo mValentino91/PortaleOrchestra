@@ -11,12 +11,14 @@ import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
+import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompCategoryComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
+import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.util.regex.Pattern;
@@ -65,6 +67,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired PagesMongoRepository pagesRepo;
 
+    @Autowired
+    private FavoriteRepository favoriteRepo;
+    
     @Override
     public Poi getPoiById(String Id) {
         return null;
@@ -176,4 +181,27 @@ public class ConcretePersistenceManager implements PersistenceManager {
        Pages page= pagesRepo.findOne(id);
        return page;
     }
+    
+    @Override
+    public void saveFavorite(Favorite favorite){
+        favoriteRepo.save(favorite);
+    }    
+    
+    @Override
+    public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi){
+        favoriteRepo.updateFavoriteRating(rating, id_user, id_poi);
+    }
+        
+    @Override
+    public Iterable<Favorite> findFavoritesByIdUser(Integer idUser){
+        Iterable<Favorite> favorites = favoriteRepo.findByIdUser(idUser);
+        return favorites;
+    }
+    
+    @Override
+    public Favorite findFavorite(Integer id){
+        Favorite favorite = favoriteRepo.findOne(id);
+        return favorite;
+    }
+    
 }

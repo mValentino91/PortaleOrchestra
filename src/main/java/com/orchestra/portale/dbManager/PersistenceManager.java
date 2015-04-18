@@ -9,6 +9,7 @@ package com.orchestra.portale.dbManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
 import org.springframework.data.geo.GeoResults;
@@ -38,4 +39,8 @@ public interface PersistenceManager {
     public void saveUser(User user);
     public void savePage(Pages page);
     public Pages findPageById(String id);
+    public void saveFavorite(Favorite favorite);
+    public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi);
+    public Iterable<Favorite> findFavoritesByIdUser(Integer idUser);
+    public Favorite findFavorite(Integer id);
 }
