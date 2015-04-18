@@ -129,6 +129,7 @@ public class Prova {
 		
 		} catch (AnmServicesNotAvailableException e) {
 			System.out.println(dateFormatter.format(Calendar.getInstance().getTime()) + " - ERRORE SERVIZI ANM" );
+                        System.out.printf("prova");
 		}
 
 		
