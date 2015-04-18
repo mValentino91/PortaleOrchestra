@@ -28,7 +28,7 @@ public interface PersistenceManager {
     public CompletePOI getCompletePoiById(String id);
     public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id);
     public Iterable<CompletePOI> getAllCompletePoi();
-    public ArrayList<CompletePOI> getCompletePoiByCategories(ArrayList<String> categories);
+    public Iterable<CompletePOI> getCompletePoiByCategories(String [] categories);
     public Iterable<CompletePOI> findCompletePoi(String name, String address, String category);
     public GeoResults<CompletePOI> findNearCompletePoi(String id,double radius);
     public CompletePOI findOneCompletePoiByName(String name);

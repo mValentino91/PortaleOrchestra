@@ -34,16 +34,14 @@ public class Pages {
     }
     private List<AbstractPoiComponent> components;
     private ArrayList<CarouselPages> imgList;
-    private ArrayList<String> categorySlugList;
+    private String [] categorySlugList;
     private ArrayList<String> idPoiList;
 
     public void setSlug(String slug) {
         this.slug = slug;
     }
 
-    public void setCategorySlugList(ArrayList<String> categorySlugList) {
-        this.categorySlugList = categorySlugList;
-    }
+    
 
     public void setIdPoiList(ArrayList<String> idPoiList) {
         this.idPoiList = idPoiList;
@@ -53,9 +51,15 @@ public class Pages {
         return slug;
     }
 
-    public ArrayList<String> getCategorySlugList() {
+    public String[] getCategorySlugList() {
         return categorySlugList;
     }
+
+    public void setCategorySlugList(String[] categorySlugList) {
+        this.categorySlugList = categorySlugList;
+    }
+
+    
 
     public ArrayList<String> getIdPoiList() {
         return idPoiList;

@@ -127,8 +127,8 @@ public class NewPageController {
         ArrayList<AbstractPoiComponent> abc = new ArrayList<AbstractPoiComponent>();
         abc.add(cc);
         page.setComponents(abc);
-        ArrayList<String> slugs = new ArrayList<String>();
-        slugs.add("museum");
+        String [] slugs= new String [100];
+        slugs[1]="museum";
         page.setCategorySlugList(slugs);
         
        CarouselPages cps= new CarouselPages();
