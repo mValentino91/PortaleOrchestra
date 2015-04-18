@@ -38,7 +38,16 @@
         margin-right: -15px;
         margin-left: 10px;
     }
+    .autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-no-suggestion { padding: 2px 5px;}
+    .autocomplete-selected { background: #F0F0F0; }
+    .autocomplete-suggestions strong { font-weight: bold; color: #000; }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { font-weight: bold; font-size: 16px; color: #000; display: block; border-bottom: 1px solid #000; }
+
 </style>
+<script src="./dist/js/jquery.autocomplete.js"></script>
 <nav class="navbar navbar-fixed-top header" style="
      box-shadow: 0px 0px 3px 0px black;
      background:#00689a; ">
@@ -59,12 +68,18 @@
             <ul id="loginArea" class="nav navbar-nav navbar-right">
                 <jsp:include page="../access/loginArea.jsp" />
             </ul>
-            <form class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                <div class="navbar-right">
+                    <input style="margin-top: 7px" id="autocomplete" type="text" class="form-control" placeholder="Search">
                 </div>
-            </form>
         </div>
     </div>
 </nav>
+<script>
+    $('#autocomplete').autocomplete({
+        serviceUrl: './Search/Autocomplete',
+        onSelect: function(suggestion) {
+            window.location='./getPoi?id='+suggestion.data;
+        }
+    });
+</script>
 

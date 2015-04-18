@@ -6,6 +6,8 @@
 package com.orchestra.portale.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import java.util.Iterator;
@@ -33,16 +35,33 @@ public class SearchController {
     public @ResponseBody
     String find(@RequestParam String name, @RequestParam String address, @RequestParam String category) {
 
-        Gson pois=new Gson();
+        Gson pois = new Gson();
         return pois.toJson(pm.findCompletePoi(name, address, category));
+    }
+
+    @RequestMapping(value = "/Autocomplete")
+    public @ResponseBody
+    String autocomplete(@RequestParam String query) {
+        Gson pois = new Gson();
+        JsonObject j= new JsonObject();
+        JsonArray array = new JsonArray();
+        Iterable<CompletePOI> results = pm.findCompletePoi(query, "", "");
+        for (CompletePOI c : results) {
+            JsonObject json = new JsonObject();
+            json.addProperty("value", c.getName());
+            json.addProperty("data", c.getId());
+            array.add(json);
+        }
+        j.add("suggestions", array);
+        return pois.toJson(j);
     }
 
     @RequestMapping(value = "/JSON/Near")
     public @ResponseBody
     String near(@RequestParam String id, @RequestParam double radius) {
-        
-        Gson pois=new Gson();
+
+        Gson pois = new Gson();
         return pois.toJson(pm.findNearCompletePoi(id, radius));
-        
+
     }
 }
