@@ -649,14 +649,14 @@ var categoriesTail = (function() {
             $('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
                         + 'onclick="categoriesTail.viewMoreCategories()"'
                         + 'title="view more..."'
-                        + 'style="background-color:#285e8e;">'
+                        + 'style="background-color:#6c7a89;">'
 
                         + '<i class="fa fa-plus"></i>'
                         + '</button>');
             $('.categoriesTails').append('<button type="button" class="btn btn-minus-cat btn-default btn-lg"'
                         + 'onclick="categoriesTail.viewLessCategories()"'
                         + 'title="view less..."'
-                        + 'style="background-color:#285e8e;display:none">'
+                        + 'style="background-color:#6c7a89;display:none">'
 
                         + '<i class="fa fa-minus"></i>'
                         + '</button>');
@@ -672,17 +672,20 @@ var categoriesTail = (function() {
                         + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
                         + data[i].text + "'" + ')"'
                         + 'title="' + data[i].text + '"'
-                        + 'style="background-color:' + data[i].color + '">'
+                        + 'style="display:none;background-color:' + data[i].color + '">'
 
                         + '<i class="' + data[i].icon + '"></i>'
                         + '</button>');
             }
             $('.btn-minus-cat').show();
             $('.btn-plus-cat').hide();
+            $('.moreCategories').show(150);
         });
     }
     function viewLessCategories() {
-            $('.moreCategories').remove();
+            $('.moreCategories').hide(100,function(){
+                    $('.moreCategories').remove();
+            });
             $('.btn-minus-cat').hide();
             $('.btn-plus-cat').show();           
     }
@@ -834,7 +837,7 @@ var categoriesTail = (function() {
                         + '</div>');
                 searchSubTree(slug, '#body-' + slug, 0);
                 $('#categoryPanel-' + indexCategories).show(150);
-                $('.' + slug).trigger('click');
+                window.setTimeout(function (){$('.' + slug).trigger('click');},200);
                 indexCategories++;
             } else {
                 $('.' + slug).trigger('click');

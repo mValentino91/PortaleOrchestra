@@ -2,7 +2,7 @@
         "slug": "culture",
         "parent": null,
         "text": "Cultura",
-        "color": "#f5926f",
+        "color": "#d24d57",
         "icon": "fa fa-university",
         "nodes": [{
                 "slug": "museum",
@@ -15,60 +15,180 @@
                 "nodes": [{
                         "slug": "church",
                         "parent": "monument",
-                        "text": "Chiese"
+                        "text": "Chiese e complessi conventuali"
                     }, {
                         "slug": "building",
                         "parent": "monument",
-                        "text": "Palazzi Storici"
+                        "text": "Palazzi storici"
                     }, {
                         "slug": "sculpture",
                         "parent": "monument",
                         "text": "Sculture"
                     }]
             }, {
-                "slug": "metro_art",
+                "slug": "contemporary",
                 "parent": "culture",
-                "text": "Stazioni dell'Arte"
+                "text": "Napoli Contemporanea",
+                "nodes": [
+                    {
+                        "slug": "metro_art",
+                        "parent": "contemporary",
+                        "text": "Stazioni dell'Arte"
+                    }, {
+                        "slug": "atelier",
+                        "parent": "contemporary",
+                        "text": "Atelier d'artista"
+                    }, {
+                        "slug": "street_art",
+                        "parent": "contemporary",
+                        "text": "Street art"
+                    }, {
+                        "slug": "gallery",
+                        "parent": "contemporary",
+                        "text": "Gallerie"
+                    }]
+            }, {
+                "slug": "archaeology",
+                "parent": "culture",
+                "text": "Archeologia"
             }]
     }, {
         "slug": "accommodation",
         "parent": null,
         "text": "Pernottamento",
-        "color": "#6cb9f1",
+        "color": "#81cfe0",
         "icon": "fa fa-bed",
-        "nodes": [{
+        "nodes": [
+            {
                 "slug": "hotel",
                 "parent": "accomodation",
-                "text": "Alberghi"
-            }]
-    },{
+                "text": "Hotel"
+            }, {
+                "slug": "b_b",
+                "parent": "accomodation",
+                "text": "B&B"
+            }, {
+                "slug": "apartment",
+                "parent": "accomodation",
+                "text": "Appartamenti"
+            }, {
+                "slug": "hostel",
+                "parent": "accomodation",
+                "text": "Ostelli"
+            }, {
+                "slug": "Agritourism",
+                "parent": "accomodation",
+                "text": "Agriturismo"
+            }, {
+                "slug": "room",
+                "parent": "accomodation",
+                "text": "Camere"
+            }
+        ]
+    }, {
         "slug": "food",
         "parent": null,
         "text": "Enogastronomia",
         "color": "#f4d03e",
         "icon": "fa fa-cutlery",
         "nodes": [{
-                "slug": "coffee",
+                "slug": "place",
                 "parent": "food",
-                "text": "Caffé"
-            }, {
-                "slug": "trattoria",
-                "parent": "food",
-                "text": "Trattorie"
-            }, {
-                "slug": "pasticceria",
-                "parent": "food",
-                "text": "Pasticcerie"
-            }, {
-                "slug": "pizzeria",
-                "parent": "food",
-                "text": "Pizzerie"
+                "text": "I luoghi",
+                "nodes": [
+                    {
+                        "slug": "cafè",
+                        "parent": "place",
+                        "text": "Caffè-bar"
+                    }, {
+                        "slug": "tavern",
+                        "parent": "place",
+                        "text": "Osterie-trattorie"
+                    }, {
+                        "slug": "restaurant",
+                        "parent": "place",
+                        "text": "Ristoranti"
+                    }, {
+                        "slug": "chocolate_shop",
+                        "parent": "place",
+                        "text": "Cioccolaterie"
+                    }, {
+                        "slug": "distillery",
+                        "parent": "place",
+                        "text": "Distillerie"
+                    }, {
+                        "slug": "pastry_shop",
+                        "parent": "place",
+                        "text": "Pasticcerie"
+                    }, {
+                        "slug": "pizza_place",
+                        "parent": "place",
+                        "text": "Pizzerie"
+                    }, {
+                        "slug": "fry_shop",
+                        "parent": "place",
+                        "text": "Forni-rosticcerie"
+                    }, {
+                        "slug": "street_food",
+                        "parent": "place",
+                        "text": "Street food"
+                    }
+                ]
             }]
+    }, {
+        "slug": "craft",
+        "parent": null,
+        "icon": "fa fa-paint-brush",
+        "text": "Artigiani",
+        "color": "#bf90d4",
+        "nodes": [
+            {
+                "slug": "nativity",
+                "parent": "craft",
+                "text": "Arte presepiale"
+            }, {
+                "slug": "ceramics",
+                "parent": "craft",
+                "text": "Materiali ceramici"
+            }, {
+                "slug": "leather",
+                "parent": "craft",
+                "text": "Cuoio e pelle"
+            }, {
+                "slug": "design",
+                "parent": "craft",
+                "text": "Design"
+            }, {
+                "slug": "sartorial",
+                "parent": "craft",
+                "text": "Sartorial"
+            }, {
+                "slug": "music",
+                "parent": "craft",
+                "text": "Strumenti musicali"
+            }, {
+                "slug": "restyling",
+                "parent": "craft",
+                "text": "Restauro e restyling"
+            }, {
+                "slug": "stuff",
+                "parent": "craft",
+                "text": "Chincaglierie"
+            }, {
+                "slug": "print",
+                "parent": "craft",
+                "text": "Stampa"
+            }, {
+                "slug": "jewelry",
+                "parent": "craft",
+                "text": "Oreficeria"
+            }
+        ]
     }, {
         "slug": "mobility",
         "parent": null,
         "text": "Mobilità",
-        "color": "#87d37b",
+        "color": "#87d37c",
         "icon": "fa fa-bus",
         "nodes": [{
                 "slug": "ciro",
@@ -91,35 +211,98 @@
                 "text": "iGoOn"
             }
         ]
-    },
-     {
-        "slug": "craft",
-        "parent": null,
-        "icon": "fa fa-paint-brush",
-        "text": "Artigiani",
-        "color": "#bf90d4"
-    },{
-        "slug": "cultural_association",
+    }, {
+        "slug": "event",
         "parent": null,
         "icon": "fa fa-calendar",
-        "text": "Associazioni Culturali",
-        "color": "#1ba39c"
-    },{
+        "text": "Eventi",
+        "color": "#125687",
+        "nodes": [
+            {
+                "slug": "exhibition",
+                "parent": "event",
+                "text": "Mostre"
+            }, {
+                "slug": "concert",
+                "parent": "event",
+                "text": "Concerti"
+            }, {
+                "slug": "show",
+                "parent": "event",
+                "text": "Spettacoli"
+            }, {
+                "slug": "tour",
+                "parent": "event",
+                "text": "Visite guidate"
+            }, {
+                "slug": "meeting",
+                "parent": "event",
+                "text": "Convegni, conferenze, seminari"
+            }, {
+                "slug": "educational",
+                "parent": "event",
+                "text": "Attività e laboratori didattici"
+            }
+        ]
+    }, {
         "slug": "cultural_association",
         "parent": null,
-        "icon": "fa fa-calendar",
+        "icon": "fa fa-calendar-o",
         "text": "Associazioni Culturali",
-        "color": "#1ba39c"
-    },{
-        "slug": "cultural_association",
+        "color": "sandybrown",
+        "nodes": [
+            {
+                "slug": "cultural_promotion",
+                "parent": "cultural_association",
+                "text": "Promozione culturale",
+                "nodes": [
+                    {
+                        "slug": "exhibition_event",
+                        "parent": "cultural_promotion",
+                        "text": "Mostre ed eventi"
+                    }, {
+                        "slug": "visite guidate",
+                        "parent": "cultural_promotion",
+                        "text": "Visite guidate"
+                    }, {
+                        "slug": "education",
+                        "parent": "cultural_promotion",
+                        "text": "Attività e laboratori didattici"
+                    }
+                ]
+            }, {
+                "slug": "performing_arts",
+                "parent": "cultural_association",
+                "text": "Arti performative",
+                "nodes": [
+                    {
+                        "slug": "music",
+                        "parent": "performing_arts",
+                        "text": "Musica"
+                    }, {
+                        "slug": "dance",
+                        "parent": "performing_arts",
+                        "text": "Danza"
+                    }, {
+                        "slug": "theater",
+                        "parent": "performing_arts",
+                        "text": "Teatro"
+                    }, {
+                        "slug": "photo",
+                        "parent": "performing_arts",
+                        "text": "Fotografia"
+                    }, {
+                        "slug": "cinema",
+                        "parent": "performing_arts",
+                        "text": "Cinema"
+                    }
+                ]
+            }
+        ]
+    }, {
+        "slug": "expo",
         "parent": null,
-        "icon": "fa fa-calendar",
-        "text": "Associazioni Culturali",
-        "color": "#1ba39c"
-    },{
-        "slug": "cultural_association",
-        "parent": null,
-        "icon": "fa fa-calendar",
-        "text": "Associazioni Culturali",
-        "color": "#1ba39c"
+        "icon": "fa fa-star",
+        "text": "Expo Napoli",
+        "color": "palevioletred"
     }]
