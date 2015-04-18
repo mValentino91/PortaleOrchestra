@@ -30,23 +30,58 @@
         margin-right: 15px !important;
         margin-top: 12x !important;
     }
+
+    .navbar-brand{
+        padding-top: 0px;
+        padding-left: 5px;
+    }
+
+    #loginArea{
+        margin-right: -15px;
+        margin-left: 10px;
+    }
+    .autocomplete-suggestions { border-radius: 0px 0px 4px 4px; border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); }
+    .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+    .autocomplete-no-suggestion { padding: 2px 5px;}
+    .autocomplete-selected { background: #F0F0F0; }
+    .autocomplete-suggestions strong { font-weight: bold; color: #00689a; }
+    .autocomplete-group { padding: 2px 5px; }
+    .autocomplete-group strong { font-weight: bold; font-size: 16px; color: #00689a; display: block; border-bottom: 1px solid #000; }
+
 </style>
+<script src="./dist/js/jquery.autocomplete.js"></script>
 <nav class="navbar navbar-fixed-top header" style="
      box-shadow: 0px 0px 3px 0px black;
-     background:#285e8e; ">
+     background:#00689a; ">
     <div class="container-fluid">
-        <div class="collapse navbar-collapse" id="navbar" style="background:#285e8e;">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="http://www.orchestra.unina.it/"><img height="50" alt="Home" src="./dist/img/logoOrchestra.jpg"</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar" style="background:#00689a;">
             <ul class="nav navbar-nav">
-                <li><a style="color:white" href="http://www.orchestra.unina.it/">
-                        Home
-                    </a>
-                </li>
                 <li><a style="color:white" href="./Map?category=all">Interactive Map</a></li>
             </ul>
             <ul id="loginArea" class="nav navbar-nav navbar-right">
                 <jsp:include page="../access/loginArea.jsp" />
             </ul>
+                <div class="navbar-right">
+                    <input style="margin-top: 7px" id="autocomplete" type="text" class="form-control" placeholder="Cerca POI...">
+                </div>
         </div>
     </div>
 </nav>
+<script>
+    $('#autocomplete').autocomplete({
+        serviceUrl: './Search/Autocomplete',
+        onSelect: function(suggestion) {
+            window.location='./getPoi?id='+suggestion.data;
+        }
+    });
+</script>
 

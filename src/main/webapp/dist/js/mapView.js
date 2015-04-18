@@ -421,6 +421,7 @@ var interactiveMap = (function() {
     }
     function attachInfo(object) {
         interactiveMap.map.panTo(object.getPosition());
+        var rating = 4;
         var contentString =
                 '<div class="container-fluid text-center infowindowContent">'
                 + '<b>'
@@ -445,15 +446,66 @@ var interactiveMap = (function() {
                 + '">Maggiori Informazioni</a>'
                 + ' <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('
                 + object.index
-                + ')"><br>Guarda nei dintorni</a></div>';
+                + ')"><br>Guarda nei dintorni</a></div>'
+                + '<br><a id="starred" onclick="interactiveMap.addToFavorite(\''+object.id+'\')">Aggiungi ai preferiti</a>'
+                + '<br><a id="rating" onclick="interactiveMap.saveFavoriteRating(\''+object.id+'\', \''+rating+'\')">Prova Rating</a></div>';
     }
-        interactiveMap.infowindow.setContent(contentString);
+            interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, object);
         object.setAnimation(google.maps.Animation.BOUNCE);
         window.setTimeout(function() {
             object.setAnimation(null);
         }, 1400);
     }
+    
+    
+    function buildBaloon(object){
+        return 0;
+        
+    }
+    
+    function addToFavorite(poiId){
+        if(ifAuth() === true){
+            alert("UserId:" + getUserId() + " - PoiId:" + poiId);
+            userId = getUserId();
+            $.ajax({
+                type: "GET",
+                url: "./saveFavorite",
+                data: "id_user="+userId+"&id_poi="+poiId,
+                success: function(){
+                    alert("OK");
+                },
+                error: function(richiesta,stato,errori){
+                    alert("Error. State: "+stato);
+                }                 
+            });            
+        }
+        else{
+            alert("Utente non autenticato");
+        }
+    }    
+    
+    function saveFavoriteRating(poiId, rating){
+        if(ifAuth() === true){
+            alert("UserId:" + getUserId() + " - PoiId:" + poiId + " - Rating:" + rating);
+            userId = getUserId();
+            $.ajax({
+                type: "GET",
+                url: "./saveFavoriteRating",
+                data: "id_user="+userId+"&id_poi="+poiId+"&rating="+rating,
+                success: function(){
+                    alert("OK");
+                },
+                error: function(richiesta,stato,errori){
+                    alert("Error. State: "+stato);
+                }                 
+            });            
+        }
+        else{
+            alert("Utente non autenticato");
+        }
+    }          
+    
     function showPois(poi) {
         interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
         for (var i = 0; i < interactiveMap.markers.length; i++) {
@@ -626,7 +678,10 @@ var interactiveMap = (function() {
         poiHoverHandler: poiHoverHandler,
         poiClickedHandler: poiClickedHandler,
         drawCircleAroundPoi: drawCircleAroundPoi,
-        showFbPois: showFbPois
+        showFbPois: showFbPois,
+        addToFavorite: addToFavorite,
+        saveFavoriteRating: saveFavoriteRating,
+        buildBaloon: buildBaloon        
     };
 })();
 
@@ -657,14 +712,14 @@ var categoriesTail = (function() {
             $('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
                         + 'onclick="categoriesTail.viewMoreCategories()"'
                         + 'title="view more..."'
-                        + 'style="background-color:#285e8e;">'
+                        + 'style="background-color:#6c7a89;">'
 
                         + '<i class="fa fa-plus"></i>'
                         + '</button>');
             $('.categoriesTails').append('<button type="button" class="btn btn-minus-cat btn-default btn-lg"'
                         + 'onclick="categoriesTail.viewLessCategories()"'
                         + 'title="view less..."'
-                        + 'style="background-color:#285e8e;display:none">'
+                        + 'style="background-color:#6c7a89;display:none">'
 
                         + '<i class="fa fa-minus"></i>'
                         + '</button>');
@@ -680,17 +735,20 @@ var categoriesTail = (function() {
                         + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
                         + data[i].text + "'" + ')"'
                         + 'title="' + data[i].text + '"'
-                        + 'style="background-color:' + data[i].color + '">'
+                        + 'style="display:none;background-color:' + data[i].color + '">'
 
                         + '<i class="' + data[i].icon + '"></i>'
                         + '</button>');
             }
             $('.btn-minus-cat').show();
             $('.btn-plus-cat').hide();
+            $('.moreCategories').show(150);
         });
     }
     function viewLessCategories() {
-            $('.moreCategories').remove();
+            $('.moreCategories').hide(100,function(){
+                    $('.moreCategories').remove();
+            });
             $('.btn-minus-cat').hide();
             $('.btn-plus-cat').show();           
     }
@@ -842,7 +900,7 @@ var categoriesTail = (function() {
                         + '</div>');
                 searchSubTree(slug, '#body-' + slug, 0);
                 $('#categoryPanel-' + indexCategories).show(150);
-                $('.' + slug).trigger('click');
+                window.setTimeout(function (){$('.' + slug).trigger('click');},200);
                 indexCategories++;
             } else {
                 $('.' + slug).trigger('click');

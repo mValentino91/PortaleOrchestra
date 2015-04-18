@@ -11,6 +11,7 @@ import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.util.ArrayList;
@@ -46,4 +47,9 @@ public interface PersistenceManager {
     public void saveDeepeningPage(DeepeningPage dp);
     public DeepeningPage findDeepeningPage(String id);
     public DeepeningPage findDeepeningPageByName(String name);
+    public void saveFavorite(Favorite favorite);
+    public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi);
+    public Iterable<Favorite> findFavoritesByIdUser(Integer idUser);
+    public Favorite findFavorite(Integer id);
+    public Boolean ifFavorite(int idUser, String idPoi);
 }
