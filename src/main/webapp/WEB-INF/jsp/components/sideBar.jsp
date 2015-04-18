@@ -45,7 +45,6 @@
     .autocomplete-suggestions strong { font-weight: bold; color: #00689a; }
     .autocomplete-group { padding: 2px 5px; }
     .autocomplete-group strong { font-weight: bold; font-size: 16px; color: #00689a; display: block; }
-
 </style>
 <script src="./dist/js/jquery.autocomplete.js"></script>
 <nav class="navbar navbar-fixed-top header" style="
