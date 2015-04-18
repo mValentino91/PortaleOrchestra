@@ -6,9 +6,13 @@
 package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.mongo.repositories.DeepeningPageMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository;
+import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
@@ -21,6 +25,7 @@ import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
@@ -61,12 +66,19 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
     private EnPoiMongoRepository enPoiMongoRepo;
-    
+
     @Autowired
     private UserRepository userRepository;
-    
-    @Autowired PagesMongoRepository pagesRepo;
 
+    @Autowired
+    PagesMongoRepository pagesRepo;
+    
+    @Autowired
+    HomeMongoRepository homeRepo;
+
+    @Autowired
+    DeepeningPageMongoRepository deepRepo;
+    
     @Autowired
     private FavoriteRepository favoriteRepo;
     
@@ -81,9 +93,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return null;
 
     }
-    
+
     @Override
-    public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id){
+    public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id) {
         return poiMongoRepo.findAll(id);
     }
 
@@ -104,9 +116,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public Iterable<CompletePOI> getCompletePoiByCategories(String [] categories) {
+    public ArrayList<CompletePOI> getCompletePoiByCategories(ArrayList<String> categories) {
 
-        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
+        return (ArrayList<CompletePOI>) mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
     }
 
     @Override
@@ -144,45 +156,82 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
         return mongoOps.geoNear(query, CompletePOI.class);
     }
+
     @Override
-     public void saveEnPoi(EnCompletePOI enpoi) {
-         enPoiMongoRepo.save(enpoi);
-}
-     @Override
+    public void saveEnPoi(EnCompletePOI enpoi) {
+        enPoiMongoRepo.save(enpoi);
+    }
+
+    @Override
     public User findUserByUsername(String username) {
-        User usr=userRepository.findByUsername(username);
+        User usr = userRepository.findByUsername(username);
         return usr;
     }
+
     @Override
     public User findUserByFbUser(String fbUser) {
-        User usr= userRepository.findByFbUser(fbUser);
+        User usr = userRepository.findByFbUser(fbUser);
         return usr;
     }
+
     @Override
-    public User findUserByFbEmail(String fbEmail){
+    public User findUserByFbEmail(String fbEmail) {
         User usr = userRepository.findByFbEmail(fbEmail);
         return usr;
     }
+
     @Override
-    public User findUserByFbEmailOrFbUser(String fbEmail, String fbUser){
+    public User findUserByFbEmailOrFbUser(String fbEmail, String fbUser) {
         User usr = userRepository.findByFbEmailOrFbUser(fbEmail, fbUser);
         return usr;
     }
+
     @Override
-    public void saveUser(User user){
+    public void saveUser(User user) {
         userRepository.save(user);
     }
-    @Override 
+
+    @Override
     public void savePage(Pages page) {
-      pagesRepo.save(page);
+        pagesRepo.save(page);
     }
+
     @Override
     public Pages findPageById(String id) {
-       Pages page= pagesRepo.findOne(id);
-       return page;
+        Pages page = pagesRepo.findOne(id);
+        return page;
+    }
+
+    @Override
+    public Pages findPageBySlug(String slug) {
+        return mongoOps.findOne(new Query(where("slug").is(slug)), Pages.class);
+
+    }
+    @Override
+    public void saveHome(Home home) {
+        homeRepo.save(home);
     }
     
     @Override
+    public void saveDeepeningPage(DeepeningPage dp) {
+        deepRepo.save(dp);
+    }
+    @Override
+    public DeepeningPage findDeepeningPage(String id) {
+        return deepRepo.findOne(id);
+    }
+    @Override
+    public DeepeningPage findDeepeningPageByName(String name) {
+         Iterable<DeepeningPage> dp = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), DeepeningPage.class);
+        for (DeepeningPage p : dp) {
+            if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+                return p;
+            }
+        }
+        return null;
+    }
+    
+@Override
     public void saveFavorite(Favorite favorite){
         favoriteRepo.save(favorite);
     }    
@@ -204,4 +253,19 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return favorite;
     }
     
+    @Override
+    public Boolean ifFavorite(int idUser, String idPoi){
+        Favorite favorite = favoriteRepo.findByIdUserOrIdPoi(idUser, idPoi);
+        if(favorite == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
+    
 }
+    
+    
+    
+

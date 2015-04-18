@@ -85,7 +85,15 @@
         </div>
         </div>
        
-                    </div>
+                        </div><br>
+                 <div class="row">
+                     
+                                    
+                                    <div class="col-md-6">Visibilità <select name="visibility" class="form-control"> <option value="1" <c:if test="${visibility == '1'}">selected</c:if>>Visibile</option>
+                                            <option value="0"<c:if test="${visibility == '0'}">selected</c:if>>Solo preview</option></select>
+                                    </div>
+                                    
+                                </div>
                     </center>
                 </div>
                 </article>

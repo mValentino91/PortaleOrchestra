@@ -1,47 +1,208 @@
-<%-- 
-    Document   : fb_login_js
-    Created on : 24-feb-2015, 14.27.15
-    Author     : antonio
---%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
-<c:url value="logout" var="logoutUrl"/>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>FB Login JS Nuovo</title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="./dist/js/bootstrap.min.js"></script>
-        
-        <link rel="stylesheet" href="./dist/css/bootstrap.min.css"/>
-        
-        <script>
-            $(document).ready(function(){
-                //alert("yo!");
-                //$.reload_access_area();
-            });
-        </script>
-    </head>
-    <body>
-        <nav class="navbar navbar-default navbar-fixed-top">
-          <div class="container">
-            <p id="loginArea" class="navbar-text navbar-right">
-                <jsp:include page="access/loginArea.jsp" />
-            </p>
-          </div>
-        </nav>
-        
-        <div style="margin-top: 100px">
-            
-            Ciao Bello
-            
-        </div>
-        
-    </body>
-</html>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<jsp:include page="access/loginModal.jsp" />
+    <html>
+        <head>
+            <title></title>
+            <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
+            <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
+
+
+            <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+
+            <link rel="stylesheet" href="./dist/css/poi_view.css">
+            <link rel="stylesheet" href="./dist/css/struttura.css">
+            <link rel="stylesheet" href="./dist/css/OrchestraFontIcon.css">
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
+            <link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
+            <style>
+                .nano {width: 100%;}
+                .nano .nano-pane   { background: #d9d9d9!important; }
+                .nano .nano-slider { background: #B6B6B6!important; }
+            </style>
+
+        </head>
+
+        <body>
+
+            <div class="container-fixed">
+                <jsp:include page="components/sideBar.jsp"/>
+
+                <div class="row" style="margin-top: 60px !important;">
+                    <div class="col-md-6 col-orc">
+                        <div class="box-orc">
+
+                            <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
+                                        <li data-target="#myCarousel" data-slide-to="cont.count" <c:if test="${cont.count == 1}"> class="active" </c:if> > </li>
+                                        </c:forEach>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner" role="listbox" style="height:100%">
+                                    <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
+                                        <div class="item <c:if test="${cont.count == 1}"> active </c:if> >">
+                                            <img src="${img.link}"  >
+                                            <c:if test="${not empty img.titolo || not empty img.testo}">
+                                                <div class="carousel-caption">
+                                                    <h5>${img.titolo}</h5>
+                                                    <p>${img.testo}</p>
+                                                </div>
+                                            </c:if>
+                                        </div>
+                                    </c:forEach>
+
+
+                                </div>
+
+                                <!-- Left and right controls -->
+                                <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                    <span class="sr-only">Precedente</span>
+                                </a>
+
+                                <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                    <span class="sr-only">Prossimo</span>
+                                </a>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-orc">
+                        <div class="col-md-12 col-orc box-orc-half">
+                            <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
+                                <c:if test="${cont.count <= 3}">
+                                    <div class="col-md-4 col-orc">
+                                        <div class="box-orc">
+
+                                            <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                                    <c:if test="${not empty tile.icon}">
+                                                        <img src="${tile.icon}">
+                                                    </c:if>
+                                                    <c:if test="${not empty tile.text}">
+                                                        ${tile.text}
+                                                    </c:if>
+                                                </div></a>
+
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+
+                        </div>
+
+                        <div class="col-md-12 col-orc box-orc-half">
+                            <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
+                                <c:if test="${cont.count > 3 && cont.count <= 6}">
+                                    <div class="col-md-4 col-orc">
+                                        <div class="box-orc">
+                                            <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                                    <c:if test="${not empty tile.icon}">
+                                                        <img src="${tile.icon}">
+                                                    </c:if>
+                                                    <c:if test="${not empty tile.text}">
+                                                        ${tile.text}
+                                                    </c:if>
+                                                </div></a>
+
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>				
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="row" style="height:37px; margin-top:5px; margin-bottom:5px;">
+                    <div class="col-md-12 col-orc">
+                        <div class="box-orc">
+                            <div id="menu" style="background-color:<c:choose><c:when test="${not empty pages.submenu.color}">${pages.submenu.color}</c:when><c:otherwise>#E74C3C</c:otherwise></c:choose>; margin-top:-5px;">
+                                        <ul>
+                                            <li></li>
+                                        <c:forEach var="cat" items="${pages.submenu.categories}">
+                                        <li><a href="${cat.link}">${cat.text}</a></li>
+                                        </c:forEach>
+                                </ul>  
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 col-orc">
+                        <div class="col-md-12 col-orc box-orc-half">
+                            <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
+                                <c:if test="${cont.count > 6 and cont.count <=9}">
+                                    <div class="col-md-4 col-orc">
+                                        <div class="box-orc">
+                                            <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                                    <c:if test="${not empty tile.icon}">
+                                                        <img src="${tile.icon}">
+                                                    </c:if>
+                                                    <c:if test="${not empty tile.text}">
+                                                        ${tile.text}
+                                                    </c:if>
+                                                </div></a>
+
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+                        </div>
+
+                        <div class="col-md-12 col-orc box-orc-half">
+                            <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
+                                <c:if test="${cont.count > 9}">
+                                    <div class="col-md-4 col-orc">
+                                        <div class="box-orc">
+                                            <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                                    <c:if test="${not empty tile.icon}">
+                                                        <img src="${tile.icon}">
+                                                    </c:if>
+                                                    <c:if test="${not empty tile.text}">
+                                                        ${tile.text}
+                                                    </c:if>
+                                                </div></a>
+
+                                        </div>
+                                    </div>
+                                </c:if>
+                            </c:forEach>
+
+                            <div class="col-md-8 col-orc">
+                                <div class="box-orc">
+                                    <div class="box-elem" style="background-color:#fff">
+                                        <p class="paragrafo" style="padding:5px;">
+                                            ${pages.description}
+
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-orc">
+                        <div class="box-orc">
+                            <jsp:include page="components/mapComponent.jsp"/>
+                        </div>			
+                    </div>
+
+                </div>
+
+
+
+            </div>
+        </body>
+         <jsp:include page="access/loginModal.jsp" />
+    </html>

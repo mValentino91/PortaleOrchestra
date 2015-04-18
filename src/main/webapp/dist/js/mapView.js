@@ -434,12 +434,23 @@ var interactiveMap = (function() {
                 + 'height="60" style="margin: 5px; max-width:110px; height:auto;" alt=""/></center>'
                 + '<p style="color:gray">'
                 + object.shortDescription + '</p>';
+        
+        if(object.visibility == '0') {
+        contentString += ' <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('
+                + object.index
+                + ')"><br>Guarda nei dintorni</a></div>';
+    }
+    else {
         contentString += '<a href="./getPoi?id='
                 + object.id
                 + '">Maggiori Informazioni</a>'
+                + ' <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('
+                + object.index
+                + ')"><br>Guarda nei dintorni</a></div>'
                 + '<br><a id="starred" onclick="interactiveMap.addToFavorite(\''+object.id+'\')">Aggiungi ai preferiti</a>'
                 + '<br><a id="rating" onclick="interactiveMap.saveFavoriteRating(\''+object.id+'\', \''+rating+'\')">Prova Rating</a></div>';
-        interactiveMap.infowindow.setContent(contentString);
+    }
+            interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, object);
         object.setAnimation(google.maps.Animation.BOUNCE);
         window.setTimeout(function() {

@@ -22,5 +22,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     
     
     Iterable<Favorite> findByIdUser(int idUser);
+    Favorite findByIdUserOrIdPoi(int idUser, String idPoi);
  
 }

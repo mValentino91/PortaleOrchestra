@@ -78,6 +78,7 @@ public class NewPoiController {
         }
         else {
         poi.setName(params.get("name"));
+        poi.setVisibility(params.get("visibility"));
         poi.setAddress(params.get("address"));
         double lat= Double.parseDouble(params.get("latitude"));
         double longi= Double.parseDouble(params.get("longitude"));

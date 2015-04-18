@@ -23,7 +23,7 @@
   <link rel='stylesheet' href='./dist/css/bootstrap.min.css'>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
-        <link href="./dist/css/OrchestraIconFont.css" rel="stylesheet"> 
+        <link href="./dist/css/OrchestraFontIcon.css" rel="stylesheet"> 
         <link href="./dist/css/composite.css" rel="stylesheet">
         <script src="./dist/js/section.js"></script>
         <script src="./dist/js/composite.js"></script>
@@ -47,7 +47,9 @@
                                 <c:if test="${not empty description}">
                                 <jsp:include page="components/SectionComponent.jsp"/> 
                                 </c:if>
+                                <c:if test="${ empty vartype || vartype != 'DeepeningPage' }">
                                 <jsp:include page="components/mapComponent.jsp"/>
+                                </c:if>
                     </div>
                                
                             

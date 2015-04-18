@@ -7,11 +7,14 @@
 package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
+import java.util.ArrayList;
 import org.springframework.data.geo.GeoResults;
 
 /**
@@ -25,7 +28,7 @@ public interface PersistenceManager {
     public CompletePOI getCompletePoiById(String id);
     public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id);
     public Iterable<CompletePOI> getAllCompletePoi();
-    public Iterable<CompletePOI> getCompletePoiByCategories(String [] categories);
+    public ArrayList<CompletePOI> getCompletePoiByCategories(ArrayList<String> categories);
     public Iterable<CompletePOI> findCompletePoi(String name, String address, String category);
     public GeoResults<CompletePOI> findNearCompletePoi(String id,double radius);
     public CompletePOI findOneCompletePoiByName(String name);
@@ -39,8 +42,15 @@ public interface PersistenceManager {
     public void saveUser(User user);
     public void savePage(Pages page);
     public Pages findPageById(String id);
+    public Pages findPageBySlug(String slug);
+    public void saveHome(Home home);
+    public void saveDeepeningPage(DeepeningPage dp);
+    public DeepeningPage findDeepeningPage(String id);
+    public DeepeningPage findDeepeningPageByName(String name);
     public void saveFavorite(Favorite favorite);
     public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi);
     public Iterable<Favorite> findFavoritesByIdUser(Integer idUser);
     public Favorite findFavorite(Integer id);
+    public Boolean ifFavorite(int idUser, String idPoi);
+    
 }
