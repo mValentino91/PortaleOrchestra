@@ -421,6 +421,7 @@ var interactiveMap = (function() {
     }
     function attachInfo(object) {
         interactiveMap.map.panTo(object.getPosition());
+        var rating = 4;
         var contentString =
                 '<div class="container-fluid text-center infowindowContent">'
                 + '<b>'
@@ -436,9 +437,8 @@ var interactiveMap = (function() {
         contentString += '<a href="./getPoi?id='
                 + object.id
                 + '">Maggiori Informazioni</a>'
-                + ' <a style="cursor:pointer" onclick="interactiveMap.viewPanorama('
-                + object.index
-                + ')"><br>Guarda nei dintorni</a></div>';
+                + '<br><a id="starred" onclick="interactiveMap.addToFavorite(\''+object.id+'\')">Aggiungi ai preferiti</a>'
+                + '<br><a id="rating" onclick="interactiveMap.saveFavoriteRating(\''+object.id+'\', \''+rating+'\')">Prova Rating</a></div>';
         interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, object);
         object.setAnimation(google.maps.Animation.BOUNCE);
@@ -446,6 +446,55 @@ var interactiveMap = (function() {
             object.setAnimation(null);
         }, 1400);
     }
+    
+    
+    function buildBaloon(object){
+        return 0;
+        
+    }
+    
+    function addToFavorite(poiId){
+        if(ifAuth() === true){
+            alert("UserId:" + getUserId() + " - PoiId:" + poiId);
+            userId = getUserId();
+            $.ajax({
+                type: "GET",
+                url: "./saveFavorite",
+                data: "id_user="+userId+"&id_poi="+poiId,
+                success: function(){
+                    alert("OK");
+                },
+                error: function(richiesta,stato,errori){
+                    alert("Error. State: "+stato);
+                }                 
+            });            
+        }
+        else{
+            alert("Utente non autenticato");
+        }
+    }    
+    
+    function saveFavoriteRating(poiId, rating){
+        if(ifAuth() === true){
+            alert("UserId:" + getUserId() + " - PoiId:" + poiId + " - Rating:" + rating);
+            userId = getUserId();
+            $.ajax({
+                type: "GET",
+                url: "./saveFavoriteRating",
+                data: "id_user="+userId+"&id_poi="+poiId+"&rating="+rating,
+                success: function(){
+                    alert("OK");
+                },
+                error: function(richiesta,stato,errori){
+                    alert("Error. State: "+stato);
+                }                 
+            });            
+        }
+        else{
+            alert("Utente non autenticato");
+        }
+    }          
+    
     function showPois(poi) {
         interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
         for (var i = 0; i < interactiveMap.markers.length; i++) {
@@ -618,7 +667,10 @@ var interactiveMap = (function() {
         poiHoverHandler: poiHoverHandler,
         poiClickedHandler: poiClickedHandler,
         drawCircleAroundPoi: drawCircleAroundPoi,
-        showFbPois: showFbPois
+        showFbPois: showFbPois,
+        addToFavorite: addToFavorite,
+        saveFavoriteRating: saveFavoriteRating,
+        buildBaloon: buildBaloon        
     };
 })();
 

@@ -59,6 +59,8 @@ public class AccessController {
             } else {
                 session.setAttribute("avatar", "./dist/img/default_avatar.png");
             }
+            
+            session.setAttribute("uid", user.getId());
 
         }
         return model;
