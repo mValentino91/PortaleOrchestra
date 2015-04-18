@@ -11,12 +11,12 @@
         padding-top: 0px;
     }
     .navbar-nav>li>a{
-        padding-bottom:15px;
-        padding-top: 10px;
+        padding-bottom:12px;
+        padding-top: 12px;
     }
     .navbar-nav>li>a:hover{
-        background-color: transparent;
-        color:white;
+        background-color: transparent !important;
+        color:gray !important;
     }
     .profile-image{
         height: 25px !important;
@@ -68,7 +68,7 @@
                 <jsp:include page="../access/loginArea.jsp" />
             </ul>
                 <div class="navbar-right">
-                    <input style="margin-top: 7px" id="autocomplete" type="text" class="form-control" placeholder="Cerca POI...">
+                    <input style="margin-top: 9px" id="autocomplete" type="text" class="form-control" placeholder="Cerca POI...">
                 </div>
         </div>
     </div>
