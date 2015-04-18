@@ -3,7 +3,7 @@
         "parent": null,
         "text": "Cultura",
         "color": "#d24d57",
-        "icon": "fa fa-university",
+        "icon": "icon-culture",
         "nodes": [{
                 "slug": "museum",
                 "parent": "culture",
@@ -90,7 +90,7 @@
         "parent": null,
         "text": "Enogastronomia",
         "color": "#f4d03e",
-        "icon": "fa fa-cutlery",
+        "icon": "icon-food",
         "nodes": [{
                 "slug": "place",
                 "parent": "food",
@@ -138,7 +138,7 @@
     }, {
         "slug": "craft",
         "parent": null,
-        "icon": "fa fa-paint-brush",
+        "icon": "icon-craft",
         "text": "Artigiani",
         "color": "#bf90d4",
         "nodes": [
@@ -189,7 +189,7 @@
         "parent": null,
         "text": "Mobilità",
         "color": "#87d37c",
-        "icon": "fa fa-bus",
+        "icon": "icon-mobility",
         "nodes": [{
                 "slug": "ciro",
                 "parent": "mobility",
