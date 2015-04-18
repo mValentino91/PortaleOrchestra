@@ -58,7 +58,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="http://www.orchestra.unina.it/"><img height="50" alt="Home" src="./dist/img/logoOrchestra.jpg"</a>
+            <a class="navbar-brand" href="http://www.orchestra.unina.it/"><img height="50" alt="Home" src="./dist/img/logoOrchestra.png"</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar" style="background:#00689a;">
             <ul class="nav navbar-nav">
