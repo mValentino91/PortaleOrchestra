@@ -68,7 +68,7 @@
                 <jsp:include page="../access/loginArea.jsp" />
             </ul>
                 <div class="navbar-right">
-                    <input style="margin-top: 9px" id="autocomplete" type="text" class="form-control" placeholder="Cerca POI...">
+                    <input style="margin-top: 8px" id="autocomplete" type="text" class="form-control" placeholder="Cerca POI...">
                 </div>
         </div>
     </div>
