@@ -5,18 +5,20 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
 <style>
     .navbar-nav>li{
         padding-bottom:0px;
         padding-top: 0px;
     }
     .navbar-nav>li>a{
-        padding-bottom:12px;
-        padding-top: 12px;
+        padding-bottom:15px;
+        padding-top: 10px;
     }
     .navbar-nav>li>a:hover{
-        background-color: transparent !important;
-        color:gray !important;
+        background-color: transparent;
+        color:white;
     }
     .profile-image{
         height: 25px !important;
@@ -68,7 +70,7 @@
                 <jsp:include page="../access/loginArea.jsp" />
             </ul>
                 <div class="navbar-right">
-                    <input style="margin-top: 8px" id="autocomplete" type="text" class="form-control" placeholder="Cerca POI...">
+                    <input style="margin-top: 7px" id="autocomplete" type="text" class="form-control" placeholder="Cerca POI...">
                 </div>
         </div>
     </div>
