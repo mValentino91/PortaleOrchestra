@@ -1,0 +1,149 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 19-apr-2015, 22.27.33
+    Author     : antonio
+*/
+
+.external_balloon{
+    margin: 20px;
+    border:1px solid #bdc3c7;
+    width: 312px;
+    padding:5px;
+    border-radius: 0px;
+    box-shadow: 1px 1px 1px #bdc3c7;
+}
+
+.balloon{
+    border:0px solid red;
+    width: 312px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.balloon_img{
+    border:0px solid green;
+    width: 130px;
+    height: 100px;
+    float: right;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;	
+    overflow: hidden;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 0px;		
+
+}
+
+.balloon_title_container{
+    display: table;
+    border:0px solid green;
+    width: 175px;
+    height: 100px;
+    float: left;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;				
+
+}
+
+.balloon_title{
+    font-family: 'Roboto', sans-serif;
+    overflow: hidden;
+    display: table-cell;
+    vertical-align: bottom;	    
+}
+
+.balloon_subtitle{
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    font-size: 11px;
+    color:#808080;
+    clear: both;
+}
+
+.balloon_text{
+    font-family: 'Roboto', sans-serif;
+    width: 100%;
+    font-size: 13px;
+    border: 0px solid green;
+    margin: 0px;
+    color: #808080;
+    overflow: hidden;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;	
+    clear: both;
+    margin-top: 5px;			
+}		
+
+.balloon_text a:link {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+/* visited link */
+.balloon_text a:visited {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+/* mouse over link */
+.balloon_text a:hover {
+    color: #3498db;
+    text-decoration: none;
+}
+
+/* selected link */
+.balloon_text a:active {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+.balloon_moreInfo{
+    height: 25px;
+    width:100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;	
+    color: white;
+    background-color: #00689A;
+    padding: 3px;	
+    clear: both;
+    font-size: 11px;
+    text-align: center;		
+}
+
+.clear{
+    clear:both;
+}
+
+.favorite{
+    color:#ED5565;
+    font-size: 20px;
+    cursor: pointer;
+    margin: 2px;		
+}
+
+.info{
+    color:#2980b9;
+    font-size: 20px;
+    cursor: pointer;	
+    margin: 2px;		
+}
+
+.info:hover{
+    color: #3498db;
+}
+
+.fav_rating{
+    display: none;
+    width: 95%;
+    border: 0px solid red;
+    margin-top: 2px;
+}

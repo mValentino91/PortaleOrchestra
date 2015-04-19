@@ -421,6 +421,8 @@ var interactiveMap = (function() {
     }
     function attachInfo(object) {
         interactiveMap.map.panTo(object.getPosition());
+        
+        /*
         var rating = 4;
         var contentString =
                 '<div class="container-fluid text-center infowindowContent">'
@@ -450,30 +452,260 @@ var interactiveMap = (function() {
                 + '<br><a id="starred" onclick="interactiveMap.addToFavorite(\''+object.id+'\')">Aggiungi ai preferiti</a>'
                 + '<br><a id="rating" onclick="interactiveMap.saveFavoriteRating(\''+object.id+'\', \''+rating+'\')">Prova Rating</a></div>';
     }
-            interactiveMap.infowindow.setContent(contentString);
+    */
+        var contentString = create_balloon_html(object);
+        interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, object);
+        enable_balloon_actions(object.id);
         object.setAnimation(google.maps.Animation.BOUNCE);
         window.setTimeout(function() {
             object.setAnimation(null);
         }, 1400);
     }
     
-    
-    function buildBaloon(object){
-        return 0;
+
+    function create_balloon_html(object) {
+
+        //create balloon container
+        var balloon = $("<div/>");
+        balloon.addClass("balloon");
+
+        //create balloon title container
+        var balloon_title_container = $("<div/>");
+        balloon_title_container.addClass("balloon_title_container");
+        balloon.append(balloon_title_container);
+
+        //create balloon title
+        var balloon_title = $("<div/>");
+        balloon_title.addClass("balloon_title");
+        balloon_title_container.append(balloon_title);
+        //add title and subtitle values
+        balloon_sub_tit = $("<span/>");
+        balloon_sub_tit.addClass("balloon_subtitle");
+        balloon_sub_tit.append(object.address);
+        balloon_sub_tit.append("<br>");
+        balloon_title.append(balloon_sub_tit);
+        balloon_title.append(object.name);
+
+        //create icons box
+        var balloon_icons = $("<div/>");
+        balloon_icons.addClass("balloon_icons");
+        balloon_title.append(balloon_icons);
+
+        //create and add hearh icon
+        if (ifAuth()) {
+            heart_icon = $("<i/>");
+            heart_icon.addClass("fa fa-heart-o favorite");
+            balloon_icons.append(heart_icon);
+        }
         
+        
+        //create and add info icon
+        if (object.visibility === 1) {
+            info_url = "./getPoi?id="+object.id;
+            var info_link = $("<a/>", {
+                href: info_url
+            }); 
+            info_icon = $("<i/>");
+            info_icon.addClass("fa fa-info-circle info");
+            info_link.append(info_icon);
+            balloon_icons.append(info_link);
+        }
+
+        //create image
+        var balloon_img = $("<div/>");
+        balloon_img.addClass("balloon_img");
+        image = "./dist/poi/img/"+object.id+"/cover.jpg";
+        balloon_img.prop("style", "background-image: url('"+image+"');");
+        balloon.append(balloon_img);
+
+        //div clear
+        var clear = $("<div/>");
+        clear.addClass("clear");
+        balloon.append(clear);
+
+        //div favorite rating
+        if (ifAuth()) {
+            var balloon_fav_rat = $("<div/>");
+            balloon_fav_rat.addClass("fav_rating");
+            balloon.append(balloon_fav_rat);
+
+            //favorite bar rating
+            var balloon_fav_bar = $("<input/>", {
+                id: 'fav_rating_bar',
+                type: 'text',
+                value: '',
+                name: 'range'
+            });
+            balloon_fav_rat.append(balloon_fav_bar);
+
+            //favorite bar label
+            var balloon_fav_lab = $("<span/>");
+            balloon_fav_lab.addClass("balloon_subtitle");
+            balloon_fav_lab.append("...quanto sei interessato?");
+            balloon_fav_rat.append(balloon_fav_lab);
+
+            //div clear
+            var clear = $("<div/>");
+            clear.addClass("clear");
+            balloon.append(clear);
+        }
+
+        //short description
+        var balloon_text = $("<div/>");
+        balloon_text.addClass("balloon_text");
+        balloon.append(balloon_text);
+        //add short description
+        balloon_text.append(object.shortDescription);
+
+        //add more info link
+        if (object.visibility == 1) {
+            info_url = "./getPoi?id="+object.id;
+            var more_info = $("<a/>", {
+                href: info_url
+            });
+            more_info.append("maggiori informazioni");
+            balloon_text.append("... ");
+            balloon_text.append(more_info);
+        }
+
+        balloon_html = balloon.prop('outerHTML');
+        return balloon_html;
     }
+
+    function enable_balloon_actions(idPoi) {
+
+        if (ifAuth()) {
+
+            heart_hover_en($(".favorite"));
+
+            //enable click
+            $(".favorite").click(function () {
+                heart_click(idPoi);
+            });
+
+            //enable rating bar
+            $("#fav_rating_bar").ionRangeSlider({
+                min: 1,
+                max: 5,
+                from: 1,
+                step: 1,
+                hide_min_max: true,
+                hide_from_to: false,
+                grid: false,
+                grid_snap: false,
+                onFinish: function (data) {
+                    interactiveMap.saveFavoriteRating(idPoi, data.from);
+                }
+            });
+
+            //if POI is already into favorites
+            rating = ifFavorite(idPoi);
+            rating = parseInt(rating);
+            if (rating !== 0) {
+                heart_hover_dis($(".favorite"));
+                $(".favorite").removeClass("fa-heart-o");
+                $(".favorite").addClass("fa-heart");
+                $(".fav_rating").slideDown("slow");
+                $("#fav_rating_bar").data("ionRangeSlider").update({
+                    from: rating
+                });
+            }
+        }
+    }
+
+    function heart_hover_en(ele) {
+        ele.on("mouseover",
+                function () {
+                    $(".favorite").addClass("fa-heart");
+                    $(".favorite").removeClass("fa-heart-o");
+                })
+        ele.on("mouseleave",
+                function () {
+                    $(".favorite").addClass("fa-heart-o");
+                    $(".favorite").removeClass("fa-heart");
+                })
+    }
+
+    function heart_hover_dis(ele) {
+        ele.off("mouseover");
+        ele.off("mouseleave");
+    }
+
+    function heart_click(idPoi) {
+        if ($(".fav_rating").is(":hidden")) {
+            heart_hover_dis($(".favorite"));
+            $(".fav_rating").slideDown("slow");
+            $("#fav_rating_bar").data("ionRangeSlider").update({
+                from: 1
+            });
+            interactiveMap.addToFavorite(idPoi);
+        } else {
+            heart_hover_en($(".favorite"));
+            $(".fav_rating").slideUp("slow");
+            removeFromFavorite(idPoi);
+        }
+    }
+
+    function ifFavorite(poiId) {
+        var rating=0;
+        if(ifAuth() === true){
+            //alert("UserId:" + getUserId() + " - PoiId:" + poiId);
+            userId = getUserId();
+            $.ajax({
+                type: "GET",
+                url: "./ifFavorite",
+                data: "id_user="+userId+"&id_poi="+poiId,	
+		async: false,
+                success: function(result, stato){
+                   rating=result;
+                },
+                error: function(richiesta,stato,errori){
+                    alert("Error. State: "+stato);
+                }                 
+            });            
+        }
+        else{
+            //alert("Utente non autenticato");
+        }
+        
+        return rating;
+    }
+
+    
+    function removeFromFavorite(poiId) {
+        if(ifAuth() === true){
+            //alert("UserId:" + getUserId() + " - PoiId:" + poiId);
+            userId = getUserId();
+            $.ajax({
+                type: "GET",
+                url: "./deleteFavorite",
+                data: "id_user="+userId+"&id_poi="+poiId,
+                success: function(){
+                    //alert("OK");
+                },
+                error: function(richiesta,stato,errori){
+                    alert("Error. State: "+stato);
+                }                 
+            });            
+        }
+        else{
+            //alert("Utente non autenticato");
+        }        
+    }    
+    
+    
     
     function addToFavorite(poiId){
         if(ifAuth() === true){
-            alert("UserId:" + getUserId() + " - PoiId:" + poiId);
+            //alert("UserId:" + getUserId() + " - PoiId:" + poiId);
             userId = getUserId();
             $.ajax({
                 type: "GET",
                 url: "./saveFavorite",
                 data: "id_user="+userId+"&id_poi="+poiId,
                 success: function(){
-                    alert("OK");
+                    //alert("OK");
                 },
                 error: function(richiesta,stato,errori){
                     alert("Error. State: "+stato);
@@ -481,20 +713,20 @@ var interactiveMap = (function() {
             });            
         }
         else{
-            alert("Utente non autenticato");
+            //alert("Utente non autenticato");
         }
     }    
     
     function saveFavoriteRating(poiId, rating){
         if(ifAuth() === true){
-            alert("UserId:" + getUserId() + " - PoiId:" + poiId + " - Rating:" + rating);
+            //alert("UserId:" + getUserId() + " - PoiId:" + poiId + " - Rating:" + rating);
             userId = getUserId();
             $.ajax({
                 type: "GET",
                 url: "./saveFavoriteRating",
                 data: "id_user="+userId+"&id_poi="+poiId+"&rating="+rating,
                 success: function(){
-                    alert("OK");
+                    //alert("OK");
                 },
                 error: function(richiesta,stato,errori){
                     alert("Error. State: "+stato);
@@ -502,7 +734,7 @@ var interactiveMap = (function() {
             });            
         }
         else{
-            alert("Utente non autenticato");
+            //alert("Utente non autenticato");
         }
     }          
     
@@ -680,8 +912,7 @@ var interactiveMap = (function() {
         drawCircleAroundPoi: drawCircleAroundPoi,
         showFbPois: showFbPois,
         addToFavorite: addToFavorite,
-        saveFavoriteRating: saveFavoriteRating,
-        buildBaloon: buildBaloon        
+        saveFavoriteRating: saveFavoriteRating
     };
 })();
 

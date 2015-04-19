@@ -58,6 +58,24 @@ public class FavoriteController {
         model.addObject("favorites", favorites);
         
         return model;
-    }        
+    }    
+    
+    @RequestMapping(value = "/ifFavorite", method = RequestMethod.GET)
+    public @ResponseBody
+    String ifFavorite(@RequestParam String id_user, @RequestParam String id_poi) {
+        
+        Integer rating = pm.ifFavorite(Integer.parseInt(id_user), id_poi);
+        
+        return rating.toString();
+    }    
+    
+    @RequestMapping(value = "/deleteFavorite", method = RequestMethod.GET)
+    public @ResponseBody
+    String deleteFavorite(@RequestParam String id_user, @RequestParam String id_poi) {
+        
+        pm.deleteFavorite(Integer.parseInt(id_user), id_poi);
+        
+        return "ok";
+    }      
     
 }

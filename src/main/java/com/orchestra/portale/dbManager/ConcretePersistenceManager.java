@@ -254,14 +254,20 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
     
     @Override
-    public Boolean ifFavorite(int idUser, String idPoi){
-        Favorite favorite = favoriteRepo.findByIdUserOrIdPoi(idUser, idPoi);
+    public Integer ifFavorite(int idUser, String idPoi){
+        Favorite favorite = favoriteRepo.findByIdUserAndIdPoi(idUser, idPoi);
         if(favorite == null){
-            return false;
+            return 0;
         }
         else{
-            return true;
+            return favorite.getRating();
         }
+    }
+    
+    @Override
+    public void deleteFavorite(int idUser, String idPoi){
+        favoriteRepo.deleteFavorite(idUser, idPoi);
+        
     }
     
 }

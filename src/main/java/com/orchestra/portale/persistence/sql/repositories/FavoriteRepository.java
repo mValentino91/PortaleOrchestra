@@ -20,8 +20,14 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     @Query("update Favorite f set f.rating= ?1 where f.idUser = ?2 AND f.idPoi = ?3")
     Integer updateFavoriteRating(Integer rating, Integer id_user, String id_poi);    
     
-    
     Iterable<Favorite> findByIdUser(int idUser);
-    Favorite findByIdUserOrIdPoi(int idUser, String idPoi);
+    
+    Favorite findByIdUserAndIdPoi(int idUser, String idPoi);
+    
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("delete from Favorite f where f.idUser = ?1 AND f.idPoi = ?2")
+    void deleteFavorite(Integer id_user, String id_poi);      
+    
  
 }
