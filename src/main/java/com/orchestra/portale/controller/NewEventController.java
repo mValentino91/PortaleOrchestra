@@ -286,7 +286,7 @@ public class NewEventController {
                  workingtime.setDates(workingdays);
                  listComponent.add(workingtime);
              }
-             
+             /*
              LinkedPoiComponent lpc = new LinkedPoiComponent();
              ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
              i=1;
@@ -307,7 +307,7 @@ public class NewEventController {
              if(params.containsKey("mot1")) {
                  listComponent.add(lpc);
              }
-             
+             */
              i=1;
              if(params.containsKey("type"+i)){
                  

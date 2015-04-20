@@ -23,7 +23,7 @@ public class Home {
     private ArrayList<Tile> tilesList;
     private SubMenu submenu;
     private ArrayList<CarouselPages> imgList;
-    private ArrayList<String> categorySlugList;
+    private String[] categorySlugList;
     private ArrayList<String> idPoiList;
     private ArrayList<TileSlider> tileslider;
 
@@ -136,14 +136,11 @@ public class Home {
     /**
      * @return the categorySlugList
      */
-    public ArrayList<String> getCategorySlugList() {
+    public String[] getCategorySlugList() {    
         return categorySlugList;
     }
 
-    /**
-     * @param categorySlugList the categorySlugList to set
-     */
-    public void setCategorySlugList(ArrayList<String> categorySlugList) {
+    public void setCategorySlugList(String[] categorySlugList) {
         this.categorySlugList = categorySlugList;
     }
 

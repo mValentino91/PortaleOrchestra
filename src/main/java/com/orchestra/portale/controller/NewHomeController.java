@@ -125,8 +125,8 @@ public class NewHomeController {
        cpsl.add(cps);
        home.setImgList(cpsl);
        
-       ArrayList<String> slugs = new ArrayList<String>();
-        slugs.add("museum");
+      String [] slugs= new String [100];
+        slugs[1]="museum";
         home.setCategorySlugList(slugs);
         
         pm.saveHome(home);
