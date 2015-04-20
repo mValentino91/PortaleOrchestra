@@ -1,8 +1,8 @@
 /*Server Variables*/
-var SEND_TOKEN = "http://www.smile.unina.it:8080/orchestra/fbLoginJs"
+var SEND_TOKEN = "http://www.orchestra.unina.it/orchestra/fbLoginJs"
 //var SEND_TOKEN = "http://localhost:8080/orchestra/fbLoginJs"
 
-/*Facebook Login*/	
+/*Facebook Login*/
 function FbLogin()
 {
     FB.login(function(response) {

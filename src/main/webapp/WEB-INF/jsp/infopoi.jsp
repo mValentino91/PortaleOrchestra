@@ -33,10 +33,9 @@
         <title>Orchestra - ${poi.name}</title>   
     </head>
     <body>
-        
+        <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
            
-            <jsp:include page="components/sideBar.jsp"/>
             <c:if test="${not empty coverimg}">
                 <div class="col-xs-12">
                 <jsp:include page="components/CoverComponent.jsp"/>
