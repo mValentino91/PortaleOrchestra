@@ -53,5 +53,6 @@ public interface PersistenceManager {
     public Favorite findFavorite(Integer id);
     public Integer ifFavorite(int idUser, String idPoi);
     public void deleteFavorite(int idUser, String idPoi);
+   
     
 }
