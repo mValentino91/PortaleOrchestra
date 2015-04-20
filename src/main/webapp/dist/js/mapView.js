@@ -650,7 +650,7 @@ var interactiveMap = (function() {
     function ifFavorite(poiId) {
         var rating=0;
         if(ifAuth() === true){
-            alert("UserId:" + getUserId() + " - PoiId:" + poiId);
+            //alert("UserId:" + getUserId() + " - PoiId:" + poiId);
             userId = getUserId();
             $.ajax({
                 type: "GET",
