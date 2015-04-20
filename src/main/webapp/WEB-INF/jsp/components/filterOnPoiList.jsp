@@ -26,8 +26,8 @@ function reload_filterOnPoiList(event){
         <i class="glyphicon glyphicon-map-marker"></i>
     </button>
     <sec:authorize access="hasRole('ROLE_FB')">
-    <button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFbPois()">
+    <!--<button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFbPois()">
         <i class="fa fa-facebook-f"></i>
-    </button>
+    </button> -->
     </sec:authorize>
 </div>

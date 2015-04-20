@@ -12,7 +12,7 @@
 
     <body>
         <center>
-            <jsp:include page="components/sideBar.jsp"/>
+            <jsp:include page="components/topBar.jsp"/>
             <article class="component component-text"  style="max-width: 450px; margin-top: 100px;">
                 <div class="big-header contact">
                     <span class="caps">gestione poi</span>

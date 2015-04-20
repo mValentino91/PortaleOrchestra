@@ -499,9 +499,9 @@ var interactiveMap = (function() {
             balloon_icons.append(heart_icon);
         }
         
-        
+       
         //create and add info icon
-        if (object.visibility === 1) {
+        if (object.visibility == 1) {
             info_url = "./getPoi?id="+object.id;
             var info_link = $("<a/>", {
                 href: info_url
@@ -516,7 +516,7 @@ var interactiveMap = (function() {
         var balloon_img = $("<div/>");
         balloon_img.addClass("balloon_img");
         image = "./dist/poi/img/"+object.id+"/cover.jpg";
-        balloon_img.prop("style", "background-image: url('"+image+"');");
+        balloon_img.attr("style", "background-image: url('"+image+"');");
         balloon.append(balloon_img);
 
         //div clear

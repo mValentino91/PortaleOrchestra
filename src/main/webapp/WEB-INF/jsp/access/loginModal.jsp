@@ -21,7 +21,7 @@
     	<div class="modal-content">
       		<div class="modal-header login_modal_header">
         		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        		<h2 class="modal-title" id="myModalLabel">Login to Your Account</h2>
+        		<h2 class="modal-title" id="myModalLabel">Effettua il Login</h2>
       		</div>
       		<div class="modal-body login-modal">
                     <iframe src="loginForm" height="300px" width="100%" scrolling="no" frameBorder="0" style="overflow: hidden"></iframe>               
@@ -29,9 +29,9 @@
       		<div class="clearfix"></div>
       		<div class="modal-footer login_modal_footer">
                     <div style="font-size:85%" >
-                        Don't have an account? 
+                        Non hai un account?
                         <a href="userSignIn">
-                            Sign Up Here!
+                            Registrati!
                         </a>
                     </div>
       		</div>

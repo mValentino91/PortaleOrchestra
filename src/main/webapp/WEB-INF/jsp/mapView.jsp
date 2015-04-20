@@ -35,7 +35,7 @@
     </head>
     <body onload="$('#loadingImg').hide();">
         <img id="loadingImg" src="./dist/img/loading.gif"/>
-        <jsp:include page="components/sideBar.jsp"/>
+        <jsp:include page="components/topBar.jsp"/>
         <jsp:include page="components/interactiveMapComponent.jsp"/>
         <jsp:include page="access/loginModal.jsp" />
         

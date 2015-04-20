@@ -77,9 +77,9 @@
 <body>
     
            
-           
+         <jsp:include page="components/topBar.jsp"/>      
 <div class="container-fixed" style="padding-top: 60px;">
-     <jsp:include page="components/sideBar.jsp"/>
+ 
   <h1 class="page-header">Edit Your Profile - ${user.username}</h1>
   <form:form class="form-horizontal" enctype="multipart/form-data"  action="userEditProfile" method="POST">
   <div class="row">

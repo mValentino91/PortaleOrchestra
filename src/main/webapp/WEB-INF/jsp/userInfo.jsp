@@ -100,10 +100,10 @@
         });
     </script>  
     <body>
-        <jsp:include page="components/sideBar.jsp"/>
+        <jsp:include page="components/topBar.jsp"/>
 
         <div class="container-fixed" style="padding-top: 60px;">
-            <h1 class="page-header">Your Profile  <a href="userEditProfile"><i class="fa fa-pencil-square-o edit_profile_icon"></i></a></h1>
+            <h1 class="page-header">Il tuo profilo  <a href="userEditProfile"><i class="fa fa-pencil-square-o edit_profile_icon"></i></a></h1>
 
             <div class="row">
                 <!-- left column -->
@@ -114,18 +114,18 @@
                 </div>
                 <!-- edit form column -->
                 <div class="col-md-8 col-sm-6 col-xs-12 personal-info drop_down_container">
-                    <h3>Personal Info <i class="fa fa-caret-down drop_down_icon"></i></h3>
+                    <h3>Informazioni Personali <i class="fa fa-caret-down drop_down_icon"></i></h3>
                     <div class="info_container drop_down_content">
                         <div class="row">
-                            <div class="col-md-12"><strong>Name:</strong></div>
+                            <div class="col-md-12"><strong>Nome</strong></div>
                             <div class="col-md-12">${user.firstName}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"><strong>Lastname</strong></div>
+                            <div class="col-md-12"><strong>Cognome</strong></div>
                             <div class="col-md-12">${user.lastName}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"><strong>Username</strong></div>
+                            <div class="col-md-12"><strong>Email</strong></div>
                             <div class="col-md-12">${user.username}</div>
                         </div>
                     </div>		

@@ -28,11 +28,11 @@
         </head>
 
         <body>
-
+            <jsp:include page="components/topBar.jsp"/>
             <div class="container-fixed">
-                <jsp:include page="components/sideBar.jsp"/>
 
-                <div class="row" style="margin-top: 60px !important;">
+
+                <div class="row" >
                     <div class="col-md-6 col-orc">
                         <div class="box-orc">
 
@@ -204,5 +204,5 @@
 
             </div>
         </body>
-         <jsp:include page="access/loginModal.jsp" />
+        <jsp:include page="access/loginModal.jsp" />
     </html>

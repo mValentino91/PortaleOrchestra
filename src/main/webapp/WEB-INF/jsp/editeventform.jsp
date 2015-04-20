@@ -495,7 +495,7 @@
                                     <c:if test="${not empty eventsdate}">
                                         <h3>Date presenti</h3>
                                         <c:forEach var="Wdays" items="${eventsdate.dates}" varStatus="tot">
-                                            <div id="D${tot.count}" class="giornilav">
+                                            <div id="D${tot.count}" class="dates">
                                                 <h4>DATE</h4>
                                                 Date*
                                                 <div class="row">

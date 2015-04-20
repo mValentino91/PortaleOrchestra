@@ -20,9 +20,10 @@ function reload_access_area(event){
 </script>
 
 <sec:authorize access="isAnonymous()">
-    <li class="dropdown">
+  
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img id="userImg" src="./dist/img/default_avatar.png" class="profile-image img-circle">
+          <img id="userImg" src="./dist/img/default_avatar.png" class="profile-image img-circle">
+           
         </a>
         <ul class="dropdown-menu">
             <li>        
@@ -33,7 +34,7 @@ function reload_access_area(event){
             <li class="divider"></li>
             <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>
         </ul>
-    </li>
+    
     <script type="text/javascript">
         function ifAuth()
         {
@@ -42,18 +43,18 @@ function reload_access_area(event){
     </script>    
 </sec:authorize>    
 <sec:authorize access="isAuthenticated()">
-    <li class="dropdown">
+    
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img id="userImg" src="${avatar}" class="profile-image img-circle">
         </a>
         <ul class="dropdown-menu">
-            <li><a href="./userInfo"><i class="fa fa-cog"></i> Your Profile</a></li>
+            <li><a href="./userInfo"><i class="fa fa-cog"></i> Il tuo profilo</a></li>
             <li class="divider"></li>
             <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>            
             <li class="divider"></li>
             <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
-    </li>
+ 
     <script type="text/javascript">
         function getUserId()
         {

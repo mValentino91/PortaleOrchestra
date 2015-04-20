@@ -77,10 +77,10 @@
 <body>
     
            
-           
+          <jsp:include page="components/topBar.jsp"/>   
 <div class="container-fixed" style="padding-top: 60px;">
-     <jsp:include page="components/sideBar.jsp"/>
-  <h1 class="page-header">Sign In</h1>
+   
+  <h1 class="page-header">Registrazione utente</h1>
   <form:form class="form-horizontal" enctype="multipart/form-data"  action="userSignIn" method="POST">
   <div class="row">
     <!-- left column -->
@@ -88,42 +88,42 @@
       <div class="text-center">
           
         <img src="./dist/img/default_avatar.png" id="imgdiv" style="width: 200px; height: 200px;" class="avatar img-circle img-thumbnail img-responsive" alt="avatar">
-        <h6>Upload your avatar</h6>
+        <h6>Inserisci il tuo avatar</h6>
         <input type="file" name="avatar" onchange="readURL(this)" id="tastoavatar" class="text-center center-block well well-sm" required>
       </div>
     </div>
     <!-- edit form column -->
     <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
 
-      <h3>Personal info</h3>
+      <h3>Informazioni personali</h3>
       
         <div class="form-group">
-          <label class="col-lg-3 control-label">First name:</label>
+          <label class="col-lg-3 control-label">Nome</label>
           <div class="col-lg-8">
             <form:input class="form-control" path="firstName" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Last name:</label>
+          <label class="col-lg-3 control-label">Cognome</label>
           <div class="col-lg-8">
             <form:input class="form-control" path="lastName" type="text" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Email:</label>
+          <label class="col-lg-3 control-label">Email</label>
           <div class="col-lg-8">
             <form:input class="form-control" id="em" path="username" type="text" onfocus="removeAttributes(this)" onblur="validateEmail(this.value)" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Password:</label>
+          <label class="col-md-3 control-label">Password</label>
           <div class="col-md-8">
             <form:input class="form-control" id='p' path="password" onblur="checkPassLen()" onfocus="removeAttributes(this)" type="password" required='required' />
             
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Confirm password:</label>
+          <label class="col-md-3 control-label">Confirm password</label>
           <div class="col-md-8">
             <input class="form-control" id="confermap" onfocus="removeAttributes(this)" onblur="checkpassword()" type="password" required>
             
@@ -132,7 +132,7 @@
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input class="btn btn-primary" value="Submit" type="submit">
+            <input class="btn btn-primary" value="Registrami" type="submit">
           </div>
         </div>
       </form:form>

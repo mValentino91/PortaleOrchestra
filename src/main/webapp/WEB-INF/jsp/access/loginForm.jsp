@@ -75,18 +75,18 @@
 
                                <div style="margin-bottom: 25px" class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                       <input id="j_username" name="j_username" type="text" class="form-control" value="" placeholder="username">                                        
+                                       <input id="j_username" name="j_username" type="text" class="form-control" value="" placeholder="Email">                                        
                                </div>
 
                                <div style="margin-bottom: 25px" class="input-group">
                                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                                       <input id="j_password" name="j_password" type="password" class="form-control" placeholder="password">
+                                       <input id="j_password" name="j_password" type="password" class="form-control" placeholder="Password">
                                </div>
 
                                <div class="input-group">
                                  <div class="checkbox">
                                        <label>
-                                         <input id="login-remember" name='_spring_security_remember_me' type="checkbox" value="1"> Remember me
+                                         <input id="login-remember" name='_spring_security_remember_me' type="checkbox" value="1"> Ricordami
                                        </label>
                                  </div>
                                </div>
@@ -96,7 +96,7 @@
                                     <!-- Button -->
                                     <div class="col-sm-12 controls">
                                       <a id="btn-login" href="#" class="btn btn-success">Login  </a>
-                                      <a id="btn-fblogin" href="#" class="btn btn-primary" onclick='fb_login()'>Login with Facebook</a>
+                                      <a id="btn-fblogin" href="#" class="btn btn-primary" onclick='fb_login()'>Login con Facebook</a>
 
                                     </div>
                                </div>
