@@ -1,4 +1,4 @@
-* {
+co* {
   box-sizing: border-box;
 }
 body {
@@ -170,6 +170,18 @@ body{
   -o-background-size: cover!important;
   background-size: cover!important;  
 }
+
+.cover_favorite_img{
+    margin-bottom: 20px;	
+    height: 200px;                    
+    background-repeat: no-repeat!important;
+    background-position: center center!important;  
+    -webkit-background-size: cover!important;
+    -moz-background-size: cover!important;
+    -o-background-size: cover!important;
+    background-size: cover!important;   
+}
+
 
 .padding_dx{
   padding-right: 10px!important;	

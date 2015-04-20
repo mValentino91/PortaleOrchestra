@@ -6,9 +6,14 @@
 package com.orchestra.portale.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.utils.MapPoiCat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +53,7 @@ public class FavoriteController {
         return "ok";
     }        
 
-
+    /*
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
     public ModelAndView favorites(@RequestParam String id_user) {
         
@@ -58,24 +63,33 @@ public class FavoriteController {
         model.addObject("favorites", favorites);
         
         return model;
-    }    
-    
-    @RequestMapping(value = "/ifFavorite", method = RequestMethod.GET)
-    public @ResponseBody
-    String ifFavorite(@RequestParam String id_user, @RequestParam String id_poi) {
+    }     
+    */
+    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
+    public ModelAndView favorites(@RequestParam String idUser) {
         
-        Integer rating = pm.ifFavorite(Integer.parseInt(id_user), id_poi);
+        Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(idUser));
+        ArrayList<String> idlist = new ArrayList<String>();        
+        Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
+        ModelAndView model = new ModelAndView("favorites");
         
-        return rating.toString();
-    }    
-    
-    @RequestMapping(value = "/deleteFavorite", method = RequestMethod.GET)
-    public @ResponseBody
-    String deleteFavorite(@RequestParam String id_user, @RequestParam String id_poi) {
+        MapPoiCat map_cat = new MapPoiCat();
         
-        pm.deleteFavorite(Integer.parseInt(id_user), id_poi);
         
-        return "ok";
-    }      
+        for (Favorite f : favorites ) {
+            idlist.add(f.getIdPoi());
+        }
+        poilist = pm.getCompletePoisById(idlist);
+        
+        map_cat.setPoi(poilist);
+        map_cat.setMain_category("coat");
+        
+        
+   
+        
+        model.addObject("map_cat", map_cat);
+        
+        return model;
+    }        
     
 }
