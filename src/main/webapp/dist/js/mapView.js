@@ -756,6 +756,7 @@ var interactiveMap = (function() {
                 interactiveMap.markers[i].address = poi[i].address;
                 interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
                 interactiveMap.markers[i].category = poi[i].categories[0];
+                interactiveMap.markers[i].visibility = poi[i].visibility;
                 google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
                     interactiveMap.attachInfo(this);
                 });
