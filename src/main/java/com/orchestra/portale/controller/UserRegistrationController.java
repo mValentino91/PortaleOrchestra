@@ -36,7 +36,7 @@ public class UserRegistrationController {
    @RequestMapping(value = "/userSignIn", method = RequestMethod.POST)
    public ModelAndView addUser(@ModelAttribute("SpringWeb")User user, 
     MultipartFile avatar) {
-       ModelAndView model2 = new ModelAndView("errorViewPoi");
+       ModelAndView model2 = new ModelAndView("okpage");
         User usertest=pm.findUserByUsername(user.getUsername());
         if(usertest!= null && usertest.getUsername().toLowerCase().equals(user.getUsername().toLowerCase())){
             model2.addObject("err", "Esiste già un utente con username: "+user.getUsername());
@@ -75,7 +75,7 @@ public class UserRegistrationController {
                 } catch (Exception e) {
                 
             }
-            model2.addObject("err", "funziona");
+            model2.addObject("mess", "Registrazione completata con successo!<br><br><center> <a href='page?sec=home' class='btn btn-primary'>Torna alla Home</a></center> ");
       return model2;
    }
 }

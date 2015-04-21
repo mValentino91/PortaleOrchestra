@@ -16,7 +16,7 @@
     <body>
     <center>
         <h1>POI AGGIORNATO CORRETTAMENTE!</h1>
-        <h2><a href="../admin" class="btn btn-primary" style="margin-top: 20px;">Torna a Gestione POI</a></h2>
+        <h2><a href="../admin" class="btn btn-primary" style="margin-top: 20px;">Torna a Gestione Orchestra</a></h2>
             </center>
     </body>
 </html>

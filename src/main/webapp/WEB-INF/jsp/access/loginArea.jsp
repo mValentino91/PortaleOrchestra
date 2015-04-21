@@ -52,6 +52,10 @@ function reload_access_area(event){
             <li class="divider"></li>
             <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>            
             <li class="divider"></li>
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li><a href="./admin"><i class="fa fa-cog"></i> Admin</a></li>
+            <li class="divider"></li>
+            </sec:authorize>
             <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
  

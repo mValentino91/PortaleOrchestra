@@ -8,27 +8,32 @@
         <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
         <script src="./dist/js/jquery.js"></script>
+        <script src="./dist/js/bootstrap.js"></script>
         <title>Orchestra - Amministrazione </title>
     </head>
 
     <body>
+
+        <jsp:include page="components/topBar.jsp"/>
         <center>
-            <jsp:include page="components/topBar.jsp"/>
-            <article class="component component-text"  style="max-width: 450px; margin-top: 50px;">
-                <div class="big-header contact">
-                    <span class="caps">gestione poi</span>
-                </div> 
+            <sec:authorize access="hasAnyRole('ROLE_SUPERADMIN','MANAGE_POI')">
+                <article class="component component-text"  style="max-width: 450px; margin-top: 50px;">
+                    <div class="big-header contact">
+                        <span class="caps">gestione poi</span>
+                    </div> 
 
-                <div class="details" style="text-align: center;">
+                    <div class="details" style="text-align: center;">
 
-                    <a class="btn btn-primary" style="width: 200px; margin-bottom: 5px;" href="Map?category=all"><h2>Visualizza Mappa</h2></a>
-                    <a class="btn btn-success" style="width: 200px; margin-bottom:5px;" href="admin/newpoi"><h2>Aggiungi un poi</h2></a>
-                    <a class="btn btn-warning" style="width: 200px; margin-right:0" href="admin/editpoi"><h2>Modifica un poi</h2></a>
-                    <a class="btn btn-danger" style="width: 200px; margin-right: 0" href="admin/deletepoi"><h2>Elimina un poi</h2></a>
+                        <a class="btn btn-primary" style="width: 200px; margin-bottom: 5px;" href="Map?category=all"><h2>Visualizza Mappa</h2></a>
+                        <a class="btn btn-success" style="width: 200px; margin-bottom:5px;" href="admin/newpoi"><h2>Aggiungi un poi</h2></a>
+                        <a class="btn btn-warning" style="width: 200px; margin-right:0" href="admin/editpoi"><h2>Modifica un poi</h2></a>
+                        <a class="btn btn-danger" style="width: 200px; margin-right: 0" href="admin/deletepoi"><h2>Elimina un poi</h2></a>
 
-                </div>
+                    </div>
 
-            </article>
+                </article>
+            </sec:authorize>
+              <sec:authorize access="hasAnyRole('ROLE_SUPERADMIN','MANAGE_EVENT')">
             <article class="component component-text"  style="max-width: 450px; margin-top: 30px;">
                 <div class="big-header contact">
                     <span class="caps">gestione eventi</span>
@@ -42,6 +47,8 @@
                 </div>
 
             </article>
+              </sec:authorize>
+             <sec:authorize access="hasAnyRole('ROLE_SUPERADMIN','MANAGE_DEEP_PAGE')">
             <article class="component component-text"  style="max-width: 450px; margin-top: 30px;">
                 <div class="big-header contact">
                     <span class="caps">gestione pagine d'approfondimento</span>
@@ -56,5 +63,6 @@
                 </div>
         </center>
     </article>
+             </sec:authorize>
 </body>
 </html>

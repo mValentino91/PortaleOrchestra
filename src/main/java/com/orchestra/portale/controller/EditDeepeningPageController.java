@@ -135,7 +135,8 @@ public class EditDeepeningPageController {
                 coverimg=(CoverImgComponent) comp;
             }
          }
-         ModelAndView model = new ModelAndView("editedpoi");
+         ModelAndView model = new ModelAndView("okpageadmin");
+         model.addObject("mess", "PAGINA MODIFICATA CORRETTAMENTE!");
         
         poi.setId(params.get("id"));
         

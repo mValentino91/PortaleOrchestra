@@ -44,7 +44,7 @@
             <h2><b>I Campi contrassegnati dall'asterisco sono obbligatori!</b></h2>
         </div>
         <div class="container-fixed">
-            <form class="inserimento" action="updatepoi" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
+            <form class="inserimento" action="updatedpage" method="POST" enctype="multipart/form-data" accept-charset="UTF-8">
                 <input name="id" type="hidden" value="${id}">
                 <div class="row">
                     <article class="col-md-12 component component-text">
