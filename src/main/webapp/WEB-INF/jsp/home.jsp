@@ -29,7 +29,7 @@
 
         <body>
             <jsp:include page="components/topBar.jsp"/>
-            <div class="container-fixed">
+            <div class="container-fixed ">
 
 
                 <div class="row" >
