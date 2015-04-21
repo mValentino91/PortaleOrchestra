@@ -51,6 +51,7 @@ h5{
     text-align: center;
     padding:10px;
     line-height: 145px;
+    word-wrap: break-word;
 }
 
 .tile img{

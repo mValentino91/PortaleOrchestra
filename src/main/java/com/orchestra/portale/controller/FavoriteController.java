@@ -6,9 +6,14 @@
 package com.orchestra.portale.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.utils.MapPoiCat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,15 +55,52 @@ public class FavoriteController {
 
 
     @RequestMapping(value = "/favorites", method = RequestMethod.GET)
-    public ModelAndView favorites(@RequestParam String id_user) {
+    public ModelAndView favorites(@RequestParam String idUser) {
         
-        Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(id_user));
-                
+        Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(idUser));
+        ArrayList<String> idlist = new ArrayList<String>();        
+        Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
+        Map<String,List<CompletePOI>> m = new HashMap<String,List<CompletePOI>>();
         ModelAndView model = new ModelAndView("favorites");
-        model.addObject("favorites", favorites);
+        
+        MapPoiCat map_cat = new MapPoiCat(m);
+        
+        
+        for (Favorite f : favorites ) {
+            idlist.add(f.getIdPoi());
+        }
+        poilist = pm.getCompletePoisById(idlist);
+        
+        List<String> main_category = new ArrayList<String>();
+        main_category.add("culture");
+        main_category.add("accomodation");
+        main_category.add("food");
+        main_category.add("craft");
+        main_category.add("mobility");
+        main_category.add("event");
+        main_category.add("cultural_association");
+        main_category.add("expo");
+        
+       
+        
+        
+        /*Occorre definire un array di categorie stock ed estrapolare le main category dai poi*/
+        for(CompletePOI cp : poilist){
+            List<String>poi_category = cp.getCategories();
+            String cat_map = MapPoiCat.checkCategory(main_category,poi_category);
+            
+            System.out.println("entrato");
+            map_cat.insertPoi(cat_map, cp);
+        }
+        
+        
+        
+   
+        
+        model.addObject("map_cat", map_cat);
         
         return model;
-    }    
+    }            
     
     @RequestMapping(value = "/ifFavorite", method = RequestMethod.GET)
     public @ResponseBody

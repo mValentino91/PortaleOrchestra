@@ -12,36 +12,29 @@
 
 <article class="component component-text">
     <div class="details">
-        <h2>Elenco dei preferiti</h2>
+
+        <h1>Elenco dei preferiti</h1>
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
             <div>
-                <strong>${map_cat.main_category}</strong>
-            </div>
-            <div style="margin-top: 10px;">
-                <c:forEach var="poi" items="${map_cat.poi}">
-                    ${poi.name}<br>
+                <c:forEach var="cat" items="${map_cat.map.keySet()}">
+                    <div class="main_cat">
+                        <h3>${cat}</h3>
+                        <div class="poi">
+                            <c:forEach var="p" items="${map_cat.map.get(cat)}">
+                                <p>${p.id}</p>
+                                <p>${p.name}</p>
+                                <div class="clear"></div>
+                                <div class="fav_rating" data-rating="${map_cat.ratings.get(p.id)}">
+                                        <input type="text" class="range" value="" name="range" style="border: 1px solid green"/>
+                                        <span class="baloon_subtitle">...quanto sei interessato?</span>
+                                </div>	
+                            </c:forEach>    
+                        </div>
+                    </div>
+                    <hr>    
                 </c:forEach>
             </div>
-            
-            <hr>
-            <div>
-                <strong>Categoria 2</strong>
-            </div>
-            
-            <div style="margin-top: 10px;">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-                Phasellus tempus purus dolor, nec consectetur justo feugiat at. 
-                Vestibulum ac ante vitae arcu consectetur iaculis efficitur non libero. 
-                Proin ante mi, mollis vel ligula ac, tempus vehicula magna. 
-                Donec dapibus, urna eget rutrum sollicitudin, ante nisl malesuada orci, ac dictum elit lacus eu lectus. 
-                Aenean feugiat pulvinar nibh, eget euismod lectus ultrices quis. 
-                Duis lacus dui, pellentesque in ante lobortis, porta tempor nibh. 
-                Maecenas elementum facilisis justo, in rutrum leo mattis ut. 
-                Suspendisse luctus ipsum eu ultrices volutpat.<br>
-            </div>
-            <hr>
-            
         </div>
     </div>
 </article>

@@ -29,6 +29,9 @@
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
+        <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
+        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
 
         <title>I tuoi preferiti</title>   
     </head>
@@ -37,15 +40,15 @@
         <div class="container-fixed">
 
             <jsp:include page="components/sideBar.jsp"/>
-            
+
             <div class="col-xs-12">
                 <jsp:include page="components/CoverComponentFavorites.jsp"/>
             </div>
-            
+
             <div class="col-xs-12 col-sm-8 col-md-8 padding_dx">
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
                 <jsp:include page="components/FavoriteListComponent.jsp"/> 
-                
+
             </div>
 
 
@@ -66,6 +69,50 @@
 
 
         <jsp:include page="access/loginModal.jsp" />
+        <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
+
+        <script>           
+            function enableRatingBar(){
+
+                $(".range").ionRangeSlider({
+                    min: 1,
+                    max: 5,
+                    from: 1,
+                    step: 1,
+                    hide_min_max: true,
+                    hide_from_to: false,
+                    grid: false,
+                    grid_snap: false,
+                    onFinish: function (data) {
+                        console.log("selected value: " + data.from);
+                    }
+                });
+
+            }
+        </script>        
+        
+        
+        <script>
+            $( document ).ready(function() {
+                enableRatingBar() ;  
+               
+                
+                $(".fav_rating").each(function(index) {
+                    rating = $(this).data('rating');
+                    $(this).find(".range").data("ionRangeSlider").update({
+                        from: rating
+                    });
+                });
+                
+            });
+            
+        </script>
+        
+        
+
+        
+      
+        
     </body>
 </html>
 
