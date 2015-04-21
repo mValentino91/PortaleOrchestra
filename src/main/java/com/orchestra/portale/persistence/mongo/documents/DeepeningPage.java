@@ -15,10 +15,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
  */
 @Document(collection = "app_page")
 public class DeepeningPage {
-     @Id
+
+    @Id
     private String id;
     private String name;
-    private String shortDescription;
     private List<AbstractPoiComponent> components;
     private List<String> categories;
 
@@ -51,20 +51,6 @@ public class DeepeningPage {
     }
 
     /**
-     * @return the shortDescription
-     */
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    /**
-     * @param shortDescription the shortDescription to set
-     */
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    /**
      * @return the components
      */
     public List<AbstractPoiComponent> getComponents() {
@@ -91,5 +77,5 @@ public class DeepeningPage {
     public void setCategories(List<String> categories) {
         this.categories = categories;
     }
-    
+
 }

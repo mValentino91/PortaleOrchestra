@@ -10,6 +10,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.GeoResult;
@@ -47,6 +48,23 @@ public class SearchController {
         JsonArray array = new JsonArray();
         Iterable<CompletePOI> results = pm.findCompletePoi(query, "", "");
         for (CompletePOI c : results) {
+            JsonObject json = new JsonObject();
+            json.addProperty("value", c.getName());
+            json.addProperty("data", c.getId());
+            array.add(json);
+        }
+        j.add("suggestions", array);
+        return pois.toJson(j);
+    }
+    
+    @RequestMapping(value = "/Autocompletedpage")
+    public @ResponseBody
+    String autocompletedpage(@RequestParam String query) {
+        Gson pois = new Gson();
+        JsonObject j= new JsonObject();
+        JsonArray array = new JsonArray();
+        Iterable<DeepeningPage> results = pm.findDeepeningPagesByName(query);
+        for (DeepeningPage c : results) {
             JsonObject json = new JsonObject();
             json.addProperty("value", c.getName());
             json.addProperty("data", c.getId());

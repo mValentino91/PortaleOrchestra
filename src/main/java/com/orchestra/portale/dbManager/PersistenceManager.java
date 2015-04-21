@@ -45,8 +45,10 @@ public interface PersistenceManager {
     public Pages findPageBySlug(String slug);
     public void saveHome(Home home);
     public void saveDeepeningPage(DeepeningPage dp);
+    public Iterable<DeepeningPage> findAllDeepeningPages();
     public DeepeningPage findDeepeningPage(String id);
     public DeepeningPage findDeepeningPageByName(String name);
+    public Iterable<DeepeningPage> findDeepeningPagesByName(String name);
     public void saveFavorite(Favorite favorite);
     public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi);
     public Iterable<Favorite> findFavoritesByIdUser(Integer idUser);

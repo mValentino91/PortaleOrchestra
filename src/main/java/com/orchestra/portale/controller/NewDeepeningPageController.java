@@ -50,7 +50,7 @@ public class NewDeepeningPageController {
         ModelAndView model= new ModelAndView("okpage");
         DeepeningPage dp=new DeepeningPage();
         dp.setName(params.get("name"));
-         dp.setShortDescription(params.get("shortd"));
+        
         int i=1;
         ArrayList<String> categories=new ArrayList<String>();
         while(params.containsKey("category"+i)){
@@ -128,7 +128,7 @@ public class NewDeepeningPageController {
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
                 
-                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
+                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"dpage"+File.separator+"img"+File.separator+poi2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  
@@ -150,7 +150,7 @@ public class NewDeepeningPageController {
                 // Creating the directory to store file
                 String rootPath = System.getProperty("catalina.home");
                 
-                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
+                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"dpage"+File.separator+"img"+File.separator+poi2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  

@@ -269,6 +269,15 @@ public class ConcretePersistenceManager implements PersistenceManager {
         favoriteRepo.deleteFavorite(idUser, idPoi);
         
     }
+    @Override
+    public Iterable<DeepeningPage>findDeepeningPagesByName(String name) {
+
+        return mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),DeepeningPage.class);
+    }
+    @Override
+    public Iterable<DeepeningPage> findAllDeepeningPages() {
+        return deepRepo.findAll();
+    }
     
 }
     

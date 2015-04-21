@@ -32,7 +32,7 @@
         
         <title>Orchestra - ${poi.name}</title>   
     </head>
-    <body>
+    <body <c:if test="${not empty imggallery}"> onload="adjustimgHeights()"</c:if> >
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
            

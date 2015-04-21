@@ -47,7 +47,7 @@
 <!-- Add Scrollator -->
 
   <script>
-   $(document).load(function() {
+   $(document).ready(function() {
        
      $(".fancybox").attr('rel', 'gallery');
     $(".fancybox").fancybox({
@@ -57,7 +57,7 @@
     });
      
     $(".nano").nanoScroller();
-    adjustimgHeights();
+    
     });
      
       function adjustimgHeights() {

@@ -52,7 +52,7 @@
                         <center>
                         <div class="col-md-12">Nome* <input name="name" class="form-control obb" type="text"> </div>
                         </center><br>
-                        <div class="col-md-12">Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="shortd"  id="short" class="form-control shortd" rows="4" cols="50" maxlength="150"></textarea></div><br><br>
+                       
                         </div>
                         <div class="row">
                         <div id="categoria" class="col-md-6">
@@ -100,7 +100,7 @@
                 </div>
                 <div class="row">
                 <center>
-                    <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA POI" onclick="pre_submit()">
+                    <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA PAGINA" onclick="pre_submit()">
                 </center>
                 </div>
             </form>

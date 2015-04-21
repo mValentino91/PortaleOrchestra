@@ -9,6 +9,7 @@ import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,4 +60,11 @@ public class GetDeepeningPageController {
     return model;
     
 }
+    @RequestMapping("/admin/viewallDP")
+    public ModelAndView viewAll() {
+         ArrayList<DeepeningPage> list = (ArrayList<DeepeningPage>) pm.findAllDeepeningPages();
+         ModelAndView model =  new ModelAndView("viewdps");
+         model.addObject("list", list);
+        return model;
+    }
 }
