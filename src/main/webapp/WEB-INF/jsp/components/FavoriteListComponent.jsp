@@ -13,22 +13,95 @@
 <article class="component component-text">
     <div class="details">
 
-        <h1>Elenco dei preferiti</h1>
+        <h2>Elenco dei preferiti</h2>
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
-            <div>
+            <div class="favorite-container">
                 <c:forEach var="cat" items="${map_cat.map.keySet()}">
-                    <div class="main_cat">
-                        <h3>${cat}</h3>
+                    <div class="category-container">
+                        <h3>${map_slug.get(cat)}${cat}</h3>
+                        
                         <div class="poi">
                             <c:forEach var="p" items="${map_cat.map.get(cat)}">
-                                <p>${p.name}</p>
-                                <div class="clear"></div>
-                                <div class="fav_rating" data-rating="${map_cat.getRate(p.id)}">
-                                        <input type="text" class="range" value="" name="range" style="border: 1px solid green"/>
-                                        <span class="baloon_subtitle">...quanto sei interessato?</span>
-                                </div>	
-                            </c:forEach>    
+                                <div class="row" style="height:120px; margin-top: 10px; margin-bottom: 10px;">
+                                    
+                                    <div class="col-md-4" style="height:inherit; border: 1px solid;">foto</div>
+                                    <div class="col-md-8" style="height:inherit; border: 1px solid;">
+                                        <div class="col-md-1 col-md-offset-11" style="margin-left: 355px; cursor:pointer">X</div>
+                                        <div class="text">
+                                            ${p.name}
+                                        </div>
+                                        <div class="text">
+                                            ${p.address}
+                                        </div>
+                                        <div class="fav_rating" data-rating="${map_cat.getRate(p.id)}">
+                                            <input type="text" class="range" value="" name="range" style="border: 1px solid green"/>
+                                            <span class="baloon_subtitle">...quanto sei interessato?</span>
+                                        </div>	
+
+                                    </div>
+
+                                    <!--
+                                    <div class="col-md-12 col-orc box-orc-half" style="background-color:#F69B7C;">
+                                            <div class="col-md-4 col-orc">
+                                                    <div class="box-orc">
+                                                            <div class="tile" style="background-color:#fff;">
+                                                                    ddd
+                                                            </div>
+                                                    </div>
+                                            </div>	
+                                        
+                                            <div class="col-md-8 col-orc">
+                                                    <div class="box-orc" style="background-color:#fff;">fff</div>
+                                            </div>
+                                        
+                                        
+                                    </div>
+                                    -->
+                                </div>
+                                <!--
+                                <div class="col-md-12 col-orc box-orc-half">
+                                        <div class="col-md-4 col-orc">
+                                                <div class="box-orc">
+                                                                <div class="tile" style="background-color:#9FA8DA;"><img src="img/calendar2.png"></div>
+                                                        </div>
+                                        </div>
+
+                                        <div class="col-md-8 col-orc">
+                                                <div class="box-orc">
+                                                        <div class="box-elem" style="background-color:#fff">
+                                                                <p class="paragrafo" style="padding:5px;">
+                                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis risus consectetur convallis fermentum. 
+                                                    Nam sodales volutpat pharetra. Sed vulputate, quam et fermentum porta, libero enim ultrices mi, quis dignissim purus elit ut nisi. 
+                                                    
+                                                        </p>
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </div>
+                                -->
+
+
+
+                                <!--
+                                <div  class="col-md-12 col-orc box-orc-half">
+                                    <div style="border:0px solid; background-color:blue;" class="col-md-4 col-orc">
+                                        <div style="border:1px solid;"class="box-orc">
+                                            <div style="border:1px solid;">img poi</div>
+                                        </div>
+                                    </div>
+                               
+
+                                    <div style="border:0px solid;" class="col-md-8 col-orc">
+                                        <div style="border:0px solid; background-color:blue;" class="box-orc">
+                                            <p class="paragrafo" style="background-color:#fff; padding:5px;">dddhhhhh</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                -->
+                            </c:forEach>
+
+ 
                         </div>
                     </div>
                     <hr>    

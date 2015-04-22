@@ -34,6 +34,22 @@
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
 
         <title>I tuoi preferiti</title>   
+        
+        <style>
+            .text{
+                font-family: "Roboto",sans-serif;
+                width: 100%;
+                font-size: 13px;
+                border: 0px solid #008000;
+                margin: 5px 0px 0px;
+                color: #808080;
+                overflow: hidden;
+                box-sizing: border-box;
+                clear: both;
+                font-weight: 300;
+            }
+            
+        </style>
     </head>
     <body>
 

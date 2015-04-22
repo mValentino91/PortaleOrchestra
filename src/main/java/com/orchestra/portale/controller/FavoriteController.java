@@ -60,6 +60,17 @@ public class FavoriteController {
         Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(idUser));
         ArrayList<String> idlist = new ArrayList<String>();        
         Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
+        Map<String,String>cat_slug_ita = new HashMap<String,String>();
+        
+        cat_slug_ita.put("culture","Cultura");
+        cat_slug_ita.put("accomodation","Pernottamento");
+        cat_slug_ita.put("food","Enogastronomia");
+        cat_slug_ita.put("craft","Artigiani");
+        cat_slug_ita.put("mobility","Mobilità");
+        cat_slug_ita.put("event","Eventi");
+        cat_slug_ita.put("cultural_association","Associazioni Culturali");
+        cat_slug_ita.put("expo","Expo");
+        
         
         ModelAndView model = new ModelAndView("favorites");
         
@@ -97,7 +108,7 @@ public class FavoriteController {
         
         
         
-   
+        model.addObject("map_slug",cat_slug_ita);
         model.addObject("map_cat", map_cat);
         
         return model;
