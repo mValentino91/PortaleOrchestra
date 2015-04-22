@@ -60,15 +60,17 @@ public class FavoriteController {
         Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(idUser));
         ArrayList<String> idlist = new ArrayList<String>();        
         Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
-        Map<String,List<CompletePOI>> m = new HashMap<String,List<CompletePOI>>();
+        
         ModelAndView model = new ModelAndView("favorites");
         
-        MapPoiCat map_cat = new MapPoiCat(m);
+        MapPoiCat map_cat = new MapPoiCat();
         
         
         for (Favorite f : favorites ) {
             idlist.add(f.getIdPoi());
+            map_cat.insertRate(f.getIdPoi(), f.getRating());
         }
+        
         poilist = pm.getCompletePoisById(idlist);
         
         List<String> main_category = new ArrayList<String>();
@@ -96,7 +98,6 @@ public class FavoriteController {
         
         
    
-        
         model.addObject("map_cat", map_cat);
         
         return model;

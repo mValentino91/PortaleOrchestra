@@ -22,10 +22,9 @@
                         <h3>${cat}</h3>
                         <div class="poi">
                             <c:forEach var="p" items="${map_cat.map.get(cat)}">
-                                <p>${p.id}</p>
                                 <p>${p.name}</p>
                                 <div class="clear"></div>
-                                <div class="fav_rating" data-rating="${map_cat.ratings.get(p.id)}">
+                                <div class="fav_rating" data-rating="${map_cat.getRate(p.id)}">
                                         <input type="text" class="range" value="" name="range" style="border: 1px solid green"/>
                                         <span class="baloon_subtitle">...quanto sei interessato?</span>
                                 </div>	
