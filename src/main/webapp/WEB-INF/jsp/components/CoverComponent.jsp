@@ -5,7 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="cover_img" style="background: url(./dist/poi/img/${poi.id}/${coverimg.link});">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-</div>
+<c:choose>
+<c:when test="${ empty vartype || vartype != 'DeepeningPage' }">
+<div class="cover_img" style="background: url(./dist/poi/img/${poi.id}/${coverimg.link});"></div>
+</c:when>
+<c:otherwise>
+<div class="cover_img" style="background: url(./dist/dpage/img/${poi.id}/${coverimg.link});"></div>
+</c:otherwise>
+</c:choose>
+
      

@@ -429,7 +429,7 @@ public class NewPoiController {
                 HttpSession session = request.getSession();
                 ServletContext sc = session.getServletContext();
                 
-                File dir = new File(sc.getRealPath("/")+ File.separator + "webapps" + File.separator + "PortaleOrchestraMVC2-1.0"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
+                File dir = new File(sc.getRealPath("/")+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+poi2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  
