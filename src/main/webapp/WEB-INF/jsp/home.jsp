@@ -31,7 +31,7 @@
             <jsp:include page="components/topBar.jsp"/>
             <div class="container-fixed ">
 
-
+                <input type="hidden" value="${pages.id}">
                 <div class="row" >
                     <div class="col-md-6 col-orc">
                         <div class="box-orc">

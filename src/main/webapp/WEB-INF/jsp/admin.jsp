@@ -58,6 +58,7 @@
                     <a class="btn btn-primary" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/viewallDP"><h2>Visualizza tutte le pagine d'approfondimento</h2></a>
                     <a class="btn btn-success" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/newdpage"><h2>Nuova pagina d'approfondimento</h2></a>
                     <a class="btn btn-warning" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/editdpage"><h2>Modifica pagina d'approfondimento</h2></a>
+                    <a class="btn btn-danger" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/deletedpage"><h2>Elimina pagina d'approfondimento</h2></a>
 
 
                 </div>

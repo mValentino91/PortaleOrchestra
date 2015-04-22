@@ -24,6 +24,9 @@ import java.util.Date;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,7 +123,7 @@ public class EditDeepeningPageController {
         }
     }
      @RequestMapping(value= "/updatedpage", method = RequestMethod.POST)
-    public ModelAndView updatePoi(@RequestParam Map<String,String> params, @RequestParam(value="file", required=false) MultipartFile[] files, @RequestParam(value="cover", required=false) MultipartFile cover, @RequestParam(value="fileprec", required=false) String[] fileprec, @RequestParam(value="imgdel", required=false) String[] imgdel ) throws InterruptedException {
+    public ModelAndView updatePoi(HttpServletRequest request, @RequestParam Map<String,String> params, @RequestParam(value="file", required=false) MultipartFile[] files, @RequestParam(value="cover", required=false) MultipartFile cover, @RequestParam(value="fileprec", required=false) String[] fileprec, @RequestParam(value="imgdel", required=false) String[] imgdel ) throws InterruptedException {
         
          DeepeningPage poi= pm.findDeepeningPage(params.get("id"));
          CoverImgComponent coverimg=new CoverImgComponent();
@@ -236,9 +239,10 @@ public class EditDeepeningPageController {
                 byte[] bytes = file.getBytes();
  
                 // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
+                HttpSession session = request.getSession();
+                ServletContext sc = session.getServletContext();
                 
-                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"dpage"+File.separator+"img"+File.separator+poi2.getId());
+                File dir = new File(sc.getRealPath("/")+"dist"+File.separator+"dpage"+File.separator+"img"+File.separator+poi2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  
@@ -259,9 +263,10 @@ public class EditDeepeningPageController {
                 byte[] bytes = file.getBytes();
  
                 // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
+                HttpSession session = request.getSession();
+                ServletContext sc = session.getServletContext();
                 
-                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"dpage"+File.separator+"img"+File.separator+poi2.getId());
+                File dir = new File(sc.getRealPath("/")+"dist"+File.separator+"dpage"+File.separator+"img"+File.separator+poi2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  
@@ -280,7 +285,7 @@ public class EditDeepeningPageController {
         
         if(imgdel != null && imgdel.length > 0){
             for(int kdel=0; kdel<imgdel.length; kdel++){
-            delimg(poi.getId(),imgdel[kdel]);
+            delimg(request, poi.getId(),imgdel[kdel]);
             }
         }
                 

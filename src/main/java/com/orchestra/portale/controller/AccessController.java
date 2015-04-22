@@ -3,6 +3,7 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.io.File;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,8 +53,9 @@ public class AccessController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
         if (user != null) {
-            String rootPath = System.getProperty("catalina.home");
-            File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra" + File.separator + "dist" + File.separator + "user" + File.separator + "img" + File.separator + user.getId() + File.separator + "avatar.jpg");
+          
+                ServletContext sc = session.getServletContext();
+            File dir = new File(sc.getRealPath("/")+"dist" + File.separator + "user" + File.separator + "img" + File.separator + user.getId() + File.separator + "avatar.jpg");
             if (dir.exists()) {
                 session.setAttribute("avatar", "./dist/user/img/" + user.getId() + "/avatar.jpg");
             } else {
