@@ -97,7 +97,7 @@
                 "text": "I luoghi",
                 "nodes": [
                     {
-                        "slug": "cafè",
+                        "slug": "cafe",
                         "parent": "place",
                         "text": "Caffè-bar"
                     }, {
@@ -242,6 +242,10 @@
                 "slug": "educational",
                 "parent": "event",
                 "text": "Attività e laboratori didattici"
+            },{
+                "slug": "festival",
+                "parent": "event",
+                "text": "Festival"
             }
         ]
     }, {
