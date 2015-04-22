@@ -13,6 +13,9 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,7 +37,7 @@ public class UserRegistrationController {
    }
    
    @RequestMapping(value = "/userSignIn", method = RequestMethod.POST)
-   public ModelAndView addUser(@ModelAttribute("SpringWeb")User user, 
+   public ModelAndView addUser(HttpServletRequest request, @ModelAttribute("SpringWeb")User user, 
     MultipartFile avatar) {
        ModelAndView model2 = new ModelAndView("okpage");
         User usertest=pm.findUserByUsername(user.getUsername());
@@ -61,9 +64,10 @@ public class UserRegistrationController {
                 byte[] bytes = file.getBytes();
  
                 // Creating the directory to store file
-                String rootPath = System.getProperty("catalina.home");
+                HttpSession session = request.getSession();
+                ServletContext sc = session.getServletContext();
                 
-                File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"user"+File.separator+"img"+File.separator+user2.getId());
+                File dir = new File(sc.getRealPath("/")+"dist"+File.separator+"user"+File.separator+"img"+File.separator+user2.getId());
                 if (!dir.exists())
                     dir.mkdirs();
  

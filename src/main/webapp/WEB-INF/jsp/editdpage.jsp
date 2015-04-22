@@ -24,7 +24,7 @@
         <link href="../dist/css/poi_view.css" rel="stylesheet">
         <script src="../dist/js/jquery.js"></script>
         <script src="../dist/js/jquery.autocomplete.js"></script>
-        <title>Modifica un poi</title>
+        <title>Modifica una pagina d'approfondimento</title>
     </head>
     <body>
     <center>

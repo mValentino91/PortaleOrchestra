@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import com.orchestra.portale.utils.BackupRestoreUtils;
 import static com.orchestra.portale.utils.BackupRestoreUtils.copy;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -20,29 +23,31 @@ import static com.orchestra.portale.utils.BackupRestoreUtils.copy;
 @Controller
 public class ImageBackupRestoreController {
     @RequestMapping(value= "/backupimg")
-    public ModelAndView backup() throws IOException {
+    public ModelAndView backup(HttpServletRequest request) throws IOException {
         ModelAndView model = new ModelAndView("showResult");
-        String rootPath = System.getProperty("catalina.home");
-               File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"poi");
-               File dir2 = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"user");
-               File dir3= new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"page");
-               File dir4= new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"dpage");
-             copy(dir.getCanonicalPath(),rootPath);
-             copy(dir2.getCanonicalPath(),rootPath);
-             copy(dir3.getCanonicalPath(),rootPath);
-             copy(dir4.getCanonicalPath(),rootPath);
+        HttpSession session = request.getSession();
+                ServletContext sc = session.getServletContext();
+               File dir = new File(sc.getRealPath("/")+"dist"+File.separator+"poi");
+               File dir2 = new File(sc.getRealPath("/")+"dist"+File.separator+"user");
+               File dir3= new File(sc.getRealPath("/")+"dist"+File.separator+"page");
+               File dir4= new File(sc.getRealPath("/")+"dist"+File.separator+"dpage");
+             copy(dir.getCanonicalPath(),sc.getRealPath("/"));
+             copy(dir2.getCanonicalPath(),sc.getRealPath("/"));
+             copy(dir3.getCanonicalPath(),sc.getRealPath("/"));
+             copy(dir4.getCanonicalPath(),sc.getRealPath("/"));
              model.addObject("mess", "Tutte le immagini sono state copiate");
         return model;
     }
     @RequestMapping(value= "/restoreimg")
-    public ModelAndView restore() throws IOException {
+    public ModelAndView restore(HttpServletRequest request) throws IOException {
         ModelAndView model = new ModelAndView("showResult");
-        String rootPath = System.getProperty("catalina.home");
-               File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist");
-             copy(rootPath+File.separator+"poi",dir.getCanonicalPath());
-             copy(rootPath+File.separator+"user",dir.getCanonicalPath());
-             copy(rootPath+File.separator+"page",dir.getCanonicalPath());
-             copy(rootPath+File.separator+"dpage",dir.getCanonicalPath());
+        HttpSession session = request.getSession();
+                ServletContext sc = session.getServletContext();
+               File dir = new File(sc.getRealPath("/")+"dist");
+             copy(sc.getRealPath("/")+"poi",dir.getCanonicalPath());
+             copy(sc.getRealPath("/")+"user",dir.getCanonicalPath());
+             copy(sc.getRealPath("/")+"page",dir.getCanonicalPath());
+             copy(sc.getRealPath("/")+"dpage",dir.getCanonicalPath());
              model.addObject("mess", "Tutte le immagini sono state ripristinate");
         return model;
     }

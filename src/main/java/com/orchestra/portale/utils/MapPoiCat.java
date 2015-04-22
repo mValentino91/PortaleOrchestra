@@ -3,6 +3,7 @@ package com.orchestra.portale.utils;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import java.util.Map;
  */
 public class MapPoiCat {
     private Map<String,List<CompletePOI>> map;
+    
+    private Map<String, Integer> ratings;
 
     /**
      * @return the map
@@ -20,8 +23,10 @@ public class MapPoiCat {
         return map;
     }
 
-    public MapPoiCat(Map<String,List<CompletePOI>> map){
-        this.map = map;
+    public MapPoiCat(){
+        this.map = new HashMap<String,List<CompletePOI>>();
+        this.ratings = new HashMap<String,Integer>();
+        
     }
     
     public static String checkCategory(List<String> mc, List<String> pc){
@@ -54,6 +59,28 @@ public class MapPoiCat {
             System.out.println("agg elem lista");
             
         }
+    }
+    
+    public void insertRate(String poi, Integer rate){
+        this.ratings.put(poi, rate);
+    }
+    
+    public Integer getRate(String poi){
+        return this.ratings.get(poi);
+    }
+
+    /**
+     * @return the ratings
+     */
+    public Map<String, Integer> getRatings() {
+        return ratings;
+    }
+
+    /**
+     * @param ratings the ratings to set
+     */
+    public void setRating(Map<String, Integer> ratings) {
+        this.ratings = ratings;
     }
     
 }

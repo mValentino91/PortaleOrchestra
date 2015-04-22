@@ -278,6 +278,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public Iterable<DeepeningPage> findAllDeepeningPages() {
         return deepRepo.findAll();
     }
+    @Override
+    public void deleteDeepeningPage(DeepeningPage dp) {
+        deepRepo.delete(dp);
+    }
     
 }
     
