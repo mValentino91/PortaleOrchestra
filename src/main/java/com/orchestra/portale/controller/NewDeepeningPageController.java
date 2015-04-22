@@ -52,9 +52,11 @@ public class NewDeepeningPageController {
     @RequestMapping(value = "/savedpage", method = RequestMethod.POST)
     public ModelAndView savedpage(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestParam("cover") MultipartFile cover, @RequestParam("file") MultipartFile[] files) throws InterruptedException {
         ModelAndView model = new ModelAndView("okpageadmin");
+        
         DeepeningPage dp = new DeepeningPage();
         dp.setName(params.get("name"));
-
+                System.out.println(params.get("name"));
+                
         int i = 1;
         ArrayList<String> categories = new ArrayList<String>();
         while (params.containsKey("category" + i)) {
@@ -115,6 +117,7 @@ public class NewDeepeningPageController {
             DescriptionComponent description_component = new DescriptionComponent();
             description_component.setSectionsList(list);
             listComponent.add(description_component);
+        }
             dp.setComponents(listComponent);
 
             pm.saveDeepeningPage(dp);
@@ -157,7 +160,7 @@ public class NewDeepeningPageController {
                 HttpSession session = request.getSession();
                     ServletContext sc = session.getServletContext();
 
-                File dir = new File(sc.getRealPath("/") +  File.separator + "webapps" + File.separator + "orchestra" + File.separator + "dist" + File.separator + "dpage" + File.separator + "img" + File.separator + poi2.getId());
+                File dir = new File(sc.getRealPath("/") + "dist" + File.separator + "dpage" + File.separator + "img" + File.separator + poi2.getId());
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
@@ -171,9 +174,9 @@ public class NewDeepeningPageController {
             } catch (Exception e) {
 
             }
-
-        }
-        model.addObject("mess", "PAGINA INSERITA CORRETTAMENTE!");
+            model.addObject("mess", "PAGINA INSERITA CORRETTAMENTE!");
         return model;
+        }
+        
     }
-}
+

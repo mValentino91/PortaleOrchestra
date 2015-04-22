@@ -207,6 +207,7 @@ public class EditDeepeningPageController {
             //DESCRIPTION COMPONENT
              i=1;
              if(params.containsKey("par"+i)) {
+                 
                  ArrayList<Section> list = new ArrayList<Section>();
                
                  while(params.containsKey("par"+i)){
@@ -228,11 +229,10 @@ public class EditDeepeningPageController {
              pm.saveDeepeningPage(poi);
              
             
-            DeepeningPage poi2= pm.findDeepeningPage(poi.getName());
+            DeepeningPage poi2= pm.findDeepeningPageByName(poi.getName());
              
  
-       
-        for (int z = 0; z < files.length; z++) {
+       for (int z = 0; z < files.length; z++) {
             MultipartFile file = files[z];
             
             try {
@@ -251,8 +251,10 @@ public class EditDeepeningPageController {
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
- 
+                System.out.println("FILE CREATO IN POSIZIONE:"+serverFile.getAbsolutePath().toString());
+                
             } catch (Exception e) {
+                e.printStackTrace();
                 return  model;
             }
         }

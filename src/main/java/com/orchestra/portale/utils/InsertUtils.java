@@ -20,7 +20,7 @@ public class InsertUtils {
         String esito= "";
         HttpSession session = request.getSession();
         ServletContext sc = session.getServletContext();
-        File dir = new File(sc.getRealPath("/") + File.separator + "webapps" + File.separator + "orchestra"+ File.separator+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+id);
+        File dir = new File(sc.getRealPath("/")+"dist"+File.separator+"poi"+File.separator+"img"+File.separator+id);
         
         File img=new File(dir.getAbsolutePath()+ File.separator + nameimg);
         if(img.delete())

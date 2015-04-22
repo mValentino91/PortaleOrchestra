@@ -84,9 +84,18 @@
 
 <div class="nano-content imagegallery_container">
     <c:forEach var = "img" items = "${imggallery.links}" >
+        <c:choose>
+            <c:when test="${ empty vartype || vartype != 'DeepeningPage' }">
         <a class="fancybox" title="${img.credit}" href='./dist/poi/img/${poi.id}/${img.link}'>
             <img class="image_gallery"   src='./dist/poi/img/${poi.id}/${img.link}'>
         </a>
+            </c:when>
+            <c:otherwise>
+               <a class="fancybox" title="${img.credit}" href='./dist/dpage/img/${poi.id}/${img.link}'>
+            <img class="image_gallery"   src='./dist/dpage/img/${poi.id}/${img.link}'>
+        </a> 
+            </c:otherwise>
+        </c:choose>
     </c:forEach>
 </div>
 </div>  

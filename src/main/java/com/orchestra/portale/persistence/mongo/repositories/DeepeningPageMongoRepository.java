@@ -6,7 +6,6 @@
 package com.orchestra.portale.persistence.mongo.repositories;
 
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
-import com.orchestra.portale.persistence.mongo.documents.Home;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
