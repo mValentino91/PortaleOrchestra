@@ -12,7 +12,7 @@ function ifFavorite(poiId) {
                    rating=result;
                 },
                 error: function(richiesta,stato,errori){
-                    alert("Error. State: "+stato);
+                    //alert("Error. State: "+stato);
                 }                 
             });            
         }
@@ -36,7 +36,7 @@ function ifFavorite(poiId) {
                     //alert("OK");
                 },
                 error: function(richiesta,stato,errori){
-                    alert("Error. State: "+stato);
+                    //alert("Error. State: "+stato);
                 }                 
             });            
         }
@@ -57,7 +57,7 @@ function ifFavorite(poiId) {
                     //alert("OK");
                 },
                 error: function(richiesta,stato,errori){
-                    alert("Error. State: "+stato);
+                    //alert("Error. State: "+stato);
                 }                 
             });            
         }
@@ -78,7 +78,7 @@ function ifFavorite(poiId) {
                     //alert("OK");
                 },
                 error: function(richiesta,stato,errori){
-                    alert("Error. State: "+stato);
+                    //alert("Error. State: "+stato);
                 }                 
             });            
         }
