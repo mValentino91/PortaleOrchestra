@@ -57,7 +57,7 @@ h5{
 .tile img{
     top: calc(50% - 65px); /* 50% - 3/4 of icon height */
     width: 128px;
-    height: 128;
+    height: 128px;
     position: relative;
 }
 
