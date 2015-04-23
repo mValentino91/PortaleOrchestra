@@ -56,6 +56,9 @@ function reload_access_area(event){
             <li><a href="./admin"><i class="fa fa-cog"></i> Admin</a></li>
             <li class="divider"></li>
             </sec:authorize>
+            
+            <li><a href="./favorites?idUser=${uid}"><i class="fa fa-heart"></i> I Tuoi POI</a></li>
+               <li class="divider"></li>     
             <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> Logout</a></li>
         </ul>
  
