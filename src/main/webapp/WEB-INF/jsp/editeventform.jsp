@@ -259,12 +259,13 @@
                             <div class="details">
                                 <center>
                                     <div class="row">
+                                        <input type="hidden" name="id" value="${id}">
                                         <div class="col-md-6">Nome* <input name="name" class="form-control obb" type="text" value="${nome}"> </div>
                                         <div class="col-md-6">Indirizzo* <input name="address" class="form-control obb" type="text" value="${addr}"></div>
                                         <div class="col-md-6">Latitudine* <input name="latitude" class="form-control obb" type="text" onblur="replace_virgola(this, this.value)" value="${loc[0]}"></div>
                                         <div class="col-md-6">Longitudine* <input name="longitude" class="form-control obb" type="text" onblur="replace_virgola(this, this.value)" value="${loc[1]}"></div><br>
-                                        <div class="col-md-6">Data Inizio* <input name="datai" class="datepickerinp form-control obb" type="text" onblur="replace_virgola(this, this.value)"></div>
-                                        <div class="col-md-6">Data Fine* <input name="dataf" class="datepickerinp form-control obb" type="text" onblur="replace_virgola(this, this.value)"></div><br>
+                                        <div class="col-md-6">Data Inizio* <input name="datai" class="datepickerinp form-control obb" value="${start}" type="text" ></div>
+                                        <div class="col-md-6">Data Fine* <input name="dataf" class="datepickerinp form-control obb" value="${end}" type="text"></div><br>
                                         <div class="col-md-12">Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="shortd" id="short" class="form-control shortd" rows="4" cols="50" maxlength="150">${shortD}</textarea></div><br><br>
                                     </div>
                                     <div class="row">
@@ -499,7 +500,7 @@
                                                 <h4>DATE</h4>
                                                 Date*
                                                 <div class="row">
-                                                    <input type="text" class="obb form-control" value="${Wdays.date}">
+                                                    <input type="text" name="date${tot.count}" class="inpdates obb form-control" value="${Wdays.date}">
                                                     </div>
                                                 <c:forEach var="Wtime" items="${Wdays.hours}" varStatus="tot2">
                                                     <div id="D${tot.count}-${tot2.count}" class="fasciaoraria ">

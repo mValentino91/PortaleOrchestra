@@ -43,7 +43,7 @@
 
                     <a class="btn btn-success" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/newevent"><h2>Nuovo Evento</h2></a>
                     <a class="btn btn-warning" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/editevent"><h2>Modifica Evento</h2></a>
-
+                    <a class="btn btn-danger" style="width: 405px; margin-right: 0; margin-top: 5px;" href="admin/deleteevent"><h2>Elimina un evento</h2></a>
                 </div>
 
             </article>

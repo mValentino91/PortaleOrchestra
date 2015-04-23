@@ -30,6 +30,12 @@ public class DeletePoiController {
         return model;
     }
     
+    @RequestMapping(value= "/deleteevent")
+    public ModelAndView deleteEvt() {
+        ModelAndView model = new ModelAndView("deleteeventform");
+        return model;
+    }
+    
     @RequestMapping(value= "/deletepoi", params="name")
     public ModelAndView deletePoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("deleted");

@@ -22,33 +22,41 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class ImageBackupRestoreController {
-    @RequestMapping(value= "/backupimg")
+
+    @RequestMapping(value = "/backupimg")
     public ModelAndView backup(HttpServletRequest request) throws IOException {
         ModelAndView model = new ModelAndView("showResult");
         HttpSession session = request.getSession();
-                ServletContext sc = session.getServletContext();
-               File dir = new File(sc.getRealPath("/")+"dist"+File.separator+"poi");
-               File dir2 = new File(sc.getRealPath("/")+"dist"+File.separator+"user");
-               File dir3= new File(sc.getRealPath("/")+"dist"+File.separator+"page");
-               File dir4= new File(sc.getRealPath("/")+"dist"+File.separator+"dpage");
-             copy(dir.getCanonicalPath(),sc.getRealPath("/"));
-             copy(dir2.getCanonicalPath(),sc.getRealPath("/"));
-             copy(dir3.getCanonicalPath(),sc.getRealPath("/"));
-             copy(dir4.getCanonicalPath(),sc.getRealPath("/"));
-             model.addObject("mess", "Tutte le immagini sono state copiate");
+
+        ServletContext sc = session.getServletContext();
+        File root = new File(sc.getRealPath("/"));
+
+        File dir = new File(sc.getRealPath("/") + "dist" + File.separator + "poi");
+        File dir2 = new File(sc.getRealPath("/") + "dist" + File.separator + "user");
+        File dir3 = new File(sc.getRealPath("/") + "dist" + File.separator + "page");
+        File dir4 = new File(sc.getRealPath("/") + "dist" + File.separator + "dpage");
+        copy(dir.getCanonicalPath(), root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg");
+        copy(dir2.getCanonicalPath(), root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg");
+        copy(dir3.getCanonicalPath(), root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg");
+        copy(dir4.getCanonicalPath(), root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg");
+        model.addObject("mess", "Tutte le immagini sono state copiate");
         return model;
     }
-    @RequestMapping(value= "/restoreimg")
+
+    @RequestMapping(value = "/restoreimg")
     public ModelAndView restore(HttpServletRequest request) throws IOException {
+
         ModelAndView model = new ModelAndView("showResult");
         HttpSession session = request.getSession();
-                ServletContext sc = session.getServletContext();
-               File dir = new File(sc.getRealPath("/")+"dist");
-             copy(sc.getRealPath("/")+"poi",dir.getCanonicalPath());
-             copy(sc.getRealPath("/")+"user",dir.getCanonicalPath());
-             copy(sc.getRealPath("/")+"page",dir.getCanonicalPath());
-             copy(sc.getRealPath("/")+"dpage",dir.getCanonicalPath());
-             model.addObject("mess", "Tutte le immagini sono state ripristinate");
+        ServletContext sc = session.getServletContext();
+        File root = new File(sc.getRealPath("/"));
+        File dir = new File(sc.getRealPath("/") + "dist");
+        copy(root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg" + File.separator + "poi", dir.getCanonicalPath());
+        copy(root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg" + File.separator + "page", dir.getCanonicalPath());
+        copy(root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg" + File.separator + "dpage", dir.getCanonicalPath());
+        copy(root.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg" + File.separator + "user", dir.getCanonicalPath());
+
+        model.addObject("mess", "Tutte le immagini sono state ripristinate");
         return model;
     }
 }

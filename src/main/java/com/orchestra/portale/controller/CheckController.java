@@ -6,6 +6,9 @@
 package com.orchestra.portale.controller;
 
 import java.io.File;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,11 +22,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class CheckController {
 
     @RequestMapping("/check")
-    public ModelAndView check() {
-        String rootPath = System.getProperty("catalina.home");
-        File dir = new File(rootPath + File.separator + "webapps" + File.separator + "orchestra" + File.separator + "dist" + File.separator + "poi");
+    public ModelAndView check(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        ServletContext sc = session.getServletContext();
+        File f = new File(sc.getRealPath("/"));
         ModelAndView model = new ModelAndView("check");
-        model.addObject("mess", dir.toString());
+        model.addObject("mess", f.getParentFile().getParentFile().getParentFile().getPath() + File.separator + "BackupImg" );
         return model;
     }
 }

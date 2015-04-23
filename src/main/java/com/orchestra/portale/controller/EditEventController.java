@@ -172,7 +172,7 @@ public class EditEventController {
         ModelAndView model2 = new ModelAndView("errorViewPoi");
 
         poi.setName(params.get("name"));
-        poi.setVisibility(params.get("visibility"));
+        poi.setVisibility("1");
         poi.setAddress(params.get("address"));
         double lat = Double.parseDouble(params.get("latitude"));
         double longi = Double.parseDouble(params.get("longitude"));

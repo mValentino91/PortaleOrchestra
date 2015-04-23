@@ -57,6 +57,25 @@ public class SearchController {
         return pois.toJson(j);
     }
     
+    @RequestMapping(value = "/Autocompleteevent")
+    public @ResponseBody
+    String autocompleteevent(@RequestParam String query) {
+        Gson pois = new Gson();
+        JsonObject j= new JsonObject();
+        JsonArray array = new JsonArray();
+        Iterable<CompletePOI> results = pm.findCompletePoi(query, "", "event");
+        for (CompletePOI c : results) {
+            JsonObject json = new JsonObject();
+            json.addProperty("value", c.getName());
+            json.addProperty("data", c.getId());
+            array.add(json);
+        }
+        j.add("suggestions", array);
+        return pois.toJson(j);
+    }
+    
+    
+    
     @RequestMapping(value = "/Autocompletedpage")
     public @ResponseBody
     String autocompletedpage(@RequestParam String query) {

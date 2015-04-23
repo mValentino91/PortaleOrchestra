@@ -1,13 +1,12 @@
 <%-- 
-    Document   : editevent
-    Created on : 18-feb-2015, 17.56.50
+    Document   : deleteeventform
+    Created on : 23-apr-2015, 9.30.01
     Author     : Alex
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <style>
+     <style>
         .autocomplete-suggestions { border-radius: 0px 0px 4px 4px; border: 1px solid rgba(0,0,0,0.15); background: #FFF; cursor: default; overflow: auto; -webkit-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64); -moz-box-shadow: 1px 4px 3px rgba(50, 50, 50, 0.64);   box-shadow: 0 6px 12px rgba(0,0,0,0.175); }
         .autocomplete-suggestion { border-top: 1px solid rgba(0,0,0,0.15); padding: 5px 10px; white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
         .autocomplete-no-suggestion { padding: 2px 5px;}
@@ -25,17 +24,17 @@
     <body>
     <center>
         <article class="component component-text" style="margin-top:50px; width: 400px;">
-				  <div class="big-header " style="background-color: #f0ad4e;">
-					  <span class="caps">Modifica un evento</span>
+				  <div class="big-header" style="background-color: #d9534f;" >
+					  <span class="caps">Elimina un evento</span>
 				  </div> 
 				<div class="details" style="text-align: center;">
-        <form action="editevent"  accept-charset="UTF-8">
-            Digita il nome dell'evento <input type="text"  id="autocomplete" style="width: 300px; margin-bottom: 5px; margin-left: 30px;" class="form-control" name="name"> <input class="btn btn-warning" type="submit" value="MODIFICA">
+        <form action="deletepoi"  accept-charset="UTF-8">
+            Digita il nome dell'evento <input type="text" id="autocomplete" style="width: 300px; margin-bottom: 5px; margin-left: 30px;" class="form-control" name="name"> <input class="btn btn-danger" type="submit" value="ELIMINA">
+        </form>       
+        <h2 style="margin-top: 25px;">Oppure</h2>
+        <form action="deletepoi">
+            Digita l'id dell'evento <input type="text" style="width: 300px; margin-bottom: 5px; margin-left: 30px;" class="form-control" name="id"> <input class="btn btn-danger" type="submit" value="ELIMINA">
         </form> 
-        <h2 style="margin-top:25px;">Oppure</h2>
-        <form action="editevent">
-            Digita l'id dell'evento <input type="text" style="width: 300px; margin-bottom: 5px; margin-left: 30px;" class="form-control" name="id"> <input class="btn btn-warning" type="submit" value="MODIFICA">
-        </form>  
                                 </div>
         </article>
         <a href="../admin" class="btn btn-primary" style="margin-top: 20px;">Torna a Gestione Orchestra</a>
@@ -45,7 +44,7 @@
     $('#autocomplete').autocomplete({
         serviceUrl: '../Search/Autocompleteevent',
         onSelect: function (suggestion) {
-            window.location = './editevent?id=' + suggestion.data;
+           $('#autocomplete').attr("value",suggestion.data);
         }
     });
 </script>
