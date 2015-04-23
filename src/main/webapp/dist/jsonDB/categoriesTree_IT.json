@@ -92,48 +92,41 @@
         "color": "#f4d03e",
         "icon": "icon-food",
         "nodes": [{
-                "slug": "place",
+                "slug": "cafe",
                 "parent": "food",
-                "text": "I luoghi",
-                "nodes": [
-                    {
-                        "slug": "cafe",
-                        "parent": "place",
-                        "text": "Caffè-bar"
-                    }, {
-                        "slug": "tavern",
-                        "parent": "place",
-                        "text": "Osterie-trattorie"
-                    }, {
-                        "slug": "restaurant",
-                        "parent": "place",
-                        "text": "Ristoranti"
-                    }, {
-                        "slug": "chocolate_shop",
-                        "parent": "place",
-                        "text": "Cioccolaterie"
-                    }, {
-                        "slug": "distillery",
-                        "parent": "place",
-                        "text": "Distillerie"
-                    }, {
-                        "slug": "pastry_shop",
-                        "parent": "place",
-                        "text": "Pasticcerie"
-                    }, {
-                        "slug": "pizza_place",
-                        "parent": "place",
-                        "text": "Pizzerie"
-                    }, {
-                        "slug": "fry_shop",
-                        "parent": "place",
-                        "text": "Forni-rosticcerie"
-                    }, {
-                        "slug": "street_food",
-                        "parent": "place",
-                        "text": "Street food"
-                    }
-                ]
+                "text": "Caffè-bar"
+            }, {
+                "slug": "tavern",
+                "parent": "food",
+                "text": "Osterie-trattorie"
+            }, {
+                "slug": "restaurant",
+                "parent": "food",
+                "text": "Ristoranti"
+            }, {
+                "slug": "chocolate_shop",
+                "parent": "food",
+                "text": "Cioccolaterie"
+            }, {
+                "slug": "distillery",
+                "parent": "food",
+                "text": "Distillerie"
+            }, {
+                "slug": "pastry_shop",
+                "parent": "food",
+                "text": "Pasticcerie"
+            }, {
+                "slug": "pizza_place",
+                "parent": "food",
+                "text": "Pizzerie"
+            }, {
+                "slug": "fry_shop",
+                "parent": "food",
+                "text": "Forni-rosticcerie"
+            }, {
+                "slug": "street_food",
+                "parent": "food",
+                "text": "Street food"
             }]
     }, {
         "slug": "craft",
@@ -242,7 +235,7 @@
                 "slug": "educational",
                 "parent": "event",
                 "text": "Attività e laboratori didattici"
-            },{
+            }, {
                 "slug": "festival",
                 "parent": "event",
                 "text": "Festival"
@@ -253,7 +246,7 @@
         "parent": null,
         "icon": "fa fa-calendar-o",
         "text": "Associazioni Culturali",
-        "color": "sandybrown",
+        "color": "#1aac99",
         "nodes": [
             {
                 "slug": "cultural_promotion",
@@ -308,5 +301,32 @@
         "parent": null,
         "icon": "fa fa-star",
         "text": "Expo Napoli",
-        "color": "palevioletred"
+        "color": "#f2784b",
+        "nodes": [
+            {
+                "slug": "kowing_naples",
+                "parent": "expo",
+                "text": "Conoscere Napoli"
+            },
+            {
+                "slug": "experiencing_naples",
+                "parent": "expo",
+                "text": "Vivere Napoli"
+            },
+            {
+                "slug": "tasting_naples",
+                "parent": "expo",
+                "text": "Gustare Napoli"
+            },
+            {
+                "slug": "visiting_naples",
+                "parent": "expo",
+                "text": "Visitare Napoli"
+            },
+            {
+                "slug": "special_projects_napoliperexpo",
+                "parent": "expo",
+                "text": "progetti speciali NAPOLIperEXPO"
+            }
+        ]
     }]
