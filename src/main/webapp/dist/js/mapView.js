@@ -983,6 +983,11 @@ var categoriesTail = (function() {
                 break;
         }
         triggerEvent(slug, result.parent, result.nodes, tail, 'remove');
+        categoriesCounter--;
+            if(categoriesCounter===0){
+            var catEvent = jQuery.Event('category_all');
+            $(document).trigger(catEvent);
+            }
     }
     function triggerEvent(slug, parent, childs, tail, event) {
         if (event === 'add') {
@@ -1001,11 +1006,6 @@ var categoriesTail = (function() {
             var catEvent = jQuery.Event('category_removed');
             catEvent.target = obj;
             $(document).trigger(catEvent);
-            categoriesCounter--;
-            if(categoriesCounter===0){
-            var catEvent = jQuery.Event('category_all');
-            $(document).trigger(catEvent);
-            }
         }
     }
     function macroCategoryHandler(color, slug, title) {
