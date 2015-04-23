@@ -54,21 +54,30 @@
                     }, 1400);
             }
     function initMap() {
-    var mapOptions = {
+
+    var mapStyle = [{
+    featureType: "poi",
+            elementType: "labels",
+            stylers: [
+            {visibility: "off"}
+            ]
+    }];
+            var mapOptions = {
     <c:choose>
         <c:when test="${not empty poi}">
-    center: new google.maps.LatLng(${poi.location[0]}, ${poi.location[1]}),
+            center: new google.maps.LatLng(${poi.location[0]}, ${poi.location[1]}),
         </c:when>
         <c:when test="${not empty poivicini}">
-    center: new google.maps.LatLng(${poivicini[0].location[0]}, ${poivicini[0].location[1]}),
+            center: new google.maps.LatLng(${poivicini[0].location[0]}, ${poivicini[0].location[1]}),
         </c:when>
         <c:otherwise>
-    center: new google.maps.LatLng(40.852114, 14.268112),
+            center: new google.maps.LatLng(40.852114, 14.268112),
         </c:otherwise>
     </c:choose>
-    zoom: 15,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+            styles:mapStyle,
+                    zoom: 15,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
             map = new google.maps.Map(document.getElementById("map"),
                     mapOptions);
     <c:if test="${not empty poi}">
