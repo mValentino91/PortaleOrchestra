@@ -7,6 +7,7 @@
 <article class="component component-text">
     <div class="details">
         <h2>TOP10</h2>
+        <hr>
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
             <p>Disponibile a breve..</p>

@@ -13,24 +13,28 @@
 <article class="component component-text">
     <div class="details">
 
-        <h2>Elenco dei preferiti</h2>
+        <h2>I TUOI PREFERITI</h2>
+        <hr>
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
             <div class="favorite-container">
                 <c:forEach var="cat" items="${map_cat.map.keySet()}">
                     <div class="category-container">
-                        <h3>${map_slug.get(cat)}${cat}</h3>
+                        <h3>${map_slug.get(cat)}</h3>
                         
                         <div class="poi">
                             <c:forEach var="p" items="${map_cat.map.get(cat)}">
-                                <div class="row" style="height:120px; margin-top: 10px; margin-bottom: 10px;">
+                                <div class="row" style="margin-left:0px; padding-left: 20px; height:120px; margin-top: 20px; margin-bottom: 15px;">
                                     
-                                    <div class="col-md-4" style="height:inherit; border: 1px solid;">foto</div>
-                                    <div class="col-md-8" style="height:inherit; border: 1px solid;">
-                                        <div class="col-md-1 col-md-offset-11" style="margin-left: 355px; cursor:pointer">X</div>
+                                    <div class="col-md-4" style="width:120px; height:inherit; border: 0px solid;"><img class="favorite_img" src="dist/img/06_cristo_velato.jpg"/></div>
+                                    <div class="col-md-8" style="height:inherit; border: 0px solid;">
+                                        <div class="col-md-1 col-md-offset-11" ></div>
                                         <div class="text">
-                                            ${p.name}
+                                        ${p.name}
+                                            <i class="fa fa-trash-o" style="cursor:pointer; font-size:16px;"></i>
+                                            
                                         </div>
+                                        
                                         <div class="text">
                                             ${p.address}
                                         </div>

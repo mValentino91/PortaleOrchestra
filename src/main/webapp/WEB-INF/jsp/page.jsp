@@ -201,56 +201,7 @@
                         </div>			
                     </div>
                 </c:if>
-                <div class="col-md-4 col-orc">
-                    <div class="box-orc">
-
-                        <div class="box-elem component  component-text" style="height:100%">
-                            <div class="big-header contact">
-                                <span class="caps">Servizi speciali</span>
-                            </div> 
-
-                            <div class="details">
-                                <p class="paragrafo">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis risus consectetur convallis fermentum. 
-                                    Nam sodales volutpat pharetra. Sed vulputate, quam et fermentum porta, libero enim ultrices mi, quis dignissim purus elit ut nisi. 
-                                    Donec gravida porta lacus viverra dictum. Curabitur mollis consectetur est id efficitur. Phasellus venenatis mi ipsum, 
-                                    id blandit erat tincidunt vitae. Nam eget dolor lectus. Etiam aliquam diam in tortor ullamcorper cursus. 
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin malesuada enim at turpis vulputate 
-                                    varius. Nulla sed tempor quam, vel vulputate neque. 
-                                </p>
-                            </div>
-
-                            <div class="clear"></div>
-                        </div>
-
-                    </div>			
-                </div>
-
-                <div class="col-md-4 col-orc">
-                    <div class="box-orc">
-
-                        <div class="box-elem component  component-text" style="height:100%">
-                            <div class="big-header contact">
-                                <span class="caps">Prodotti speciali</span>
-                            </div> 
-
-                            <div class="details">
-                                <p class="paragrafo">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus facilisis risus consectetur convallis fermentum. 
-                                    Nam sodales volutpat pharetra. Sed vulputate, quam et fermentum porta, libero enim ultrices mi, quis dignissim purus elit ut nisi. 
-                                    Donec gravida porta lacus viverra dictum. Curabitur mollis consectetur est id efficitur. Phasellus venenatis mi ipsum, 
-                                    id blandit erat tincidunt vitae. Nam eget dolor lectus. Etiam aliquam diam in tortor ullamcorper cursus. 
-                                    Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Proin malesuada enim at turpis vulputate 
-                                    varius. Nulla sed tempor quam, vel vulputate neque. 
-                                </p>
-                            </div>
-
-                            <div class="clear"></div>
-                        </div>
-
-                    </div>			
-                </div>
-
+                
             </div>
 
 
