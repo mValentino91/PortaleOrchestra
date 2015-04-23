@@ -992,7 +992,6 @@ var categoriesTail = (function() {
             obj.tail = tail;
             var catEvent = jQuery.Event('category_added');
             catEvent.target = obj;
-            alert(categoriesCounter);
             $(document).trigger(catEvent);
         } else {
             var obj = new Object(slug);
@@ -1003,7 +1002,6 @@ var categoriesTail = (function() {
             catEvent.target = obj;
             $(document).trigger(catEvent);
             categoriesCounter--;
-            alert(categoriesCounter);
             if(categoriesCounter===0){
             var catEvent = jQuery.Event('category_all');
             $(document).trigger(catEvent);
