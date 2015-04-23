@@ -51,7 +51,7 @@
                             <div class="carousel-inner" role="listbox" style="height:100%">
                                 <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
                                     <div class="item <c:if test="${cont.count == 1}"> active </c:if> >">
-                                        <img src="${img.link}"  >
+                                        <img src="./dist/page/img/${pages.id}/${img.link}"  >
                                         <c:if test="${not empty img.titolo || not empty img.testo}">
                                         <div class="carousel-caption">
                                             <h5>${img.titolo}</h5>
@@ -88,7 +88,7 @@
 
                                         <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                 <c:if test="${not empty tile.icon}">
-                                                    <img src="${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
                                                 </c:if>
                                                 <c:if test="${not empty tile.text}">
                                                     ${tile.text}
@@ -109,7 +109,7 @@
                                     <div class="box-orc">
                                         <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                 <c:if test="${not empty tile.icon}">
-                                                    <img src="${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
                                                 </c:if>
                                                 <c:if test="${not empty tile.text}">
                                                     ${tile.text}
@@ -169,7 +169,7 @@
                                 <div class="box-orc">
                                     <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                             <c:if test="${not empty tile.icon}">
-                                                <img src="${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                <img src="./dist/page/img/${pages.id}/${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
                                             </c:if>
                                             <c:if test="${not empty tile.text}">
                                                 ${tile.text}
@@ -186,7 +186,7 @@
                 <div class="col-md-6 col-orc">
                     <div class="box-orc">
 
-                        <jsp:include page="components/mapComponent.jsp"/>
+                        <jsp:include page="components/mapPageComponent.jsp"/>
 
                     </div>			
                 </div>
@@ -201,7 +201,8 @@
                         </div>			
                     </div>
                 </c:if>
-                
+               
+
             </div>
 
 

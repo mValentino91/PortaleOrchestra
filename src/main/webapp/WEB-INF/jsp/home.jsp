@@ -48,7 +48,7 @@
                                 <div class="carousel-inner" role="listbox" style="height:100%">
                                     <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
                                         <div class="item <c:if test="${cont.count == 1}"> active </c:if> >">
-                                            <img src="${img.link}"  >
+                                            <img src="./dist/page/img/${pages.id}/${img.link}"  >
                                             <c:if test="${not empty img.titolo || not empty img.testo}">
                                                 <div class="carousel-caption">
                                                     <h5>${img.titolo}</h5>
@@ -85,7 +85,7 @@
 
                                             <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}">
+                                                        <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -106,7 +106,7 @@
                                         <div class="box-orc">
                                             <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}">
+                                                        <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -145,9 +145,9 @@
                                 <c:if test="${cont.count > 6 and cont.count <=9}">
                                     <div class="col-md-4 col-orc">
                                         <div class="box-orc">
-                                            <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                            <a href="${tile.link}"><div <c:if test="${cont.count == 8}">id="weather"</c:if>  class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}">
+                                                        <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -156,6 +156,11 @@
 
                                         </div>
                                     </div>
+                                    <c:if test="${cont.count == 8}">
+                                        <script>
+                                                alert($("#weather"));
+                                        </script>
+                                    </c:if>
                                 </c:if>
                             </c:forEach>
                         </div>
@@ -167,7 +172,7 @@
                                         <div class="box-orc">
                                             <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                     <c:if test="${not empty tile.icon}">
-                                                        <img src="${tile.icon}">
+                                                        <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                                     </c:if>
                                                     <c:if test="${not empty tile.text}">
                                                         ${tile.text}
@@ -194,7 +199,7 @@
 
                     <div class="col-md-6 col-orc">
                         <div class="box-orc">
-                            <jsp:include page="components/mapComponent.jsp"/>
+                            <jsp:include page="components/mapPageComponent.jsp"/>
                         </div>			
                     </div>
 

@@ -63,7 +63,6 @@ var interactiveMap = (function() {
     var anmState = false;
     var anmStops = new Array();
     var anmData;
-    var anmLineeJson;
     var searchState = false;
     var searchedPoi;
     var searchedMarkers;
@@ -353,56 +352,40 @@ var interactiveMap = (function() {
     }
     function showLine() {
         $("#anmModal").modal('hide');
-        var value = $("#lineValue").val();
-        var line;
-        if (anmData) {
+        var value = $("#lineValue").val().toLowerCase();
+         $.ajax({
+            type: "GET",
+            url: "./anmServices/lines/route/" + value,
+            success: function(data) {
+            anmData=JSON.parse(data);
+            if (anmData) {
             for (var z = 0; z < anmStops.length; z++) {
                 anmStops[z].setMap(null);
                 anmStops[z] = null;
             }
             anmStops = new Array();
-            for (var i = 0; i < anmData.length; i++) {
-                if (anmData[i].linea === value)
-                {
-                    line = anmData[i];
-                    break;
-                }
-            }
-            for (var j = 0; j < line.percorso.length; j++) {
+            for (var j = 0; j < anmData.percorso.length; j++) {
                 var img = './dist/img/andata.png';
-                if (line.percorso[j].verso === "Di") {
+                if (anmData.percorso[j].verso === "Di") {
                     img = './dist/img/ritorno.png';
                 }
                 anmStops[j] = new google.maps.Marker({
-                    position: new google.maps.LatLng(line.percorso[j].location[0],
-                            line.percorso[j].location[1]),
+                    position: new google.maps.LatLng(anmData.percorso[j].location[0],
+                            anmData.percorso[j].location[1]),
                     map: interactiveMap.map,
                     icon: img,
-                    title: line.percorso[j].nome});
-                anmStops[j].code = line.percorso[j].codice;
-                anmStops[j].nome = line.percorso[j].nome;
+                    title: anmData.percorso[j].nome});
+                anmStops[j].code = anmData.percorso[j].codice;
+                anmStops[j].nome = anmData.percorso[j].nome;
                 anmStops[j].index = j;
                 google.maps.event.addListener(anmStops[j], 'click', function() {
                     showPrevision(this);
                 });
+                }
+              }
             }
+        });
         }
-    }
-    function initAnmService() {
-        anmLineeJson = $.getJSON("dist/jsonLinee.json", function() {
-            console.log("success");
-        })
-                .done(function(data) {
-                    anmData = data;
-                })
-                .fail(function(anmLineeJson, textStatus, error) {
-                    console.log(textStatus + error);
-                    console.log(anmLineeJson);
-                })
-                .always(function() {
-                    console.log("complete");
-                });
-    }
     function viewPanorama(index) {
         interactiveMap.streetView.getPanoramaByLocation(interactiveMap.markers[index].getPosition(), 30, function(result, status) {
             if (status === google.maps.StreetViewStatus.OK) {
@@ -899,7 +882,6 @@ var interactiveMap = (function() {
         panorama: panorama,
         streetView: streetView,
         infowindow: infowindow,
-        initAnmService: initAnmService,
         anmHandler: anmHandler,
         showLine: showLine,
         mcluster: mcluster,
