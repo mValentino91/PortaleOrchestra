@@ -729,6 +729,20 @@ var interactiveMap = (function() {
             }
         });
     }
+    function showFavoritesPois() {
+        disableSearchState();
+        $('#loadingImg').show();
+        $.ajax({
+            type: "GET",
+            url: "./getFavorites",
+            success: function(data) {
+                var poi = JSON.parse(data);
+                showPois(poi);
+                markersChangend(interactiveMap.markers);
+                $('#loadingImg').hide();
+            }
+        });
+    }
     function categoryRemoveHandler(event) {
         disableSearchState();
         $('#loadingImg').show();
@@ -814,6 +828,7 @@ var interactiveMap = (function() {
         poiHoverHandler: poiHoverHandler,
         poiClickedHandler: poiClickedHandler,
         drawCircleAroundPoi: drawCircleAroundPoi,
+        showFavoritesPois:showFavoritesPois,
         showFbPois: showFbPois,
     };
 })();

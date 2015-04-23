@@ -2,10 +2,10 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <script>
-$(document).on("loginDone",reload_filterOnPoiList);
-function reload_filterOnPoiList(event){
-   $.reloadElement("filterOnPoiList","./filterOnPoiList");
-}
+    $(document).on("loginDone", reload_filterOnPoiList);
+    function reload_filterOnPoiList(event) {
+        $.reloadElement("filterOnPoiList", "./filterOnPoiList");
+    }
 </script>
 
 <!--<div  class="btn-group" role="group" data-toggle="buttons">
@@ -26,8 +26,13 @@ function reload_filterOnPoiList(event){
         <i class="glyphicon glyphicon-map-marker"></i>
     </button>
     <sec:authorize access="hasRole('ROLE_FB')">
-    <!--<button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFbPois()">
-        <i class="fa fa-facebook-f"></i>
-    </button> -->
+        <!--<button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFbPois()">
+            <i class="fa fa-facebook-f"></i>
+        </button> -->
+    </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_USER')">
+        <button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFavoritesPois()">
+            <i class="fa fa-heart"></i>
+        </button>
     </sec:authorize>
 </div>
