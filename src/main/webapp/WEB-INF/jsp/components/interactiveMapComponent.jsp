@@ -234,6 +234,9 @@
         $(document).bind("category_added", function(event) {
             interactiveMap.categoryAddHandler(event);
         });
+        $(document).bind("category_all", function(event) {
+            interactiveMap.categoryAllHandler(event);
+        });
         $(document).bind("category_removed", function(event) {
             interactiveMap.categoryRemoveHandler(event);
         });

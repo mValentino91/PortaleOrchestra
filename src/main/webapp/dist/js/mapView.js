@@ -703,6 +703,18 @@ var interactiveMap = (function() {
             }
         });
     }
+    function categoryAllHandler(event) {
+        $.ajax({
+            type: "GET",
+            url: "./Map/JSON?category=all",
+            success: function(data) {
+                var poi = JSON.parse(data);
+                showPois(poi);
+                markersChangend(interactiveMap.markers);
+                $('#loadingImg').hide();
+            }
+        });
+    }
     function showFbPois() {
         disableSearchState();
         $('#loadingImg').show();
@@ -784,6 +796,7 @@ var interactiveMap = (function() {
         viewPanorama: viewPanorama,
         attachInfo: attachInfo,
         categoryAddHandler: categoryAddHandler,
+        categoryAllHandler:categoryAllHandler,
         categoryRemoveHandler: categoryRemoveHandler,
         map: map,
         markers: markers,
@@ -810,6 +823,7 @@ var categoriesTail = (function() {
     var indexCategories = 0;
     var openedSlug = new Array();
     var lastSelected = null;
+    var categoriesCounter = 0;
     var maxTail= 5;
     var parsedTree;
     function init() {
@@ -978,6 +992,7 @@ var categoriesTail = (function() {
             obj.tail = tail;
             var catEvent = jQuery.Event('category_added');
             catEvent.target = obj;
+            alert(categoriesCounter);
             $(document).trigger(catEvent);
         } else {
             var obj = new Object(slug);
@@ -987,6 +1002,12 @@ var categoriesTail = (function() {
             var catEvent = jQuery.Event('category_removed');
             catEvent.target = obj;
             $(document).trigger(catEvent);
+            categoriesCounter--;
+            alert(categoriesCounter);
+            if(categoriesCounter===0){
+            var catEvent = jQuery.Event('category_all');
+            $(document).trigger(catEvent);
+            }
         }
     }
     function macroCategoryHandler(color, slug, title) {
@@ -1001,6 +1022,7 @@ var categoriesTail = (function() {
             if (!finded) {
                 openedSlug.push(slug);
                 triggerEvent(slug, null, null, null, 'add');
+                categoriesCounter++;
                 $('#categoriesPanelGroup').append(
                         '<div class="panel panel-default" style="display:none" id="categoryPanel-' + indexCategories + '">'
                         + '<div class="panel-heading" style="background:' + color + '">'
