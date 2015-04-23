@@ -49,13 +49,25 @@
                 font-weight: 300;
             }
             
+            .favorite_img {
+                border: 0px solid green;
+                width: 150px;
+                height: 120px;
+                float: right;
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                overflow: hidden;
+                background-size: cover;
+                background-position: center center;
+                border-radius: 0px;
+              }
+            
         </style>
     </head>
     <body>
-
+        <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
-
-            <jsp:include page="components/sideBar.jsp"/>
 
             <div class="col-xs-12">
                 <jsp:include page="components/CoverComponentFavorites.jsp"/>
