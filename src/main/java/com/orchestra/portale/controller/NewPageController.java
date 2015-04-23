@@ -39,63 +39,56 @@ public class NewPageController {
 
         Pages page = new Pages();
 
-        page.setSlug("food");
+        page.setSlug("expo");
         ArrayList<CarouselPages> cpsl = new ArrayList<CarouselPages>();
         ArrayList<Tile> tilelist = new ArrayList<Tile>();
-        page.setTitle("Enogastronomia");
-        page.setDescription("La gastronomia partenopea è caratterizzata da una tale varietà di piatti, ingredienti, preparazioni, che sedersi a tavola è una vera esperienza sensoriale, una festa di odori, sapori, colori, sensazioni. Davanti ad un buffet di cibi napoletani almeno tre sensi (vista, gusto e odorato) non trovano pace … e forse pure udito e tatto!\n" +
-        "Un lunghissimo elenco di pietanze di terra si uniscono a tantissimi piatti di mare; verdure di una varietà straordinaria si armonizzano con latticini unici, con formaggi, con conserve, con dolci di eccezionale storia e fattura.\n" +
-        "Ma in questa vastissima gamma di pietanze sofisticate la cosa divertente è che la cucina napoletana tocca il punto massimo quando unisce la tradizionale pasta a ingredienti poveri come fagioli (pasta e fasule), ceci (lagane e cicere) o patate (pasta e patane).\n" +
-        "Tutta colpa, o merito, delle tracce gastronomiche lasciate dalle dominazioni che si sono susseguite sul regno di Napoli nell’ultimo millennio e dal suo ruolo di capitale del sud che ne ha fatto il crocevia di tradizioni gastronomiche provenienti dai quattro angoli del regno.\n" +
-        "Eppure, nonostante storia, contaminazioni ed una immensa varietà gastronomica, la cucina napoletana conserva una identità unica.\n" +
-        "In questa sezione si provano ad indicare alcuni luoghi sacri della gastronomia napoletana, quelli che andrebbero protetti come patrimonio mondiale dell’Umanità perché custodiscono i saperi (oltre che i sapori) di un popolo millenario.  I saperi di osti, pasticcieri, cioccolatai, tarallari, carnacuttari, caffettieri eccezionali che hanno fatto la storia della città.\n" +
-        "Ecco perché a Napoli puoi mangiare la migliore pizza del mondo, il miglior caffè, il migliore cibo di strada (non chiamiamolo fast food), la migliore pasticceria e gelateria, ottima cioccolata, il miglior pane, la migliore cucina in centinaia di osterie, trattorie, cantine, bettole, tavole calde...");
+        page.setTitle("EXPO NAPOLI");
+        page.setDescription("EXPO2015 rappresenta un evento fondamentale per il mondo.Il Comune di Napoli propone un calendario di iniziative ed eventi capaci di esaltare il protagonismo della città perché Expo è Milano ma è, contemporaneamente, tutta l'Italia.Per noi non poteva essere altrimenti, considerata la tradizione secolare che la città vanta nel campo dell'alimentazione e della sicurezza alimentare: paesaggi gastronomici celebri sin dall'antichità, filiere produttive di eccellenza note in tutto il mondo, prodotti tipici che sono i pilastri di quella “dieta mediterranea” proclamata nel 2010 Patrimonio Immateriale dell'Umanità dall'Unesco, pizza prossimo patrimonio del mondo, caffè sospeso, street food, aria e gioa. A Napoli il cibo è cultura, più che altrove. Ma a Napoli il cibo è anche storia, intelligenza, voglia di scoprire.");
 
+        CarouselPages cps1= new CarouselPages();
+         cps1.setLink("expo1.jpg");
+         cpsl.add(cps1);
+         page.setImgList(cpsl);
+         
         Tile tile1 = new Tile();
-        tile1.setColor("#F7DA65");
-        tile1.setText("Caffè-bar");
+        tile1.setColor("#D31E76");
         tile1.setLink("#");
         tilelist.add(tile1);
 
         Tile tile2 = new Tile();
-        tile2.setColor("#F7DA65");
-        tile2.setText("Ristorante");
+        tile2.setColor("#A2DED0");
         tile2.setLink("#");
         tilelist.add(tile2);
 
         Tile tile3 = new Tile();
-        tile3.setColor("#F7DA65");
-        tile3.setText("Cioccolateria");
+        tile3.setColor("#F9D800");
         tile3.setLink("#");
         tilelist.add(tile3);
 
         Tile tile4 = new Tile();
-        tile4.setColor("#F7DA65");
-        tile4.setText("Distilleria");
+        tile4.setColor("#A2DED0");
         tile4.setLink("#");
         tilelist.add(tile4);
 
         Tile tile5 = new Tile();
-        tile5.setColor("#F7DA65");
-        tile5.setText("Pasticceria");
+        tile5.setColor("#009DE0");
         tile5.setLink("#");
         tilelist.add(tile5);
 
         Tile tile6 = new Tile();
-        tile6.setColor("#F7DA65");
-        tile6.setText("Pizzeria");
+        tile6.setColor("#F69B7C");
+        tile6.setIcon("expo_tile.svg");
         tile6.setLink("#");
         
         tilelist.add(tile6);
 
         Tile tile7 = new Tile();
-        tile7.setColor("#F7DA65");
-        tile7.setText("TOP 10");
+        tile7.setColor("#A2DED0");
         tile7.setLink("#");
         tilelist.add(tile7);
 
         Tile tile8 = new Tile();
-        tile8.setColor("#F7DA65");
+        tile8.setColor("#A2DED0");
         tile8.setLink("#");
         tilelist.add(tile8);
 
@@ -103,24 +96,35 @@ public class NewPageController {
 
         CategorySubMenu csm = new CategorySubMenu();
         csm.setLink("#");
-        csm.setText("Osteria-Trattoria");
+        csm.setText("Conoscere Napoli");
 
         CategorySubMenu csm2 = new CategorySubMenu();
         csm2.setLink("#");
-        csm2.setText("Forno-Rosticceria");
+        csm2.setText("Vivere Napoli");
         
         CategorySubMenu csm3 = new CategorySubMenu();
         csm3.setLink("#");
-        csm3.setText("Fast-Food");        
+        csm3.setText("Gustare Napoli");     
+        
+        CategorySubMenu csm4 = new CategorySubMenu();
+        csm4.setLink("#");
+        csm4.setText("Visitare Napoli");     
+        
+        CategorySubMenu csm5 = new CategorySubMenu();
+        csm5.setLink("#");
+        csm5.setText("Progetti Speciali NAPOLIperEXPO");     
 
         ArrayList<CategorySubMenu> submenu = new ArrayList<CategorySubMenu>();
         submenu.add(csm);
         submenu.add(csm2);
         submenu.add(csm3);
+        submenu.add(csm4);
+        submenu.add(csm5);
 
+        
         SubMenu sub = new SubMenu();
         sub.setCategories(submenu);
-        sub.setColor("#F7DA65");
+        sub.setColor("#e74c3c");
         page.setSubmenu(sub);
 /*
         ContactsComponent cc = new ContactsComponent();
@@ -140,7 +144,7 @@ public class NewPageController {
         ArrayList<AbstractPoiComponent> abc = new ArrayList<AbstractPoiComponent>();
         abc.add(cc);
         page.setComponents(abc);
-        */
+        *
         String[] slugs = new String[100];
         slugs[1] = "food";
         page.setCategorySlugList(slugs);
@@ -315,8 +319,9 @@ public class NewPageController {
          cpsl.add(cps9);
          cpsl.add(cps10);
          cpsl.add(cps11);
-         */
+        */ 
         page.setImgList(cpsl);
+        
         pm.savePage(page);
 
         return model;
