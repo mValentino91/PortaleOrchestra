@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
@@ -38,6 +39,7 @@ public class FavoriteController {
         Favorite favorite = new Favorite();
         favorite.setIdUser(Integer.parseInt(id_user));
         favorite.setIdPoi(id_poi);
+        favorite.setRating(1);
         pm.saveFavorite(favorite);
         
         return "ok";
@@ -51,6 +53,23 @@ public class FavoriteController {
         pm.updateFavoriteRating(Integer.parseInt(rating), Integer.parseInt(id_user), id_poi);
         
         return "ok";
+    }        
+
+    @RequestMapping(value = "/getFavorites", method = RequestMethod.GET)
+    public @ResponseBody
+    String getFavorites(@RequestParam String idUser) {
+    
+        Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(idUser));
+        ArrayList<String> idlist = new ArrayList<String>();        
+        Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
+        
+        for (Favorite f : favorites ) {
+            idlist.add(f.getIdPoi());
+        }
+        poilist = pm.getCompletePoisById(idlist);
+        
+        Gson j_poilist = new Gson();
+        return j_poilist.toJson(poilist);
     }        
 
 

@@ -29,6 +29,7 @@
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
+        <script src="./dist/js/favorite.js"></script>
         <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
@@ -36,33 +37,63 @@
         <title>I tuoi preferiti</title>   
         
         <style>
-            .text{
-                font-family: "Roboto",sans-serif;
-                width: 100%;
-                font-size: 13px;
-                border: 0px solid #008000;
-                margin: 5px 0px 0px;
-                color: #808080;
-                overflow: hidden;
-                box-sizing: border-box;
-                clear: both;
-                font-weight: 300;
-            }
-            
-            .favorite_img {
-                border: 0px solid green;
-                width: 150px;
-                height: 120px;
-                float: right;
+                     
+            .poi_preview_box{
+              height: 120px; 
+              width: 100%; 
+              border: 0px solid red; 
+              -moz-box-sizing: border-box;
+              -webkit-box-sizing: border-box;
+              box-sizing: border-box;
+              clear: both;
+              magin-top: 10px;
+              margin-bottom: 10px;
+              position: relative;
+              border-bottom: 1px solid #E9EAED;
+            }  
+              
+            .poi_preview_img{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-                overflow: hidden;
+                height: 100%; 
+                width: 25%; 
+                border: 0px solid green;
+                float: left;
                 background-size: cover;
                 background-position: center center;
-                border-radius: 0px;
-              }
+                border-radius: 0px;                
+            }
             
+            .poi_preview_content{
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                height: 100%; 
+                width: 75%; 
+                border: 0px solid yellow; 
+                float: left;
+                padding: 10px;
+            }
+            
+            .poi_preview_title{
+                font-weight: bold;
+            }
+            
+            .poi_preview_delete{
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+            
+            .poi_preview_rating{
+                border: 0px solid pink;
+            }
+            
+            
+            .clear{
+                clear:both;
+            }
         </style>
     </head>
     <body>
@@ -73,19 +104,12 @@
                 <jsp:include page="components/CoverComponentFavorites.jsp"/>
             </div>
 
-            <div class="col-xs-12 col-sm-8 col-md-8 padding_dx">
+            <div class="col-xs-12">
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
                 <jsp:include page="components/FavoriteListComponent.jsp"/> 
 
             </div>
 
-
-            <div class="col-xs-12 col-sm-4 col-md-4 padding_sx">
-
-                <!-- div vuoto che visualizza i top preferiti-->
-                <jsp:include page="components/FavoriteTopListComponent.jsp"/>
-
-            </div>  
 
             <div class="col-xs-12" id="footer">
                 <center>
@@ -121,6 +145,7 @@
         
         
         <script>
+            /*
             $( document ).ready(function() {
                 enableRatingBar() ;  
                
@@ -128,12 +153,38 @@
                 $(".fav_rating").each(function(index) {
                     rating = $(this).data('rating');
                     $(this).find(".range").data("ionRangeSlider").update({
-                        from: rating
+                        from: rating,
+                        onFinish: function (data) {
+                            saveFavoriteRating($(this).data('idpoi'), data.from);
+                        }
                     });
                 });
                 
             });
-            
+            */
+
+            $( document ).ready(function() {
+                enableRatingBar() ;  
+                $(".poi_preview_box").each(function(index) {
+                    var box = $(this);
+                    var fav_rating = $(this).find(".fav_rating");
+                    var rating = fav_rating.data('rating');
+                    var idpoi = fav_rating.data('idpoi');
+                    $(this).find(".range").data("ionRangeSlider").update({
+                        from: rating,
+                        onFinish: function (data) {
+                            saveFavoriteRating(fav_rating.data('idpoi'), data.from);
+                        }
+                    });
+                    var delete_poi = $(this).find(".poi_preview_delete");
+                    delete_poi.click(function() {
+                        removeFromFavorite(idpoi);
+                        box.fadeOut(300, function() { $(this).remove(); })
+                    });
+                });
+                
+            });    
+    
         </script>
         
         
