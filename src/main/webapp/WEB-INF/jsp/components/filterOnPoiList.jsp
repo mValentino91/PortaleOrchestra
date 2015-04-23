@@ -31,7 +31,7 @@
         </button> -->
     </sec:authorize>
     <sec:authorize access="hasRole('ROLE_USER')">
-        <button type="button" class="btn btn-default btn-xs" onclick="interactiveMap.showFavoritesPois()">
+        <button type="button" class="btn btn-default btn-xs" onclick="showFavoritesPois()">
             <i class="fa fa-heart"></i>
         </button>
     </sec:authorize>
