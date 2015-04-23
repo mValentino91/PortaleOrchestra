@@ -578,7 +578,7 @@ var interactiveMap = (function() {
                 grid: false,
                 grid_snap: false,
                 onFinish: function (data) {
-                    interactiveMap.saveFavoriteRating(idPoi, data.from);
+                    saveFavoriteRating(idPoi, data.from);
                 }
             });
 
@@ -622,7 +622,7 @@ var interactiveMap = (function() {
             $("#fav_rating_bar").data("ionRangeSlider").update({
                 from: 1
             });
-            interactiveMap.addToFavorite(idPoi);
+            addToFavorite(idPoi);
         } else {
             heart_hover_en($(".favorite"));
             $(".fav_rating").slideUp("slow");
@@ -802,8 +802,6 @@ var interactiveMap = (function() {
         poiClickedHandler: poiClickedHandler,
         drawCircleAroundPoi: drawCircleAroundPoi,
         showFbPois: showFbPois,
-        addToFavorite: addToFavorite,
-        saveFavoriteRating: saveFavoriteRating
     };
 })();
 
