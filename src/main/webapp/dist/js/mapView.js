@@ -729,6 +729,24 @@ var interactiveMap = (function() {
             }
         });
     }
+    function showFavoritesPois() {
+      if(ifAuth() === true){
+            var userId = getUserId();
+            disableSearchState();
+            $('#loadingImg').show();
+            $.ajax({
+                type: "GET",
+                url: "./getFavorites",
+                data: "idUser=" + userId,
+                success: function(data) {
+                    var poi = JSON.parse(data);
+                    showPois(poi);
+                    markersChangend(interactiveMap.markers);
+                    $('#loadingImg').hide();
+             }
+            });
+        }
+    }
     function categoryRemoveHandler(event) {
         disableSearchState();
         $('#loadingImg').show();
@@ -814,7 +832,8 @@ var interactiveMap = (function() {
         poiHoverHandler: poiHoverHandler,
         poiClickedHandler: poiClickedHandler,
         drawCircleAroundPoi: drawCircleAroundPoi,
-        showFbPois: showFbPois,
+        showFavoritesPois:showFavoritesPois,
+        showFbPois: showFbPois
     };
 })();
 
