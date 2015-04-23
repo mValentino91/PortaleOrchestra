@@ -81,9 +81,9 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Categorie <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Cultura</a></li>
+                            <li><a href="./page?sec=culture">Cultura</a></li>
                             <li><a href="#">Pernottamento</a></li>
-                            <li><a href="#">Enogastronomia</a></li>
+                            <li><a href="./page?sec=food">Enogastronomia</a></li>
                             <li><a href="#">Artigiani</a></li>
                             <li><a href="#">Mobilità</a></li>
                             <li class="divider"></li>
