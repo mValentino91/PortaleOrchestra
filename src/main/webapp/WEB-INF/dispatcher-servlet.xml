@@ -77,5 +77,29 @@
 	 
         <!-- one of the properties available; the maximum file size in bytes -->    
     </bean>
+    
+    
+    
+    <!-- i18n Start-->
+    <!-- Classe per determinare i file message resources contenenti i contenuti nelle varie lingue -->
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="classpath:messages"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
+    <mvc:interceptors>
+        <!-- Classe che implementa la funzionalità per cui l'utente può cambiare lingua manualmente -->
+        <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+            <property name="paramName" value="lang" />
+        </bean>
+    </mvc:interceptors>
+
+    <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+        <property name="defaultLocale" value="en" />
+    </bean>
+    
+        
+    
+    
 </beans>
  

@@ -36,7 +36,7 @@
                                             </div>
                                             <div class="fav_rating poi_preview_rating" data-idpoi="${p.id}" data-rating="${map_cat.getRate(p.id)}">
                                                 <input type="text" class="range" value="" name="range" style="border: 1px solid green"/>
-                                                <span class="baloon_subtitle">...quanto sei interessato?</span>
+                                                <span class="baloon_subtitle"><spring:message code="label.interested"></spring:message></span>
                                             </div>	                                            
                                             
                                         </div>

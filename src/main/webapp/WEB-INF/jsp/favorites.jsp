@@ -34,7 +34,7 @@
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
 
-        <title>I tuoi preferiti</title>   
+        <title><spring:message code="label.favoritespoi"></spring:message></title>   
         
         <style>
                      

@@ -11,14 +11,14 @@
 
 <center> 
     <div class="WTL showtab" id="oggitab">
-        <div style="font-size: 110%; margin-top: 2px; " title="${oggi}, ${data}"><b>Oggi</b></div>
+        <div style="font-size: 110%; margin-top: 2px; " title="${oggi}, ${data}"><b><spring:message code="label.today"></spring:message></b></div>
         <c:choose>           
             <c:when test="${workingtime.weekly_day_of_rest.contains(oggi)}">
                 
-                <div style="font-size: 105%;">  Chiuso</div>
+                <div style="font-size: 105%;">  <spring:message code="label.today"></spring:message></div>
             </c:when>
             <c:when test="${workingtime.days_of_rest.contains(data)}">
-                <div style="font-size: 105%;">  Chiuso</div>
+                <div style="font-size: 105%;">  <spring:message code="label.today"></spring:message></div>
             </c:when>
             <c:otherwise>
 
@@ -34,7 +34,7 @@
             </c:otherwise> 
         </c:choose>
 
-        <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="tutti" onclick="show_hourtab(this.id)">MOSTRA TUTTI GLI ORARI</div>
+        <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="tutti" onclick="show_hourtab(this.id)"><spring:message code="label.showsalltimes"></spring:message></div>
     </div>
     <div class="WTL hiddentab" id="tuttitab" >
         <c:forEach var="Wdays" items="${workingtime.workingdays}">
@@ -46,13 +46,13 @@
 
             </c:forEach>
         </c:forEach>
-         <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="oggi" onclick="show_hourtab(this.id)">RIDUCI</div>
+         <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="oggi" onclick="show_hourtab(this.id)"><spring:message code="label.minimize"></spring:message></div>
     </div>
     <div class="separator" style="margin-top: 2px;"></div>
      <c:if test="${not empty workingtime.weekly_day_of_rest}">
-    <div> <b>Giorni di chiusura settimanale:</b> ${workingtime.weekly_day_of_rest}</div>
+    <div> <b><spring:message code="label.cdw"></spring:message></b> ${workingtime.weekly_day_of_rest}</div>
      </c:if>
     <c:if test="${not empty workingtime.days_of_rest}">
-    <div> <b>Chiusure programmate:</b> ${workingtime.days_of_rest}</div>
+    <div> <b><spring:message code="label.plannedclosures"></spring:message></b> ${workingtime.days_of_rest}</div>
     </c:if>
 </center>

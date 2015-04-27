@@ -7,6 +7,7 @@
 <%@page import="java.util.List"%>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <!doctype html>
 <html>
     <head>
@@ -103,7 +104,7 @@
         <jsp:include page="components/topBar.jsp"/>
 
         <div class="container-fixed" style="padding-top: 60px;">
-            <h1 class="page-header">Il tuo profilo  <a href="userEditProfile"><i class="fa fa-pencil-square-o edit_profile_icon"></i></a></h1>
+            <h1 class="page-header"><spring:message code="label.profiletile"></spring:message>  <a href="userEditProfile"><i class="fa fa-pencil-square-o edit_profile_icon"></i></a></h1>
 
             <div class="row">
                 <!-- left column -->
@@ -114,18 +115,18 @@
                 </div>
                 <!-- edit form column -->
                 <div class="col-md-8 col-sm-6 col-xs-12 personal-info drop_down_container">
-                    <h3>Informazioni Personali <i class="fa fa-caret-down drop_down_icon"></i></h3>
+                    <h3><spring:message code="label.profilepersonalinfo"></spring:message> <i class="fa fa-caret-down drop_down_icon"></i></h3>
                     <div class="info_container drop_down_content">
                         <div class="row">
-                            <div class="col-md-12"><strong>Nome</strong></div>
+                            <div class="col-md-12"><strong><spring:message code="label.profilefirstname"></spring:message></strong></div>
                             <div class="col-md-12">${user.firstName}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"><strong>Cognome</strong></div>
+                            <div class="col-md-12"><strong><spring:message code="label.profilelastname"></spring:message></strong></div>
                             <div class="col-md-12">${user.lastName}</div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12"><strong>Email</strong></div>
+                            <div class="col-md-12"><strong><spring:message code="label.profileemail"></spring:message></strong></div>
                             <div class="col-md-12">${user.username}</div>
                         </div>
                     </div>		
@@ -133,11 +134,11 @@
                 <sec:authorize access="hasRole('ROLE_FB')">
                     <c:if test="${not empty categories}">
                     <div class="col-md-8 col-sm-6 col-xs-12 personal-info drop_down_container">
-                        <h3>Facebook Info <i class="fa fa-caret-down drop_down_icon"></i></h3>
+                        <h3><spring:message code="label.profilefbtitle"></spring:message> <i class="fa fa-caret-down drop_down_icon"></i></h3>
                         <div class="info_container drop_down_content">
 
                             <div class="row drop_down_container">
-                                <div class="col-md-12"><strong>Likes Top Categories  <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
+                                <div class="col-md-12"><strong><spring:message code="label.profilefblike"></spring:message>  <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
                                 <div class="col-md-12 drop_down_content" style="display: none">
                                     <%
                                         Map<String, List<String[]>> cat_list = (Map<String, List<String[]>>) request.getAttribute("categories");
@@ -156,7 +157,7 @@
                                 </div>
                             </div>
                             <div class="row drop_down_container">
-                                <div class="col-md-12"><strong>Photos Top Categories  <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
+                                <div class="col-md-12"><strong><spring:message code="label.profilefbphoto"></spring:message> <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
                                 <div class="col-md-12 drop_down_content" style="display: none;">
                                     <%                                  if (cat_list != null) {
                                             List<String[]> photos = cat_list.get("photos");
@@ -171,7 +172,7 @@
                                     %>			  </div>
                             </div>
                             <div class="row drop_down_container">
-                                <div class="col-md-12"><strong>Places Top Categories  <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
+                                <div class="col-md-12"><strong><spring:message code="label.profilefbplace"></spring:message>  <i class="fa fa-caret-right drop_down_icon"></i></strong></div>
                                 <div class="col-md-12 drop_down_content" style="display: none">
                                     <%                                  if (cat_list != null) {
                                             List<String[]> places = cat_list.get("places");

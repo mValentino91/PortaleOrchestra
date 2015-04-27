@@ -21,7 +21,7 @@
            
         
 
-        <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="tutti" onclick="show_hourtab(this.id)">MOSTRA TUTTI GLI ORARI</div>
+        <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="tutti" onclick="show_hourtab(this.id)"><spring:message code="label.showsalltimes"></spring:message></div>
     </div>
     <div class="WTL hiddentab" id="tuttitab" >
         <c:forEach var="Edates" items="${eventsdate.dates}">
@@ -33,7 +33,7 @@
 
             </c:forEach>
         </c:forEach>
-         <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="oggi" onclick="show_hourtab(this.id)">RIDUCI</div>
+         <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="oggi" onclick="show_hourtab(this.id)"><spring:message code="label.minimize"></spring:message></div>
     </div>
         </center>
     </div>

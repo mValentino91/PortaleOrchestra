@@ -9,7 +9,7 @@
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 
 <c:url value="logout" var="logoutUrl"/>
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <script>
@@ -28,11 +28,11 @@ function reload_access_area(event){
         <ul class="dropdown-menu">
             <li>        
                 <a href="#" id='modal-launcher' data-toggle="modal" data-target="#login-modal">
-                    <i class="fa fa-sign-in"></i> Login
+                    <i class="fa fa-sign-in"></i> <spring:message code="label.login"></spring:message>
                 </a>
             </li>
             <li class="divider"></li>
-            <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>
+            <li><a href="./privacy"><i class="fa fa-lock"></i> <spring:message code="label.privacypolicy"></spring:message></a></li>
         </ul>
     
     <script type="text/javascript">
@@ -48,18 +48,18 @@ function reload_access_area(event){
             <img id="userImg" src="${avatar}" class="profile-image img-circle">
         </a>
         <ul class="dropdown-menu">
-            <li><a href="./userInfo"><i class="fa fa-cog"></i> Il tuo profilo</a></li>
+            <li><a href="./userInfo"><i class="fa fa-cog"></i> <spring:message code="label.yourprofile"></spring:message></a></li>
             <li class="divider"></li>
-            <li><a href="./privacy"><i class="fa fa-lock"></i> Privacy Policy</a></li>            
+            <li><a href="./privacy"><i class="fa fa-lock"></i> <spring:message code="label.privacypolicy"></spring:message></a></li>            
             <li class="divider"></li>
             <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERADMIN')">
-            <li><a href="./admin"><i class="fa fa-cog"></i> Admin</a></li>
+            <li><a href="./admin"><i class="fa fa-cog"></i> <spring:message code="label.admin"></spring:message></a></li>
             <li class="divider"></li>
             </sec:authorize>
             
-            <li><a href="./favorites?idUser=${uid}"><i class="fa fa-heart"></i> I Tuoi POI</a></li>
+            <li><a href="./favorites?idUser=${uid}"><i class="fa fa-heart"></i> <spring:message code="label.favoritespoi"></spring:message></a></li>
                <li class="divider"></li>     
-            <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> Logout</a></li>
+            <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> <spring:message code="label.logout"></spring:message></a></li>
         </ul>
  
     <script type="text/javascript">

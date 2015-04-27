@@ -67,12 +67,12 @@
                             <!-- Left and right controls -->
                             <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
                                 <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-                                <span class="sr-only">Precedente</span>
+                                <span class="sr-only"><spring:message code="label.sliderprev"></spring:message></span>
                             </a>
 
                             <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
                                 <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-                                <span class="sr-only">Prossimo</span>
+                                <span class="sr-only"><spring:message code="label.slidernext"></spring:message></span>
                             </a>
                         </div>
 

@@ -1,5 +1,6 @@
 <!doctype html>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="./dist/css/bootstrap.min.css">
@@ -80,7 +81,7 @@
          <jsp:include page="components/topBar.jsp"/>      
 <div class="container-fixed" style="padding-top: 60px;">
  
-  <h1 class="page-header">Edit Your Profile - ${user.username}</h1>
+  <h1 class="page-header"><spring:message code="label.edittitle"></spring:message> - ${user.username}</h1>
   <form:form class="form-horizontal" enctype="multipart/form-data"  action="userEditProfile" method="POST">
   <div class="row">
     <!-- left column -->
@@ -98,34 +99,34 @@
       <h3>Personal info</h3>
        <form:input class="form-control" type="hidden" value="${user.username}" path="username" />
         <div class="form-group">
-          <label class="col-lg-3 control-label">First name:</label>
+          <label class="col-lg-3 control-label"><spring:message code="label.profilefirstname"></spring:message></label>
           <div class="col-lg-8">
             <form:input class="form-control" path="firstName" value="${user.firstName}" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Last name:</label>
+          <label class="col-lg-3 control-label"><spring:message code="label.profilelastname"></spring:message></label>
           <div class="col-lg-8">
             <form:input class="form-control" path="lastName" value="${user.lastName}" type="text" required='required' />
           </div>
         </div>
         
         <div class="form-group">
-          <label class="col-md-3 control-label">New password:</label>
+          <label class="col-md-3 control-label"><spring:message code="label.profilenewpwd"></spring:message></label>
           <div class="col-md-8">
-            <form:input class="form-control" placeholder="Not Changed" id='p' onfocus="removeAttributes(this)" onblur="checkPassLen()" path="password" type="password"  />
+            <form:input class="form-control" placeholder="********" id='p' onfocus="removeAttributes(this)" onblur="checkPassLen()" path="password" type="password"  />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Confirm new password:</label>
+          <label class="col-md-3 control-label"><spring:message code="label.profileconfirmpwd"></spring:message></label>
           <div class="col-md-8">
-            <input class="form-control" id="confermap" placeholder="Not Changed" onfocus="removeAttributes(this)" onblur="checkpassword()" type="password">
+            <input class="form-control" id="confermap" placeholder="********" onfocus="removeAttributes(this)" onblur="checkpassword()" type="password">
           </div>
         </div>
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input class="btn btn-primary" value="Submit" type="submit">
+            <input class="btn btn-primary" value="<spring:message code='label.submit'></spring:message>" type="submit">
           </div>
         </div>
       </form:form>

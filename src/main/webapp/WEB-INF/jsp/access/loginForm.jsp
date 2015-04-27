@@ -6,7 +6,7 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
-
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -86,7 +86,7 @@
                                <div class="input-group">
                                  <div class="checkbox">
                                        <label>
-                                         <input id="login-remember" name='_spring_security_remember_me' type="checkbox" value="1"> Ricordami
+                                         <input id="login-remember" name='_spring_security_remember_me' type="checkbox" value="1"> <spring:message code="label.rememberme"></spring:message>
                                        </label>
                                  </div>
                                </div>
@@ -95,8 +95,8 @@
                                <div style="margin-top:10px" class="form-group">
                                     <!-- Button -->
                                     <div class="col-sm-12 controls">
-                                      <a id="btn-login" href="#" class="btn btn-success">Login  </a>
-                                      <a id="btn-fblogin" href="#" class="btn btn-primary" onclick='fb_login()'>Login con Facebook</a>
+                                      <a id="btn-login" href="#" class="btn btn-success"><spring:message code="label.login"></spring:message>  </a>
+                                      <a id="btn-fblogin" href="#" class="btn btn-primary" onclick='fb_login()'><spring:message code="label.loginwithfacebook"></spring:message></a>
 
                                     </div>
                                </div>
@@ -114,7 +114,7 @@
             
             <%-- If user is authenticated close modal --%>
             <sec:authorize access="isAuthenticated()">
-                Login Effettuato
+                <spring:message code="label.logindone"></spring:message>
                 <script>
                    //login done function
                    loginDone();

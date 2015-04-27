@@ -25,7 +25,7 @@
         </div>
         <p style="margin-top: 5px">${poi.address}</p>
         <div class="intents">
-            <span class="count">Nelle vicinanze</span>
+            <span class="count"><spring:message code="label.nearby"></spring:message></span>
         </div>
     </div>
 </article>  
