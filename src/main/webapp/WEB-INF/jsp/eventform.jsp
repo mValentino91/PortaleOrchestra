@@ -548,7 +548,7 @@
         </div>
              <script>
         $('.datepickerinp').datepicker({
-            
+            dateFormat: "dd/mm/yy"
         });
             </script>
     </body>

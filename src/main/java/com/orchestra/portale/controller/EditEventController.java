@@ -114,7 +114,7 @@ public class EditEventController {
 
     @RequestMapping(value = "/editevent", params = "id")
     public ModelAndView editEventbyID(@RequestParam(value = "id") String id) {
-        ModelAndView model = new ModelAndView("editform");
+        ModelAndView model = new ModelAndView("editeventform");
         try {
             CompletePOI poi = pm.getCompletePoiById(id);
             model.addObject("nome", poi.getName());
@@ -372,6 +372,9 @@ public class EditEventController {
                 }
                 EventsDates cwd = new EventsDates();
                 cwd.setDate(params.get("WD" + i));
+                 if (params.containsKey("WDT" + i)) {
+                    cwd.setText(params.get("WDT" + i));
+                }
                 cwd.setHours(Listwh);
                 workingdays.add(cwd);
                 i = i + 1;

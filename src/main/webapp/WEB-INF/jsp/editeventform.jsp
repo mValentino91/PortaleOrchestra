@@ -502,6 +502,10 @@
                                                 <div class="row">
                                                     <input type="text" name="date${tot.count}" class="inpdates obb form-control" value="${Wdays.date}">
                                                     </div>
+                                                Descrizione breve
+                                                <div class="row">
+                                                    <input type="text" name="datetext${tot.count}" class="inpdatestext obb form-control" value="${Wdays.text}">
+                                                    </div>
                                                 <c:forEach var="Wtime" items="${Wdays.hours}" varStatus="tot2">
                                                     <div id="D${tot.count}-${tot2.count}" class="fasciaoraria ">
                                                         Dalle*

@@ -14,7 +14,7 @@ function getWeather() {
            $("#weather img").attr("src", "./dist/img/weather/" + meteo.weatherCode + ".png");
         },
         error: function (richiesta, stato, errori) {
-            alert("Error. State: " + stato);
+            
         }
     });
 

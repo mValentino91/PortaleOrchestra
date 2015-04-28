@@ -12,9 +12,20 @@ import java.util.ArrayList;
  * @author Alex
  */
 public class EventsDates {
+    private String text;
     private String date;
     private ArrayList<EventsHours> hours;
 
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+    
+
+    
     public String getDate() {
         return date;
     }
