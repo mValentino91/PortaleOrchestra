@@ -63,7 +63,10 @@ public class SearchController {
         Gson pois = new Gson();
         JsonObject j= new JsonObject();
         JsonArray array = new JsonArray();
-        Iterable<CompletePOI> results = pm.findCompletePoi(query, "", "event");
+        String [] categories = new String [10];
+        categories[1] = "event";
+        categories[2] = "expo";
+        Iterable<CompletePOI> results = pm.findCompletePoiByNameAndCategories(query,categories);
         for (CompletePOI c : results) {
             JsonObject json = new JsonObject();
             json.addProperty("value", c.getName());

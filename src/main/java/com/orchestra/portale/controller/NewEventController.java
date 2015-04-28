@@ -95,6 +95,7 @@ public class NewEventController {
         } else {
             poi.setName(params.get("name"));
             poi.setAddress(params.get("address"));
+            poi.setVisibility("1");
             double lat = Double.parseDouble(params.get("latitude"));
             double longi = Double.parseDouble(params.get("longitude"));
             poi.setLocation(new double[]{lat, longi});

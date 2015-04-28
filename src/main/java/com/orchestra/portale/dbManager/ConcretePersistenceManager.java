@@ -72,16 +72,16 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
     PagesMongoRepository pagesRepo;
-    
+
     @Autowired
     HomeMongoRepository homeRepo;
 
     @Autowired
     DeepeningPageMongoRepository deepRepo;
-    
+
     @Autowired
     private FavoriteRepository favoriteRepo;
-    
+
     @Override
     public Poi getPoiById(String Id) {
         return null;
@@ -115,12 +115,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
         poiMongoRepo.save(poi);
     }
 
-  
-     @Override
-    public Iterable<CompletePOI> getCompletePoiByCategories(String [] categories) {
+    @Override
+    public Iterable<CompletePOI> getCompletePoiByCategories(String[] categories) {
 
         return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
     }
+
     @Override
     public CompletePOI findOneCompletePoiByName(String name) {
 
@@ -132,7 +132,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
         }
         return null;
     }
-
+    @Override
+    public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String [] categories) {
+        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
+    }
+    
+    
     @Override
     public void deletePoi(CompletePOI poi) {
         poiMongoRepo.delete(poi);
@@ -207,22 +212,25 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return mongoOps.findOne(new Query(where("slug").is(slug)), Pages.class);
 
     }
+
     @Override
     public void saveHome(Home home) {
         homeRepo.save(home);
     }
-    
+
     @Override
     public void saveDeepeningPage(DeepeningPage dp) {
         deepRepo.save(dp);
     }
+
     @Override
     public DeepeningPage findDeepeningPage(String id) {
         return deepRepo.findOne(id);
     }
+
     @Override
     public DeepeningPage findDeepeningPageByName(String name) {
-         Iterable<DeepeningPage> dp = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), DeepeningPage.class);
+        Iterable<DeepeningPage> dp = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), DeepeningPage.class);
         for (DeepeningPage p : dp) {
             if (p.getName().toLowerCase().equals(name.toLowerCase())) {
                 return p;
@@ -230,61 +238,59 @@ public class ConcretePersistenceManager implements PersistenceManager {
         }
         return null;
     }
-    
-@Override
-    public void saveFavorite(Favorite favorite){
-        favoriteRepo.save(favorite);
-    }    
-    
+
     @Override
-    public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi){
+    public void saveFavorite(Favorite favorite) {
+        favoriteRepo.save(favorite);
+    }
+
+    @Override
+    public void updateFavoriteRating(Integer rating, Integer id_user, String id_poi) {
         favoriteRepo.updateFavoriteRating(rating, id_user, id_poi);
     }
-        
+
     @Override
-    public Iterable<Favorite> findFavoritesByIdUser(Integer idUser){
+    public Iterable<Favorite> findFavoritesByIdUser(Integer idUser) {
         Iterable<Favorite> favorites = favoriteRepo.findByIdUser(idUser);
         return favorites;
     }
-    
+
     @Override
-    public Favorite findFavorite(Integer id){
+    public Favorite findFavorite(Integer id) {
         Favorite favorite = favoriteRepo.findOne(id);
         return favorite;
     }
-    
+
     @Override
-    public Integer ifFavorite(int idUser, String idPoi){
+    public Integer ifFavorite(int idUser, String idPoi) {
         Favorite favorite = favoriteRepo.findByIdUserAndIdPoi(idUser, idPoi);
-        if(favorite == null){
+        if (favorite == null) {
             return 0;
-        }
-        else{
+        } else {
             return favorite.getRating();
         }
     }
-    
-    @Override
-    public void deleteFavorite(int idUser, String idPoi){
-        favoriteRepo.deleteFavorite(idUser, idPoi);
-        
-    }
-    @Override
-    public Iterable<DeepeningPage>findDeepeningPagesByName(String name) {
 
-        return mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),DeepeningPage.class);
+    @Override
+    public void deleteFavorite(int idUser, String idPoi) {
+        favoriteRepo.deleteFavorite(idUser, idPoi);
+
     }
+
+    @Override
+    public Iterable<DeepeningPage> findDeepeningPagesByName(String name) {
+
+        return mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), DeepeningPage.class);
+    }
+
     @Override
     public Iterable<DeepeningPage> findAllDeepeningPages() {
         return deepRepo.findAll();
     }
+
     @Override
     public void deleteDeepeningPage(DeepeningPage dp) {
         deepRepo.delete(dp);
     }
-    
-}
-    
-    
-    
 
+}

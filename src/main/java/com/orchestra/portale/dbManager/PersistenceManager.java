@@ -56,5 +56,5 @@ public interface PersistenceManager {
     public Integer ifFavorite(int idUser, String idPoi);
     public void deleteFavorite(int idUser, String idPoi);
     public void deleteDeepeningPage(DeepeningPage dp);
-    
+    public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String [] categories);
 }
