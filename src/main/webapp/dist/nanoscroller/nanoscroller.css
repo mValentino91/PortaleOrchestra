@@ -9,6 +9,7 @@
   position      : absolute;
   overflow      : scroll;
   overflow-x    : hidden;
+  padding-bottom: 10px;
   top           : 0;
   right         : 0;
   bottom        : 0;

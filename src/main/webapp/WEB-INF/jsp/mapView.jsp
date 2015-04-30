@@ -29,7 +29,7 @@
         <script type="text/javascript" 
                 src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true">
         </script>
-        <script src="./dist/js/favorite.js"></script>
+        <script src="./dist/js/favorite_ajax.js"></script>
         <script src="./dist/js/mapView.js"></script>
         <title>MapView</title>
         <link href="./dist/favicon.ico" rel="shortcut icon" type="image/x-icon" />

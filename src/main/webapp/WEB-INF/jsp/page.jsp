@@ -40,13 +40,7 @@
                     <div class="box-orc">
 
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
-                                    <li data-target="#myCarousel" data-slide-to="cont.count" <c:if test="${cont.count == 1}"> class="active" </c:if> > </li>
-                                    </c:forEach>
-                            </ol>
-
+                           
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox" style="height:100%">
                                 <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
@@ -88,7 +82,7 @@
 
                                         <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                 <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                                 </c:if>
                                                 <c:if test="${not empty tile.text}">
                                                     ${tile.text}
@@ -109,7 +103,7 @@
                                     <div class="box-orc">
                                         <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                 <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                                 </c:if>
                                                 <c:if test="${not empty tile.text}">
                                                     ${tile.text}
@@ -169,7 +163,7 @@
                                 <div class="box-orc">
                                     <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                             <c:if test="${not empty tile.icon}">
-                                                <img src="./dist/page/img/${pages.id}/${tile.icon}" style="margin-left:-5px; margin-top:-10px;">
+                                                <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                             </c:if>
                                             <c:if test="${not empty tile.text}">
                                                 ${tile.text}
@@ -190,18 +184,6 @@
 
                     </div>			
                 </div>
-
-            </div>
-
-            <div class="row">
-                <c:if test="${not empty contacts}">
-                    <div class="col-md-4 col-orc">
-                        <div class="box-orc">
-                            <jsp:include page="components/ContactsComponent.jsp"/>
-                        </div>			
-                    </div>
-                </c:if>
-               
 
             </div>
 
