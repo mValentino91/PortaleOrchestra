@@ -59,13 +59,7 @@
                     <div class="box-orc">
 
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
-                                    <li data-target="#myCarousel" data-slide-to="cont.count" <c:if test="${cont.count == 1}"> class="active" </c:if> > </li>
-                                    </c:forEach>
-                            </ol>
-
+                           
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox" style="height:100%">
                                 <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
@@ -169,7 +163,7 @@
                                     <div class="box-orc">
                                         <a <c:if test="${cont.count == 7}">id="tilevid"</c:if>  href="${tile.link}"><div <c:if test="${cont.count == 8}">id="weather"</c:if>  class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
                                                 <c:if test="${not empty tile.icon}">
-                                                    <img src="${tile.icon}">
+                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
                                                 </c:if>
                                                 <c:if test="${not empty tile.text}">
                                                     ${tile.text}
@@ -227,6 +221,12 @@
                 </div>
 
             </div>
+            
+                    <div class="row">
+                        <center>
+                    <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
+                </center>
+                    </div>
 
 
 

@@ -16,6 +16,13 @@
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
             <div class="favorite-container" style="min-height: 200px;">
+                
+                <c:if test="${empty map_cat.map.keySet()}">
+                    <div class="no_favorites_result">
+                        <spring:message code="label.no_favorites_presents"></spring:message>
+                    </div>
+                </c:if>
+                
                 <c:forEach var="cat" items="${map_cat.map.keySet()}">
                     <div class="category-container">
                         <h4>${map_slug.get(cat)}</h4>

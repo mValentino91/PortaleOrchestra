@@ -19,7 +19,7 @@
 
     <div class="details">
         <div class="actions">
-            <a href="Map?category=all" class="btn btn-round btn-soft-blue">
+            <a href="Map?category=all" class="btn btn-round btn-soft-nbar">
                 <span class="icon-map"></span>
             </a>           
         </div>

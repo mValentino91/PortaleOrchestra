@@ -1,90 +1,35 @@
-function ifFavorite(poiId) {
-        var rating=0;
-        if(ifAuth() === true){
-            //alert("UserId:" + getUserId() + " - PoiId:" + poiId);
-            userId = getUserId();
-            $.ajax({
-                type: "GET",
-                url: "./ifFavorite",
-                data: "id_user="+userId+"&id_poi="+poiId,	
-		async: false,
-                success: function(result, stato){
-                   rating=result;
-                },
-                error: function(richiesta,stato,errori){
-                    //alert("Error. State: "+stato);
-                }                 
-            });            
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+function enableRatingBar(){
+
+    $(".range").ionRangeSlider({
+        min: 1,
+        max: 5,
+        from: 1,
+        step: 1,
+        hide_min_max: true,
+        hide_from_to: false,
+        grid: false,
+        grid_snap: false,
+        onFinish: function (data) {
+            console.log("selected value: " + data.from);
         }
-        else{
-            //alert("Utente non autenticato");
-        }
-        
-        return rating;
+    });
+
+}
+
+function deleteCategoryContainer(poiPreviewBox){
+    //retrieve parent category box
+    var cat_box = poiPreviewBox.parents(".category-container");
+    //obtain number of poi of category
+    var n_poi=cat_box.find(".poi_preview_box").size();
+    //if the poi inside category box is the last, delete the box
+    if(n_poi==1){
+        cat_box.fadeOut(300, function() { $(this).remove(); });
     }
 
-    
-    function removeFromFavorite(poiId) {
-        if(ifAuth() === true){
-            //alert("UserId:" + getUserId() + " - PoiId:" + poiId);
-            userId = getUserId();
-            $.ajax({
-                type: "GET",
-                url: "./deleteFavorite",
-                data: "id_user="+userId+"&id_poi="+poiId,
-                success: function(){
-                    //alert("OK");
-                },
-                error: function(richiesta,stato,errori){
-                    //alert("Error. State: "+stato);
-                }                 
-            });            
-        }
-        else{
-            //alert("Utente non autenticato");
-        }        
-    }    
-    
-    function addToFavorite(poiId){
-        if(ifAuth() === true){
-            //alert("UserId:" + getUserId() + " - PoiId:" + poiId);
-            userId = getUserId();
-            $.ajax({
-                type: "GET",
-                url: "./saveFavorite",
-                data: "id_user="+userId+"&id_poi="+poiId,
-                success: function(){
-                    //alert("OK");
-                },
-                error: function(richiesta,stato,errori){
-                    //alert("Error. State: "+stato);
-                }                 
-            });            
-        }
-        else{
-            //alert("Utente non autenticato");
-        }
-    }    
-    
-    function saveFavoriteRating(poiId, rating){
-        if(ifAuth() === true){
-            //alert("UserId:" + getUserId() + " - PoiId:" + poiId + " - Rating:" + rating);
-            userId = getUserId();
-            $.ajax({
-                type: "GET",
-                url: "./saveFavoriteRating",
-                data: "id_user="+userId+"&id_poi="+poiId+"&rating="+rating,
-                success: function(){
-                    //alert("OK");
-                },
-                error: function(richiesta,stato,errori){
-                    //alert("Error. State: "+stato);
-                }                 
-            });            
-        }
-        else{
-            //alert("Utente non autenticato");
-        }
-    }          
 
-
+}

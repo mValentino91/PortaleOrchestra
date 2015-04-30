@@ -96,7 +96,7 @@
                             <li class="divider"></li>
                             <li><a href="#"><spring:message code="label.event"></spring:message></a></li>
                             <li><a href="#"><spring:message code="label.cultural_association"></spring:message></a></li>
-                            <li><a href="#"><spring:message code="label.expo"></spring:message></a></li>
+                            <li><a href="./page?sec=expo"><spring:message code="label.expo"></spring:message></a></li>
                         </ul>
                     </li>
                 </ul>

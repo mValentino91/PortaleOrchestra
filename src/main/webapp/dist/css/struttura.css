@@ -54,7 +54,18 @@ h5{
     word-wrap: break-word;
 }
 
+.tile-meteo{
+    background-color: #9cb1ce;
+}
+
 .tile img{
+    top: calc(50% - 65px); /* 50% - 3/4 of icon height */
+    width: 128px;
+    height: 128px;
+    position: relative;
+}
+
+.tile_img{
     top: calc(50% - 65px); /* 50% - 3/4 of icon height */
     width: 128px;
     height: 128px;
