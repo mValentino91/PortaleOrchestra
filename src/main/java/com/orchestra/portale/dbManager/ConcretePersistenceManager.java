@@ -292,5 +292,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void deleteDeepeningPage(DeepeningPage dp) {
         deepRepo.delete(dp);
     }
+    @Override
+    public EnCompletePOI findEnCompletePoiById(String id) {
+        return enPoiMongoRepo.findOne(id);
+    }
 
 }

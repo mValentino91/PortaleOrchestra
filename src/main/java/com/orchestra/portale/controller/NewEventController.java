@@ -347,11 +347,14 @@ public class NewEventController {
             pm.savePoi(poi);
 
             CompletePOI poi2 = (CompletePOI) pm.findOneCompletePoiByName(poi.getName());
-            // POI INGLESE 
-            if (params.get("inglese").equals("true")) {
+            // POI INGLESE
+            System.out.println("Sto per fare il test "+params.get("inglese") );
+            if (params.get("inglese").equals("on")) {
+                System.out.println("Sto per entrare");
                 addeng(params, poi2.getId(), coverimg, img_gallery);
             } else {
                 EnCompletePOI enpoi = new EnCompletePOI();
+                enpoi.setVisibility("1");
                 enpoi.setAddress(poi.getAddress());
                 enpoi.setCategories(poi.getCategories());
                 enpoi.setId(poi.getId());
@@ -361,7 +364,7 @@ public class NewEventController {
                 enpoi.setEnd_date(poi.getEnd_date());
                 double enlat = Double.parseDouble(params.get("latitude"));
                 double enlongi = Double.parseDouble(params.get("longitude"));
-                poi.setLocation(new double[]{enlat, enlongi});
+                enpoi.setLocation(new double[]{enlat, enlongi});
                 enpoi.setComponents(listComponent);
 
                 pm.saveEnPoi(enpoi);
@@ -421,6 +424,7 @@ public class NewEventController {
     }
 
     public void addeng(Map<String, String> params, String id, CoverImgComponent cover, ImgGalleryComponent gallery) {
+       System.out.println("ENTRATO");
         EnCompletePOI enpoi = new EnCompletePOI();
         enpoi.setId(id);
         enpoi.setName(params.get("enname"));
@@ -431,6 +435,7 @@ public class NewEventController {
         enpoi.setShortDescription(params.get("enshortd"));
         enpoi.setStart_date(params.get("endatai"));
         enpoi.setEnd_date(params.get("endataf"));
+        enpoi.setVisibility("1");
         int i = 1;
         ArrayList<String> categories = new ArrayList<String>();
         while (params.containsKey("encategory" + i)) {

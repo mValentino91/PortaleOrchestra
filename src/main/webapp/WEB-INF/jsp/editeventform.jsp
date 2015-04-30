@@ -297,7 +297,7 @@
                             </div>
                         </article>
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <article class="col-md-12 component component-text">
                             <div class="big-header contact">
                                 <span class="caps">Paragrafi</span>
@@ -306,168 +306,168 @@
                             <div class="details">
                                 <center>
                                     <div id="descrizione">
-                                    <c:if test="${not empty description}">
-                                        <c:forEach var="sect" items="${description.sectionsList}" varStatus="tot">
-                                            <div id="Par${tot.count}" class="paragrafi">
-                                                Titolo Paragrafo <input type="text" name="titolo${tot.count}" class="form-control titolo" value="${sect.title}"><br>
-                                                Paragrafo* <textarea name="par${tot.count}" id="par${tot.count}" class="par obb">${sect.description}</textarea><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent2(this)">
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <br>
-                                    <input type="button" class="btn btn-success" value="Nuovo paragrafo" onclick="addpar(this)">
-                                </div> 
-                            </center>
-                        </div>
-                    </article>
-                </div>
-                    <div class="row">
-
-                        <article class="col-md-12 component component-text">
-                        <div class="big-header contact">
-                            <span class="caps">Contatti</span>
-                        </div> 
-
-                        <div class="details">
-                            <center>
-                                <div id="contatti">
-
-                                    <c:if test="${not empty contacts.emailsList}"> 
-                                        <h3>Indirizzi Email presenti</h3>
-                                        <c:forEach var="mail" items="${contacts.emailsList}" varStatus="tot">
-                                            <div id="mail"${tot.count} class="mails">
-                                                Descrizione Email<input type="text" name="descmail${tot.count}" class="form-control descmail" value="${mail.label}"><br>
-                                                Indirizzo Email*<input type="text" name="email${tot.count}" class="form-control email obb" value="${mail.email}"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <h3>Aggiungi un nuovo indirizzo email</h3>
-                                    <input type="button" class="btn btn-success" value="Aggiungi indirizzo email" onclick="addmail(this)">
-                                    <c:if test="${not empty contacts.phoneList}">
-                                        <h3>Numeri di telefono presenti</h3>
-                                        <c:forEach var="cont" items="${contacts.phoneList}" varStatus="tot">
-                                            <div id="Tel"${tot.count} class="telefoni">
-                                                Descrizione Telefono<input type="text" name="desctel${tot.count}" class="form-control desctel" value="${cont.label}"><br>
-                                                Numero di Telefono*<input type="text" name="tel${tot.count}" class="form-control tel obb" value="${cont.number}"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <h3>Aggiungi un nuovo contatto telefonico</h3>
-                                    <input type="button" class="btn btn-success" value="Aggiungi numero di telefono" onclick="addtel(this)">
-                                    <c:if test="${not empty contacts.faxList}">
-                                        <h3>Numeri di fax presenti</h3>
-                                        <c:forEach var="cont" items="${contacts.faxList}" varStatus="tot">
-                                            <div id="Fax"${tot.count} class="faxs">
-                                                Descrizione Fax<input type="text" name="descfax${tot.count}" class="form-control descfax" value="${cont.label}"><br>
-                                                Numero di Fax*<input type="text" name="fax${tot.count}" class="form-control fax obb" value="${cont.fax}"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <h3>Aggiungi un nuovo contatto fax</h3>
-                                    <input type="button" class="btn btn-success" value="Aggiungi numero fax" onclick="addfax(this)">
-                                    <c:if test="${not empty contacts.facebook || not empty contacts.twitter || not empty contacts.google || not empty contacts.skype}">
-                                        <h3>SocialNetwork presenti</h3>
-                                        <c:if test="${not empty contacts.facebook}"> 
-                                            <div id="SN" class="predsocials">
-                                                SocialNetwork* <select name="SN" class="form-control sn obb">
-                                                    <option>Seleziona un social network</option>
-                                                    <option value="facebook" selected>FaceBook</option>
-                                                    <option value="twitter">Twitter</option>
-                                                    <option value="google">Google+</option>
-                                                    <option value="skype">Skype</option>
-                                                </select>
-                                                Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.facebook}"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
+                                        <c:if test="${not empty description}">
+                                            <c:forEach var="sect" items="${description.sectionsList}" varStatus="tot">
+                                                <div id="Par${tot.count}" class="paragrafi">
+                                                    Titolo Paragrafo <input type="text" name="titolo${tot.count}" class="form-control titolo" value="${sect.title}"><br>
+                                                    Paragrafo* <textarea name="par${tot.count}" id="par${tot.count}" class="par obb">${sect.description}</textarea><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent2(this)">
+                                                </div>
+                                            </c:forEach>
                                         </c:if>
-                                        <c:if test="${not empty contacts.twitter}"> 
-                                            <div id="SN" class="predsocials">
-                                                SocialNetwork* <select name="SN" class="form-control sn obb">
-                                                    <option>Seleziona un social network</option>
-                                                    <option value="facebook">FaceBook</option>
-                                                    <option value="twitter" selected>Twitter</option>
-                                                    <option value="google">Google+</option>
-                                                    <option value="skype">Skype</option>
-                                                </select>
-                                                Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.twitter}"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${not empty contacts.google}"> 
-                                            <div id="SN" class="predsocials">
-                                                SocialNetwork* <select name="SN" class="form-control sn obb">
-                                                    <option>Seleziona un social network</option>
-                                                    <option value="facebook">FaceBook</option>
-                                                    <option value="twitter">Twitter</option>
-                                                    <option value="google" selected>Google+</option>
-                                                    <option value="skype">Skype</option>
-                                                </select>
-                                                Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.google}"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:if>
-                                        <c:if test="${not empty contacts.skype}"> 
-                                            <div id="SN" class="predsocials">
-                                                SocialNetwork* <select name="SN" class="form-control sn obb">
-                                                    <option>Seleziona un social network</option>
-                                                    <option value="facebook">FaceBook</option>
-                                                    <option value="twitter">Twitter</option>
-                                                    <option value="google">Google+</option>
-                                                    <option value="skype" selected>Skype</option>
-                                                </select>
-                                                Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.skype}"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:if>
-                                    </c:if>
-                                    <h3>Aggiungi un nuovo SocialNetwork</h3>
-                                    <input type="button" class="btn btn-success" value="Aggiungi social network" onclick="addsn(this)">
-                                    <c:if test="${not empty contacts.socialList}">
-                                        <h3>Links Presenti</h3>
-                                        <c:forEach var="cont" items="${contacts.socialList}" varStatus="tot">
-                                            <div id="CSN${tot.count}" class="perssocials">
-                                                Nome: *<input type="text" value="${cont.label}" name="CSN${tot.count}" class="form-control csn  obb">Indirizzo: *<input type="text" value="${cont.social}" name="LCSN${tot.count}" class="form-control lcsn obb"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <h3>Aggiungi un nuovo link</h3>
-                                    <input type="button" class="btn btn-success" value="Aggiungi link" onclick="addsnp(this)">
-                                </div>
-                            </center>
-                        </div>
-                    </article>
+                                        <br>
+                                        <input type="button" class="btn btn-success" value="Nuovo paragrafo" onclick="addpar(this)">
+                                    </div> 
+                                </center>
+                            </div>
+                        </article>
                     </div>
                     <div class="row">
 
                         <article class="col-md-12 component component-text">
-                        <div class="big-header contact">
-                            <span class="caps">Prezzi</span>
-                        </div> 
+                            <div class="big-header contact">
+                                <span class="caps">Contatti</span>
+                            </div> 
 
-                        <div class="details">
-                            <center>         
-                                <div id="prezzi">
-                                    <c:if test="${not empty prices}">
-                                        <h3>Prezzi di ingresso inseriti</h3>
-                                        <c:forEach var="Tprice" items="${prices.prices}" varStatus="tot">
-                                            <div id="Tckt${tot.count}" class="tickets">
-                                                Tipo biglietto*<input type="text" value="${Tprice.type}" class="form-control prezzib obb" name="type${tot.count}"><br>
-                                                Prezzo biglietto*<input type="text" value="${Tprice.price}" name="price${tot.count}" class="form-control pb obb" onblur="replace_virgola(this, this.value)"><br>
-                                                Descrizione biglietto<input type="text" value="${Tprice.type_description}" name="typedesc${tot.count}" class="form-control db"><br>
-                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)">
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <input type="button" class="btn btn-success" value="Aggiungi un biglietto" onclick="addbiglietto(this)">
-                                </div>
-                            </center>
-                        </div>
-                    </article>
+                            <div class="details">
+                                <center>
+                                    <div id="contatti">
+
+                                        <c:if test="${not empty contacts.emailsList}"> 
+                                            <h3>Indirizzi Email presenti</h3>
+                                            <c:forEach var="mail" items="${contacts.emailsList}" varStatus="tot">
+                                                <div id="mail"${tot.count} class="mails">
+                                                    Descrizione Email<input type="text" name="descmail${tot.count}" class="form-control descmail" value="${mail.label}"><br>
+                                                    Indirizzo Email*<input type="text" name="email${tot.count}" class="form-control email obb" value="${mail.email}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo indirizzo email</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi indirizzo email" onclick="addmail(this)">
+                                        <c:if test="${not empty contacts.phoneList}">
+                                            <h3>Numeri di telefono presenti</h3>
+                                            <c:forEach var="cont" items="${contacts.phoneList}" varStatus="tot">
+                                                <div id="Tel"${tot.count} class="telefoni">
+                                                    Descrizione Telefono<input type="text" name="desctel${tot.count}" class="form-control desctel" value="${cont.label}"><br>
+                                                    Numero di Telefono*<input type="text" name="tel${tot.count}" class="form-control tel obb" value="${cont.number}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo contatto telefonico</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi numero di telefono" onclick="addtel(this)">
+                                        <c:if test="${not empty contacts.faxList}">
+                                            <h3>Numeri di fax presenti</h3>
+                                            <c:forEach var="cont" items="${contacts.faxList}" varStatus="tot">
+                                                <div id="Fax"${tot.count} class="faxs">
+                                                    Descrizione Fax<input type="text" name="descfax${tot.count}" class="form-control descfax" value="${cont.label}"><br>
+                                                    Numero di Fax*<input type="text" name="fax${tot.count}" class="form-control fax obb" value="${cont.fax}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo contatto fax</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi numero fax" onclick="addfax(this)">
+                                        <c:if test="${not empty contacts.facebook || not empty contacts.twitter || not empty contacts.google || not empty contacts.skype}">
+                                            <h3>SocialNetwork presenti</h3>
+                                            <c:if test="${not empty contacts.facebook}"> 
+                                                <div id="SN" class="predsocials">
+                                                    SocialNetwork* <select name="SN" class="form-control sn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook" selected>FaceBook</option>
+                                                        <option value="twitter">Twitter</option>
+                                                        <option value="google">Google+</option>
+                                                        <option value="skype">Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.facebook}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty contacts.twitter}"> 
+                                                <div id="SN" class="predsocials">
+                                                    SocialNetwork* <select name="SN" class="form-control sn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook">FaceBook</option>
+                                                        <option value="twitter" selected>Twitter</option>
+                                                        <option value="google">Google+</option>
+                                                        <option value="skype">Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.twitter}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty contacts.google}"> 
+                                                <div id="SN" class="predsocials">
+                                                    SocialNetwork* <select name="SN" class="form-control sn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook">FaceBook</option>
+                                                        <option value="twitter">Twitter</option>
+                                                        <option value="google" selected>Google+</option>
+                                                        <option value="skype">Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.google}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty contacts.skype}"> 
+                                                <div id="SN" class="predsocials">
+                                                    SocialNetwork* <select name="SN" class="form-control sn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook">FaceBook</option>
+                                                        <option value="twitter">Twitter</option>
+                                                        <option value="google">Google+</option>
+                                                        <option value="skype" selected>Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="LSN" class="form-control LSN obb" value="${contacts.skype}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo SocialNetwork</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi social network" onclick="addsn(this)">
+                                        <c:if test="${not empty contacts.socialList}">
+                                            <h3>Links Presenti</h3>
+                                            <c:forEach var="cont" items="${contacts.socialList}" varStatus="tot">
+                                                <div id="CSN${tot.count}" class="perssocials">
+                                                    Nome: *<input type="text" value="${cont.label}" name="CSN${tot.count}" class="form-control csn  obb">Indirizzo: *<input type="text" value="${cont.social}" name="LCSN${tot.count}" class="form-control lcsn obb"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo link</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi link" onclick="addsnp(this)">
+                                    </div>
+                                </center>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="row">
+
+                        <article class="col-md-12 component component-text">
+                            <div class="big-header contact">
+                                <span class="caps">Prezzi</span>
+                            </div> 
+
+                            <div class="details">
+                                <center>         
+                                    <div id="prezzi">
+                                        <c:if test="${not empty prices}">
+                                            <h3>Prezzi di ingresso inseriti</h3>
+                                            <c:forEach var="Tprice" items="${prices.prices}" varStatus="tot">
+                                                <div id="Tckt${tot.count}" class="tickets">
+                                                    Tipo biglietto*<input type="text" value="${Tprice.type}" class="form-control prezzib obb" name="type${tot.count}"><br>
+                                                    Prezzo biglietto*<input type="text" value="${Tprice.price}" name="price${tot.count}" class="form-control pb obb" onblur="replace_virgola(this, this.value)"><br>
+                                                    Descrizione biglietto<input type="text" value="${Tprice.type_description}" name="typedesc${tot.count}" class="form-control db"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)">
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <input type="button" class="btn btn-success" value="Aggiungi un biglietto" onclick="addbiglietto(this)">
+                                    </div>
+                                </center>
+                            </div>
+                        </article>
                     </div>
                     <div class="row">
                         <article class="col-md-12 component component-text">
@@ -478,6 +478,13 @@
                             <div class="details">
                                 <center>
                                     <div id='servizi'>
+                                        <c:forEach var="service" items="${services.servicesList}">
+
+                                            <div id="SER${tot.count}" class="services">
+                                                Servizio: *<input type="text" name="SERV${tot.count}" value="${service}" class="form-control serv  obb"><br>
+                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="delparent(this)">
+                                            </div> 
+                                        </c:forEach>
                                         <input type="button" class="btn btn-success" value="Aggiungi un servizio" onclick="addservizio(this)">
                                     </div>
                                 </center>
@@ -485,116 +492,116 @@
                         </article>
 
                         <article class="col-md-12 component component-text">
-                        <div class="big-header contact">
-                            <span class="caps">Orari</span>
-                        </div> 
-
-                        <div class="details">
-                            <center> 
-                                <div id="date">
-
-                                    <c:if test="${not empty eventsdate}">
-                                        <h3>Date presenti</h3>
-                                        <c:forEach var="Wdays" items="${eventsdate.dates}" varStatus="tot">
-                                            <div id="D${tot.count}" class="dates">
-                                                <h4>DATE</h4>
-                                                Date*
-                                                <div class="row">
-                                                    <input type="text" name="date${tot.count}" class="inpdates obb form-control" value="${Wdays.date}">
-                                                    </div>
-                                                Descrizione breve
-                                                <div class="row">
-                                                    <input type="text" name="datetext${tot.count}" class="inpdatestext obb form-control" value="${Wdays.text}">
-                                                    </div>
-                                                <c:forEach var="Wtime" items="${Wdays.hours}" varStatus="tot2">
-                                                    <div id="D${tot.count}-${tot2.count}" class="fasciaoraria ">
-                                                        Dalle*
-                                                        <div class="row">
-                                                            <input type="text" id="${tot.count}start${tot2.count}H" name="D${tot.count}start${tot2.count}H" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
-                                                            :
-                                                            <input type="text" id="${tot.count}start${tot2.count}M" name="D${tot.count}start${tot2.count}M" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
-                                                        </div>
-                                                        Alle*
-                                                        <div class="row">
-                                                            <input type="text" id="${tot.count}end${tot2.count}H" name="D${tot.count}end${tot2.count}H" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
-                                                            :
-                                                            <input type="text" id="${tot.count}end${tot2.count}M" name="D${tot.count}end${tot2.count}M" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;"><br><br>
-                                                        </div>
-                                                        <script>
-                                                            var id = "#" +${tot.count} + "start" +${tot2.count} + "H";
-                                                            var Start = "${Wtime.start}";
-                                                            var End = "${Wtime.end}";
-                                                            var starth = Start.substr(0, 2);
-                                                            var startm = Start.substr(3, 5);
-                                                            $(id).val(starth);
-                                                            $("#${tot.count}start${tot2.count}M").val(startm);
-                                                            var endh = End.substr(0, 2);
-                                                            var endm = End.substr(3, 5);
-                                                            $("#${tot.count}end${tot2.count}H").val(endh);
-                                                            $("#${tot.count}end${tot2.count}M").val(endm);
-                                                        </script>
-                                                    </div>
-                                                </c:forEach>
-                                                <input type="button" class="btn btn-primary" value="Aggiungi una fascia oraria" onclick="addor(this.parentNode.id, this)"><br>
-                                                <input type="button" style="margin-top: 3px;"class="btn btn-danger" value="Elimina data evento" onclick="delparent(this)"><br>
-                                            </div>
-                                        </c:forEach>
-                                    </c:if>
-                                    <h3>Aggiungi nuova data evento</h3>
-                                    <input type="button" class="btn btn-success" id="nuovogiorno" value="Inserisci nuova data evento" onclick="add_date(this)">
-
-                                   
-                                </div>
-                            </center>
-                        </div>
-                    </article>
-<!--
-                        <article class="col-md-12 component component-text">
                             <div class="big-header contact">
-                                <span class="caps">Collega ad altri Poi o Eventi</span>
+                                <span class="caps">Orari</span>
                             </div> 
 
                             <div class="details">
-                                <center>
-                                    <div id="collegamenti">
-                                        <input type="button" class="btn btn-success" value="Aggiungi collegamento" onclick="add_coll(this)">
+                                <center> 
+                                    <div id="date">
+
+                                        <c:if test="${not empty eventsdate}">
+                                            <h3>Date presenti</h3>
+                                            <c:forEach var="Wdays" items="${eventsdate.dates}" varStatus="tot">
+                                                <div id="D${tot.count}" class="dates">
+                                                    <h4>DATE</h4>
+                                                    Date*
+                                                    <div class="row">
+                                                        <input type="text" name="date${tot.count}" class="inpdates obb form-control" value="${Wdays.date}">
+                                                    </div>
+                                                    Descrizione breve
+                                                    <div class="row">
+                                                        <input type="text" name="datetext${tot.count}" class="inpdatestext form-control" value="${Wdays.text}">
+                                                    </div>
+                                                    <c:forEach var="Wtime" items="${Wdays.hours}" varStatus="tot2">
+                                                        <div id="D${tot.count}-${tot2.count}" class="fasciaoraria ">
+                                                            Dalle*
+                                                            <div class="row">
+                                                                <input type="text" id="${tot.count}start${tot2.count}H" name="D${tot.count}start${tot2.count}H" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
+                                                                :
+                                                                <input type="text" id="${tot.count}start${tot2.count}M" name="D${tot.count}start${tot2.count}M" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
+                                                            </div>
+                                                            Alle*
+                                                            <div class="row">
+                                                                <input type="text" id="${tot.count}end${tot2.count}H" name="D${tot.count}end${tot2.count}H" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
+                                                                :
+                                                                <input type="text" id="${tot.count}end${tot2.count}M" name="D${tot.count}end${tot2.count}M" class="form-control orarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;"><br><br>
+                                                            </div>
+                                                            <script>
+                                                                var id = "#" +${tot.count} + "start" +${tot2.count} + "H";
+                                                                var Start = "${Wtime.start}";
+                                                                var End = "${Wtime.end}";
+                                                                var starth = Start.substr(0, 2);
+                                                                var startm = Start.substr(3, 5);
+                                                                $(id).val(starth);
+                                                                $("#${tot.count}start${tot2.count}M").val(startm);
+                                                                var endh = End.substr(0, 2);
+                                                                var endm = End.substr(3, 5);
+                                                                $("#${tot.count}end${tot2.count}H").val(endh);
+                                                                $("#${tot.count}end${tot2.count}M").val(endm);
+                                                            </script>
+                                                        </div>
+                                                    </c:forEach>
+                                                    <input type="button" class="btn btn-primary" value="Aggiungi una fascia oraria" onclick="addor(this.parentNode.id, this)"><br>
+                                                    <input type="button" style="margin-top: 3px;"class="btn btn-danger" value="Elimina data evento" onclick="delparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi nuova data evento</h3>
+                                        <input type="button" class="btn btn-success" id="nuovogiorno" value="Inserisci nuova data evento" onclick="add_date(this)">
+
+
                                     </div>
                                 </center>
                             </div>
                         </article>
--->
-                         <article class="col-md-12 component component-text">
-                        <div class="big-header contact">
-                            <span class="caps">galleria</span>
-                        </div> 
-
-                        <div class="details">
-                            <center>
-                                <div id="galleria">
-                                    <c:if test="${not empty imggallery}">
-                                        <div class="row" style="padding-left: 60px;">
-                                            <c:forEach var="img" items="${imggallery.links}">
-
-                                                <div class="col-md-3" style="margin-left: 5px; margin-right: 45px; margin-top: 5px;">
-                                                    <div class="item">
-                                                        <img style= "width : 250px; height: 250px;" src="../dist/poi/img/${id}/${img.link}">
+                        <!--
+                                                <article class="col-md-12 component component-text">
+                                                    <div class="big-header contact">
+                                                        <span class="caps">Collega ad altri Poi o Eventi</span>
+                                                    </div> 
+                        
+                                                    <div class="details">
+                                                        <center>
+                                                            <div id="collegamenti">
+                                                                <input type="button" class="btn btn-success" value="Aggiungi collegamento" onclick="add_coll(this)">
+                                                            </div>
+                                                        </center>
                                                     </div>
-                                                    <input type="hidden" value="${img.link}" name="fileprec">
-                                                    Copyright <input type="text" name="credit" class="form-control oldcredits" value="${img.credit}" style="width: 100%;"><br> 
-                                                    <input type="button" style="width: 250px;" class="btn btn-danger col-md-12" value="Elimina" onclick='eliminaimg("${img.link}", this)'> 
-                                                </div>
+                                                </article>
+                        -->
+                        <article class="col-md-12 component component-text">
+                            <div class="big-header contact">
+                                <span class="caps">galleria</span>
+                            </div> 
 
-                                            </c:forEach>
-                                        </div>
-                                    </c:if>
+                            <div class="details">
+                                <center>
+                                    <div id="galleria">
+                                        <c:if test="${not empty imggallery}">
+                                            <div class="row" style="padding-left: 60px;">
+                                                <c:forEach var="img" items="${imggallery.links}">
 
-                                    <h3>Aggiungi Immagine</h3>
-                                    <input type="button" class="btn btn-success" value="Aggiungi immagine" onclick="addimg(this)">
+                                                    <div class="col-md-3" style="margin-left: 5px; margin-right: 45px; margin-top: 5px;">
+                                                        <div class="item">
+                                                            <img style= "width : 250px; height: 250px;" src="../dist/poi/img/${id}/${img.link}">
+                                                        </div>
+                                                        <input type="hidden" value="${img.link}" name="fileprec">
+                                                        Copyright <input type="text" name="credit" class="form-control oldcredits" value="${img.credit}" style="width: 100%;"><br> 
+                                                        <input type="button" style="width: 250px;" class="btn btn-danger col-md-12" value="Elimina" onclick='eliminaimg("${img.link}", this)'> 
+                                                    </div>
 
-                                </div>
-                            </center>
-                        </div>
-                    </article>
+                                                </c:forEach>
+                                            </div>
+                                        </c:if>
+
+                                        <h3>Aggiungi Immagine</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi immagine" onclick="addimg(this)">
+
+                                    </div>
+                                </center>
+                            </div>
+                        </article>
                     </div>
 
 
@@ -603,10 +610,9 @@
                 <div class="col-md-6" id="inglese">
                     <div class="row">
                         <div class="big-header contact" style="margin-bottom: 15px; margin-left: 3px;">
-
-                            <span class="caps"><input type="checkbox" id="check" name="inglese" onclick="addinglese(this)" title="crea evento in lingua inglese">Inglese</span>
+                            <span class="caps">Inglese</span>
                         </div>
-                        <input type="hidden" value="false" id="ingcheck" name="inglese">
+                        <input type="hidden" value="true" id="ingcheck" name="inglese">
                         <article class="col-md-12 component component-text">
                             <div class="big-header contact">
                                 <span class="caps">Info Generali</span>
@@ -615,22 +621,31 @@
                             <div class="details">
                                 <center>
                                     <div class="row">
-                                        <div class="col-md-6">Nome* <input name="enname" class="form-control" type="text" disabled="true"> </div>
-                                        <div class="col-md-6">Indirizzo* <input name="enaddress" class="form-control" type="text" disabled="true"></div>
-                                        <div class="col-md-6">Latitudine* <input name="enlatitude" class="form-control" type="text"  onblur="replace_virgola(this, this.value)" disabled="true"></div>
-                                        <div class="col-md-6">Longitudine* <input name="enlongitude" class="form-control" type="text"  onblur="replace_virgola(this, this.value)" disabled="true"></div><br>
-                                        <div class="col-md-6">Data Inizio* <input name="endatai" class="datepickerinp form-control" type="text" onblur="replace_virgola(this, this.value)" disabled="true"></div>
-                                        <div class="col-md-6">Data Fine* <input name="endataf" class="datepickerinp form-control" type="text" onblur="replace_virgola(this, this.value)" disabled="true"></div><br>
-                                        <div class="col-md-12">Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="enshortd"  id="enshort" class="form-control enshortd" rows="4" cols="50" maxlength="150" disabled="true"></textarea></div><br><br>
+
+                                        <div class="col-md-6">Nome* <input name="enname" class="form-control obb" type="text" value="${ennome}"> </div>
+                                        <div class="col-md-6">Indirizzo* <input name="enaddress" class="form-control obb" type="text" value="${enaddr}"></div>
+                                        <div class="col-md-6">Latitudine* <input name="enlatitude" class="form-control obb" type="text" onblur="replace_virgola(this, this.value)" value="${enloc[0]}"></div>
+                                        <div class="col-md-6">Longitudine* <input name="enlongitude" class="form-control obb" type="text" onblur="replace_virgola(this, this.value)" value="${enloc[1]}"></div><br>
+                                        <div class="col-md-6">Data Inizio* <input name="endatai" class="datepickerinp form-control obb" value="${enstart}" type="text" ></div>
+                                        <div class="col-md-6">Data Fine* <input name="endataf" class="datepickerinp form-control obb" value="${enend}" type="text"></div><br>
+                                        <div class="col-md-12">Descrizione Breve* (Massimo 150 caratteri)<br> <textarea name="enshortd" id="short" class="form-control enshortd" rows="4" cols="50" maxlength="150">${enshortD}</textarea></div><br><br>
                                     </div>
                                     <div class="row">
                                         <div id="encategoria" class="col-md-6">
-                                            Categoria* <input name="encategory1" class="form-control encate"  type="text" disabled="true"><br>
-                                            <input type="button" class="btn btn-success" style="margin-top: 5px;" value="Aggiungi categoria" onclick="enaddcat(this)" disabled="true">
-                                        </div>
-                                        <div class="col-md-6"></div>
 
-                                    </div>
+                                            <c:forEach var="encats" items="${encat}" varStatus="tot" >
+                                                <span>Categoria*</span><input type="text" name="encategory${tot.count}" class="form-control encate obb" value="${encats}"><br>
+                                                <c:if test="${tot.count > 1}">
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelcat2(this)"><br>
+                                                </c:if>
+                                            </c:forEach>
+                                            <input type="button" class="btn btn-success" value="Aggiungi categoria" onclick="enaddcat(this)">
+                                        </div>
+                                        <div class="col-md-6">
+
+                                        </div>
+
+                                    </div><br>
                                 </center>
                             </div>
                         </article>
@@ -644,10 +659,18 @@
                             <div class="details">
                                 <center>
                                     <div id="endescrizione">
-
-                                        <input type="button" class="btn btn-success" value="Nuovo paragrafo" onclick="enaddpar(this)" disabled="true">
-
-                                    </div>
+                                        <c:if test="${not empty endescription}">
+                                            <c:forEach var="ensect" items="${endescription.sectionsList}" varStatus="tot">
+                                                <div id="Par${tot.count}" class="enparagrafi">
+                                                    Titolo Paragrafo <input type="text" name="entitolo${tot.count}" class="form-control entitolo" value="${ensect.title}"><br>
+                                                    Paragrafo* <textarea name="enpar${tot.count}" id="par${tot.count}" class="enpar obb">${ensect.description}</textarea><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent2(this)">
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <br>
+                                        <input type="button" class="btn btn-success" value="Nuovo paragrafo" onclick="enaddpar(this)">
+                                    </div> 
                                 </center>
                             </div>
                         </article>
@@ -662,15 +685,111 @@
                             <div class="details">
                                 <center>
                                     <div id="encontatti">
-                                        <input type="button" class="btn btn-success" style="width: 250px;" value="Aggiungi indirizzo email" onclick="enaddmail(this)" disabled="true"><br>
 
-                                        <input type="button" class="btn btn-success" style="width: 250px; margin-top: 15px;" value="Aggiungi numero di telefono" onclick="enaddtel(this)" disabled="true"><br>
-
-                                        <input type="button" class="btn btn-success" style="width: 250px; margin-top: 15px;" value="Aggiungi numero fax" onclick="enaddfax(this)" disabled="true"><br>
-
-                                        <input type="button" class="btn btn-success" style="width: 250px; margin-top:15px;" value="Aggiungi social network" onclick="enaddsn(this)" disabled="true"><br>
-
-                                        <input type="button" class="btn btn-success" style="width: 250px; margin-top:15px;" value="Aggiungi link" onclick="enaddsnp(this)" disabled="true"><br>
+                                        <c:if test="${not empty encontacts.emailsList}"> 
+                                            <h3>Indirizzi Email presenti</h3>
+                                            <c:forEach var="enmail" items="${encontacts.emailsList}" varStatus="tot">
+                                                <div id="mail"${tot.count} class="enmails">
+                                                    Descrizione Email<input type="text" name="endescmail${tot.count}" class="form-control endescmail" value="${enmail.label}"><br>
+                                                    Indirizzo Email*<input type="text" name="enemail${tot.count}" class="form-control enemail obb" value="${enmail.email}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo indirizzo email</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi indirizzo email" onclick="enaddmail(this)">
+                                        <c:if test="${not empty encontacts.phoneList}">
+                                            <h3>Numeri di telefono presenti</h3>
+                                            <c:forEach var="encont" items="${encontacts.phoneList}" varStatus="tot">
+                                                <div id="Tel"${tot.count} class="entelefoni">
+                                                    Descrizione Telefono<input type="text" name="endesctel${tot.count}" class="form-control endesctel" value="${encont.label}"><br>
+                                                    Numero di Telefono*<input type="text" name="entel${tot.count}" class="form-control entel obb" value="${encont.number}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo contatto telefonico</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi numero di telefono" onclick="enaddtel(this)">
+                                        <c:if test="${not empty encontacts.faxList}">
+                                            <h3>Numeri di fax presenti</h3>
+                                            <c:forEach var="encont" items="${encontacts.faxList}" varStatus="tot">
+                                                <div id="Fax"${tot.count} class="enfaxs">
+                                                    Descrizione Fax<input type="text" name="endescfax${tot.count}" class="form-control endescfax" value="${encont.label}"><br>
+                                                    Numero di Fax*<input type="text" name="enfax${tot.count}" class="form-control enfax obb" value="${encont.fax}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo contatto fax</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi numero fax" onclick="enaddfax(this)">
+                                        <c:if test="${not empty encontacts.facebook || not empty encontacts.twitter || not empty encontacts.google || not empty encontacts.skype}">
+                                            <h3>SocialNetwork presenti</h3>
+                                            <c:if test="${not empty encontacts.facebook}"> 
+                                                <div id="SN" class="enpredsocials">
+                                                    SocialNetwork* <select name="enSN" class="form-control ensn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook" selected>FaceBook</option>
+                                                        <option value="twitter">Twitter</option>
+                                                        <option value="google">Google+</option>
+                                                        <option value="skype">Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="enLSN" class="form-control enLSN obb" value="${encontacts.facebook}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty encontacts.twitter}"> 
+                                                <div id="SN" class="enpredsocials">
+                                                    SocialNetwork* <select name="enSN" class="form-control ensn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook">FaceBook</option>
+                                                        <option value="twitter" selected>Twitter</option>
+                                                        <option value="google">Google+</option>
+                                                        <option value="skype">Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="enLSN" class="form-control enLSN obb" value="${encontacts.twitter}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty encontacts.google}"> 
+                                                <div id="SN" class="enpredsocials">
+                                                    SocialNetwork* <select name="enSN" class="form-control ensn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook">FaceBook</option>
+                                                        <option value="twitter">Twitter</option>
+                                                        <option value="google" selected>Google+</option>
+                                                        <option value="skype">Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="enLSN" class="form-control enLSN obb" value="${encontacts.google}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                            <c:if test="${not empty encontacts.skype}"> 
+                                                <div id="SN" class="enpredsocials">
+                                                    SocialNetwork* <select name="enSN" class="form-control ensn obb">
+                                                        <option>Seleziona un social network</option>
+                                                        <option value="facebook">FaceBook</option>
+                                                        <option value="twitter">Twitter</option>
+                                                        <option value="google">Google+</option>
+                                                        <option value="skype" selected>Skype</option>
+                                                    </select>
+                                                    Indirizzo*<input type="text" name="enLSN" class="form-control enLSN obb" value="${encontacts.skype}"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:if>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo SocialNetwork</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi social network" onclick="enaddsn(this)">
+                                        <c:if test="${not empty encontacts.socialList}">
+                                            <h3>Links Presenti</h3>
+                                            <c:forEach var="encont" items="${encontacts.socialList}" varStatus="tot">
+                                                <div id="CSN${tot.count}" class="enperssocials">
+                                                    Nome: *<input type="text" value="${encont.label}" name="enCSN${tot.count}" class="form-control encsn  obb">Indirizzo: *<input type="text" value="${encont.social}" name="enLCSN${tot.count}" class="form-control enlcsn obb"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi un nuovo link</h3>
+                                        <input type="button" class="btn btn-success" value="Aggiungi link" onclick="enaddsnp(this)">
                                     </div>
                                 </center>
                             </div>
@@ -684,9 +803,20 @@
                             </div> 
 
                             <div class="details">
-                                <center>
-                                    <div id='enprezzi'>
-                                        <input type="button" class="btn btn-success" value="Aggiungi un biglietto" onclick="enaddbiglietto(this)" disabled="true">
+                                <center>         
+                                    <div id="enprezzi">
+                                        <c:if test="${not empty enprices}">
+                                            <h3>Prezzi di ingresso inseriti</h3>
+                                            <c:forEach var="enTprice" items="${enprices.prices}" varStatus="tot">
+                                                <div id="Tckt${tot.count}" class="entickets">
+                                                    Tipo biglietto*<input type="text" value="${enTprice.type}" class="form-control enprezzib obb" name="entype${tot.count}"><br>
+                                                    Prezzo biglietto*<input type="text" value="${enTprice.price}" name="enprice${tot.count}" class="form-control enpb obb" onblur="replace_virgola(this, this.value)"><br>
+                                                    Descrizione biglietto<input type="text" value="${enTprice.type_description}" name="entypedesc${tot.count}" class="form-control endb"><br>
+                                                    <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)">
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <input type="button" class="btn btn-success" value="Aggiungi un biglietto" onclick="enaddbiglietto(this)">
                                     </div>
                                 </center>
                             </div>
@@ -701,54 +831,114 @@
                             <div class="details">
                                 <center>
                                     <div id='enservizi'>
-                                        <input type="button" class="btn btn-success" value="Aggiungi un servizio" onclick="enaddservizio(this)" disabled="true">
+                                        <c:forEach var="service" items="${enservices.servicesList}">
+
+                                            <div id="enSER${tot.count}" class="enservices">
+                                                Servizio: *<input type="text" name="SERV${tot.count}" value="${service}" class="form-control enserv obb"><br>
+                                                <input type="button" class="btn btn-danger" value="Elimina" onclick="endelparent(this)">
+                                            </div> 
+                                        </c:forEach>
+                                        <input type="button" class="btn btn-success" value="Aggiungi un servizio" onclick="enaddservizio(this)">
                                     </div>
                                 </center>
                             </div>
                         </article>
+
                         <article class="col-md-12 component component-text">
                             <div class="big-header contact">
-                                <span class="caps">Date evento</span>
+                                <span class="caps">Orari</span>
                             </div> 
 
                             <div class="details">
-                                <center>
+                                <center> 
                                     <div id="endate">
-                                        <input type="button" class="btn btn-success" value="Aggiungi giorno evento" onclick="enadd_date(this)" disabled="true">
+
+                                        <c:if test="${not empty eneventsdate}">
+                                            <h3>Date presenti</h3>
+                                            <c:forEach var="enWdays" items="${eneventsdate.dates}" varStatus="tot">
+                                                <div id="enD${tot.count}" class="endates">
+                                                    <h4>DATE</h4>
+                                                    Date*
+                                                    <div class="row">
+                                                        <input type="text" name="endate${tot.count}" class="eninpdates obb form-control" value="${enWdays.date}">
+                                                    </div>
+                                                    Descrizione breve
+                                                    <div class="row">
+                                                        <input type="text" name="endatetext${tot.count}" class="eninpdatestext form-control" value="${enWdays.text}">
+                                                    </div>
+                                                    <c:forEach var="enWtime" items="${enWdays.hours}" varStatus="tot2">
+                                                        <div id="enD${tot.count}-${tot2.count}" class="enfasciaoraria ">
+                                                            Dalle*
+                                                            <div class="row">
+                                                                <input type="text" id="en${tot.count}start${tot2.count}H" name="enD${tot.count}start${tot2.count}H" class="form-control enorarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
+                                                                :
+                                                                <input type="text" id="en${tot.count}start${tot2.count}M" name="enD${tot.count}start${tot2.count}M" class="form-control enorarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
+                                                            </div>
+                                                            Alle*
+                                                            <div class="row">
+                                                                <input type="text" id="en${tot.count}end${tot2.count}H" name="enD${tot.count}end${tot2.count}H" class="form-control enorarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;">
+                                                                :
+                                                                <input type="text" id="en${tot.count}end${tot2.count}M" name="enD${tot.count}end${tot2.count}M" class="form-control enorarilav obb" onblur="addzero(this)" style="width: 200px; display: inline !important;"><br><br>
+                                                            </div>
+                                                            <script>
+                                                                var id = "#en" +${tot.count} + "start" +${tot2.count} + "H";
+                                                                var Start = "${enWtime.start}";
+                                                                var End = "${enWtime.end}";
+                                                                var starth = Start.substr(0, 2);
+                                                                var startm = Start.substr(3, 5);
+                                                                $(id).val(starth);
+                                                                $("#en${tot.count}start${tot2.count}M").val(startm);
+                                                                var endh = End.substr(0, 2);
+                                                                var endm = End.substr(3, 5);
+                                                                $("#en${tot.count}end${tot2.count}H").val(endh);
+                                                                $("#en${tot.count}end${tot2.count}M").val(endm);
+                                                            </script>
+                                                        </div>
+                                                    </c:forEach>
+                                                    <input type="button" class="btn btn-primary" value="Aggiungi una fascia oraria" onclick="enaddor(this.parentNode.id, this)"><br>
+                                                    <input type="button" style="margin-top: 3px;"class="btn btn-danger" value="Elimina data evento" onclick="endelparent(this)"><br>
+                                                </div>
+                                            </c:forEach>
+                                        </c:if>
+                                        <h3>Aggiungi nuova data evento</h3>
+                                        <input type="button" class="btn btn-success" id="nuovogiorno" value="Inserisci nuova data evento" onclick="enadd_date(this)">
+
+
                                     </div>
                                 </center>
                             </div>
                         </article>
+                        <!--
+                                                <article class="col-md-12 component component-text">
+                                                    <div class="big-header contact">
+                                                        <span class="caps">Collega ad altri Poi o Eventi</span>
+                                                    </div> 
+                        
+                                                    <div class="details">
+                                                        <center>
+                                                            <div id="collegamenti">
+                                                                <input type="button" class="btn btn-success" value="Aggiungi collegamento" onclick="enadd_coll(this)">
+                                                            </div>
+                                                        </center>
+                                                    </div>
+                                                </article>
+                        -->
 
-                        <article class="col-md-12 component component-text">
-                            <div class="big-header contact">
-                                <span class="caps">Collega ad altri Poi o Eventi</span>
-                            </div> 
-
-                            <div class="details">
-                                <center>
-                                    <div id="encollegamenti">
-                                        <input type="button" class="btn btn-success" value="Aggiungi collegamento" onclick="enadd_coll(this)" disabled="true">
-                                    </div>
-                                </center>
-                            </div>
-                        </article>
                     </div>
-                    <div class="row">
 
-                    </div>
 
                 </div>
 
                 <div class="col-md-12">  
                     <center>
-                        <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA POI" onclick="pre_submit()">
+                        <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA EVENTO" onclick="pre_submit()">
                     </center>
                 </div>
             </form>
         </div>
         <script>
             $('.datepickerinp').datepicker({
+                dateFormat: "dd/mm/yy"
             });
         </script>
     </body>

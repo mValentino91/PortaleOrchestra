@@ -141,6 +141,37 @@ public class EditEventController {
 
                 }
             }
+            
+            //RECUPERO POI INGLESE
+            EnCompletePOI enpoi = pm.findEnCompletePoiById(id);
+            model.addObject("ennome", enpoi.getName());
+            model.addObject("enloc", enpoi.getLocation());
+            model.addObject("encat", enpoi.getCategories());
+            model.addObject("enshortD", enpoi.getShortDescription());
+            model.addObject("enaddr", enpoi.getAddress());
+            model.addObject("enstart", enpoi.getStart_date());
+            model.addObject("enend", enpoi.getEnd_date());
+
+            for (AbstractPoiComponent comp : enpoi.getComponents()) {
+
+                //associazione delle componenti al model tramite lo slug
+                String slug = comp.slug();
+                int index = slug.lastIndexOf(".");
+                String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+                cname="en"+cname;
+                try {
+                    Class c = Class.forName(slug);
+                    model.addObject(cname, c.cast(comp));
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(PoiViewController.class.getName()).log(Level.SEVERE, null, ex);
+
+                }
+            }
+            
+            
+            
+            
+            
             return model;
         } catch (RuntimeException e) {
             ModelAndView model2 = new ModelAndView("errorViewPoi");
@@ -433,7 +464,7 @@ public class EditEventController {
             enpoi.setEnd_date(poi.getEnd_date());
             double enlat = Double.parseDouble(params.get("latitude"));
             double enlongi = Double.parseDouble(params.get("longitude"));
-            poi.setLocation(new double[]{enlat, enlongi});
+            enpoi.setLocation(new double[]{enlat, enlongi});
             enpoi.setComponents(listComponent);
 
             pm.saveEnPoi(enpoi);
@@ -499,6 +530,7 @@ public class EditEventController {
     }
 
     public void addeng(Map<String, String> params, String id, CoverImgComponent cover, ImgGalleryComponent gallery) {
+        System.out.println("ENTRATO");
         EnCompletePOI enpoi = new EnCompletePOI();
         enpoi.setId(id);
         enpoi.setName(params.get("enname"));
@@ -656,6 +688,9 @@ public class EditEventController {
                 }
                 EventsDates cwd = new EventsDates();
                 cwd.setDate(params.get("enWD" + i));
+                if (params.containsKey("enWDT" + i)) {
+                    cwd.setText(params.get("enWDT" + i));
+                }
                 cwd.setHours(Listwh);
                 workingdays.add(cwd);
                 i = i + 1;

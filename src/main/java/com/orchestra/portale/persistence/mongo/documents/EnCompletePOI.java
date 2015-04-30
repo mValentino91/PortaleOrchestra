@@ -27,6 +27,7 @@ public class EnCompletePOI {
     private List<String> categories;
     private String start_date;
     private String end_date;
+    private String visibility;
 
     /**
      * @return the id
@@ -140,6 +141,14 @@ public class EnCompletePOI {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    public String getVisibility() {
+        return visibility;
+    }
+
+    public void setVisibility(String visibility) {
+        this.visibility = visibility;
     }
     
     
