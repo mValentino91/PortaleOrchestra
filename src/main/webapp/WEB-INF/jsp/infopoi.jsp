@@ -29,10 +29,16 @@
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
+        <script>
+            function loaded() {
+                adjustimgHeights();
+                $(".nano").nanoScroller();
 
+            }
+        </script>
         <title>Orchestra - ${poi.name}</title>   
     </head>
-    <body <c:if test="${not empty imggallery}"> onload="adjustimgHeights()"</c:if> >
+    <body <c:if test="${not empty imggallery}"> onload="loaded()"</c:if> >
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
 
@@ -56,6 +62,9 @@
 
                 <c:if test="${not empty imggallery}">
                     <jsp:include page="components/ImgGalleryComponent2.jsp"/> 
+                    <script>
+                        $(".loading_imgs .img").attr('src', './dist/img/loading_dots.gif');
+                    </script>
                 </c:if>
 
 
@@ -90,7 +99,7 @@
             </div>
 
             <div style="clear: both"></div>
-            
+
         </div>
 
 
