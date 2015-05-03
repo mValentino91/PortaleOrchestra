@@ -23,8 +23,15 @@
         <script type="text/javascript" src="./dist/fancybox/jquery.fancybox.js"></script>
 
         <script type="text/javascript" src="./dist/js/weather.js"></script>
+        
+        <script type="text/javascript" src="./dist/js/struttura.js"></script>
         <script>
             $(document).ready(function () {
+                
+                //enable tile animation
+                $.enableTileAnimation();
+                
+                //enable fancybox on fancy tile
                 $("#tilevid").click(function () {
 
                     $.fancybox({
@@ -46,6 +53,7 @@
 
             });
         </script>
+
 
     </head>
 
@@ -98,16 +106,25 @@
                             <c:if test="${cont.count <= 3}">
                                 <div class="col-md-4 col-orc">
                                     <div class="box-orc">
-
-                                        <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
-                                                <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
-                                                </c:if>
-                                                <c:if test="${not empty tile.text}">
-                                                    ${tile.text}
-                                                </c:if>
-                                            </div></a>
-
+                                        
+                                            <div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                                <div class="tile_inner"> 
+                                                    <div class="tile_content act tile_animated"> 
+                                                        <a href="${tile.link}">
+                                                            <c:if test="${not empty tile.icon}">
+                                                                <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                            </c:if>                                                        
+                                                            <div class="tile_text tile_icon_dis">
+                                                                <div class="tile_text_content">
+                                                                    <c:if test="${not empty tile.text}">
+                                                                        ${tile.text}
+                                                                    </c:if>                                                                
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div> 				
+                                                </div> 
+                                            </div>   
                                     </div>
                                 </div>
                             </c:if>
@@ -118,19 +135,32 @@
                     <div class="col-md-12 col-orc box-orc-half">
                         <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
                             <c:if test="${cont.count > 3 && cont.count <= 6}">
+
                                 <div class="col-md-4 col-orc">
                                     <div class="box-orc">
-                                        <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
-                                                <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
-                                                </c:if>
-                                                <c:if test="${not empty tile.text}">
-                                                    ${tile.text}
-                                                </c:if>
-                                            </div></a>
-
+                                        
+                                        <div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                            <div class="tile_inner"> 
+                                                <a href="${tile.link}">
+                                                    <div class="tile_content act tile_animated"> 
+                                                        <c:if test="${not empty tile.icon}">
+                                                            <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                        </c:if>                                                        
+                                                        <div class="tile_text tile_icon_dis">
+                                                            <div class="tile_text_content">
+                                                                <c:if test="${not empty tile.text}">
+                                                                    ${tile.text}
+                                                                </c:if>           
+                                                            </div>
+                                                        </div>	
+                                                    </div>
+                                                </a>
+                                            </div> 
+                                        </div>             
+                                                
                                     </div>
-                                </div>
+                                </div>                                  
+                                
                             </c:if>
                         </c:forEach>				
                     </div>
@@ -161,14 +191,25 @@
                             <c:if test="${cont.count > 6 and cont.count <=9}">
                                 <div class="col-md-4 col-orc">
                                     <div class="box-orc">
-                                        <a <c:if test="${cont.count == 7}">id="tilevid"</c:if>  href="${tile.link}"><div <c:if test="${cont.count == 8}">id="weather"</c:if>  class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
-                                                <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
-                                                </c:if>
-                                                <c:if test="${not empty tile.text}">
-                                                    ${tile.text}
-                                                </c:if>
-                                            </div></a>
+                                        <div <c:if test="${cont.count == 8}">id="weather"</c:if>  class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                            <div class="tile_inner"> 
+                                                <a href="${tile.link}">
+                                                    <div class="tile_content act tile_animated"> 
+                                                        <c:if test="${not empty tile.icon}">
+                                                            <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                        </c:if>
+                                                        <div class="tile_text tile_icon_dis">
+                                                            <div class="tile_text_content">
+                                                                <c:if test="${not empty tile.text}">
+                                                                    ${tile.text}
+                                                                </c:if>   
+                                                            </div>
+                                                        </div>	
+                                                    </div> 	
+                                                </a>
+                                            </div> 
+                                        </div>                                            
+                                        
 
                                     </div>
                                 </div>
@@ -187,15 +228,26 @@
                             <c:if test="${cont.count > 9}">
                                 <div class="col-md-4 col-orc">
                                     <div class="box-orc">
-                                        <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
-                                                <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
-                                                </c:if>
-                                                <c:if test="${not empty tile.text}">
-                                                    ${tile.text}
-                                                </c:if>
-                                            </div></a>
-
+                                        
+                                        <div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
+                                            <div class="tile_inner"> 
+                                                <a href="${tile.link}">
+                                                    <div class="tile_content act tile_animated"> 
+                                                        <c:if test="${not empty tile.icon}">
+                                                            <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                        </c:if>                                                        
+                                                        <div class="tile_text tile_icon_dis">
+                                                            <div class="tile_text_content">
+                                                                <c:if test="${not empty tile.text}">
+                                                                    ${tile.text}
+                                                                </c:if>   
+                                                            </div>
+                                                        </div>
+                                                    </div> 
+                                                </a>
+                                            </div> 
+                                        </div>                                            
+                                        
                                     </div>
                                 </div>
                             </c:if>
@@ -222,15 +274,18 @@
 
             </div>
             
-                    <div class="row">
-                        <center>
+            <div class="row" style="margin-top: 20px;">
+                <center>
                     <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
                 </center>
-                    </div>
+            </div>
 
 
 
         </div>
+   
+	
+                    
     </body>
     <jsp:include page="access/loginModal.jsp" />
 </html>

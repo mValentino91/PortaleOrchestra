@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <html>
     <head>
@@ -17,6 +18,9 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
         <link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
+        
+        <script type="text/javascript" src="./dist/js/struttura.js"></script>
+        
         <style>
             .nano {width: 100%;}
             .nano .nano-pane   { background: #d9d9d9!important; }
@@ -24,10 +28,17 @@
         </style>
         <script>
             $(document).ready(function () {
+                
+                //enable tile animation
+                $.enableTileAnimation(); 
+                
+                $.enableTileButtons();
+                
                 $(".nano").nanoScroller();
             });
         </script>
 
+        
     </head>
 
     <body>
@@ -72,48 +83,141 @@
 
                     </div>
                 </div>
-
+                <c:set var="tot_tiles" value="${fn:length(pages.tilesList)}"/>
+                <c:set var="n_tiles" value="${((tot_tiles>6 )?5:6)}"/>
+                <c:set var="subtiles" value="${(tot_tiles/n_tiles) - ((tot_tiles/n_tiles)%1) + ((tot_tiles%n_tiles>0 )?1:0)}"/>
+                <c:set var="tot_tiles_round" value="${tot_tiles + ((tot_tiles%n_tiles>0 )?(n_tiles-tot_tiles%n_tiles):0)}"/>
+                <c:set var="color_schema" value="${pages.colorSchemaList[0]}"/>
+                
                 <div class="col-md-6 col-orc">
                     <div class="col-md-12 col-orc box-orc-half">
-                        <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
-                            <c:if test="${cont.count <= 3}">
-                                <div class="col-md-4 col-orc">
-                                    <div class="box-orc">
+ 
+                        <!-- Tiles -->
+                        <c:forEach var="i" begin="0" end="2">
+                            <div class="col-md-4 col-orc">
+                                <div class="box-orc">
 
-                                        <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
-                                                <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
-                                                </c:if>
-                                                <c:if test="${not empty tile.text}">
-                                                    ${tile.text}
-                                                </c:if>
-                                            </div></a>
+                                    <div class="tile" <c:if test="${not empty color_schema.tileColors[i]}"> style="background-color: ${color_schema.tileColors[i]}" </c:if> >
+                                        <div class="tile_inner"> 
+                                            <c:forEach var="j" varStatus="contTile" begin="0" end="${tot_tiles_round-1}" step="${n_tiles}">
+                                                <!-- Sub Tiles -->
+                                                <c:choose>
+                                                    <c:when test="${i+j < tot_tiles}">
+                                                        <c:set var="tile" value="${pages.tilesList.get(i+j)}"/>
+                                                        <div class="tile_content <c:choose><c:when test="${contTile.count == 1}">act</c:when> <c:otherwise>dis</c:otherwise></c:choose> <c:if test="${tile.animated == true}">tile_animated</c:if>">
+                                                            <a href="${tile.link}">
+                                                            <c:if test="${not empty tile.icon}">
+                                                                <img class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                            </c:if>   
+                                                            <c:if test="${not empty tile.text}">
+                                                            <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                <div class="tile_text_content">
+                                                                    ${tile.text}                                                 
+                                                                </div>
+                                                            </div>
+                                                            </c:if> 
+                                                             </a>
+                                                        </div>                                                         
+                                                        
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="tile_content dis"> 
+                                                            <div class="tile_text tile_icon_act">
+                                                                <div class="tile_text_content">
 
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:forEach>
-
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </div> 
+                                    </div>                                                  
+                                </div> 
+                            </div>
+                        </c:forEach>                        
+                        
                     </div>
 
                     <div class="col-md-12 col-orc box-orc-half">
-                        <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
-                            <c:if test="${cont.count > 3 && cont.count <= 6}">
-                                <div class="col-md-4 col-orc">
-                                    <div class="box-orc">
-                                        <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
-                                                <c:if test="${not empty tile.icon}">
-                                                    <img src="./dist/page/img/${pages.id}/${tile.icon}">
-                                                </c:if>
-                                                <c:if test="${not empty tile.text}">
-                                                    ${tile.text}
-                                                </c:if>
-                                            </div></a>
+                         <!-- Tiles -->
+                        <c:forEach var="i" begin="3" end="${n_tiles-1}">
+                            <div class="col-md-4 col-orc">
+                                <div class="box-orc">
 
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:forEach>				
+                                    <div class="tile" <c:if test="${not empty color_schema.tileColors[i]}"> style="background-color: ${color_schema.tileColors[i]}" </c:if> >
+                                        <div class="tile_inner"> 
+                                            <c:forEach var="j" varStatus="contTile" begin="0" end="${tot_tiles_round-1}" step="${n_tiles}">
+                                                <!-- Sub Tiles -->
+                                                <c:choose>
+                                                    <c:when test="${i+j < tot_tiles}">
+                                                        <c:set var="tile" value="${pages.tilesList.get(i+j)}"/>
+                                                        <div class="tile_content <c:choose><c:when test="${contTile.count == 1}">act</c:when> <c:otherwise>dis</c:otherwise></c:choose> <c:if test="${tile.animated == true}">tile_animated</c:if>">
+                                                            <a href="${tile.link}">
+                                                            <c:if test="${not empty tile.icon}">
+                                                                <img class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                            </c:if>   
+                                                            <c:if test="${not empty tile.text}">
+                                                            <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                <div class="tile_text_content">
+                                                                    ${tile.text}  
+                                                                </div>
+                                                            </div>
+                                                            </c:if> 
+                                                             </a>
+                                                        </div>                                                         
+                                                        
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <div class="tile_content dis"> 
+                                                            <div class="tile_text tile_icon_act">
+                                                                <div class="tile_text_content">
+
+                                                                </div>
+                                                            </div>
+                                                        </div> 
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </div> 
+                                    </div>                                                  
+                                </div> 
+                            </div>
+                        </c:forEach>  
+                        
+                        <c:if test="${tot_tiles>6}"> 
+                        <div class="col-md-4 col-orc">
+                            <div class="box-orc">
+
+                                <div class="tile"  <c:if test="${not empty color_schema.tileColors[5]}"> style="background-color: ${color_schema.tileColors[5]}" </c:if>>
+                                    <div class="tile_inner"> 
+                                        <a href="#">
+                                            <div class="tile_content act"> 
+                                                <div class="tile_text tile_icon_act">
+                                                    <div class="tile_text_content">
+                                                        
+                                                            <div class="tile_more">
+                                                                <div class="tile_ellipsis" style="display: none;">
+                                                                    <i class="fa fa-ellipsis-h"></i>
+                                                                </div>
+                                                                <div class="tile_arrows">
+                                                                    <i id="button_p" class="fa fa-arrow-left disabled" style="margin-right:10px;"></i>
+                                                                    <i id="button_n" class="fa fa-arrow-right" style="margin-left:10px;"></i> 
+                                                                </div>
+                                                            </div>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </a>             
+                                    </div> 
+                                </div>                                
+                                
+
+                            </div>
+                        </div>                        
+                        </c:if>
+                         
                     </div>
 
                 </div>
@@ -138,7 +242,7 @@
             </div>
 
             <div class="row">
-                <div class="col-md-4 col-orc" >
+                <div class="col-md-6 col-orc" >
                     <div class="box-orc">
 
                         <div class="box-elem component component-text" style="overflow: hidden;">
@@ -156,26 +260,6 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 col-orc">
-                    <c:forEach var="tile" items="${pages.tilesList}" varStatus="cont">
-                        <c:if test="${cont.count > 6}">
-                            <div class="col-md-12 col-orc box-orc-half">
-                                <div class="box-orc">
-                                    <a href="${tile.link}"><div class="tile" <c:if test="${not empty tile.color}"> style="background-color: ${tile.color}" </c:if> >
-                                            <c:if test="${not empty tile.icon}">
-                                                <img src="./dist/page/img/${pages.id}/${tile.icon}">
-                                            </c:if>
-                                            <c:if test="${not empty tile.text}">
-                                                ${tile.text}
-                                            </c:if>
-                                        </div></a>
-
-                                </div>
-                            </div>
-                        </c:if>
-                    </c:forEach>
-
-                </div>
 
                 <div class="col-md-6 col-orc">
                     <div class="box-orc">
@@ -186,9 +270,77 @@
                 </div>
 
             </div>
+                        
+            <!--
+                        
+            <div class="row" style="height:102px; border: 0px solid red; position: relative;">
+                <div class="top_arrow_left"></div>
+                <div class="col-md-4 col-orc">
+                    <div class="box-orc">
+                        <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                            <div class="top_poi_box">
+                                <div class="top_flag"></div>
+                                <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
+                                <div class="top_poi_content">
+                                    <div class="top_poi_title">
+                                        Pio monte della misericordia
+                                    </div>
+                                    <div class="top_poi_text">
+                                        Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-orc">
+                    <div class="box-orc">
+                        <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                            <div class="top_poi_box">
+                                <div class="top_flag"></div>
+                                <div class="top_poi_img" style="background-image: url('dist/poi/img/5537cfe4df6e98f404c64b37/cover.jpg')"></div>
+                                <div class="top_poi_content">
+                                    <div class="top_poi_title">
+                                        La pizza
+                                    </div>
+                                    <div class="top_poi_text">
+                                        La pizza di Napoli è buona ed insuperabile, è veramente buona ed economica.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                    
+                    </div>
+                </div>
+                <div class="col-md-4 col-orc">
+                    <div class="box-orc">
+                        <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                            <div class="top_poi_box">
+                                <div class="top_flag"></div>
+                                <div class="top_poi_img" style="background-image: url('dist/poi/img/54ebae65df6ef3261078d565/cover.jpg')"></div>
+                                <div class="top_poi_content">
+                                    <div class="top_poi_title">
+                                        Presepe e pastori
+                                    </div>
+                                    <div class="top_poi_text">
+                                        San Gregorio Armeno: via dell'arte presepiale più famosa al mondo.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>    
+            -->
+            
+            <div class="row" style="margin-top: 20px;">
+                <center>
+                    <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
+                </center>
+            </div>            
 
 
         </div>
-                         <jsp:include page="access/loginModal.jsp" />
+        
+        <jsp:include page="access/loginModal.jsp" />
     </body>
 </html>
