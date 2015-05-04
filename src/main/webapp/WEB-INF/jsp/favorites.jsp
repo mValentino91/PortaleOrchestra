@@ -34,68 +34,11 @@
         <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
+        <link rel="stylesheet" href="./dist/css/favorites.css" />
 
         <title><spring:message code="label.favoritespoi"></spring:message></title>   
         
-        <style>
-                     
-            .poi_preview_box{
-              height: 120px; 
-              width: 100%; 
-              border: 0px solid red; 
-              -moz-box-sizing: border-box;
-              -webkit-box-sizing: border-box;
-              box-sizing: border-box;
-              clear: both;
-              magin-top: 10px;
-              margin-bottom: 10px;
-              position: relative;
-              border-bottom: 1px solid #E9EAED;
-            }  
-              
-            .poi_preview_img{
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                height: 100%; 
-                width: 25%; 
-                border: 0px solid green;
-                float: left;
-                background-size: cover;
-                background-position: center center;
-                border-radius: 0px;                
-            }
-            
-            .poi_preview_content{
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                height: 100%; 
-                width: 75%; 
-                border: 0px solid yellow; 
-                float: left;
-                padding: 10px;
-            }
-            
-            .poi_preview_title{
-                font-weight: bold;
-            }
-            
-            .poi_preview_delete{
-                position: absolute;
-                top: 5px;
-                right: 5px;
-            }
-            
-            .poi_preview_rating{
-                border: 0px solid pink;
-            }
-            
-            
-            .clear{
-                clear:both;
-            }
-        </style>
+        
     </head>
     <body>
         <jsp:include page="components/topBar.jsp"/>
@@ -129,23 +72,10 @@
             $( document ).ready(function() {
                 enableRatingBar() ;  
                 $(".poi_preview_box").each(function(index) {
-                    var box = $(this);
-                    var fav_rating = $(this).find(".fav_rating");
-                    var rating = fav_rating.data('rating');
-                    var idpoi = fav_rating.data('idpoi');
-                    $(this).find(".range").data("ionRangeSlider").update({
-                        from: rating,
-                        onFinish: function (data) {
-                            saveFavoriteRating(fav_rating.data('idpoi'), data.from);
-                        }
-                    });
-                    var delete_poi = $(this).find(".poi_preview_delete");
-                    delete_poi.click(function() {
-                        removeFromFavorite(idpoi);
-                        box.fadeOut(300, function() { $(this).remove(); });
-                        //obtain category div
-                        deleteCategoryContainer(box);
-                    });
+                    updateRatingBar($(this));
+                    enableDeleteButton($(this));
+                    
+  
                 });
                 
             });    

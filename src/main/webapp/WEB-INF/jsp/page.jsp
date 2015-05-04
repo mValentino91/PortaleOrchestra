@@ -271,7 +271,7 @@
 
             </div>
                         
-            <!--
+          
                         
             <div class="row" style="height:102px; border: 0px solid red; position: relative;">
                 <div class="top_arrow_left"></div>
@@ -330,7 +330,7 @@
                     </div>
                 </div>                
             </div>    
-            -->
+          
             
             <div class="row" style="margin-top: 20px;">
                 <center>

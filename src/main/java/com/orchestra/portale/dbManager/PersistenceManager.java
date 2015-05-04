@@ -11,6 +11,7 @@ import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -58,4 +59,6 @@ public interface PersistenceManager {
     public void deleteDeepeningPage(DeepeningPage dp);
     public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String [] categories);
     public EnCompletePOI findEnCompletePoiById(String id);
+    public void saveCart(Cart cart);
+    public Iterable<Cart>findCartsByIdUser(Integer idUser);
 }

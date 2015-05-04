@@ -21,6 +21,37 @@ function enableRatingBar(){
 
 }
 
+
+
+function enableDeleteButton(poi_prev_box){
+    var box = poi_prev_box;
+    var fav_rating = box.find(".fav_rating");
+    var idpoi = fav_rating.data('idpoi');
+    var delete_poi = box.find(".poi_preview_delete");
+    delete_poi.click(function() {
+        removeFromFavorite(idpoi);
+        box.fadeOut(300, function() { $(this).remove(); });
+        //obtain category div
+        deleteCategoryContainer(box);
+    });    
+    
+}
+
+function updateRatingBar(poi_prev_box){
+    var box = poi_prev_box;
+    var fav_rating = box.find(".fav_rating");
+    var rating = fav_rating.data('rating');
+    var idpoi = fav_rating.data('idpoi');
+    box.find(".range").data("ionRangeSlider").update({
+        from: rating,
+        onFinish: function (data) {
+            saveFavoriteRating(fav_rating.data('idpoi'), data.from);
+        }
+    });
+   
+
+}
+
 function deleteCategoryContainer(poiPreviewBox){
     //retrieve parent category box
     var cat_box = poiPreviewBox.parents(".category-container");

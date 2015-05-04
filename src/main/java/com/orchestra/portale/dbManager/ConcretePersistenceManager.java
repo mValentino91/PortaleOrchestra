@@ -15,9 +15,11 @@ import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository
 import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
+import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.persistence.sql.repositories.CartRepository;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompCategoryComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryRepository;
@@ -81,6 +83,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
     private FavoriteRepository favoriteRepo;
+    
+    @Autowired
+    private CartRepository cartRepo;
 
     @Override
     public Poi getPoiById(String Id) {
@@ -238,6 +243,11 @@ public class ConcretePersistenceManager implements PersistenceManager {
         }
         return null;
     }
+    
+    @Override
+    public void saveCart(Cart cart){
+        cartRepo.save(cart);
+    }
 
     @Override
     public void saveFavorite(Favorite favorite) {
@@ -295,6 +305,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public EnCompletePOI findEnCompletePoiById(String id) {
         return enPoiMongoRepo.findOne(id);
+    }
+
+    @Override
+    public Iterable<Cart> findCartsByIdUser(Integer idUser) {
+        Iterable<Cart> carts = cartRepo.findCartByIdUser(idUser);
+        return carts;
     }
 
 }

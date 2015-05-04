@@ -32,11 +32,12 @@
                         
                             <c:forEach var="p" items="${map_cat.map.get(cat)}">
                                     <div class="poi_preview_box">
-                                        <i class="fa fa-trash poi_preview_delete" style="cursor:pointer; font-size:16px;" ></i>
+                                        <i class="fa fa-trash poi_preview_delete"  style="cursor:pointer; font-size:16px;" ></i>
                                         <div class="poi_preview_img" style="background-image: url('dist/poi/img/${p.id}/cover.jpg')"></div>
                                         <div class="poi_preview_content">
                                             <div class="poi_preview_title">
                                                  ${p.name}
+                                                 
                                             </div>
                                             <div class="poi_preview_text">
                                              ${p.address}
