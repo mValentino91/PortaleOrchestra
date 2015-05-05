@@ -299,7 +299,7 @@
     }, {
         "slug": "expo",
         "parent": null,
-        "icon": "fa fa-star",
+        "icon": "icon-expo",
         "text": "Expo Napoli",
         "color": "#f2784b",
         "nodes": [

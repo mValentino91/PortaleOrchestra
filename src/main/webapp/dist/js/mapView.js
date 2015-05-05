@@ -846,6 +846,7 @@ var categoriesTail = (function() {
     var maxTail= 5;
     var parsedTree;
     function init() {
+        $('.categoriesTails').html('');
         parseJsonCategories();
     }
     function parseJsonCategories() {
@@ -879,9 +880,16 @@ var categoriesTail = (function() {
         });
     }
     function viewMoreCategories() {
+        if(ifAuth()){
+            $('.categoriesTails').append('<button type="button" class="moreCategories btn btn-plus-cat btn-default btn-lg"'
+            + 'onclick="interactiveMap.showFavoritesPois()"'
+            + 'title="Preferiti"'
+            + 'style="display:none; background-color:#ed5565;">'
+            + '<i class="fa fa-heart"></i>'
+            + '</button>');
+        }
         $.getJSON("./jsonDB/categoriesTree", function(data) {
             parsedTree = data;
-            
             for (var i = maxTail; i < data.length; i++) {
                 $('.categoriesTails').append('<button type="button" class="moreCategories btn btn-default btn-lg"'
                         + 'onclick="categoriesTail.macroCategoryHandler(' + "'"

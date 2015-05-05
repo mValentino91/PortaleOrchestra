@@ -23,26 +23,11 @@
 <div class="categoriesContainer">
     <div class="categoriesBox">
         <script>
-            $(function() {
-
-                $.getJSON("./jsonDB/categoriesTree", function(data) {
-
-                    $('.categoriesBox').treeview({
-                        data: data,
-                        showBorder: false,
-                        levels: 1,
-                        onNodeSelected: function(event, node) {
-
-                            var catEvent = jQuery.Event("category_changed");
-                            catEvent.target = node.slug;
-                            $(document).trigger(catEvent);
-
-                        }
-                    });
-
-                });
-            });
             categoriesTail.init();
+            $(document).on("loginDone", reload_filterOnPoiList);
+            function reload_filterOnPoiList(event) {
+                categoriesTail.init();
+            }
         </script>
     </div>
 </div>

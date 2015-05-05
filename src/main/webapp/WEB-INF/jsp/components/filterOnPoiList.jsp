@@ -1,13 +1,5 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
-<script>
-    $(document).on("loginDone", reload_filterOnPoiList);
-    function reload_filterOnPoiList(event) {
-        $.reloadElement("filterOnPoiList", "./filterOnPoiList");
-    }
-</script>
-
 <!--<div  class="btn-group" role="group" data-toggle="buttons">
     <button type="button" class="btn btn-default btn-xs" 
             onclick="$('.categoriesContainer').toggle();">
