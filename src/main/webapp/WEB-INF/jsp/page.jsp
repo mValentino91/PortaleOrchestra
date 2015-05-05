@@ -76,7 +76,7 @@
                 
                 $(".nano").nanoScroller();
                 
-                
+                /*
                 var owl = $("#top10-slider");
 
                 owl.owlCarousel({
@@ -100,7 +100,8 @@
                 })
                 $(".stop").click(function(){
                   owl.trigger('owl.stop');
-                })                
+                })     
+                */
                 
             });
         </script>
@@ -338,11 +339,17 @@
 
             </div>
                         
-           
+           <!--
                         
             <div class="row" style="height:100px; position: relative;">
                  <div class="col-md-12 col-orc">
+                     
                     <div class="top10-container">
+                        <div class="top_arrow_left_box">
+                            <div class="top_arrow_left">
+                                <i class="fa fa-chevron-left"></i>
+                            </div>
+                        </div>
                             <div id="top10-slider" class="owl-carousel owl-theme">
 
                                 <div style="width: 329px; float: left;">
@@ -470,7 +477,7 @@
                     </div>
                 </div>
             </div>
-                      
+            -->         
             
             <div class="row" style="margin-top: 20px;">
                 <center>
