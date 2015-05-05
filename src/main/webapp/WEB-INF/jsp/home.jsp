@@ -274,7 +274,7 @@
 
             </div>
             
-            <div class="row" style="margin-top: 20px;">
+            <div class="row" style="height: 170px; margin-top: 20px;">
                 <center>
                     <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
                 </center>

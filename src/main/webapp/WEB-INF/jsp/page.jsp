@@ -31,40 +31,7 @@
             .nano .nano-slider { background: #B6B6B6!important; }
         </style>
         
-        
-        <style type="text/css">
-            #owl-demo .item{
-              background: #3fbf79;
-              margin: 10px;
-              color: #FFF;
-              text-align: center;
-              width: 100px;
-              height: 50px;
-            }
-            .customNavigation{
-              text-align: center;
-            }
-            //use styles below to disable ugly selection
-            .customNavigation a{
-              -webkit-user-select: none;
-              -khtml-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-            }
-
-            .top10-container{
-                    width: 100%;
-                    border: 0px solid red;
-                    height: 100%
-            }
-
-            .owl-controls{
-                    display: none!important;
-            }
-         </style>        
-        
+       
         
         <script>
             $(document).ready(function () {
@@ -76,32 +43,7 @@
                 
                 $(".nano").nanoScroller();
                 
-                /*
-                var owl = $("#top10-slider");
-
-                owl.owlCarousel({
-                      navigation: false,
-                        items : 3, //10 items above 1000px browser width
-                        itemsDesktop : [1000,1], //5 items between 1000px and 901px
-                        itemsDesktopSmall : [940,1], // betweem 900px and 601px
-                        itemsTablet: [600,1], //2 items between 600 and 0
-                        itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
-                });
-
-                // Custom Navigation Events
-                $(".next").click(function(){
-                  owl.trigger('owl.next');
-                })
-                $(".prev").click(function(){
-                  owl.trigger('owl.prev');
-                })
-                $(".play").click(function(){
-                  owl.trigger('owl.play',1000); //owl.play event accept autoPlay speed as second parameter
-                })
-                $(".stop").click(function(){
-                  owl.trigger('owl.stop');
-                })     
-                */
+                //$.enableTop10Slider();
                 
             });
         </script>
@@ -341,15 +283,20 @@
                         
            <!--
                         
-            <div class="row" style="height:100px; position: relative;">
+            <div id="top10-row" class="row" style="height:100px; position: relative;">
                  <div class="col-md-12 col-orc">
                      
                     <div class="top10-container">
-                        <div class="top_arrow_left_box">
-                            <div class="top_arrow_left">
+                        <div id="poi-prev" class="top_arrow_box top_arrow_left_box">
+                            <div class="top_arrow top_arrow_left">
                                 <i class="fa fa-chevron-left"></i>
                             </div>
                         </div>
+                        <div id="poi-next" class="top_arrow_box top_arrow_right_box">
+                            <div class="top_arrow top_arrow_right">
+                                <i class="fa fa-chevron-right"></i>
+                            </div>
+                        </div>                        
                             <div id="top10-slider" class="owl-carousel owl-theme">
 
                                 <div style="width: 329px; float: left;">
@@ -467,19 +414,13 @@
                                </div>                                 
                             </div>
 
-                            <div class="customNavigation">
-                              <a class="btn prev">Previous</a>
-                              <a class="btn next">Next</a>
-                              <a class="btn play">Autoplay</a>
-                              <a class="btn stop">Stop</a>
-                            </div>	
-                            <div class="clear"></div>
                     </div>
                 </div>
             </div>
-            -->         
             
-            <div class="row" style="margin-top: 20px;">
+           -->
+            
+            <div class="row" style="height: 170px; margin-top: 20px;">
                 <center>
                     <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
                 </center>
