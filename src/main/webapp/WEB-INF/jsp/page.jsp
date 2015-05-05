@@ -21,11 +21,51 @@
         
         <script type="text/javascript" src="./dist/js/struttura.js"></script>
         
+        <!-- Owl Carousel -->
+        <link href="./dist/owl-carousel/owl.carousel.css" rel="stylesheet">        
+        <script src="./dist/owl-carousel/owl.carousel.js"></script>
+        
         <style>
             .nano {width: 100%;}
             .nano .nano-pane   { background: #d9d9d9!important; }
             .nano .nano-slider { background: #B6B6B6!important; }
         </style>
+        
+        
+        <style type="text/css">
+            #owl-demo .item{
+              background: #3fbf79;
+              margin: 10px;
+              color: #FFF;
+              text-align: center;
+              width: 100px;
+              height: 50px;
+            }
+            .customNavigation{
+              text-align: center;
+            }
+            //use styles below to disable ugly selection
+            .customNavigation a{
+              -webkit-user-select: none;
+              -khtml-user-select: none;
+              -moz-user-select: none;
+              -ms-user-select: none;
+              user-select: none;
+              -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            }
+
+            .top10-container{
+                    width: 100%;
+                    border: 0px solid red;
+                    height: 100%
+            }
+
+            .owl-controls{
+                    display: none!important;
+            }
+         </style>        
+        
+        
         <script>
             $(document).ready(function () {
                 
@@ -35,6 +75,33 @@
                 $.enableTileButtons();
                 
                 $(".nano").nanoScroller();
+                
+                
+                var owl = $("#top10-slider");
+
+                owl.owlCarousel({
+                      navigation: false,
+                        items : 3, //10 items above 1000px browser width
+                        itemsDesktop : [1000,1], //5 items between 1000px and 901px
+                        itemsDesktopSmall : [940,1], // betweem 900px and 601px
+                        itemsTablet: [600,1], //2 items between 600 and 0
+                        itemsMobile : false // itemsMobile disabled - inherit from itemsTablet option
+                });
+
+                // Custom Navigation Events
+                $(".next").click(function(){
+                  owl.trigger('owl.next');
+                })
+                $(".prev").click(function(){
+                  owl.trigger('owl.prev');
+                })
+                $(".play").click(function(){
+                  owl.trigger('owl.play',1000); //owl.play event accept autoPlay speed as second parameter
+                })
+                $(".stop").click(function(){
+                  owl.trigger('owl.stop');
+                })                
+                
             });
         </script>
 
@@ -271,66 +338,139 @@
 
             </div>
                         
-          
+           
                         
-            <div class="row" style="height:102px; border: 0px solid red; position: relative;">
-                <div class="top_arrow_left"></div>
-                <div class="col-md-4 col-orc">
-                    <div class="box-orc">
-                        <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                            <div class="top_poi_box">
-                                <div class="top_flag"></div>
-                                <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
-                                <div class="top_poi_content">
-                                    <div class="top_poi_title">
-                                        Pio monte della misericordia
-                                    </div>
-                                    <div class="top_poi_text">
-                                        Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
-                                    </div>
-                                </div>
+            <div class="row" style="height:100px; position: relative;">
+                 <div class="col-md-12 col-orc">
+                    <div class="top10-container">
+                            <div id="top10-slider" class="owl-carousel owl-theme">
+
+                                <div style="width: 329px; float: left;">
+                                   <div class="box-orc">
+                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                                           <div class="top_poi_box">
+                                               <div class="top_flag"></div>
+                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
+                                               <div class="top_poi_content">
+                                                   <div class="top_poi_title">
+                                                       Pio monte della misericordia
+                                                   </div>
+                                                   <div class="top_poi_text">
+                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
+                                <div style="width: 329px; float: left;">
+                                   <div class="box-orc">
+                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                                           <div class="top_poi_box">
+                                               <div class="top_flag"></div>
+                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
+                                               <div class="top_poi_content">
+                                                   <div class="top_poi_title">
+                                                       Pio monte della misericordia
+                                                   </div>
+                                                   <div class="top_poi_text">
+                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
+                                <div style="width: 329px; float: left;">
+                                   <div class="box-orc">
+                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                                           <div class="top_poi_box">
+                                               <div class="top_flag"></div>
+                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
+                                               <div class="top_poi_content">
+                                                   <div class="top_poi_title">
+                                                       Pio monte della misericordia
+                                                   </div>
+                                                   <div class="top_poi_text">
+                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>                        
+
+                                <div style="width: 329px; float: left;">
+                                   <div class="box-orc">
+                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                                           <div class="top_poi_box">
+                                               <div class="top_flag"></div>
+                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
+                                               <div class="top_poi_content">
+                                                   <div class="top_poi_title">
+                                                       Pio monte della misericordia
+                                                   </div>
+                                                   <div class="top_poi_text">
+                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
+                                <div style="width: 329px; float: left;">
+                                   <div class="box-orc">
+                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                                           <div class="top_poi_box">
+                                               <div class="top_flag"></div>
+                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
+                                               <div class="top_poi_content">
+                                                   <div class="top_poi_title">
+                                                       Pio monte della misericordia
+                                                   </div>
+                                                   <div class="top_poi_text">
+                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+
+                                <div style="width: 329px; float: left;">
+                                   <div class="box-orc">
+                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
+                                           <div class="top_poi_box">
+                                               <div class="top_flag"></div>
+                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
+                                               <div class="top_poi_content">
+                                                   <div class="top_poi_title">
+                                                       Pio monte della misericordia
+                                                   </div>
+                                                   <div class="top_poi_text">
+                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>                                 
                             </div>
-                        </div>
+
+                            <div class="customNavigation">
+                              <a class="btn prev">Previous</a>
+                              <a class="btn next">Next</a>
+                              <a class="btn play">Autoplay</a>
+                              <a class="btn stop">Stop</a>
+                            </div>	
+                            <div class="clear"></div>
                     </div>
                 </div>
-                <div class="col-md-4 col-orc">
-                    <div class="box-orc">
-                        <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                            <div class="top_poi_box">
-                                <div class="top_flag"></div>
-                                <div class="top_poi_img" style="background-image: url('dist/poi/img/5537cfe4df6e98f404c64b37/cover.jpg')"></div>
-                                <div class="top_poi_content">
-                                    <div class="top_poi_title">
-                                        La pizza
-                                    </div>
-                                    <div class="top_poi_text">
-                                        La pizza di Napoli è buona ed insuperabile, è veramente buona ed economica.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>                    
-                    </div>
-                </div>
-                <div class="col-md-4 col-orc">
-                    <div class="box-orc">
-                        <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                            <div class="top_poi_box">
-                                <div class="top_flag"></div>
-                                <div class="top_poi_img" style="background-image: url('dist/poi/img/54ebae65df6ef3261078d565/cover.jpg')"></div>
-                                <div class="top_poi_content">
-                                    <div class="top_poi_title">
-                                        Presepe e pastori
-                                    </div>
-                                    <div class="top_poi_text">
-                                        San Gregorio Armeno: via dell'arte presepiale più famosa al mondo.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>                
-            </div>    
-          
+            </div>
+                      
             
             <div class="row" style="margin-top: 20px;">
                 <center>
