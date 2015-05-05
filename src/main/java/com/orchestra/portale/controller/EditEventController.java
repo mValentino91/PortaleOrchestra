@@ -699,7 +699,7 @@ public class EditEventController {
             workingtime.setDates(workingdays);
             listComponent.add(workingtime);
         }
-
+/*
         LinkedPoiComponent lpc = new LinkedPoiComponent();
         ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
         i = 1;
@@ -720,7 +720,7 @@ public class EditEventController {
         if (params.containsKey("enmot1")) {
             listComponent.add(lpc);
         }
-
+*/
         i = 1;
         if (params.containsKey("entype" + i)) {
 

@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.persistence.mongo.documents;
 
+import com.orchestra.portale.utils.CouplePOI;
 import java.util.ArrayList;
 
 /**
@@ -13,23 +14,32 @@ import java.util.ArrayList;
  */
 public class LinkedPoi {
     private String description;
-    private ArrayList<String> idlist;
+    private ArrayList<CouplePOI> poilist;
 
     public String getDescription() {
         return description;
     }
 
-    public ArrayList<String> getIdlist() {
-        return idlist;
-    }
+   
 
     public void setDescription(String description) {
         this.description = description;
     }
 
-    public void setIdlist(ArrayList<String> idlist) {
-        this.idlist = idlist;
+    /**
+     * @return the poilist
+     */
+    public ArrayList<CouplePOI> getPoilist() {
+        return poilist;
     }
+
+    /**
+     * @param poilist the poilist to set
+     */
+    public void setPoilist(ArrayList<CouplePOI> poilist) {
+        this.poilist = poilist;
+    }
+
     
             
 }

@@ -1,0 +1,49 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 5-mag-2015, 15.08.45
+    Author     : Alex
+*/
+
+.l_poi_box{
+    border: 0px solid red; 
+    height: 100px;
+    position:relative;
+}
+
+.l_poi_img{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%; 
+    width: 30%; 
+    border: 0px solid green;
+    float: left;
+    background-size: cover;
+    background-position: center center;
+    border-radius: 0px;                
+}
+
+.l_poi_content{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%; 
+    width: 70%; 
+    border: 0px solid yellow; 
+    float: left;
+    padding: 5px;
+    text-align: left;
+}
+
+.l_poi_title{
+    font-weight: bold;
+}
+
+.l_poi_text{
+    font-size: 12px;
+    line-height: 1;
+}

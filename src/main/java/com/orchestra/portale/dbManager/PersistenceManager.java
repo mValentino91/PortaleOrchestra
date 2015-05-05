@@ -59,6 +59,7 @@ public interface PersistenceManager {
     public void deleteDeepeningPage(DeepeningPage dp);
     public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String [] categories);
     public EnCompletePOI findEnCompletePoiById(String id);
+    public void deleteEnCompletePOI(EnCompletePOI enpoi);
     public void saveCart(Cart cart);
     public Iterable<Cart>findCartsByIdUser(Integer idUser);
 }

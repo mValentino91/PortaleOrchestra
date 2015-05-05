@@ -312,5 +312,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
         Iterable<Cart> carts = cartRepo.findCartByIdUser(idUser);
         return carts;
     }
+    @Override 
+    public void deleteEnCompletePOI(EnCompletePOI enpoi) {
+        enPoiMongoRepo.delete(enpoi);
+    }
 
 }

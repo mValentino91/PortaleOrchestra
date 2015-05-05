@@ -7,6 +7,7 @@ package com.orchestra.portale.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,6 +58,11 @@ public class DeletePoiController {
         try{
         ModelAndView model = new ModelAndView("deleted");
         CompletePOI poi= pm.getCompletePoiById(id);
+        
+        EnCompletePOI enpoi = pm.findEnCompletePoiById(id);
+        if (enpoi != null) 
+            pm.deleteEnCompletePOI(enpoi);
+        
         pm.deletePoi(poi);
         return model;
     }

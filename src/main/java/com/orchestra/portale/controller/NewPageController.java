@@ -320,6 +320,10 @@ public class NewPageController {
          cpsl.add(cps10);
          cpsl.add(cps11);
         */ 
+        String [] slugs= new String [100];
+         slugs[1]="expo";
+         page.setCategorySlugList(slugs);
+         
         page.setImgList(cpsl);
         
         pm.savePage(page);

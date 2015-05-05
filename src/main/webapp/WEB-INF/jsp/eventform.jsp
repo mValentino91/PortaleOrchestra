@@ -518,7 +518,7 @@
                     </center>
                 </div>
                 </article>
-                    
+                    <!--
                      <article class="col-md-12 component component-text">
 				  <div class="big-header contact">
 					  <span class="caps">Collega ad altri Poi o Eventi</span>
@@ -532,6 +532,7 @@
                     </center>
                 </div>
                 </article>
+                    -->
                 </div>
                 <div class="row">
                 
