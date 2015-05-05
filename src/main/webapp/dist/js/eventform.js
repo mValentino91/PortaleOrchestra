@@ -185,9 +185,17 @@ function add_date(tasto) {
     newdate.name = "date" + x;
     newdate.className = "inpdates datepickerinp obb form-control";
 
+    var newdatetext = document.createElement("input");
+    newdatetext.type="text";
+    newdatetext.name = "datetext" + x;
+    newdatetext.className ="inpdatestext form-control";
+    
+    var newdesc = document.createTextNode("Descrizione breve");
     var newbr5 = document.createElement("br");
     newcont.appendChild(newgiorno);
     newcont.appendChild(newdate);
+    newcont.appendChild(newdesc);
+    newcont.appendChild(newdatetext);
     newcont.appendChild(newaddorari);
 
     newcont.appendChild(newbr5);
@@ -1033,6 +1041,7 @@ function pre_submit() {
         var form = $(".inserimento")[0];
         for (var i = 0; i < mails.length; i++) {
             $("#" + mails[i].id + " .inpdates").attr("name", "WD" + (i + 1));
+            $("#" + mails[i].id + " .inpdatestext").attr("name", "WDT" + (i + 1));
             var k = 1;
             var orari = 0;
             var cont = 0;

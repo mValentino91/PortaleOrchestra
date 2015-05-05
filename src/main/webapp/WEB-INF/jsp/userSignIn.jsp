@@ -1,5 +1,6 @@
 <!doctype html>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <html>
 <head>
 <link rel="stylesheet" type="text/css" href="./dist/css/bootstrap.min.css">
@@ -80,7 +81,7 @@
           <jsp:include page="components/topBar.jsp"/>   
 <div class="container-fixed" style="padding-top: 60px;">
    
-  <h1 class="page-header">Registrazione utente</h1>
+  <h1 class="page-header"><spring:message code="label.registrationtitle"></spring:message></h1>
   <form:form class="form-horizontal" enctype="multipart/form-data"  action="userSignIn" method="POST">
   <div class="row">
     <!-- left column -->
@@ -88,42 +89,42 @@
       <div class="text-center">
           
         <img src="./dist/img/default_avatar.png" id="imgdiv" style="width: 200px; height: 200px;" class="avatar img-circle img-thumbnail img-responsive" alt="avatar">
-        <h6>Inserisci il tuo avatar</h6>
+        <h6><spring:message code="label.registrationavatar"></spring:message></h6>
         <input type="file" name="avatar" onchange="readURL(this)" id="tastoavatar" class="text-center center-block well well-sm" required>
       </div>
     </div>
     <!-- edit form column -->
     <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
 
-      <h3>Informazioni personali</h3>
+      <h3><spring:message code="label.registrationpersonalinfo"></spring:message></h3>
       
         <div class="form-group">
-          <label class="col-lg-3 control-label">Nome</label>
+          <label class="col-lg-3 control-label"><spring:message code="label.registrationfirstname"></spring:message></label>
           <div class="col-lg-8">
             <form:input class="form-control" path="firstName" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Cognome</label>
+          <label class="col-lg-3 control-label"><spring:message code="label.registrationlastname"></spring:message></label>
           <div class="col-lg-8">
             <form:input class="form-control" path="lastName" type="text" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-lg-3 control-label">Email</label>
+          <label class="col-lg-3 control-label"><spring:message code="label.registrationemail"></spring:message></label>
           <div class="col-lg-8">
             <form:input class="form-control" id="em" path="username" type="text" onfocus="removeAttributes(this)" onblur="validateEmail(this.value)" required='required' />
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Password</label>
+          <label class="col-md-3 control-label"><spring:message code="label.registrationpwd"></spring:message></label>
           <div class="col-md-8">
             <form:input class="form-control" id='p' path="password" onblur="checkPassLen()" onfocus="removeAttributes(this)" type="password" required='required' />
             
           </div>
         </div>
         <div class="form-group">
-          <label class="col-md-3 control-label">Confirm password</label>
+          <label class="col-md-3 control-label"><spring:message code="label.registrationconfirmpwd"></spring:message></label>
           <div class="col-md-8">
             <input class="form-control" id="confermap" onfocus="removeAttributes(this)" onblur="checkpassword()" type="password" required>
             
@@ -132,7 +133,7 @@
         <div class="form-group">
           <label class="col-md-3 control-label"></label>
           <div class="col-md-8">
-            <input class="btn btn-primary" value="Registrami" type="submit">
+            <input class="btn btn-primary" value="<spring:message code='label.registrationconfirm'></spring:message>" type="submit">
           </div>
         </div>
       </form:form>

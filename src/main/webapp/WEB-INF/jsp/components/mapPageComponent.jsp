@@ -20,13 +20,13 @@
 
     <div class="details">
         <div class="actions">
-            <a href="Map?category=all" class="btn btn-round btn-soft-blue">
+            <a href="Map?category=all" class="btn btn-round btn-soft-nbar">
                 <span class="icon-map"></span>
             </a>           
         </div>
         <p style="margin-top: 5px">${poi.address}</p>
         <div class="intents">
-            <span class="count" style="font-size: 14px; font-weight: normal;"><a href="./Map?category=all" >VAI ALLA MAPPA INTERATTIVA</a></span>
+            <span class="count" style="font-size: 14px; font-weight: normal;"><a href="./Map?category=all" ><spring:message code="label.gotomap"></spring:message></a></span>
         </div>
     </div>
 </article>  

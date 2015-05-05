@@ -14,26 +14,30 @@
         
 
                 <c:forEach var="edates" items="${eventsdate.dates}">
-                    <b>${edates.date}</b><br>
+                    
+                    <b>${edates.text}<br>
+                        ${edates.date}</b><br>
                 </c:forEach>
 
 
            
         
 
-        <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="tutti" onclick="show_hourtab(this.id)">MOSTRA TUTTI GLI ORARI</div>
+        <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="tutti" onclick="show_hourtab(this.id)"><spring:message code="label.showsalltimes"></spring:message></div>
     </div>
     <div class="WTL hiddentab" id="tuttitab" >
         <c:forEach var="Edates" items="${eventsdate.dates}">
 
-            <div style="font-size: 110%; margin-top: 2px;"><b>${Edates.date}</b></div>
+            <div style="font-size: 110%; margin-top: 2px;"><b>${Edates.text}</b></div>
+            <div style="font-size: 110%; "><b>${Edates.date}</b></div>
+            
                     <c:forEach var="Etime" items="${Edates.hours}">
 
                 <div style="font-size: 105%;">  ${Etime.start} - ${Etime.end}</div>
 
             </c:forEach>
         </c:forEach>
-         <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="oggi" onclick="show_hourtab(this.id)">RIDUCI</div>
+         <div class="btn btn-teal" style="padding: 1px 1px 1px 1px; color: #FFF; font-size: 85%; margin-top: 4px; margin-bottom: 4px;" id="oggi" onclick="show_hourtab(this.id)"><spring:message code="label.minimize"></spring:message></div>
     </div>
         </center>
     </div>

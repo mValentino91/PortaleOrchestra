@@ -21,7 +21,7 @@
     	<div class="modal-content">
       		<div class="modal-header login_modal_header">
         		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        		<h2 class="modal-title" id="myModalLabel">Effettua il Login</h2>
+        		<h2 class="modal-title" id="myModalLabel"><spring:message code="label.logintitle"></spring:message></h2>
       		</div>
       		<div class="modal-body login-modal">
                     <iframe src="loginForm" height="300px" width="100%" scrolling="no" frameBorder="0" style="overflow: hidden"></iframe>               
@@ -29,9 +29,9 @@
       		<div class="clearfix"></div>
       		<div class="modal-footer login_modal_footer">
                     <div style="font-size:85%" >
-                        Non hai un account?
+                        <spring:message code="label.donthaveaccount"></spring:message>
                         <a href="userSignIn">
-                            Registrati!
+                            <spring:message code="label.signuphere"></spring:message>
                         </a>
                     </div>
       		</div>

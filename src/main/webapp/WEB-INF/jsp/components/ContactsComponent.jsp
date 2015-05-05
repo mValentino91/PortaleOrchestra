@@ -11,7 +11,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <article class="component component-text" style="word-wrap: break-word;" >
 				  <div class="big-header contact">
-					  <span class="caps">Contatti</span>
+					  <span class="caps"><spring:message code="label.contact"></spring:message></span>
 				  </div> 
 				<div class="details">
             <c:if test="${not empty contacts.emailsList}">   

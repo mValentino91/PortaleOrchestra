@@ -14,6 +14,8 @@ public class Tile {
     private String icon;
     private String link;
     private String color;
+    private Boolean animated;
+    private String start;
 
     public void setText(String text) {
         this.text = text;
@@ -45,5 +47,33 @@ public class Tile {
 
     public String getColor() {
         return color;
+    }
+
+    /**
+     * @return the animation
+     */
+    public Boolean getAnimated() {
+        return animated;
+    }
+
+    /**
+     * @param animated the animation to set
+     */
+    public void setAnimated(Boolean animated) {
+        this.animated = animated;
+    }
+
+    /**
+     * @return the start
+     */
+    public String getStart() {
+        return start;
+    }
+
+    /**
+     * @param start the start to set
+     */
+    public void setStart(String start) {
+        this.start = start;
     }
 }

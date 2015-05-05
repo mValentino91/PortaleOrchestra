@@ -56,17 +56,17 @@
                 <h4 class="modal-title" id="myModalLabel">
                     <span class="glyphicon glyphicon-map-marker">
                     </span>
-                    &nbsp;ANM Service
+                    &nbsp;<spring:message code="label.anmtitle"></spring:message>
                 </h4>
             </div>
             <div class="modal-body"> 
                 <label>
-                    Linea:
-                    <input id="lineValue" class="form-control" type="text" placeholder="Inserisci Linea"/>
+                    <spring:message code="label.anmline"></spring:message>
+                    <input id="lineValue" class="form-control" type="text" placeholder="<spring:message code='label.anminsertline'></spring:message>"/>
                 </label>
                 <br>
                 <button class="btn btn-primary" onclick="interactiveMap.showLine()">
-                    Ok
+                    <spring:message code="label.anmok"></spring:message>
                 </button>
             </div>
         </div>
@@ -91,22 +91,22 @@
                 <h4 class="modal-title" id="myModalLabel">
                     <span class="glyphicon glyphicon-search">
                     </span>
-                    &nbsp; Ricerca Avanzata
+                    &nbsp; <spring:message code="label.advancedsearch"></spring:message>
                 </h4>
             </div>
             <div class="modal-body"> 
                 <form>
                     <div class="form-group">
-                        <input id="nameInputSearchMap" type="text" class="form-control" placeholder="Nome"/>
+                        <input id="nameInputSearchMap" type="text" class="form-control" placeholder="<spring:message code='label.advancedsearchname'></spring:message>"/>
                     </div>
                     <div class="form-group">
-                        <input id="addressInputSearchMap" type="text" class="form-control" placeholder="Indirizzo"/>
+                        <input id="addressInputSearchMap" type="text" class="form-control" placeholder="<spring:message code='label.advancedsearchaddress'></spring:message>"/>
                     </div>
                     <div class="form-group">
-                        <input id="categoryInputSearchMap" type="text" class="form-control" placeholder="Categoria"/>
+                        <input id="categoryInputSearchMap" type="text" class="form-control" placeholder="<spring:message code='label.advancedsearchcategory'></spring:message>"/>
                     </div>
                 </form>
-                <button class="btn btn-primary center-block" onclick="interactiveMap.searchPoi()">Cerca!</button>
+                <button class="btn btn-primary center-block" onclick="interactiveMap.searchPoi()"><spring:message code="label.search"></spring:message></button>
             </div>
         </div>
     </div>
@@ -132,7 +132,7 @@
                 <h4 class="modal-title">
                     <span class="glyphicon glyphicon-star">      
                     </span> 
-                    Risultati
+                    <spring:message code="label.results"></spring:message>
                 </h4>
             </div>
             <div class="modal-body"> 
@@ -140,16 +140,16 @@
                     <thead>
                         <tr>
                             <th></th>
-                            <th>Nome</th>
-                            <th>Indirizzo</th>
-                            <th>Descrizione</th>
-                            <th>Nei Dintorni</th>
+                            <th><spring:message code="label.searchname"></spring:message></th>
+                            <th><spring:message code="label.searchaddress"></spring:message></th>
+                            <th><spring:message code="label.rearchdescription"></spring:message></th>
+                            <th><spring:message code="label.nearby"></spring:message></th>
                         </tr>
                     </thead>
                     <tbody id="tableBodySearchResultMap" style="max-height: 50px; overflow: auto; margin-bottom: 20px">
                     </tbody>
                 </table>
-                <button class="btn btn-primary center-block" onclick="interactiveMap.showSelectedPois()">Mostra Su Mappa!</button>
+                <button class="btn btn-primary center-block" onclick="interactiveMap.showSelectedPois()"><spring:message code="label.showonmap"></spring:message></button>
             </div>
         </div>
     </div>
@@ -171,11 +171,11 @@
                 <h4 class="modal-title">
                     <span class="glyphicon glyphicon-star">      
                     </span> 
-                    Risultati
+                    <spring:message code="label.results"></spring:message>
                 </h4>
             </div>
             <div class="modal-body"> 
-                <h4 class="text-center">Nessun Risultato!</h4>
+                <h4 class="text-center"><spring:message code="label.noresult"></spring:message></h4>
             </div>
         </div>
     </div>

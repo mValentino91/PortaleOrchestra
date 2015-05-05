@@ -24,6 +24,7 @@ public class Pages {
     private String description;
     private ArrayList<Tile> tilesList;
     private SubMenu submenu;
+    private ArrayList<PageColorSchema> colorSchemaList;
 
     public void setSubmenu(SubMenu submenu) {
         this.submenu = submenu;
@@ -115,6 +116,20 @@ public class Pages {
 
     public void setImgList(ArrayList<CarouselPages> imgList) {
         this.imgList = imgList;
+    }
+
+    /**
+     * @return the colorSchemaList
+     */
+    public ArrayList<PageColorSchema> getColorSchemaList() {
+        return colorSchemaList;
+    }
+
+    /**
+     * @param colorSchemaList the colorSchemaList to set
+     */
+    public void setColorSchemaList(ArrayList<PageColorSchema> colorSchemaList) {
+        this.colorSchemaList = colorSchemaList;
     }
     
 }

@@ -29,41 +29,16 @@
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
+        <script src="./dist/js/favorite_ajax.js"></script>
+        <script src="./dist/js/favorite.js"></script>
         <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
+        <link rel="stylesheet" href="./dist/css/favorites.css" />
 
-        <title>I tuoi preferiti</title>   
+        <title><spring:message code="label.favoritespoi"></spring:message></title>   
         
-        <style>
-            .text{
-                font-family: "Roboto",sans-serif;
-                width: 100%;
-                font-size: 13px;
-                border: 0px solid #008000;
-                margin: 5px 0px 0px;
-                color: #808080;
-                overflow: hidden;
-                box-sizing: border-box;
-                clear: both;
-                font-weight: 300;
-            }
-            
-            .favorite_img {
-                border: 0px solid green;
-                width: 150px;
-                height: 120px;
-                float: right;
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                overflow: hidden;
-                background-size: cover;
-                background-position: center center;
-                border-radius: 0px;
-              }
-            
-        </style>
+        
     </head>
     <body>
         <jsp:include page="components/topBar.jsp"/>
@@ -73,19 +48,12 @@
                 <jsp:include page="components/CoverComponentFavorites.jsp"/>
             </div>
 
-            <div class="col-xs-12 col-sm-8 col-md-8 padding_dx">
+            <div class="col-xs-12">
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
                 <jsp:include page="components/FavoriteListComponent.jsp"/> 
 
             </div>
 
-
-            <div class="col-xs-12 col-sm-4 col-md-4 padding_sx">
-
-                <!-- div vuoto che visualizza i top preferiti-->
-                <jsp:include page="components/FavoriteTopListComponent.jsp"/>
-
-            </div>  
 
             <div class="col-xs-12" id="footer">
                 <center>
@@ -98,42 +66,20 @@
 
         <jsp:include page="access/loginModal.jsp" />
         <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
-
-        <script>           
-            function enableRatingBar(){
-
-                $(".range").ionRangeSlider({
-                    min: 1,
-                    max: 5,
-                    from: 1,
-                    step: 1,
-                    hide_min_max: true,
-                    hide_from_to: false,
-                    grid: false,
-                    grid_snap: false,
-                    onFinish: function (data) {
-                        console.log("selected value: " + data.from);
-                    }
-                });
-
-            }
-        </script>        
-        
         
         <script>
+       
             $( document ).ready(function() {
                 enableRatingBar() ;  
-               
-                
-                $(".fav_rating").each(function(index) {
-                    rating = $(this).data('rating');
-                    $(this).find(".range").data("ionRangeSlider").update({
-                        from: rating
-                    });
+                $(".poi_preview_box").each(function(index) {
+                    updateRatingBar($(this));
+                    enableDeleteButton($(this));
+                    
+  
                 });
                 
-            });
-            
+            });    
+    
         </script>
         
         

@@ -64,7 +64,9 @@
         </div>
         <div class="collapse navbar-collapse" id="navbar" style="background:#00689a;">
             <ul class="nav navbar-nav">
-                <li><a style="color:white" href="./Map?category=all">Interactive Map</a></li>
+                <li><a style="color:white" href="./Map?category=all">
+                        <spring:message code="label.interactivemap"></spring:message>
+                </a></li>
             </ul>
             <ul id="loginArea" class="nav navbar-nav navbar-right">
                 <jsp:include page="../access/loginArea.jsp" />

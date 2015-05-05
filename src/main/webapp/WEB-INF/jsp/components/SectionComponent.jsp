@@ -11,7 +11,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <article class="component component-text">
     <div class="details">
-	<h2>${poi.name}</h2>
+        <div style="font-size: 20px; margin-bottom: 10px;">${poi.name} <c:if test="${ empty vartype || vartype != 'DeepeningPage' }"> <c:if test="${not empty poi.start_date }"><div style="float:right; font-size: 15px!important;">${poi.start_date} - ${poi.end_date}</div></c:if></c:if></div>
         <c:forEach var="sect" items="${description.sectionsList}">
             <div class="paragrafo">
             <c:if test="${not empty sect.title}">   

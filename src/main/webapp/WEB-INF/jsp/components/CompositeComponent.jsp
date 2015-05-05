@@ -17,18 +17,18 @@
 
             <div class="col-xs-4 ortab active_tab" id="orari" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0; "><b>ORARI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0; "><b><spring:message code="label.times"></spring:message></b></p>
                 </center>
             </div>
 
             <div class="col-xs-4 ortab" id="prezzi" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0;"><b>PREZZI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0;"><b><spring:message code="label.prices"></spring:message></b></p>
                 </center>
             </div>
             <div class="col-xs-4 ortab" id="servizi" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%;margin: 0 0 0 0;"><b>SERVIZI</b></p>
+                    <p style="font-size: 110%;margin: 0 0 0 0;"><b><spring:message code="label.service"></spring:message></b></p>
                 </center>
             </div>
         
@@ -52,13 +52,13 @@
 
             <div class="col-xs-6 ortab active_tab" id="orari" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0; "><b>ORARI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0; "><b><spring:message code="label.times"></spring:message></b></p>
                 </center>
             </div>
 
             <div class="col-xs-6 ortab" id="prezzi" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0;"><b>PREZZI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0;"><b><spring:message code="label.prices"></spring:message></b></p>
                 </center>
             </div>
             
@@ -82,13 +82,13 @@
 
             <div class="col-xs-6 ortab active_tab" id="orari" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0; "><b>ORARI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0; "><b><spring:message code="label.times"></spring:message></b></p>
                 </center>
             </div>
 
             <div class="col-xs-6 ortab" id="servizi" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0;"><b>SERVIZI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0;"><b><spring:message code="label.service"></spring:message></b></p>
                 </center>
             </div>
             
@@ -112,13 +112,13 @@
 
             <div class="col-xs-6 ortab active_tab" id="prezzi" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0; "><b>PREZZI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0; "><b><spring:message code="label.prices"></spring:message></b></p>
                 </center>
             </div>
 
             <div class="col-xs-6 ortab" id="servizi" onclick="show_comptab(this.id)">
                 <center>
-                    <p style="font-size: 110%; margin: 0 0 0 0;"><b>SERVIZI</b></p>
+                    <p style="font-size: 110%; margin: 0 0 0 0;"><b><spring:message code="label.service"></spring:message></b></p>
                 </center>
             </div>
             
