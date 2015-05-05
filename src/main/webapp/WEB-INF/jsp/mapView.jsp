@@ -33,6 +33,11 @@
         <script src="./dist/js/mapView.js"></script>
         <title>MapView</title>
         <link href="./dist/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        
+        <!-- Leaflet -->
+	<link rel="stylesheet" href="./dist/leaflet/leaflet.css" />
+	<script src="./dist/leaflet/leaflet.js"></script>        
+        
     </head>
     <body onload="$('#loadingImg').hide();">
         <img id="loadingImg" src="./dist/img/loading.gif"/>

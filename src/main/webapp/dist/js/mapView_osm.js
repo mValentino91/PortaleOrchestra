@@ -808,7 +808,10 @@ var interactiveMap = (function() {
         poiClickedHandler: poiClickedHandler,
         drawCircleAroundPoi: drawCircleAroundPoi,
         showFavoritesPois:showFavoritesPois,
-        showFbPois: showFbPois
+        showFbPois: showFbPois,
+        create_balloon_html: create_balloon_html,
+        enable_balloon_actions: enable_balloon_actions
+        
     };
 })();
 
