@@ -860,6 +860,8 @@ function bonifica() {
         if (inps[i].type != "file") {
             inps[i].value = inps[i].value.replace(/\'/g, '&#039;');
             inps[i].value = inps[i].value.replace(/\"/g, '&quot;');
+            inps[i].value = inps[i].value.replace(/\(/g, '&lpar;');
+            inps[i].value = inps[i].value.replace(/\)/g, '&rpar;');
             inps[i].value = inps[i].value.trim();
         }
 
@@ -879,6 +881,8 @@ function debonifica() {
         if (inps[i].type != "file") {
             inps[i].value = inps[i].value.replace(/&#039;/g, "'");
             inps[i].value = inps[i].value.replace(/&quot;/g, '"');
+            inps[i].value = inps[i].value.replace(/&lpar;/g, '(');
+            inps[i].value = inps[i].value.replace(/&rpar;/g, ')');
 
         }
     }
