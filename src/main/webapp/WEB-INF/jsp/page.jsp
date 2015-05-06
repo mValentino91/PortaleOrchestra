@@ -43,7 +43,7 @@
                 
                 $(".nano").nanoScroller();
                 
-                //$.enableTop10Slider();
+                $.enableTop10Slider();
                 
             });
         </script>
@@ -281,8 +281,8 @@
 
             </div>
                         
-           <!--
-                        
+           
+           <!--             
             <div id="top10-row" class="row" style="height:100px; position: relative;">
                  <div class="col-md-12 col-orc">
                      
