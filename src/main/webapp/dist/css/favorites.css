@@ -9,7 +9,7 @@ and open the template in the editor.
 */
 
 .poi_preview_box{
-  height: 120px; 
+  height: 75px; 
   width: 100%; 
   border: 0px solid red; 
   -moz-box-sizing: border-box;
@@ -27,7 +27,7 @@ and open the template in the editor.
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 100%; 
-    width: 25%; 
+    width: 10%; 
     border: 0px solid green;
     float: left;
     background-size: cover;
@@ -40,7 +40,18 @@ and open the template in the editor.
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 100%; 
-    width: 75%; 
+    width: 45%; 
+    border: 0px solid red; 
+    float: left;
+    padding: 10px;
+}
+
+.poi_preview_rating_container{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 100%; 
+    width: 45%; 
     border: 0px solid yellow; 
     float: left;
     padding: 10px;
@@ -48,16 +59,18 @@ and open the template in the editor.
 
 .poi_preview_title{
     font-weight: bold;
+    padding-top: 3px;
 }
 
 .poi_preview_delete{
     position: absolute;
-    top: 10px;
-    right: 5px;
+    top: 0px;
+    right: 0px;
 }
 
 .poi_preview_rating{
     border: 0px solid pink;
+    padding-right: 10px;
 }
 
 

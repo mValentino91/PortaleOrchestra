@@ -32,16 +32,27 @@
                         
                             <c:forEach var="p" items="${map_cat.map.get(cat)}">
                                     <div class="poi_preview_box">
-                                        <i class="fa fa-trash poi_preview_delete"  style="cursor:pointer; font-size:16px;" ></i>
-                                        <div class="poi_preview_img" style="background-image: url('dist/poi/img/${p.id}/cover.jpg')"></div>
+                                        <i class="fa fa-times poi_preview_delete"  style="cursor:pointer; font-size:16px;" ></i>
+                                        <div class="poi_preview_img">
+                                            <img src="./dist/page/img/5534a2d944ae96d0ace55886/01_panorama.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/>
+                                        </div>
                                         <div class="poi_preview_content">
+                                            
+                                            <div class="poi_preview_text">
+                                                <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                                <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+                                       
+                                            </div>
                                             <div class="poi_preview_title">
                                                  ${p.name}
                                                  
                                             </div>
-                                            <div class="poi_preview_text">
-                                             ${p.address}
-                                            </div>
+                                                                                      
+                                            
+                                        </div>
+                                            
+                                        <div class="poi_preview_rating_container">
+                                            
                                             <div class="fav_rating poi_preview_rating" data-idpoi="${p.id}" data-rating="${map_cat.getRate(p.id)}">
                                                 <input type="text" class="range" value="" name="range" style="border: 1px solid green"/>
                                                 <span class="baloon_subtitle"><spring:message code="label.interested"></spring:message></span>

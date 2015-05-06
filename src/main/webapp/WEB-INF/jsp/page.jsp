@@ -66,7 +66,9 @@
                             <div class="carousel-inner" role="listbox" style="height:100%">
                                 <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
                                     <div class="item <c:if test="${cont.count == 1}"> active </c:if> >">
-                                        <img src="./dist/page/img/${pages.id}/${img.link}"  >
+                                        <div class="carousel_content" style="background-image: url('./dist/page/img/${pages.id}/${img.link}');"></div>
+                                            
+                                            
                                         <c:if test="${not empty img.titolo || not empty img.testo}">
                                         <div class="carousel-caption">
                                             <h5>${img.titolo}</h5>

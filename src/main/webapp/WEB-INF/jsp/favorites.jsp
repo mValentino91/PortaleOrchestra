@@ -48,7 +48,7 @@
                 <jsp:include page="components/CoverComponentFavorites.jsp"/>
             </div>
 
-            <div class="col-xs-12">
+            <div class="col-xs-8">
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
                 <jsp:include page="components/FavoriteListComponent.jsp"/> 
 
