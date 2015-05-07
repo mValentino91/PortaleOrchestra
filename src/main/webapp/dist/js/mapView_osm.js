@@ -71,338 +71,13 @@ var interactiveMap = (function() {
     var markersEvent = jQuery.Event("markers_changed");
     var categoryStack = new Array();
 
-    function drawCircleAroundPoi(id, radius, enable) {
-        var marker = null;
-        for (var i = 0; i < interactiveMap.markers.length; i++) {
-            if (interactiveMap.markers[i].id === id) {
-                marker = interactiveMap.markers[i];
-                if (enable === false && marker.circle) {
-                    marker.circle.setMap(null);
-                }
-                break;
-            }
-        }
-        if (marker !== null && enable === true) {
-            var circleOptions = {
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.2,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.2,
-                map: interactiveMap.map,
-                center: marker.getPosition(),
-                radius: radius * 1000
-            };
-            marker.circle = new google.maps.Circle(circleOptions);
-        }
-    }
+    
     function markersChangend(markers) {
 
         markersEvent.target = markers;
         $(document).trigger(markersEvent);
     }
-    function poiClickedHandler(id) {
-        var object = null;
-
-        for (var i = 0; i < interactiveMap.markers.length; i++) {
-
-            if (interactiveMap.markers[i].id === id) {
-
-                object = interactiveMap.markers[i];
-                break;
-            }
-        }
-        if (object !== null) {
-
-            interactiveMap.map.panTo(object.getPosition());
-            interactiveMap.map.setZoom(16);
-        }
-    }
-    function poiHoverHandler(id, enable) {
-
-        var object = null;
-
-        for (var i = 0; i < interactiveMap.markers.length; i++) {
-
-            if (interactiveMap.markers[i].id === id) {
-
-                object = interactiveMap.markers[i];
-                break;
-            }
-        }
-        if (object !== null) {
-            if (enable) {
-                object.setIcon('./dist/img/bigMarker.png');
-                object.setAnimation(google.maps.Animation.BOUNCE);
-            } else {
-                object.setIcon('./dist/img/marker.png');
-                object.setAnimation(null);
-            }
-        }
-    }
-    function searchHandler() {
-        if (searchState === false) {
-            $('#searchModal').modal('show');
-        }
-        else {
-            disableSearchState();
-        }
-    }
-    function disableSearchState() {
-        if (searchState === true) {
-            supportIntersectIdList = null;
-            for (var z = 0; z < searchedMarkers.length; z++) {
-                if (searchedMarkers[z] !== null && searchedMarkers[z] !== undefined) {
-                    if (searchedMarkers[z].circle !== null && searchedMarkers[z].circle !== undefined)
-                        searchedMarkers[z].circle.setMap(null);
-                    if (searchedMarkers[z].nearPois !== null && searchedMarkers[z].nearPois !== undefined) {
-                        for (var k = 0; k < searchedMarkers[z].nearPois.length; k++) {
-                            if (searchedMarkers[z].nearPois[k] !== null && searchedMarkers[z].nearPois[k] !== undefined) {
-                                searchedMarkers[z].nearPois[k].setMap(null);
-                                searchedMarkers[z].nearPois[k] = null;
-                            }
-                        }
-                    }
-                    searchedMarkers[z].setMap(null);
-                    searchedMarkers[z] = null;
-                }
-            }
-            searchedMarkers = new Array();
-            searchState = false;
-        }
-    }
-    function searchNearPois(index) {
-        $.ajax({
-            type: "GET",
-            url: "./Search/JSON/Near",
-            data: "id=" + searchedMarkers[index].id + "&radius=" + nearRadius,
-            success: function(data) {
-                var pois = JSON.parse(data);
-                var circleOptions = {
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.2,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.2,
-                    map: interactiveMap.map,
-                    center: new google.maps.LatLng(
-                            searchedMarkers[index].location[0],
-                            searchedMarkers[index].location[1]),
-                    radius: nearRadius * 1000
-                };
-                searchedMarkers[index].circle = new google.maps.Circle(circleOptions);
-                searchedMarkers[index].nearPois = new Array();
-                for (var i = 0; i < pois.length; i++) {
-                    var finded = false;
-                    for (var j = 0; j < supportIntersectIdList.length; j++) {
-                        if (supportIntersectIdList[j] === pois[i].id) {
-                            finded = true;
-                            break;
-                        }
-                    }
-                    if (finded === false) {
-                        searchedMarkers[index].nearPois[i] = new google.maps.Marker({
-                            position: new google.maps.LatLng(pois[i].location[0],
-                                    pois[i].location[1]),
-                            map: interactiveMap.map,
-                            icon: './dist/img/marker.png',
-                            title: pois[i].name});
-                        supportIntersectIdList.push(pois[i].id);
-                        searchedMarkers[index].nearPois[i].id = pois[i].id;
-                        searchedMarkers[index].nearPois[i].name = pois[i].name;
-                        searchedMarkers[index].nearPois[i].address = pois[i].address;
-                        searchedMarkers[index].nearPois[i].shortDescription = pois[i].shortDescription;
-                        searchedMarkers[index].nearPois[i].location = pois[i].location;
-
-                        google.maps.event.addListener(searchedMarkers[index].nearPois[i], 'click', function() {
-                            attachInfo(this);
-                        });
-                    }
-                }
-            }
-        });
-    }
-    function showSelectedPois() {
-        var checkList = $('.checkboxForSearchResult');
-        var nearCheckList = $('.checkboxForSearchAround');
-        var count = 0;
-        if (checkList.length > 0) {
-            searchedMarkers = new Array();
-            supportIntersectIdList = new Array();
-            for (var i = 0; i < checkList.length; i++) {
-                if (checkList[i].checked) {
-                    var temp = searchedPoi[checkList[i].value];
-                    searchedMarkers[count] = new google.maps.Marker({
-                        position: new google.maps.LatLng(
-                                temp.location[0],
-                                temp.location[1]),
-                        map: interactiveMap.map,
-                        icon: './dist/img/bigMarker.png',
-                        title: temp.name});
-                    supportIntersectIdList.push(temp.id);
-                    searchedMarkers[count].location = temp.location;
-                    searchedMarkers[count].id = temp.id;
-                    searchedMarkers[count].name = temp.name;
-                    searchedMarkers[count].address = temp.address;
-                    searchedMarkers[count].shortDescription = temp.shortDescription;
-                    google.maps.event.addListener(searchedMarkers[count], 'click', function() {
-                        attachInfo(this);
-                    });
-                    count++;
-                }
-            }
-            if (count > 0) {
-                interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
-                for (var i = 0; i < interactiveMap.markers.length; i++) {
-                    interactiveMap.markers[i] = null;
-                }
-                searchState = true;
-            }
-            for (var j = 0; j < nearCheckList.length; j++) {
-                if (nearCheckList[j].checked)
-                    searchNearPois(j);
-            }
-            $('#searchResultModal').modal('hide');
-            checkSearchButtonChecked();
-        }
-    }
-    function checkSearchButtonChecked() {
-        var baseClass = 'btn btn-default btn-xs';
-        if (searchState === true) {
-            var element = document.getElementById('searchMapCheckButton');
-            element.className = baseClass + ' active';
-        } else {
-            var element = document.getElementById('searchMapCheckButton');
-            element.className = baseClass;
-        }
-    }
-    function searchPoi() {
-        var name = $('#nameInputSearchMap').val();
-        var address = $('#addressInputSearchMap').val();
-        var category = $('#categoryInputSearchMap').val();
-        $.ajax({
-            type: "GET",
-            url: "./Search/JSON/Find",
-            data: "name=" + name + "&address=" + address + "&category=" + category,
-            success: function(data) {
-                $('#searchModal').modal('hide');
-                var pois = JSON.parse(data);
-                searchedPoi = pois;
-                if (pois.length === 0) {
-                    $('#searchNoResultModal').modal('show');
-                }
-                else {
-                    var contentString = "";
-                    for (var i = 0; i < pois.length; i++) {
-                        contentString += "<tr><td><input type='checkbox' class='checkboxForSearchResult' checked='true' value='"
-                                + i + "'/></td>"
-                                + "<td>" + pois[i].name + "</td>"
-                                + "<td>" + pois[i].address + "</td>"
-                                + "<td>" + pois[i].shortDescription + "</td>"
-                                + "<td><input type='checkbox' class='checkboxForSearchAround'/></td></tr>";
-                    }
-                    document.getElementById('tableBodySearchResultMap').innerHTML = contentString;
-                    $('#searchResultModal').modal('show');
-                }
-            }
-        });
-    }
-    function anmHandler() {
-        //ANM GIA' ATTIVO SULLA MAPPA
-        if (anmState) {
-            for (var z = 0; z < anmStops.length; z++) {
-                anmStops[z].setMap(null);
-                anmStops[z] = null;
-            }
-            anmStops = new Array();
-            anmState = false;
-        }
-        else {
-            $('#anmModal').modal('show');
-            anmState = true;
-        }
-    }
-    function showPrevision(object) {
-        var contentString = "<span style='padding:10px' class='fa fa-circle-o-notch fa-spin fa-5x'></span>";
-        interactiveMap.infowindow.setContent(contentString);
-        interactiveMap.infowindow.open(interactiveMap.map, object);
-        object.setAnimation(google.maps.Animation.BOUNCE);
-        window.setTimeout(function() {
-            object.setAnimation(null);
-        }, 1400);
-        $.ajax({
-            type: "GET",
-            url: "./anmServices/stops/prevision/" + object.code,
-            success: function(data) {
-                var info = JSON.parse(data);
-                var contentString = "<div style='width:100px;'>";
-                if (info[0].codice === "null") {
-                    contentString += "Previsioni non disponibili!";
-                }
-                else {
-                    for (var i = 0; i < info.length; i++) {
-
-                        contentString += "Linea: " + info[i].codice + "    " + info[i].time + "<br>";
-                    }
-                }
-                contentString += "</div>";
-                interactiveMap.infowindow.setContent(contentString);
-            }
-        });
-    }
-    function showLine() {
-        $("#anmModal").modal('hide');
-        var value = $("#lineValue").val().toLowerCase();
-         $.ajax({
-            type: "GET",
-            url: "./anmServices/lines/route/" + value,
-            success: function(data) {
-            anmData=JSON.parse(data);
-            if (anmData) {
-            for (var z = 0; z < anmStops.length; z++) {
-                anmStops[z].setMap(null);
-                anmStops[z] = null;
-            }
-            anmStops = new Array();
-            for (var j = 0; j < anmData.percorso.length; j++) {
-                var img = './dist/img/andata.png';
-                if (anmData.percorso[j].verso === "Di") {
-                    img = './dist/img/ritorno.png';
-                }
-                anmStops[j] = new google.maps.Marker({
-                    position: new google.maps.LatLng(anmData.percorso[j].location[0],
-                            anmData.percorso[j].location[1]),
-                    map: interactiveMap.map,
-                    icon: img,
-                    title: anmData.percorso[j].nome});
-                anmStops[j].code = anmData.percorso[j].codice;
-                anmStops[j].nome = anmData.percorso[j].nome;
-                anmStops[j].index = j;
-                google.maps.event.addListener(anmStops[j], 'click', function() {
-                    showPrevision(this);
-                });
-                }
-              }
-            }
-        });
-        }
-    function viewPanorama(index) {
-        interactiveMap.streetView.getPanoramaByLocation(interactiveMap.markers[index].getPosition(), 30, function(result, status) {
-            if (status === google.maps.StreetViewStatus.OK) {
-                $("#panoContainer").modal('show');
-                window.setTimeout(function() {
-                    interactiveMap.panorama.setPosition(interactiveMap.markers[index].getPosition());
-                    interactiveMap.map.setStreetView(interactiveMap.panorama);
-                    interactiveMap.map.getStreetView().setVisible(true);
-                }, 500);
-            }
-            else {
-                alert("Il panorama del Punto Di Interesse non e' disponibile!");
-            }
-        }
-        );
-    }
-   
+    
     
     function attachInfo(object) {
         var balloon_html = create_balloon_html(object);
@@ -604,8 +279,8 @@ var interactiveMap = (function() {
          //interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
         for (var i = 0; i < interactiveMap.markers.length; i++) {
             
-            if(markers[i]!=null){
-                interactiveMap.map.removeLayer(markers[i]);
+            if( interactiveMap.markers[i]!=null){
+                interactiveMap.map.removeLayer(interactiveMap.markers[i]);
                 interactiveMap.markers[i] = null;
             }
         }
@@ -638,7 +313,6 @@ var interactiveMap = (function() {
     }
     
     function categoryAddHandler(event) {
-        disableSearchState();
         $('#loadingImg').show();
         var parameters = '';
         var first = true;
@@ -699,25 +373,9 @@ var interactiveMap = (function() {
         });
     }
     
-    function showFbPois() {
-        disableSearchState();
-        $('#loadingImg').show();
-        $.ajax({
-            type: "GET",
-            url: "./Map/fbPois",
-            success: function(data) {
-                var poi = JSON.parse(data);
-                showPois(poi);
-                markersChangend(interactiveMap.markers);
-                $('#loadingImg').hide();
-            }
-        });
-    }
-    
     function showFavoritesPois() {
       if(ifAuth() === true){
             var userId = getUserId();
-            disableSearchState();
             $('#loadingImg').show();
             $.ajax({
                 type: "GET",
@@ -734,7 +392,6 @@ var interactiveMap = (function() {
     }
     
     function categoryRemoveHandler(event) {
-        disableSearchState();
         $('#loadingImg').show();
         var parameters = "";
         var first = true;
@@ -798,7 +455,6 @@ var interactiveMap = (function() {
     }
     
     return {
-        viewPanorama: viewPanorama,
         attachInfo: attachInfo,
         categoryAddHandler: categoryAddHandler,
         categoryAllHandler:categoryAllHandler,
@@ -808,19 +464,9 @@ var interactiveMap = (function() {
         panorama: panorama,
         streetView: streetView,
         infowindow: infowindow,
-        anmHandler: anmHandler,
-        showLine: showLine,
         mcluster: mcluster,
         mcOptions: mcOptions,
-        searchHandler: searchHandler,
-        showSelectedPois: showSelectedPois,
-        searchPoi: searchPoi,
-        checkSearchButtonChecked: checkSearchButtonChecked,
-        poiHoverHandler: poiHoverHandler,
-        poiClickedHandler: poiClickedHandler,
-        drawCircleAroundPoi: drawCircleAroundPoi,
         showFavoritesPois:showFavoritesPois,
-        showFbPois: showFbPois,
         create_balloon_html: create_balloon_html,
         enable_balloon_actions: enable_balloon_actions
         

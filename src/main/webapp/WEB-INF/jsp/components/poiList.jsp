@@ -31,4 +31,4 @@
         </script>
     </div>
 </div>
-<script>poiList.initPoiList();</script>
+<script>//poiList.initPoiList();</script>
