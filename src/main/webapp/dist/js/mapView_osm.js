@@ -402,16 +402,18 @@ var interactiveMap = (function() {
         }
         );
     }
+   
+    
     function attachInfo(object) {
-        interactiveMap.map.panTo(object.getPosition());
-        var contentString = create_balloon_html(object);
-        interactiveMap.infowindow.setContent(contentString);
-        interactiveMap.infowindow.open(interactiveMap.map, object);
-        enable_balloon_actions(object.id);
-        object.setAnimation(google.maps.Animation.BOUNCE);
-        window.setTimeout(function() {
-            object.setAnimation(null);
-        }, 1400);
+        var balloon_html = create_balloon_html(object);
+       
+        object.bindPopup(balloon_html);
+        
+        object.on('popupopen', function(p) {
+            enable_balloon_actions(object.id);
+           
+        });        
+        
     }
     
 
@@ -599,29 +601,39 @@ var interactiveMap = (function() {
     }
     
     function showPois(poi) {
-        interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
+         //interactiveMap.mcluster.removeMarkers(interactiveMap.markers);
         for (var i = 0; i < interactiveMap.markers.length; i++) {
-            interactiveMap.markers[i] = null;
+            
+            if(markers[i]!=null){
+                interactiveMap.map.removeLayer(markers[i]);
+                interactiveMap.markers[i] = null;
+            }
         }
         if (poi) {
             interactiveMap.markers = new Array();
             for (var i = 0; i < poi.length; i++) {
-                interactiveMap.markers[i] = new google.maps.Marker({
-                    position: new google.maps.LatLng(poi[i].location[0], poi[i].location[1]),
-                    icon: "./dist/img/markers/" + poi[i].categories[0] + "/marker.png",
-                    title: poi.name});
+                
+                var icon = "./dist/img/markers/"+poi[i].categories[0]+"/marker.png".toLowerCase();
+                var customIcon = L.icon({
+		    iconUrl: icon,
+		    iconSize:     [13, 13]
+		});
+                
+                interactiveMap.markers[i] = L.marker([poi[i].location[0], poi[i].location[1]], {icon: customIcon});
                 interactiveMap.markers[i].id = poi[i].id;
                 interactiveMap.markers[i].index = i;
                 interactiveMap.markers[i].name = poi[i].name;
                 interactiveMap.markers[i].address = poi[i].address;
                 interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
                 interactiveMap.markers[i].category = poi[i].categories[0];
-                interactiveMap.markers[i].visibility = poi[i].visibility;
-                google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
-                    interactiveMap.attachInfo(this);
-                });
+                interactiveMap.markers[i].visibility = poi[i].visibility;                
+       
+                interactiveMap.markers[i].addTo(interactiveMap.map);
+                
+                interactiveMap.attachInfo(interactiveMap.markers[i]);                
+                
             }
-            interactiveMap.mcluster.addMarkers(interactiveMap.markers);
+            //interactiveMap.mcluster.addMarkers(interactiveMap.markers);
         }
     }
     

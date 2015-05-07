@@ -300,15 +300,18 @@
         interactiveMap.markers[<%=i%>].visibility = "${poi.visibility}";
         
         interactiveMap.markers[<%=i%>].addTo(map);
-        //TODO: da creare al click
-        balloon = interactiveMap.create_balloon_html(interactiveMap.markers[<%=i%>]);
-        interactiveMap.markers[<%=i%>].bindPopup(balloon);
-        interactiveMap.enable_balloon_actions("${poi.id}");
         
         
-        //google.maps.event.addListener(interactiveMap.markers[<%=i%>], 'click', function() {
-            //interactiveMap.attachInfo(this);
-        //});
+        interactiveMap.attachInfo(interactiveMap.markers[<%=i%>]);
+
+        
+        /*
+        interactiveMap.markers[<%=i%>].on('click', function(p) {
+            interactiveMap.attachInfo(p.target);
+           
+        });
+        */
+
         <%i++;%>
     </c:forEach>
     
