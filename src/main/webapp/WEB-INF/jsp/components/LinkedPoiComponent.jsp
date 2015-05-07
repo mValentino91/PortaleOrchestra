@@ -13,6 +13,7 @@
         margin: 0px;
         position: relative;
         height: 35px;
+        cursor: pointer;
     }	
 
     .div_line{
@@ -42,6 +43,7 @@
     .poi-detail a{
         text-decoration: none;
         color: grey;
+        
     }	
 
     .poi-detail a:hover{
@@ -75,12 +77,16 @@
     .poi-detail-big{
         position: relative;
         border: 0px solid green;
-        max-width: 235px;
+        max-width: 210px;
         float:left;
         top: 50%;
         transform: translateY(-50%);
         font-family: "Open Sans",sans-serif;
         font-size: 14px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }	
 
     .circle_culture{
@@ -99,78 +105,99 @@
 <!DOCTYPE html>
 <div class="component">
     <div class="details">
+        
+        <div class="ul_poi">
+            
+            <div class="list_poi_element">
+                <div class="div_line">
+                    <div class="circle circle_big"></div>
+                </div>
+                <div class="poi-detail-big" data-toggle="tooltip" data-original-title="ciao"> 
+                    Questi sono POI Correlati
+                </div>				
+            </div>
+            <div class="li_poi" style="display:none;">
+                <div class="list_poi_element">
+                    <div class="div_line">
+                        <div class="circle circle_small circle_culture"></div>
+                    </div>
+                    <div class="poi-detail"> 
+                        <a href="">Pio Monte della misericordia</a>
+                    </div>				
+                </div>	
+                <div class="list_poi_element">
+                    <div class="div_line">
+                        <div class="circle circle_small circle_culture"></div>
+                    </div>
+                    <div class="poi-detail"> 
+                        <a href="">Antonino Pio</a>
+                    </div>				
+                </div>				
+                <div class="list_poi_element">
+                    <div class="div_line">
+                        <div class="circle circle_small circle_food"></div>
+                    </div>
+                    <div class="poi-detail"> 
+                        <a href="">Pizzeria Sorbillo</a>
+                    </div>				
+                </div>	
+                <div class="list_poi_element">
+                    <div class="div_line">
+                        <div class="circle circle_small circle_food"></div>
+                    </div>
+                    <div class="poi-detail"> 
+                        <a href="">Limone'</a>
+                    </div>				
+                </div>
+            </div>
 
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_big"></div>
-            </div>
-            <div class="poi-detail-big"> 
-                Questi sono POI Correlati
-            </div>				
-        </div>	
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_small circle_culture"></div>
-            </div>
-            <div class="poi-detail"> 
-                <a href="">Pio Monte della misericordia</a>
-            </div>				
-        </div>	
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_small circle_culture"></div>
-            </div>
-            <div class="poi-detail"> 
-                <a href="">Antonino Pio</a>
-            </div>				
-        </div>				
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_small circle_food"></div>
-            </div>
-            <div class="poi-detail"> 
-                <a href="">Pizzeria Sorbillo</a>
-            </div>				
-        </div>	
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_small circle_food"></div>
-            </div>
-            <div class="poi-detail"> 
-                <a href="">Limone'</a>
-            </div>				
-        </div>	
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_big"></div>
-            </div>
-            <div class="poi-detail-big"> 
-                Pagine d'pprofondimento correlate
-            </div>				
-        </div>	
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_big"></div>
-            </div>
-            <div class="poi-detail-big"> 
-                Pagine d'pprofondimento correlate
-            </div>				
-        </div>	
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_small circle_craft"></div>
-            </div>
-            <div class="poi-detail"> 
-                <a href="">Quale di quanta bellezza napule bla bla ciccio bello lalla jolinnjh sadhuas a sdhskj adh aksjdh ak </a>
-            </div>				
-        </div>	
-        <div class="list_poi_element">
-            <div class="div_line">
-                <div class="circle circle_small circle_craft"></div>
-            </div>
-            <div class="poi-detail"> 
-                <a href="">Tizio che fa i pastori</a>
-            </div>				
-        </div>			
+        </div>
+
+
     </div>
 </div>
+        
+        <script>
+
+
+                
+                    
+                    
+
+                function slideLinkedPoi(ul_poi){
+                    
+        
+                    //retrive parent linked poi 
+                    //console.log(ul_poi);
+
+                    var son=ul_poi.find(".li_poi");
+                    
+                    console.log(son);
+                    if (son.is(":hidden")) {
+                        son.slideDown("slow");
+                    }
+                    else{
+                       son.slideUp("slow"); 
+                    }
+                    //son.slideUp("slow");
+                }
+                
+               
+                $(".ul_poi").each(function(index) {
+                    console.log("*************************");
+                    var ul_poi = $(this);
+                    $(this).on("click", function(){
+                       slideLinkedPoi(ul_poi);
+                    })
+                 
+                    
+
+                });
+                
+                $(function(){
+                    $('.poi-detail-big').tooltip();
+                 });
+                
+                
+            
+        </script>     

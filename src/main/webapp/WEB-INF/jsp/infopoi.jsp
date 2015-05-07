@@ -36,6 +36,8 @@
 
             }
         </script>
+      
+        
         <title>Orchestra - ${poi.name}</title>   
     </head>
     <body <c:if test="${not empty imggallery}"> onload="loaded()"</c:if> >
@@ -109,6 +111,11 @@
 
 
         </script>
+        
+
+
+     
+        
         <jsp:include page="access/loginModal.jsp" />
     </body>
 </html>

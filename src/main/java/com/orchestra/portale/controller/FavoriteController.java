@@ -91,7 +91,7 @@ public class FavoriteController {
     }        
 
 
-    @RequestMapping(value = "/favorites", method = RequestMethod.GET)
+    @RequestMapping(value = "/favorites")
     public ModelAndView favorites() {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

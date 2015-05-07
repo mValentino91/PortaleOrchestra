@@ -19,7 +19,7 @@ and open the template in the editor.
   magin-top: 10px;
   margin-bottom: 10px;
   position: relative;
-  border-bottom: 1px solid #E9EAED;
+  //border-bottom: 1px solid #E9EAED;
 }  
 
 .poi_preview_img{
@@ -44,6 +44,7 @@ and open the template in the editor.
     border: 0px solid red; 
     float: left;
     padding: 10px;
+    border-bottom: 1px solid #E9EAED;
 }
 
 .poi_preview_rating_container{
@@ -53,12 +54,13 @@ and open the template in the editor.
     height: 100%; 
     width: 45%; 
     border: 0px solid yellow; 
+    border-bottom: 1px solid #E9EAED;
     float: left;
     padding: 10px;
 }
 
 .poi_preview_title{
-    font-weight: bold;
+    //font-weight: bold;
     padding-top: 3px;
 }
 
@@ -76,4 +78,11 @@ and open the template in the editor.
 
 .clear{
     clear:both;
+}
+
+.category-label{
+    font-weight: bold;
+    //border: 1px solid black;
+    //color: #fff;
+    //background-color: blue;
 }
