@@ -290,20 +290,23 @@ public class NewEventController {
                 workingtime.setDates(workingdays);
                 listComponent.add(workingtime);
             }
-            /*
+            
              LinkedPoiComponent lpc = new LinkedPoiComponent();
              ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
              i=1;
              while (params.containsKey("mot"+i)) {
              k=1;
-             ArrayList<String> apoi = new ArrayList<String>();
+             ArrayList<CouplePOI> apoi = new ArrayList<CouplePOI>();
              while(params.containsKey("COL"+i+"-"+k)){
-             apoi.add(params.get("COL"+i+"-"+k));
-             k++;
+                 
+                 CouplePOI cpoi= new CouplePOI();
+                 cpoi.setId(params.get("COL"+i+"-"+k));
+                 k++;
+                 
              }
              LinkedPoi lp= new LinkedPoi();
              lp.setDescription(params.get("mot"+i));
-             lp.setIdlist(apoi);
+             lp.setPoilist(apoi);
              alp.add(lp);
              i++;
              }
@@ -311,7 +314,7 @@ public class NewEventController {
              if(params.containsKey("mot1")) {
              listComponent.add(lpc);
              }
-             */
+             
             i = 1;
             if (params.containsKey("type" + i)) {
 

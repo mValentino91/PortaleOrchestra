@@ -10,9 +10,29 @@ package com.orchestra.portale.utils;
  * @author Alex
  */
 public class CouplePOI {
+    
     private String id;
     private String nome;
+    private String category;
+    private String type;
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
     public String getId() {
         return id;
     }

@@ -88,7 +88,7 @@
                 <c:if test="${not empty eventsdate}">
                     <jsp:include page="components/EventsDatesComponent.jsp"/>
                 </c:if>
-
+                     <jsp:include page="components/LinkedPoiComponent.jsp"/>
 
             </div>  
 
