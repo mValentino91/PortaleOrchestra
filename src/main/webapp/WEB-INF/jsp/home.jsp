@@ -197,10 +197,14 @@
                                             <div class="tile_inner"> 
                                                 <a href="${tile.link}">
                                                     <div class="tile_content act tile_animated"> 
-                                                        <c:if test="${not empty tile.icon}">
+                                                        <c:if test="${cont.count != 8}">
                                                             <object class="tile_icon tile_icon_act" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
                                                            
                                                         </c:if>
+                                                        <c:if test="${cont.count == 8}">
+                                                            <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}"></img>
+                                                           
+                                                        </c:if>                                                            
                                                         <div class="tile_text tile_icon_dis">
                                                             <div class="tile_text_content">
                                                                 <c:if test="${not empty tile.text}">
@@ -237,8 +241,10 @@
                                                 <a href="${tile.link}">
                                                     <div class="tile_content act tile_animated"> 
                                                         <c:if test="${not empty tile.icon}">
+                                                            
+                                                            <c:if test="${not empty tile.icon}">
                                                             <object class="tile_icon tile_icon_act" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
-                                                           
+                                                            </c:if> 
                         
                                                         </c:if>                                                        
                                                         <div class="tile_text tile_icon_dis">
