@@ -112,7 +112,8 @@
                                                     <div class="tile_content act tile_animated"> 
                                                         <a href="${tile.link}">
                                                             <c:if test="${not empty tile.icon}">
-                                                                <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                                <object class="tile_icon tile_icon_act" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                               
                                                             </c:if>                                                        
                                                             <div class="tile_text tile_icon_dis">
                                                                 <div class="tile_text_content">
@@ -144,7 +145,8 @@
                                                 <a href="${tile.link}">
                                                     <div class="tile_content act tile_animated"> 
                                                         <c:if test="${not empty tile.icon}">
-                                                            <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                            <object class="tile_icon tile_icon_act" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                           
                                                         </c:if>                                                        
                                                         <div class="tile_text tile_icon_dis">
                                                             <div class="tile_text_content">
@@ -196,7 +198,8 @@
                                                 <a href="${tile.link}">
                                                     <div class="tile_content act tile_animated"> 
                                                         <c:if test="${not empty tile.icon}">
-                                                            <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                            <object class="tile_icon tile_icon_act" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                           
                                                         </c:if>
                                                         <div class="tile_text tile_icon_dis">
                                                             <div class="tile_text_content">
@@ -234,7 +237,9 @@
                                                 <a href="${tile.link}">
                                                     <div class="tile_content act tile_animated"> 
                                                         <c:if test="${not empty tile.icon}">
-                                                            <img class="tile_icon tile_icon_act" src="./dist/page/img/${pages.id}/${tile.icon}">
+                                                            <object class="tile_icon tile_icon_act" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                           
+                        
                                                         </c:if>                                                        
                                                         <div class="tile_text tile_icon_dis">
                                                             <div class="tile_text_content">
