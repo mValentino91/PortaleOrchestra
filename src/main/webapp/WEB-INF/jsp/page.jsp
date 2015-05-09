@@ -118,17 +118,18 @@
                                                         <c:set var="tile" value="${pages.tilesList.get(i+j)}"/>
                                                         <div class="tile_content <c:choose><c:when test="${contTile.count == 1}">act</c:when> <c:otherwise>dis</c:otherwise></c:choose> <c:if test="${tile.animated == true}">tile_animated</c:if>">
                                                             <a href="${tile.link}">
-                                                            <c:if test="${not empty tile.icon}">
-                                                                
-                                                                <object class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
-                                                            </c:if>   
-                                                            <c:if test="${not empty tile.text}">
-                                                            <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
-                                                                <div class="tile_text_content">
-                                                                    ${tile.text}                                                 
+                                                                <c:if test="${not empty tile.icon}">
+                                                                    <div class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                        <object type="image/svg+xml" width="128" height="128" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                                    </div>
+                                                                </c:if> 
+                                                                <c:if test="${not empty tile.text}">
+                                                                <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                    <div class="tile_text_content">
+                                                                        ${tile.text}                                                 
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            </c:if> 
+                                                                </c:if> 
                                                              </a>
                                                         </div>                                                         
                                                         
@@ -167,16 +168,18 @@
                                                         <c:set var="tile" value="${pages.tilesList.get(i+j)}"/>
                                                         <div class="tile_content <c:choose><c:when test="${contTile.count == 1}">act</c:when> <c:otherwise>dis</c:otherwise></c:choose> <c:if test="${tile.animated == true}">tile_animated</c:if>">
                                                             <a href="${tile.link}">
-                                                            <c:if test="${not empty tile.icon}">
-                                                                 <object class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
-                                                            </c:if>   
-                                                            <c:if test="${not empty tile.text}">
-                                                            <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
-                                                                <div class="tile_text_content">
-                                                                    ${tile.text}  
+                                                                <c:if test="${not empty tile.icon}">
+                                                                    <div class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                        <object type="image/svg+xml" width="128" height="128" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                                    </div>
+                                                                </c:if>   
+                                                                <c:if test="${not empty tile.text}">
+                                                                <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                    <div class="tile_text_content">
+                                                                        ${tile.text}  
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            </c:if> 
+                                                                </c:if> 
                                                              </a>
                                                         </div>                                                         
                                                         
