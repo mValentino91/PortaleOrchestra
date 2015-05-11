@@ -11,6 +11,7 @@ import com.orchestra.portale.persistence.mongo.documents.CompactWorkingDays;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.ContactsComponent;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.DescriptionComponent;
 import com.orchestra.portale.persistence.mongo.documents.EmailContact;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
@@ -30,6 +31,7 @@ import com.orchestra.portale.persistence.mongo.documents.ServicesComponent;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.mongo.documents.WorkingHours;
 import com.orchestra.portale.persistence.mongo.documents.WorkingTimeComponent;
+import com.orchestra.portale.utils.CouplePOI;
 import com.orchestra.portale.utils.InsertUtils;
 import static com.orchestra.portale.utils.InsertUtils.delimg;
 import java.io.BufferedOutputStream;
@@ -115,6 +117,27 @@ public class EditEventController {
     @RequestMapping(value = "/editevent", params = "id")
     public ModelAndView editEventbyID(@RequestParam(value = "id") String id) {
         ModelAndView model = new ModelAndView("editeventform");
+        ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
+        ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
+        ArrayList<CouplePOI> lista2 = new ArrayList<CouplePOI>();
+        for (CompletePOI p : poilist) {
+            CouplePOI temp = new CouplePOI();
+            temp.setIdpoi(p.getId());
+            temp.setNome(p.getName());
+            temp.setType("Poi");
+            lista.add(temp);
+        }
+        ArrayList<DeepeningPage> dpagelist = (ArrayList<DeepeningPage>) pm.findAllDeepeningPages();
+        for (DeepeningPage dp : dpagelist) {
+            CouplePOI temp = new CouplePOI();
+
+            temp.setIdpoi(dp.getId());
+            temp.setNome(dp.getName());
+            temp.setType("DP");
+            lista2.add(temp);
+        }
+        model.addObject("lista", lista);
+        model.addObject("lista2", lista2);
         try {
             CompletePOI poi = pm.getCompletePoiById(id);
             model.addObject("nome", poi.getName());
@@ -141,7 +164,7 @@ public class EditEventController {
 
                 }
             }
-            
+
             //RECUPERO POI INGLESE
             EnCompletePOI enpoi = pm.findEnCompletePoiById(id);
             model.addObject("ennome", enpoi.getName());
@@ -158,7 +181,7 @@ public class EditEventController {
                 String slug = comp.slug();
                 int index = slug.lastIndexOf(".");
                 String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
-                cname="en"+cname;
+                cname = "en" + cname;
                 try {
                     Class c = Class.forName(slug);
                     model.addObject(cname, c.cast(comp));
@@ -167,11 +190,7 @@ public class EditEventController {
 
                 }
             }
-            
-            
-            
-            
-            
+
             return model;
         } catch (RuntimeException e) {
             ModelAndView model2 = new ModelAndView("errorViewPoi");
@@ -403,7 +422,7 @@ public class EditEventController {
                 }
                 EventsDates cwd = new EventsDates();
                 cwd.setDate(params.get("WD" + i));
-                 if (params.containsKey("WDT" + i)) {
+                if (params.containsKey("WDT" + i)) {
                     cwd.setText(params.get("WDT" + i));
                 }
                 cwd.setHours(Listwh);
@@ -414,7 +433,34 @@ public class EditEventController {
             workingtime.setDates(workingdays);
             listComponent.add(workingtime);
         }
+        LinkedPoiComponent lpc = new LinkedPoiComponent();
+        ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
+        i = 1;
+        while (params.containsKey("mot" + i)) {
+            k = 1;
+            ArrayList<CouplePOI> apoi = new ArrayList<CouplePOI>();
+            while (params.containsKey("COL" + i + "-" + k)) {
 
+                CouplePOI cpoi = new CouplePOI();
+                String temp = params.get("COL" + i + "-" + k);
+                cpoi.setIdpoi(temp.substring(0, temp.indexOf("|")));
+                temp = temp.substring(temp.indexOf("|") + 1, temp.length());
+                cpoi.setType(temp.substring(0, temp.indexOf("|")));
+                apoi.add(cpoi);
+                k++;
+
+            }
+            LinkedPoi lp = new LinkedPoi();
+            lp.setDescription(params.get("mot" + i));
+            lp.setPoilist(apoi);
+            alp.add(lp);
+            i++;
+        }
+        lpc.setLinked(alp);
+        if (params.containsKey("mot1")) {
+            listComponent.add(lpc);
+        }
+        
         i = 1;
         if (params.containsKey("type" + i)) {
 
@@ -479,7 +525,7 @@ public class EditEventController {
                 HttpSession session = request.getSession();
                 ServletContext sc = session.getServletContext();
 
-                File dir = new File(sc.getRealPath("/")+ "dist" + File.separator + "poi" + File.separator + "img" + File.separator + poi2.getId());
+                File dir = new File(sc.getRealPath("/") + "dist" + File.separator + "poi" + File.separator + "img" + File.separator + poi2.getId());
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
@@ -501,10 +547,10 @@ public class EditEventController {
                 byte[] bytes = file.getBytes();
 
                 // Creating the directory to store file
-                 HttpSession session = request.getSession();
+                HttpSession session = request.getSession();
                 ServletContext sc = session.getServletContext();
 
-                File dir = new File(sc.getRealPath("/")+  "dist" + File.separator + "poi" + File.separator + "img" + File.separator + poi2.getId());
+                File dir = new File(sc.getRealPath("/") + "dist" + File.separator + "poi" + File.separator + "img" + File.separator + poi2.getId());
                 if (!dir.exists()) {
                     dir.mkdirs();
                 }
@@ -523,7 +569,7 @@ public class EditEventController {
         // DELETE IMMAGINI DA CANCELLARE
         if (imgdel != null && imgdel.length > 0) {
             for (int kdel = 0; kdel < imgdel.length; kdel++) {
-                delimg(request,poi.getId(), imgdel[kdel]);
+                delimg(request, poi.getId(), imgdel[kdel]);
             }
         }
         return model;
@@ -699,28 +745,28 @@ public class EditEventController {
             workingtime.setDates(workingdays);
             listComponent.add(workingtime);
         }
-/*
-        LinkedPoiComponent lpc = new LinkedPoiComponent();
-        ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
-        i = 1;
-        while (params.containsKey("enmot" + i)) {
-            k = 1;
-            ArrayList<String> aenpoi = new ArrayList<String>();
-            while (params.containsKey("enCOL" + i + "-" + k)) {
-                aenpoi.add(params.get("enCOL" + i + "-" + k));
-                k++;
-            }
-            LinkedPoi lp = new LinkedPoi();
-            lp.setDescription(params.get("enmot" + i));
-            lp.setIdlist(aenpoi);
-            alp.add(lp);
-            i++;
-        }
-        lpc.setLinked(alp);
-        if (params.containsKey("enmot1")) {
-            listComponent.add(lpc);
-        }
-*/
+        /*
+         LinkedPoiComponent lpc = new LinkedPoiComponent();
+         ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
+         i = 1;
+         while (params.containsKey("enmot" + i)) {
+         k = 1;
+         ArrayList<String> aenpoi = new ArrayList<String>();
+         while (params.containsKey("enCOL" + i + "-" + k)) {
+         aenpoi.add(params.get("enCOL" + i + "-" + k));
+         k++;
+         }
+         LinkedPoi lp = new LinkedPoi();
+         lp.setDescription(params.get("enmot" + i));
+         lp.setIdlist(aenpoi);
+         alp.add(lp);
+         i++;
+         }
+         lpc.setLinked(alp);
+         if (params.containsKey("enmot1")) {
+         listComponent.add(lpc);
+         }
+         */
         i = 1;
         if (params.containsKey("entype" + i)) {
 

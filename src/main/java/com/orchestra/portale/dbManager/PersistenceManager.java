@@ -28,6 +28,7 @@ public interface PersistenceManager {
     public Iterable<Poi> getAllPoi();
     public CompletePOI getCompletePoiById(String id);
     public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id);
+    public Iterable<DeepeningPage> getDeepeningPagesById(Iterable<String> id);
     public Iterable<CompletePOI> getAllCompletePoi();
     public Iterable<CompletePOI> getCompletePoiByCategories(String [] categories);
     public Iterable<CompletePOI> findCompletePoi(String name, String address, String category);

@@ -90,8 +90,9 @@
                 <c:if test="${not empty eventsdate}">
                     <jsp:include page="components/EventsDatesComponent.jsp"/>
                 </c:if>
+                    <c:if test="${not empty linkedpoi}">
                      <jsp:include page="components/LinkedPoiComponent.jsp"/>
-
+                    </c:if>
             </div>  
 
             <div class="col-xs-12" id="footer">

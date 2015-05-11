@@ -11,10 +11,18 @@ package com.orchestra.portale.utils;
  */
 public class CouplePOI {
     
-    private String id;
-    private String nome;
-    private String category;
+    private String idpoi;
     private String type;
+    private String nome;
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    
 
     public String getType() {
         return type;
@@ -25,29 +33,18 @@ public class CouplePOI {
     }
     
     
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+ 
     
-    public String getId() {
-        return id;
+    public String getIdpoi() {
+        return idpoi;
     }
 
-    public String getNome() {
-        return nome;
+    
+
+    public void setIdpoi(String id) {
+        this.idpoi = id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
     
     
 }

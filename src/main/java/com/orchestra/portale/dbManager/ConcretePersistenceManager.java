@@ -103,6 +103,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id) {
         return poiMongoRepo.findAll(id);
     }
+    @Override
+    public Iterable<DeepeningPage> getDeepeningPagesById(Iterable<String> id) {
+        return deepRepo.findAll(id);
+    }
 
     @Override
     public CompletePOI getCompletePoiById(String id) {

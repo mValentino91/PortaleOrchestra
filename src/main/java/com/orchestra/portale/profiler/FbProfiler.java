@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.profiler;
 
+import com.google.gson.Gson;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 import com.google.gson.JsonArray;
@@ -48,6 +49,7 @@ public class FbProfiler{
           String json_response = streamToString(connection.getInputStream());
           JsonParser parser = new JsonParser();
 	  JsonElement element = parser.parse(json_response);
+          
           JsonObject j_object = (JsonObject)element;
           String msg = j_object.get("msg").getAsString();
           
