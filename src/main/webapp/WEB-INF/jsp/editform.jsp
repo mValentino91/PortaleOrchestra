@@ -122,7 +122,7 @@
             }
 
         </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="../dist/js/jquery.js"></script>
         <script src="../dist/js/form.js"></script>
 
     </head>
