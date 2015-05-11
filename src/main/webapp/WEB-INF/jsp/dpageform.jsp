@@ -24,7 +24,7 @@
             });
         </script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="../dist/js/jquery.js"></script>
         <script src="../dist/js/form.js"></script>
         <link href="../dist/css/poi_view.css" rel="stylesheet">
         <title>ORCHESTRA - NUOVA PAGINA D'APPROFONDIMENTO</title>
