@@ -30,10 +30,99 @@
                 plugins: 'wordcount preview paste'
 
             });
+            function add_coll(tasto) {
+                var cont = document.getElementById("collegamenti");
+                var lastor = document.getElementsByClassName("colls");
+                var x = lastor.length;
+                x = x + 1;
 
+                var newcont = document.createElement("div");
+                newcont.id = "COL" + x;
+                newcont.className = "colls";
+                var newmotdesc = document.createTextNode("Motivazione*");
+                var newmot = document.createElement("input");
+                newmot.type = "text";
+                newmot.name = "mot" + x;
+                newmot.className = "form-control obb mots";
+                newmot.setAttribute("maxlength", "50");
+
+                var newsel = document.createElement("input");
+                newsel.type = "button";
+                newsel.className = "btn btn-primary";
+                newsel.value = "Aggiungi un altro Poi o Evento";
+                newsel.setAttribute("onclick", "add_sel(this.parentNode,this)");
+                newsel.setAttribute("style", "margin-top:5px; margin-bottom:5px;)");
+                var newdel = document.createElement("input");
+                newdel.type = "button";
+                newdel.value = "Elimina Collegamento";
+                newdel.className = "btn btn-danger";
+                newdel.setAttribute("style", "margin-bottom: 10px;")
+                newdel.setAttribute("onclick", "delparent(this)");
+                var newbr5 = document.createElement("br");
+
+                newcont.appendChild(newmotdesc);
+                newcont.appendChild(newmot);
+                newcont.appendChild(newsel);
+                add_sel(newcont, newsel);
+
+                newcont.appendChild(newbr5);
+                newcont.appendChild(newdel);
+                cont.insertBefore(newcont, tasto);
+            }
+            function add_sel(cont, succ) {
+                var x = $("#" + cont.id + " .poiselect");
+                x = x.length;
+                x = x + 1;
+                var newday = document.createElement("select");
+                newday.name = cont.id + "-" + x;
+                newday.className = "form-control poiselect";
+                newday.setAttribute("style", "margin-bottom: 5px; margin-top: 5px; text-align: center");
+                var newopt1 = document.createElement("option");
+                newopt1.setAttribute("disabled", "disabled");
+                newopt1.innerHTML = "<center>-- Punti di interesse e eventi</center>";
+                newday.appendChild(newopt1);
+            <c:forEach var="opt" items="${lista}">
+                var newopt1 = document.createElement("option");
+                newopt1.value = "${opt.idpoi}|${opt.type}|";
+                newopt1.innerHTML = "<center>${opt.nome}</center>";
+                newday.appendChild(newopt1);
+            </c:forEach>
+                var newopt1 = document.createElement("option");
+                newopt1.setAttribute("disabled", "disabled");
+                newopt1.innerHTML = "";
+                newday.appendChild(newopt1);
+                var newopt1 = document.createElement("option");
+                newopt1.setAttribute("disabled", "disabled");
+                newopt1.innerHTML = "<center><b>-- Pagine d'approfondimento</b></center>";
+                newday.appendChild(newopt1);
+                var newopt1 = document.createElement("option");
+                newopt1.setAttribute("disabled", "disabled");
+                newopt1.innerHTML = "";
+                newday.appendChild(newopt1);
+            <c:forEach var="opt" items="${lista2}">
+                var newopt1 = document.createElement("option");
+                newopt1.value = "${opt.idpoi}|${opt.type}|";
+                newopt1.innerHTML = "<center>${opt.nome}</center>";
+                newday.appendChild(newopt1);
+            </c:forEach>
+
+                var newdel = document.createElement("input");
+                newdel.type = "button";
+                newdel.value = "Elimina Poi o Evento";
+                newdel.className = "btn btn-danger";
+                newdel.setAttribute("style", "margin-bottom: 5px; margin-top: 5px;");
+                newdel.setAttribute("onclick", "$(this).prev().remove(); $(this).next().remove(); $(this).remove(); ");
+                var newbr = document.createElement("br");
+                cont.insertBefore(newday, succ);
+
+                if (x > 1) {
+                    cont.insertBefore(newdel, succ);
+                    cont.insertBefore(newbr, succ);
+                }
+            }
 
         </script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="../dist/js/jquery.js"></script>
         <script src="../dist/js/form.js"></script>
 
     </head>
@@ -56,8 +145,8 @@
                             <center>
                                 <div class="row">
                                     <div class="col-md-12">Nome* <input name="name" class="form-control obb" type="text" value="${nome}"></div><br>
-                                    
-                                    
+
+
                                 </div>
                                 <div class="row">
                                     <div id="categoria" class="col-md-6">
@@ -84,20 +173,20 @@
                                     </div>
 
                                 </div><br>
-                                
-                                </center>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="row">
-                        <article class="col-md-12 component component-text">
-                            <div class="big-header contact">
-                                <span class="caps">Paragrafi</span>
-                            </div> 
 
-                            <div class="details">
-                                <center>
-                                    <div id="descrizione">
+                            </center>
+                        </div>
+                    </article>
+                </div>
+                <div class="row">
+                    <article class="col-md-12 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Paragrafi</span>
+                        </div> 
+
+                        <div class="details">
+                            <center>
+                                <div id="descrizione">
                                     <c:if test="${not empty description}">
                                         <c:forEach var="sect" items="${description.sectionsList}" varStatus="tot">
                                             <div id="Par${tot.count}" class="paragrafi">
@@ -152,6 +241,128 @@
 
 
                 </div>
-                       <div class="row">
-                <center><input type="button" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" class="btn btn-success" value="SALVA PAGINA" onclick="pre_submit()"></center>
-            </div>                         
+                <div class="row">
+                    <article class="col-md-12 component component-text">
+                        <div class="big-header contact">
+                            <span class="caps">Collega ad altri Poi o Eventi</span>
+                        </div> 
+
+                        <div class="details">
+                            <center>
+                                <div id="collegamenti">
+                                    <input type="button" id="tastocol" class="btn btn-success" value="Aggiungi collegamento" onclick="add_coll(this)">
+                                    <br> <br>
+                                    <c:if test="${not empty linkedpoi}">
+                                        <c:forEach var="links" items="${linkedpoi.linked}">
+
+                                            <script>
+                                                var cont = document.getElementById("collegamenti");
+                                                var lastor = document.getElementsByClassName("colls");
+                                                var x = lastor.length;
+                                                x = x + 1;
+
+                                                var newcont = document.createElement("div");
+                                                newcont.id = "COL" + x;
+                                                newcont.className = "colls";
+
+                                                var newmotdesc = document.createTextNode("Motivazione*");
+                                                var newmot = document.createElement("input");
+                                                newmot.type = "text";
+                                                newmot.name = "mot" + x;
+                                                newmot.className = "form-control obb mots";
+                                                newmot.setAttribute("maxlength", "50");
+                                                newmot.value = "${links.description}";
+                                                newcont.appendChild(newmotdesc);
+                                                newcont.appendChild(newmot);
+
+                                                var succ = document.createElement("input");
+                                                succ.type = "button";
+                                                succ.className = "btn btn-primary";
+                                                succ.value = "Aggiungi un altro Poi o Evento";
+                                                succ.setAttribute("onclick", "add_sel(this.parentNode,this)");
+                                                succ.setAttribute("style", "margin-top:5px; margin-bottom:5px;)");
+                                                newcont.appendChild(succ);
+                                                var newmot = document.createElement("input");
+                                                newmot.type = "text";
+                                                newmot.className = "form-control obb";
+                                                newmot.value = "${links.description}";
+                                                var newdel = document.createElement("input");
+                                                newdel.type = "button";
+                                                newdel.value = "Elimina Collegamento";
+                                                newdel.className = "btn btn-danger";
+                                                newdel.setAttribute("style", "margin-bottom: 10px;")
+                                                newdel.setAttribute("onclick", "delparent(this)");
+                                                var newbr = document.createElement("br");
+                                                newcont.appendChild(newbr);
+                                                newcont.appendChild(newdel);
+                                                var tasto = document.getElementById("tastocol");
+                                                cont.insertBefore(newcont, tasto);
+                                                <c:forEach var="link" items="${links.poilist}">
+
+                                                var y = $("#" + newcont.id + " .poiselect");
+                                                y = y.length;
+                                                y = y + 1;
+                                                var newday = document.createElement("select");
+                                                newday.name = newcont.id + "-" + y;
+                                                newday.className = "form-control poiselect";
+                                                newday.setAttribute("style", "margin-bottom: 5px; margin-top: 5px; text-align: center")
+                                                    <c:forEach var="opt" items="${lista}">
+                                                var newopt1 = document.createElement("option");
+                                                newopt1.value = "${opt.idpoi}|${opt.type}|";
+                                                if ("${opt.idpoi}" == "${link.idpoi}") {
+                                                    newopt1.setAttribute("selected", "selected");
+                                                }
+                                                newopt1.innerHTML = "<center>${opt.nome}</center>";
+                                                newday.appendChild(newopt1);
+                                                    </c:forEach>
+                                                var newopt1 = document.createElement("option");
+                                                newopt1.setAttribute("disabled", "disabled");
+                                                newopt1.innerHTML = "";
+                                                newday.appendChild(newopt1);
+                                                var newopt1 = document.createElement("option");
+                                                newopt1.setAttribute("disabled", "disabled");
+                                                newopt1.innerHTML = "<center><b>-- Pagine d'approfondimento</b></center>";
+                                                newday.appendChild(newopt1);
+                                                var newopt1 = document.createElement("option");
+                                                newopt1.setAttribute("disabled", "disabled");
+                                                newopt1.innerHTML = "";
+                                                newday.appendChild(newopt1);
+                                                    <c:forEach var="opt" items="${lista2}">
+                                                var newopt1 = document.createElement("option");
+                                                newopt1.value = "${opt.idpoi}|${opt.type}|";
+                                                if ("${opt.idpoi}" == "${link.idpoi}") {
+                                                    newopt1.setAttribute("selected", "selected");
+                                                }
+                                                newopt1.innerHTML = "<center>${opt.nome}</center>";
+                                                newday.appendChild(newopt1);
+                                                    </c:forEach>
+                                                var newdel = document.createElement("input");
+                                                newdel.type = "button";
+                                                newdel.value = "Elimina Poi o Evento";
+                                                newdel.className = "btn btn-danger";
+                                                newdel.setAttribute("style", "margin-bottom: 5px; margin-top: 5px;");
+                                                newdel.setAttribute("onclick", "$(this).prev().remove(); $(this).next().remove(); $(this).remove(); ");
+                                                var newbr = document.createElement("br");
+                                                newcont.insertBefore(newday, succ);
+                                                if (y > 1) {
+                                                    newcont.insertBefore(newdel, succ);
+                                                    newcont.insertBefore(newbr, succ);
+                                                }
+
+
+                                                </c:forEach>
+
+                                            </script>
+                                        </c:forEach>
+
+
+                                    </c:if>
+
+                                </div>
+                            </center>
+                        </div>
+                    </article>
+                </div>              
+                <div class="row">
+                    <center><input type="button" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" class="btn btn-success" value="SALVA PAGINA" onclick="pre_submit()"></center>
+                </div>                         

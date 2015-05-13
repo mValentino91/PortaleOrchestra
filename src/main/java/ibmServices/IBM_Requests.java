@@ -40,7 +40,7 @@ public class IBM_Requests {
           connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded"); 
           //connection.setRequestProperty("charset", "utf-8");
 	  
-          String param = "credentials=" + URLEncoder.encode("RmVkZXJpY29JSTpmZWRlcmljMA==", "UTF-8");
+          String param = "credentials=" + URLEncoder.encode("d3BzYWRtaW46cGFzc3cwcmQ=", "UTF-8");
           connection.setDoOutput(true);
           DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
             wr.writeBytes(param);
@@ -81,7 +81,7 @@ public class IBM_Requests {
           //obtain token
           String token = getToken();
             
-          URL url = new URL("http://143.225.131.31/orchestra/api/info/alberghi");
+          URL url = new URL("http://"+ip+"/orchestra/api/info/alberghi");
           HttpURLConnection connection = (HttpURLConnection) url.openConnection();
           connection.setRequestMethod("GET");
           connection.addRequestProperty("token", token);
@@ -158,7 +158,7 @@ public class IBM_Requests {
           //obtain token
           String token = getToken();
             
-          URL url = new URL("http://143.225.131.31/orchestra/api/info/alberghi/"+id);
+          URL url = new URL("http://"+ip+"/orchestra/api/info/alberghi/"+id);
           HttpURLConnection connection = (HttpURLConnection) url.openConnection();
           connection.setRequestMethod("GET");
           connection.addRequestProperty("token", token);

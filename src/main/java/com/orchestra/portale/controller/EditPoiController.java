@@ -11,12 +11,15 @@ import com.orchestra.portale.persistence.mongo.documents.CompactWorkingDays;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.ContactsComponent;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.DescriptionComponent;
 import com.orchestra.portale.persistence.mongo.documents.EmailContact;
 import com.orchestra.portale.persistence.mongo.documents.FaxContact;
 import com.orchestra.portale.persistence.mongo.documents.GenericSocial;
 import com.orchestra.portale.persistence.mongo.documents.ImgGalleryComponent;
 import com.orchestra.portale.persistence.mongo.documents.ImgGallery;
+import com.orchestra.portale.persistence.mongo.documents.LinkedPoi;
+import com.orchestra.portale.persistence.mongo.documents.LinkedPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.PhoneContact;
 import com.orchestra.portale.persistence.mongo.documents.PricesComponent;
 import com.orchestra.portale.persistence.mongo.documents.Section;
@@ -24,6 +27,7 @@ import com.orchestra.portale.persistence.mongo.documents.ServicesComponent;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.mongo.documents.WorkingHours;
 import com.orchestra.portale.persistence.mongo.documents.WorkingTimeComponent;
+import com.orchestra.portale.utils.CouplePOI;
 import com.orchestra.portale.utils.InsertUtils;
 import static com.orchestra.portale.utils.InsertUtils.delimg;
 import java.io.BufferedOutputStream;
@@ -135,6 +139,27 @@ public class EditPoiController {
             
             }
          }
+         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
+        ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
+        ArrayList<CouplePOI> lista2 = new ArrayList<CouplePOI>();
+        for (CompletePOI p : poilist) {
+            CouplePOI temp = new CouplePOI();
+            temp.setIdpoi(p.getId());
+            temp.setNome(p.getName());
+            temp.setType("Poi");
+            lista.add(temp);
+        }
+        ArrayList<DeepeningPage> dpagelist = (ArrayList<DeepeningPage>) pm.findAllDeepeningPages();
+        for (DeepeningPage dp : dpagelist) {
+            CouplePOI temp = new CouplePOI();
+
+            temp.setIdpoi(dp.getId());
+            temp.setNome(dp.getName());
+            temp.setType("DP");
+            lista2.add(temp);
+        }
+        model.addObject("lista", lista);
+        model.addObject("lista2", lista2);
         return model;
     }
     catch(RuntimeException e){
@@ -324,6 +349,36 @@ public class EditPoiController {
              if(contacts==true){
              listComponent.add(contacts_component);
              }
+             
+             LinkedPoiComponent lpc = new LinkedPoiComponent();
+            ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
+            i = 1;
+            int k = 0;
+            while (params.containsKey("mot" + i)) {
+                k = 1;
+                ArrayList<CouplePOI> apoi = new ArrayList<CouplePOI>();
+                while (params.containsKey("COL" + i + "-" + k)) {
+
+                    CouplePOI cpoi = new CouplePOI();
+                    String temp = params.get("COL" + i + "-" + k);
+                    cpoi.setIdpoi(temp.substring(0, temp.indexOf("|")));
+                    temp = temp.substring(temp.indexOf("|") + 1, temp.length());
+                    cpoi.setType(temp.substring(0, temp.indexOf("|")));
+                    apoi.add(cpoi);
+                    k++;
+
+                }
+                LinkedPoi lp = new LinkedPoi();
+                lp.setDescription(params.get("mot" + i));
+                lp.setPoilist(apoi);
+                alp.add(lp);
+                i++;
+            }
+            lpc.setLinked(alp);
+            if (params.containsKey("mot1")) {
+                listComponent.add(lpc);
+            }
+            
              //DESCRIPTION COMPONENT
              i=1;
              if(params.containsKey("par"+i)) {
@@ -345,7 +400,7 @@ public class EditPoiController {
              }
              //Orari
              i=1;
-             int k=1;
+            k=1;
              boolean ok=false;
               String gg="";
               boolean[] aperto= new boolean[8];

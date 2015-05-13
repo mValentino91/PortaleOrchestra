@@ -90,7 +90,7 @@
           
         <img src="./dist/img/default_avatar.png" id="imgdiv" style="width: 200px; height: 200px;" class="avatar img-circle img-thumbnail img-responsive" alt="avatar">
         <h6><spring:message code="label.registrationavatar"></spring:message></h6>
-        <input type="file" name="avatar" onchange="readURL(this)" id="tastoavatar" class="text-center center-block well well-sm" required>
+        <input type="file" name="avatar" onchange="readURL(this)" id="tastoavatar" class="text-center center-block well well-sm">
       </div>
     </div>
     <!-- edit form column -->

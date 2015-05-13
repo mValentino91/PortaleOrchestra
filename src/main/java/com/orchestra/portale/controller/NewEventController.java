@@ -11,6 +11,7 @@ import com.orchestra.portale.persistence.mongo.documents.CompactWorkingDays;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.ContactsComponent;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
+import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.DescriptionComponent;
 import com.orchestra.portale.persistence.mongo.documents.EmailContact;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
@@ -67,15 +68,26 @@ public class NewEventController {
         //Creo la view che sarà mostrata all'utente
         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
+        ArrayList<CouplePOI> lista2 = new ArrayList<CouplePOI>();
         for (CompletePOI p : poilist) {
             CouplePOI temp = new CouplePOI();
-            temp.setId(p.getId());
+            temp.setIdpoi(p.getId());
             temp.setNome(p.getName());
+            temp.setType("Poi");
             lista.add(temp);
         }
+        ArrayList<DeepeningPage> dpagelist = (ArrayList<DeepeningPage>) pm.findAllDeepeningPages();
+        for (DeepeningPage dp : dpagelist) {
+            CouplePOI temp = new CouplePOI();
 
+            temp.setIdpoi(dp.getId());
+            temp.setNome(dp.getName());
+            temp.setType("DP");
+            lista2.add(temp);
+        }
         ModelAndView model = new ModelAndView("eventform");
         model.addObject("lista", lista);
+        model.addObject("lista2", lista2);
         return model;
     }
 
@@ -290,31 +302,35 @@ public class NewEventController {
                 workingtime.setDates(workingdays);
                 listComponent.add(workingtime);
             }
-            
-             LinkedPoiComponent lpc = new LinkedPoiComponent();
-             ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
-             i=1;
-             while (params.containsKey("mot"+i)) {
-             k=1;
-             ArrayList<CouplePOI> apoi = new ArrayList<CouplePOI>();
-             while(params.containsKey("COL"+i+"-"+k)){
-                 
-                 CouplePOI cpoi= new CouplePOI();
-                 cpoi.setId(params.get("COL"+i+"-"+k));
-                 k++;
-                 
-             }
-             LinkedPoi lp= new LinkedPoi();
-             lp.setDescription(params.get("mot"+i));
-             lp.setPoilist(apoi);
-             alp.add(lp);
-             i++;
-             }
-             lpc.setLinked(alp);
-             if(params.containsKey("mot1")) {
-             listComponent.add(lpc);
-             }
-             
+
+            LinkedPoiComponent lpc = new LinkedPoiComponent();
+            ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
+            i = 1;
+            while (params.containsKey("mot" + i)) {
+                k = 1;
+                ArrayList<CouplePOI> apoi = new ArrayList<CouplePOI>();
+                while (params.containsKey("COL" + i + "-" + k)) {
+
+                    CouplePOI cpoi = new CouplePOI();
+                    String temp = params.get("COL" + i + "-" + k);
+                    cpoi.setIdpoi(temp.substring(0, temp.indexOf("|")));
+                    temp = temp.substring(temp.indexOf("|") + 1, temp.length());
+                    cpoi.setType(temp.substring(0, temp.indexOf("|")));
+                    apoi.add(cpoi);
+                    k++;
+
+                }
+                LinkedPoi lp = new LinkedPoi();
+                lp.setDescription(params.get("mot" + i));
+                lp.setPoilist(apoi);
+                alp.add(lp);
+                i++;
+            }
+            lpc.setLinked(alp);
+            if (params.containsKey("mot1")) {
+                listComponent.add(lpc);
+            }
+
             i = 1;
             if (params.containsKey("type" + i)) {
 
@@ -351,7 +367,7 @@ public class NewEventController {
 
             CompletePOI poi2 = (CompletePOI) pm.findOneCompletePoiByName(poi.getName());
             // POI INGLESE
-            System.out.println("Sto per fare il test "+params.get("inglese") );
+            System.out.println("Sto per fare il test " + params.get("inglese"));
             if (params.get("inglese").equals("on")) {
                 System.out.println("Sto per entrare");
                 addeng(params, poi2.getId(), coverimg, img_gallery);
@@ -427,7 +443,7 @@ public class NewEventController {
     }
 
     public void addeng(Map<String, String> params, String id, CoverImgComponent cover, ImgGalleryComponent gallery) {
-       System.out.println("ENTRATO");
+        System.out.println("ENTRATO");
         EnCompletePOI enpoi = new EnCompletePOI();
         enpoi.setId(id);
         enpoi.setName(params.get("enname"));
@@ -594,28 +610,28 @@ public class NewEventController {
             workingtime.setDates(workingdays);
             listComponent.add(workingtime);
         }
-/*
-        LinkedPoiComponent lpc = new LinkedPoiComponent();
-        ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
-        i = 1;
-        while (params.containsKey("enmot" + i)) {
-            k = 1;
-            ArrayList<String> aenpoi = new ArrayList<String>();
-            while (params.containsKey("enCOL" + i + "-" + k)) {
-                aenpoi.add(params.get("enCOL" + i + "-" + k));
-                k++;
-            }
-            LinkedPoi lp = new LinkedPoi();
-            lp.setDescription(params.get("enmot" + i));
-            lp.setIdlist(aenpoi);
-            alp.add(lp);
-            i++;
-        }
-        lpc.setLinked(alp);
-        if (params.containsKey("enmot1")) {
-            listComponent.add(lpc);
-        }
-*/
+        /*
+         LinkedPoiComponent lpc = new LinkedPoiComponent();
+         ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
+         i = 1;
+         while (params.containsKey("enmot" + i)) {
+         k = 1;
+         ArrayList<String> aenpoi = new ArrayList<String>();
+         while (params.containsKey("enCOL" + i + "-" + k)) {
+         aenpoi.add(params.get("enCOL" + i + "-" + k));
+         k++;
+         }
+         LinkedPoi lp = new LinkedPoi();
+         lp.setDescription(params.get("enmot" + i));
+         lp.setIdlist(aenpoi);
+         alp.add(lp);
+         i++;
+         }
+         lpc.setLinked(alp);
+         if (params.containsKey("enmot1")) {
+         listComponent.add(lpc);
+         }
+         */
         i = 1;
         if (params.containsKey("entype" + i)) {
 

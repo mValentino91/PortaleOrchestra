@@ -43,7 +43,7 @@
     .poi-detail a{
         text-decoration: none;
         color: grey;
-        
+
     }	
 
     .poi-detail a:hover{
@@ -89,115 +89,83 @@
         text-overflow: ellipsis;
     }	
 
-    .circle_culture{
-        background-color:#d24d57;
-    }
-
-    .circle_food{
-        background-color:#f4d03e;
-    }
-
-    .circle_craft{
-        background-color:#bf90d4;
-    }
 
 </style>
 <!DOCTYPE html>
 <div class="component">
     <div class="details">
-        
-        <div class="ul_poi">
-            
-            <div class="list_poi_element">
-                <div class="div_line">
-                    <div class="circle circle_big"></div>
-                </div>
-                <div class="poi-detail-big" data-toggle="tooltip" data-original-title="ciao"> 
-                    Questi sono POI Correlati
-                </div>				
-            </div>
-            <div class="li_poi" style="display:none;">
+        <c:forEach var="links" items="${linkent}">
+            <div class="ul_poi">
+
                 <div class="list_poi_element">
                     <div class="div_line">
-                        <div class="circle circle_small circle_culture"></div>
+                        <div class="circle circle_big"></div>
                     </div>
-                    <div class="poi-detail"> 
-                        <a href="">Pio Monte della misericordia</a>
-                    </div>				
-                </div>	
-                <div class="list_poi_element">
-                    <div class="div_line">
-                        <div class="circle circle_small circle_culture"></div>
-                    </div>
-                    <div class="poi-detail"> 
-                        <a href="">Antonino Pio</a>
-                    </div>				
-                </div>				
-                <div class="list_poi_element">
-                    <div class="div_line">
-                        <div class="circle circle_small circle_food"></div>
-                    </div>
-                    <div class="poi-detail"> 
-                        <a href="">Pizzeria Sorbillo</a>
-                    </div>				
-                </div>	
-                <div class="list_poi_element">
-                    <div class="div_line">
-                        <div class="circle circle_small circle_food"></div>
-                    </div>
-                    <div class="poi-detail"> 
-                        <a href="">Limone'</a>
+                    <div class="poi-detail-big" data-toggle="tooltip" data-original-title="${links.text}"> 
+                        ${links.text}
                     </div>				
                 </div>
+
+                <div class="li_poi" style="display:none;">
+                    <c:forEach var="link" items="${links.entities}">
+                        <div class="list_poi_element">
+                            <div class="div_line">
+                                <div class="circle circle_small" style="background-color: ${link.color};"></div>
+                            </div>
+                            <div class="poi-detail"> 
+                                <a href="./get${link.type}?id=${link.id}">${link.name}</a>
+                            </div>				
+                        </div>	
+                    </c:forEach>
+                </div>
+
             </div>
-
-        </div>
-
+        </c:forEach>
 
     </div>
 </div>
-        
-        <script>
+
+<script>
 
 
-                
-                    
-                    
 
-                function slideLinkedPoi(ul_poi){
-                    
-        
-                    //retrive parent linked poi 
-                    //console.log(ul_poi);
 
-                    var son=ul_poi.find(".li_poi");
-                    
-                    console.log(son);
-                    if (son.is(":hidden")) {
-                        son.slideDown("slow");
-                    }
-                    else{
-                       son.slideUp("slow"); 
-                    }
-                    //son.slideUp("slow");
-                }
-                
-               
-                $(".ul_poi").each(function(index) {
-                    console.log("*************************");
-                    var ul_poi = $(this);
-                    $(this).on("click", function(){
-                       slideLinkedPoi(ul_poi);
-                    })
-                 
-                    
 
-                });
-                
-                $(function(){
-                    $('.poi-detail-big').tooltip();
-                 });
-                
-                
-            
-        </script>     
+
+    function slideLinkedPoi(ul_poi) {
+
+
+        //retrive parent linked poi 
+        //console.log(ul_poi);
+
+        var son = ul_poi.find(".li_poi");
+
+        console.log(son);
+        if (son.is(":hidden")) {
+            son.slideDown("slow");
+        }
+        else {
+            son.slideUp("slow");
+        }
+        //son.slideUp("slow");
+    }
+
+
+    $(".ul_poi").each(function (index) {
+        console.log("*************************");
+        var ul_poi = $(this);
+        $(this).on("click", function () {
+            slideLinkedPoi(ul_poi);
+        })
+
+
+
+    });
+
+    $(function () {
+        $('.poi-detail-big').tooltip();
+    });
+
+
+
+</script>     

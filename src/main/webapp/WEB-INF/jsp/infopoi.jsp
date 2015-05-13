@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="./dist/js/jquery.js"></script>
         <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
@@ -90,8 +90,9 @@
                 <c:if test="${not empty eventsdate}">
                     <jsp:include page="components/EventsDatesComponent.jsp"/>
                 </c:if>
+                    <c:if test="${not empty linkedpoi}">
                      <jsp:include page="components/LinkedPoiComponent.jsp"/>
-
+                    </c:if>
             </div>  
 
             <div class="col-xs-12" id="footer">

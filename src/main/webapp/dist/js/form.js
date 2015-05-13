@@ -1039,6 +1039,17 @@ function pre_submit() {
             }
 
         }
+        
+        var colls = document.getElementsByClassName("colls");
+        for (var i = 0; i < colls.length; i++) {
+            colls[i].id = "COL" + (i + 1);
+            var mot = $("#" + colls[i].id + " input");
+            mot.name = colls[i].id + "mot";
+            var pois = $("#" + colls[i].id + " select");
+            for (var k = 0; k < pois.length; k++) {
+                pois[k].name = colls[i].id + "-" + (k + 1);
+            }
+        }
         tinyMCE.triggerSave();
 
         form.submit();
