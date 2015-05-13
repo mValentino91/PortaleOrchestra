@@ -35,8 +35,7 @@
                                     <div class="poi_preview_box">
                                         <i class="fa fa-times poi_preview_delete"  style="cursor:pointer; font-size:16px;" ></i>
                                         <div class="poi_preview_img">
-                                            <!-- <img src="./dist/poi/img/${p.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> -->
-                                            <img src="./dist/poi/img/550885d0edc9635d04573597/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/>
+                                            <img src="./dist/poi/img/${p.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/>
                                         </div>
                                         <div class="poi_preview_content">
                                             
