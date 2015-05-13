@@ -53,13 +53,13 @@ public class CartController {
     
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
     public ModelAndView cart() {
-        
+        /*
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
     
         
-        Iterable <Cart> carts = pm.findCartsByIdUser(Integer.parseInt(id_user));/*idUser*/
+        Iterable <Cart> carts = pm.findCartsByIdUser(Integer.parseInt(id_user));
         ArrayList<String> idlist = new ArrayList<String>();        
         Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
         Map<String,String>cat_slug_ita = new HashMap<String,String>();
@@ -73,9 +73,9 @@ public class CartController {
         cat_slug_ita.put("cultural_association","Associazioni Culturali");
         cat_slug_ita.put("expo","Expo");
         
-        
+        */
         ModelAndView model = new ModelAndView("cart");
-        
+        /*
         MapPoiCat map_cat = new MapPoiCat();
         
         
@@ -99,7 +99,6 @@ public class CartController {
        
         
         
-        /*Occorre definire un array di categorie stock ed estrapolare le main category dai poi*/
         for(CompletePOI cp : poilist){
             List<String>poi_category = cp.getCategories();
             String cat_map = MapPoiCat.checkCategory(main_category,poi_category);
@@ -112,7 +111,7 @@ public class CartController {
         
         model.addObject("map_slug",cat_slug_ita);
         model.addObject("map_cat", map_cat);
-        
+        */
         return model;
     }            
 

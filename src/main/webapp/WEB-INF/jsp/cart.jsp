@@ -31,74 +31,26 @@
         <script src="./dist/js/readmore.js"></script>
         <script src="./dist/js/favorite_ajax.js"></script>
         <script src="./dist/js/favorite.js"></script>
-        
-        <style>
+        <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
+        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
+        <link rel="stylesheet" href="./dist/css/favorites.css" />
 
-            .poi_preview_box{
-                height: 120px; 
-                width: 100%; 
-                border: 0px solid red; 
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                clear: both;
-                magin-top: 10px;
-                margin-bottom: 10px;
-                position: relative;
-                border-bottom: 1px solid #E9EAED;
-            }  
-
-            .poi_preview_img{
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                height: 100%; 
-                width: 25%; 
-                border: 0px solid green;
-                float: left;
-                background-size: cover;
-                background-position: center center;
-                border-radius: 0px;                
-            }
-
-            .poi_preview_content{
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                height: 100%; 
-                width: 75%; 
-                border: 0px solid yellow; 
-                float: left;
-                padding: 10px;
-            }
-
-            .poi_preview_title{
-                font-weight: bold;
-            }
-
-            .poi_preview_delete{
-                position: absolute;
-                top: 10px;
-                right: 5px;
-            }
-
-            .poi_preview_rating{
-                border: 0px solid pink;
-            }
+        <title><spring:message code="label.favoritespoi"></spring:message></title>   
 
 
-            .clear{
-                clear:both;
-            }
-        </style>
+        </head>
 
-    </head>
-
-    <body>
+        <body>
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
 
             <div class="col-xs-12">
+                <jsp:include page="components/CoverComponentFavorites.jsp"/>
+            </div>
+
+            <div class="col-xs-8">
+
                 <article class="component component-text">
                     <div class="details">
 
@@ -106,62 +58,134 @@
                         <div class="paragrafo">
                             <div class="favorite-container" style="min-height: 200px;">
 
-                                <c:if test="${empty map_cat.map.keySet()}">
-                                    <div class="no_favorites_result">
-                                        <spring:message code="label.no_favorites_presents"></spring:message>
+                                <div class="category-container">
+                                    <div>
+                                        <span class="category-label">Cappella San Severo</span>
+                                    </div>
+                                    <div class="poi">
+
+
+
+                                        <div class="poi_preview_box">
+
+                                            <div class="poi_preview_content">
+                                                <div class="poi_preview_title">
+                                                    Prezzo Intero Adulti
+
+                                                </div>
+                                                <div class="poi_preview_text">
+                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="clear"></div>     
                                         </div>
-                                </c:if>
-
-                                <c:forEach var="cat" items="${map_cat.map.keySet()}">
-                                    <div class="category-container">
-                                        <h4>${map_slug.get(cat)}</h4>
-
-                                        <div class="poi">
 
 
-                                            <c:forEach var="p" items="${map_cat.map.get(cat)}">
-                                                <div class="poi_preview_box">
-                                                    <div class="poi_preview_content">
-                                                        <div class="poi_preview_title">
-                                                            ${p.name}
-                                                            <div class="poi_preview_delete">
+                                        <div class="poi_preview_box">
+                                            <div class="poi_preview_content">
+                                                <div class="poi_preview_title">
+                                                    Prezzo intero bambini (0-8 anni)
 
-                                                                <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
-                                                                <i class="fa fa-trash " style="cursor:pointer; font-size:16px;" ></i>
+                                                </div>
+                                                <div class="poi_preview_text">
+                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
 
-                                                            </div>
-                                                        </div>
-                                                        <div class="poi_preview_text">
-                                                            ${p.address}
-                                                        </div>
-                                                        
+                                                </div>
 
-                                                    </div>
-                                                    <div class="clear"></div>     
-
-                                            </c:forEach>
-
-
+                                            </div>
+                                            <div class="clear"></div>     
                                         </div>
                                     </div>
 
-                                </c:forEach>
+
+                                </div>
+
+
                             </div>
                         </div>
-                    </div>
                 </article>
 
+                <article class="component component-text">
+                    <div class="details">
+
+                        <!-- implementare il foreach dei preferiti per categorie-->
+                        <div class="paragrafo">
+                            <div class="favorite-container" style="min-height: 200px;">
+
+                                <div class="category-container">
+                                    <div>
+                                        <span class="category-label">Pio Monte Misericordia</span>
+                                    </div>
+                                    <div class="poi">
+
+
+
+                                        <div class="poi_preview_box">
+
+                                            <div class="poi_preview_content">
+                                                <div class="poi_preview_title">
+                                                    Prezzo Intero Adulti
+
+                                                </div>
+                                                <div class="poi_preview_text">
+                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="clear"></div>     
+                                        </div>
+
+
+                                        <div class="poi_preview_box">
+                                            <div class="poi_preview_content">
+                                                <div class="poi_preview_title">
+                                                    Prezzo intero bambini (0-8 anni)
+
+                                                </div>
+                                                <div class="poi_preview_text">
+                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="clear"></div>     
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                </article>
+
+
             </div>
-
-            <div class="col-xs-12" id="footer">
-                <center>
-                    <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
-                </center>
+            <div class="col-xs-4">
+                <article class="component component-text">
+                    <div class="details">riepilogo</div>
             </div>
+        </div>
+        <script>
 
-            <jsp:include page="access/loginModal.jsp" />
+            $(document).ready(function () {
+                enableRatingBar();
+                $(".poi_preview_box").each(function (index) {
+                    enableDeleteButton($(this));
 
 
+                });
 
+            });
+
+        </script>
     </body>
 </html>
