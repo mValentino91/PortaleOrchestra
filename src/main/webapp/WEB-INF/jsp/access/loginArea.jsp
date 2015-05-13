@@ -59,7 +59,8 @@ function reload_access_area(event){
             
             <li><a href="./favorites"><i class="fa fa-heart"></i> <spring:message code="label.favoritespoi"></spring:message></a></li>
                <li class="divider"></li>     
-            <li><a href="${logoutUrl}"><i class="fa fa-sign-out"></i> <spring:message code="label.logout"></spring:message></a></li>
+            <li><a href="#" onclick="doLogout();"><i class="fa fa-sign-out"></i> <spring:message code="label.logout"></spring:message></a></li>
+            <a id="logout_url" href="${logoutUrl}" style="display: none"></a>
         </ul>
  
     <script type="text/javascript">
@@ -73,5 +74,14 @@ function reload_access_area(event){
             return true;
         }        
     </script>
+    <script type="text/javascript">
+        function doLogout()
+        {
+            <sec:authorize access="hasRole('ROLE_FB')">
+            FbLogout();
+            </sec:authorize>
+            window.location=document.getElementById('logout_url').href;
+        }        
+    </script>        
 </sec:authorize>
 
