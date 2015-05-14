@@ -16,10 +16,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class IbmController {
-    
+
     @RequestMapping("/ibm")
-    public @ResponseBody String ibm() {
+    public @ResponseBody
+    String ibm() {
         System.out.println(IBM_Requests.getToken());
         return IBM_Requests.getToken();
     }
+
+    @RequestMapping("/ibmAlberghi")
+    public @ResponseBody
+    String ibmAlberghi() {
+        return IBM_Requests.getAlberghi();
+    }
+
 }
