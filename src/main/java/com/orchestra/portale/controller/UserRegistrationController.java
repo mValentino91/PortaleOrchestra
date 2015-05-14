@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
@@ -37,7 +38,7 @@ public class UserRegistrationController {
    }
    
    @RequestMapping(value = "/userSignIn", method = RequestMethod.POST)
-   public ModelAndView addUser(HttpServletRequest request, @ModelAttribute("SpringWeb")User user, 
+   public ModelAndView addUser(HttpServletRequest request, @ModelAttribute("SpringWeb")User user, @RequestParam(value="avatar", required=false)
     MultipartFile avatar) {
        ModelAndView model2 = new ModelAndView("okpage");
         User usertest=pm.findUserByUsername(user.getUsername());
@@ -56,6 +57,8 @@ public class UserRegistrationController {
         user.setRoles(new_user_roles);
         pm.saveUser(user);
         
+        if (avatar.getSize() > 0  ){
+            System.out.println("AVATAR SIZE "+avatar.getSize());
         User user2= pm.findUserByUsername(user.getUsername());
       
          MultipartFile file = avatar;
@@ -79,6 +82,7 @@ public class UserRegistrationController {
                 } catch (Exception e) {
                 
             }
+        }
             model2.addObject("mess", "Registrazione completata con successo!<br><br><center> <a href='page?sec=home' class='btn btn-primary'>Torna alla Home</a></center> ");
       return model2;
    }
