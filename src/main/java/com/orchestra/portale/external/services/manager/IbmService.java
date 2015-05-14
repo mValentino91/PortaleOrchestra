@@ -93,13 +93,13 @@ public class IbmService implements ExternalServiceManager {
     private String createPoi(int item, JsonArray alberghi) {
         CompletePOI newPoi = new CompletePOI();
         newPoi.setName(alberghi.get(item).getAsJsonObject().get("nome").getAsString());
-        newPoi.setAddress(alberghi.get(item).getAsJsonObject().get("indirizzo").getAsString());
+        newPoi.setAddress(alberghi.get(item).getAsJsonObject().get("indirizzo").getAsString().replace("\"", ""));
         double[] location = {
             alberghi.get(item).getAsJsonObject().get("location").getAsJsonArray().get(0).getAsDouble(),
             alberghi.get(item).getAsJsonObject().get("location").getAsJsonArray().get(1).getAsDouble()
         };
         newPoi.setLocation(location);
-        newPoi.setShortDescription(alberghi.get(item).getAsJsonObject().get("classificazione").getAsString());
+        newPoi.setShortDescription(alberghi.get(item).getAsJsonObject().get("classificazione").getAsString().replace("\"", ""));
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));
         newPoi.setCategories(categories);
