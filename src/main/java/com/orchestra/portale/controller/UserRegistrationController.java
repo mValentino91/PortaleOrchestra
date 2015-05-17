@@ -43,7 +43,7 @@ public class UserRegistrationController {
        ModelAndView model2 = new ModelAndView("okpage");
         User usertest=pm.findUserByUsername(user.getUsername());
         if(usertest!= null && usertest.getUsername().toLowerCase().equals(user.getUsername().toLowerCase())){
-            model2.addObject("err", "Esiste già un utente con username: "+user.getUsername());
+            model2.addObject("err", "Esiste giÃ  un utente con username: "+user.getUsername());
             return model2;
         }
        //HASH PASSWORD
@@ -58,7 +58,7 @@ public class UserRegistrationController {
         pm.saveUser(user);
         
         if (avatar.getSize() > 0  ){
-            System.out.println("AVATAR SIZE "+avatar.getSize());
+            
         User user2= pm.findUserByUsername(user.getUsername());
       
          MultipartFile file = avatar;

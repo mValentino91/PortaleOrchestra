@@ -5,13 +5,20 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.components.LinkedEntities;
+import com.orchestra.portale.components.LinkedEntitiesManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
+import com.orchestra.portale.persistence.mongo.documents.LinkedPoiComponent;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +37,7 @@ public class GetDeepeningPageController {
 
     //Richiesta per la visualizzazione di un singolo poi
     @RequestMapping(value = "/getDP", params = "id")
-    public ModelAndView getDp(@RequestParam(value = "id") String id) {
+    public ModelAndView getDp(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
 
         //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("infopoi");
@@ -46,6 +53,12 @@ public class GetDeepeningPageController {
             String slug = comp.slug();
             int index = slug.lastIndexOf(".");
             String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+             if(cname.equals("linkedpoi")) {
+                HttpSession session = request.getSession();
+                    ServletContext sc = session.getServletContext();
+                ArrayList<LinkedEntities> linkent = LinkedEntitiesManager.linkedmanager((LinkedPoiComponent) comp, sc, pm);
+                model.addObject("linkent", linkent);
+            }
             Class c;
             try {
                 c = Class.forName(slug);
