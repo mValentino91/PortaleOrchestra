@@ -16,6 +16,7 @@ import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import com.orchestra.portale.persistence.sql.entities.Cart;
+import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -24,10 +25,12 @@ import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompCategoryComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
+import com.orchestra.portale.persistence.sql.repositories.DealerOfferRepository;
 import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.Distance;
@@ -86,6 +89,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private CartRepository cartRepo;
+    
+    @Autowired
+    private DealerOfferRepository dealerRepo;
 
     @Override
     public Poi getPoiById(String Id) {
@@ -251,6 +257,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void saveCart(Cart cart){
         cartRepo.save(cart);
+        
     }
 
     @Override
@@ -311,14 +318,15 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return enPoiMongoRepo.findOne(id);
     }
 
-    @Override
-    public Iterable<Cart> findCartsByIdUser(Integer idUser) {
-        Iterable<Cart> carts = cartRepo.findCartByIdUser(idUser);
-        return carts;
-    }
     @Override 
     public void deleteEnCompletePOI(EnCompletePOI enpoi) {
         enPoiMongoRepo.delete(enpoi);
+    }
+
+    @Override
+    public List<DealerOffer> findOfferByIdPoi(String idPoi) {
+         List<DealerOffer> offers = dealerRepo.findOfferByIdPoi(idPoi);
+         return offers;
     }
 
 }

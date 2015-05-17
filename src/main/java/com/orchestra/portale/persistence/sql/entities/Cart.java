@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.orchestra.portale.persistence.sql.entities;
 
 import java.io.Serializable;
@@ -16,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andzaccaro
+ * @author andrea
  */
 @Entity
 @Table(name = "cart")
@@ -24,8 +29,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Cart.findAll", query = "SELECT c FROM Cart c"),
     @NamedQuery(name = "Cart.findByIdCart", query = "SELECT c FROM Cart c WHERE c.idCart = :idCart"),
+    @NamedQuery(name = "Cart.findByIdPoi", query = "SELECT c FROM Cart c WHERE c.idPoi = :idPoi"),
     @NamedQuery(name = "Cart.findByIdUser", query = "SELECT c FROM Cart c WHERE c.idUser = :idUser"),
-    @NamedQuery(name = "Cart.findByIdPoi", query = "SELECT c FROM Cart c WHERE c.idPoi = :idPoi")})
+    @NamedQuery(name = "Cart.findByIdCartItinerary", query = "SELECT c FROM Cart c WHERE c.idCartItinerary = :idCartItinerary")})
 public class Cart implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -35,13 +41,17 @@ public class Cart implements Serializable {
     private Integer idCart;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
+    @Column(name = "idPoi")
+    private String idPoi;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "idUser")
     private int idUser;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "idPoi")
-    private String idPoi;
+    @Column(name = "idCartItinerary")
+    private int idCartItinerary;
 
     public Cart() {
     }
@@ -50,10 +60,11 @@ public class Cart implements Serializable {
         this.idCart = idCart;
     }
 
-    public Cart(Integer idCart, int idUser, String idPoi) {
+    public Cart(Integer idCart, String idPoi, int idUser, int idCartItinerary) {
         this.idCart = idCart;
-        this.idUser = idUser;
         this.idPoi = idPoi;
+        this.idUser = idUser;
+        this.idCartItinerary = idCartItinerary;
     }
 
     public Integer getIdCart() {
@@ -64,6 +75,14 @@ public class Cart implements Serializable {
         this.idCart = idCart;
     }
 
+    public String getIdPoi() {
+        return idPoi;
+    }
+
+    public void setIdPoi(String idPoi) {
+        this.idPoi = idPoi;
+    }
+
     public int getIdUser() {
         return idUser;
     }
@@ -72,12 +91,12 @@ public class Cart implements Serializable {
         this.idUser = idUser;
     }
 
-    public String getIdPoi() {
-        return idPoi;
+    public int getIdCartItinerary() {
+        return idCartItinerary;
     }
 
-    public void setIdPoi(String idPoi) {
-        this.idPoi = idPoi;
+    public void setIdCartItinerary(int idCartItinerary) {
+        this.idCartItinerary = idCartItinerary;
     }
 
     @Override

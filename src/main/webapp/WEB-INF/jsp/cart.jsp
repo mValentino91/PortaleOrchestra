@@ -53,6 +53,15 @@
 
                 <article class="component component-text">
                     <div class="details">
+                        <c:forEach var="poi" items="${detailOffer.keySet()}">
+                            <p>${poi.name}</p>
+                            <c:forEach var="offer" items="${detailOffer.get(poi)}">
+                                <p>${offer.desc}</p>
+                                
+                            </c:forEach>
+                        </c:forEach>
+                        
+                        
 
                         <!-- implementare il foreach dei preferiti per categorie-->
                         <div class="paragrafo">

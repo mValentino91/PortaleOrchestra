@@ -3,6 +3,8 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Cart;
+import com.orchestra.portale.persistence.sql.entities.DealerOffer;
+import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.utils.MapPoiCat;
 import java.util.ArrayList;
@@ -31,24 +33,6 @@ public class CartController {
     @Autowired
     private PersistenceManager pm;
 
-    @RequestMapping(value = "/saveInCart", method = RequestMethod.GET)
-    public @ResponseBody
-    String saveInCart(@RequestParam String id_poi) {
-
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = pm.findUserByUsername(auth.getName());
-        System.out.println("***************************");
-        System.out.println("USER: " + user.getUsername() + " - " + user.getId());
-        System.out.println("***************************");
-        String id_user = user.getId().toString();
-        Cart cart = new Cart();
-        cart.setIdUser(Integer.parseInt(id_user));
-        cart.setIdPoi(id_poi);
-
-        pm.saveCart(cart);
-
-        return "ok";
-    } 
     
     
     @RequestMapping(value = "/cart", method = RequestMethod.GET)
@@ -114,6 +98,36 @@ public class CartController {
         */
         return model;
     }            
+    
+    @RequestMapping(value="/saveInCart")
+    public ModelAndView saveInCart(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        String id_user = user.getId().toString();
+        
+        ModelAndView model = new ModelAndView("cart");
+        String idpoi=null; 
+        CompletePOI poi;
+        List<DealerOffer> list_off = new ArrayList<DealerOffer>();
+        
+        Map<CompletePOI,List<DealerOffer>> detailOffer = new HashMap<CompletePOI,List<DealerOffer>>();
+        Cart cart = new Cart();
+        
+        Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(id_user));
+        
+        for (Favorite f : favorites ) {
+            cart.setIdUser(Integer.parseInt(id_user));
+            cart.setIdPoi(f.getIdPoi());
+            idpoi=f.getIdPoi();
+            poi = pm.getCompletePoiById(idpoi);
+            list_off = pm.findOfferByIdPoi(idpoi);
+            detailOffer.put(poi, list_off);
+            pm.saveCart(cart);
+        }
+        
+        model.addObject("detailOffer",detailOffer);
+        return model;
+    }
 
 
 }

@@ -12,10 +12,12 @@ import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.sql.entities.Cart;
+import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.data.geo.GeoResults;
 
 /**
@@ -62,5 +64,5 @@ public interface PersistenceManager {
     public EnCompletePOI findEnCompletePoiById(String id);
     public void deleteEnCompletePOI(EnCompletePOI enpoi);
     public void saveCart(Cart cart);
-    public Iterable<Cart>findCartsByIdUser(Integer idUser);
+    public List<DealerOffer>findOfferByIdPoi(String idPoi);
 }

@@ -53,6 +53,10 @@
                 <jsp:include page="components/FavoriteListComponent.jsp"/> 
 
             </div>
+                
+            <div>
+                <a href="#">Sceglie le offerte e crea il tuo itinerario</a>
+            </div>
 
 
             <div class="col-xs-12" id="footer">
@@ -80,13 +84,7 @@
                 
             });    
     
-        </script>
-        
-        
-
-        
-      
-        
+        </script> 
     </body>
 </html>
 
