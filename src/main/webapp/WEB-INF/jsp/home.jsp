@@ -113,7 +113,7 @@
                                                         <a href="${tile.link}">
                                                             <c:if test="${not empty tile.icon}">
                                                                <div class="tile_icon tile_icon_act"> 
-                                                                  <object width="128" height="128" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                                  <img src="./dist/page/img/${pages.id}/${tile.icon}"></img>
                                                                </div>
                                                             </c:if>                                                        
                                                             <div class="tile_text tile_icon_dis">
@@ -147,7 +147,7 @@
                                                     <div class="tile_content act tile_animated"> 
                                                         <c:if test="${not empty tile.icon}">
                                                            <div class="tile_icon tile_icon_act"> 
-                                                              <object width="128" height="128" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                              <img src="./dist/page/img/${pages.id}/${tile.icon}"></img>
                                                            </div>
                                                         </c:if>                                                     
                                                         <div class="tile_text tile_icon_dis">
@@ -199,19 +199,10 @@
                                             <div class="tile_inner"> 
                                                 <a href="${tile.link}">
                                                     <div class="tile_content act tile_animated"> 
-                                                        <c:if test="${cont.count != 8}">
-                                                            <c:if test="${not empty tile.icon}">
-                                                               <div class="tile_icon tile_icon_act"> 
-                                                                  <object width="128" height="128" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
-                                                               </div>
-                                                            </c:if>                                                            
-                                                        </c:if>
-                                                        <c:if test="${cont.count == 8}">
-                                                            <c:if test="${not empty tile.icon}">
-                                                               <div class="tile_icon tile_icon_act"> 
-                                                                  <img src="./dist/page/img/${pages.id}/${tile.icon}"></img>
-                                                               </div>
-                                                            </c:if>  
+                                                        <c:if test="${not empty tile.icon}">
+                                                           <div class="tile_icon tile_icon_act"> 
+                                                              <img src="./dist/page/img/${pages.id}/${tile.icon}"></img>
+                                                           </div>
                                                         </c:if>                                                            
                                                         <div class="tile_text tile_icon_dis">
                                                             <div class="tile_text_content">
@@ -251,7 +242,7 @@
                                                         <c:if test="${not empty tile.icon}">
                                                             <c:if test="${not empty tile.icon}">
                                                                <div class="tile_icon tile_icon_act"> 
-                                                                  <object width="128" height="128" type="image/svg+xml" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                                  <img src="./dist/page/img/${pages.id}/${tile.icon}"></img>
                                                                </div>
                                                             </c:if>                         
                                                         </c:if>                                                        

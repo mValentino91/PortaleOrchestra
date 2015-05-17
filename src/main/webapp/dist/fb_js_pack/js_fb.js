@@ -23,7 +23,7 @@ function FbLogin()
 /*Facebook Logout*/
 function FbLogout()
 {
-    FB.logout(function(){document.location.reload();});
+    FB.logout(function(){ });
 }
 
 /*

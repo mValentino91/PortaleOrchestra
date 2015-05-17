@@ -110,7 +110,7 @@
                 <!-- left column -->
                 <div class="col-md-4 col-sm-6 col-xs-12">
                     <div class="text-center">
-                        <img src="${avatar}" class="avatar img-circle img-thumbnail" alt="avatar">
+                        <img src="${avatar}" style="width: 200px; height: 200px;" class="avatar img-circle img-thumbnail" alt="avatar">
                     </div>
                 </div>
                 <!-- edit form column -->

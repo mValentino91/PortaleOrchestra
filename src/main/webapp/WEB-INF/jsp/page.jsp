@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="./dist/css/struttura.css">
         <link rel="stylesheet" href="./dist/css/OrchestraFontIcon.css">
 
-        <script src=".dist/js/jquery.js"></script>
-        <script src=".dist/js/bootstrap.min.js"></script>
+        <script src="./dist/js/jquery.js"></script>
+        <script src="./dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
         <link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
         
@@ -120,7 +120,7 @@
                                                             <a href="${tile.link}">
                                                                 <c:if test="${not empty tile.icon}">
                                                                     <div class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
-                                                                        <object type="image/svg+xml" width="128" height="128" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                                        <img src="./dist/page/img/${pages.id}/${tile.icon}"></img>
                                                                     </div>
                                                                 </c:if> 
                                                                 <c:if test="${not empty tile.text}">
@@ -170,7 +170,7 @@
                                                             <a href="${tile.link}">
                                                                 <c:if test="${not empty tile.icon}">
                                                                     <div class="tile_icon <c:choose><c:when test="${tile.start == 'icon'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
-                                                                        <object type="image/svg+xml" width="128" height="128" data="./dist/page/img/${pages.id}/${tile.icon}"></object>
+                                                                        <img src="./dist/page/img/${pages.id}/${tile.icon}"></img>
                                                                     </div>
                                                                 </c:if>   
                                                                 <c:if test="${not empty tile.text}">
