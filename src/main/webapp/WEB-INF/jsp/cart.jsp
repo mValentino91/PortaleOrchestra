@@ -29,12 +29,8 @@
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
-        <script src="./dist/js/favorite_ajax.js"></script>
-        <script src="./dist/js/favorite.js"></script>
-        <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
-        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
-        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
-        <link rel="stylesheet" href="./dist/css/favorites.css" />
+        <script src="./dist/js/cart.js"></script>
+        <link rel="stylesheet" href="./dist/css/cart.css" />
 
         <title><spring:message code="label.favoritespoi"></spring:message></title>   
 
@@ -50,137 +46,221 @@
             </div>
 
             <div class="col-xs-8">
+                
+                <c:forEach var="poi" items="${detailOffer.keySet()}">
+                    <article class="component component-text">
+                        <div class="details">
 
-                <article class="component component-text">
-                    <div class="details">
-                        <c:forEach var="poi" items="${detailOffer.keySet()}">
-                            <p>${poi.name}</p>
-                            <c:forEach var="offer" items="${detailOffer.get(poi)}">
-                                <p>${offer.desc}</p>
-                                
-                            </c:forEach>
-                        </c:forEach>
-                        
-                        
-
-                        <!-- implementare il foreach dei preferiti per categorie-->
-                        <div class="paragrafo">
-                            <div class="favorite-container" style="min-height: 200px;">
-
-                                <div class="category-container">
-                                    <div>
-                                        <span class="category-label">Cappella San Severo</span>
-                                    </div>
-                                    <div class="poi">
+                            <!-- implementare il foreach dei preferiti per categorie-->
+                            <div class="paragrafo">
+                                <div class="favorite_container" style="min-height: 200px;">
 
 
 
-                                        <div class="poi_preview_box">
+                                    <div class="category_container">
 
-                                            <div class="poi_preview_content">
-                                                <div class="poi_preview_title">
-                                                    Prezzo Intero Adulti
+                                        <span class="category_label category_title" >${poi.name}</span>
+
+                                        <div class="poi">
+                                            <c:if test="${empty detailOffer.get(poi)}">
+                                                <div class="no_favorites_result">
+                                                    nessuna offerta disponibile
+                                                </div>
+                                            </c:if>
+                                            <c:forEach var="offer" items="${detailOffer.get(poi)}">
+                                                <div class="poi_preview_box">
+                                                    <div class="poi_preview_content">
+
+                                                        <div class="poi_preview_text">
+                                                            <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" data-toggle="tooltip" data-original-title="Lo hai aggiunto ai preferiti"></i>
+                                                            <a href="#" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
+                                                            <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
+                                                            <i class="fa fa-cart-plus" style="font-size:16px;"></i>
+                                                            <i class="fa fa-plus" style="font-size:16px;"></i>
+                                                            <i class="fa fa-shopping-cart" style="font-size:16px;"></i>
+                                                        </div>
+                                                        <div class="poi_preview_title">${offer.desc}</div>
+                                                    </div>
 
                                                 </div>
-                                                <div class="poi_preview_text">
-                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
-                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="clear"></div>     
-                                        </div>
-
-
-                                        <div class="poi_preview_box">
-                                            <div class="poi_preview_content">
-                                                <div class="poi_preview_title">
-                                                    Prezzo intero bambini (0-8 anni)
-
-                                                </div>
-                                                <div class="poi_preview_text">
-                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
-                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="clear"></div>     
+                                                    <hr/>
+                                                <div class="clear"></div>
+                                                
+                                            </c:forEach>
                                         </div>
                                     </div>
 
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </c:forEach>
+                <script>
+                    $(function () {
+                        $('.fa-heart').tooltip();
+                        $('.fa-info-circle').tooltip();
+                        $('.fa-credit-card').tooltip();
+                    });
+                </script>
+                <!--          
+        
+                        <article class="component component-text">
+        
+                            <div class="details">
+                <!-- implementare il foreach dei preferiti per categorie
+                <div class="paragrafo">
+                    <div class="favorite-container" style="min-height: 200px;">
 
+                        <div class="category-container">
+                <c:forEach var="poi" items="${detailOffer.keySet()}">
+                    <div>
+                        <span class="category-label">${poi.name}</span>
+                    </div>
+
+                    <c:forEach var="offer" items="${detailOffer.get(poi)}">
+                        <div class="poi_preview_box">
+
+                            <div class="poi_preview_content">
+                                <div class="poi_preview_title">${offer.desc}</div>
+                                <div class="poi_preview_text">
+                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+                                </div>
+
+                            </div>
+                            <div class="clear"></div>     
+                        </div>
+                        <p></p>
+                    </c:forEach>
+                </c:forEach>
+            </div>
+            </article>
+
+            <article class="component component-text">
+
+                <div class="details">
+                <!-- implementare il foreach dei preferiti per categorie
+                <div class="paragrafo">
+                    <div class="favorite-container" style="min-height: 200px;">
+
+                        <div class="category-container">
+                            <div>
+                                <span class="category-label">Cappella San Severo</span>
+                            </div>
+                            <div class="poi">
+
+
+
+                                <div class="poi_preview_box">
+
+                                    <div class="poi_preview_content">
+                                        <div class="poi_preview_title">
+                                            Prezzo Intero Adulti
+
+                                        </div>
+                                        <div class="poi_preview_text">
+                                            <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                            <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="clear"></div>     
                                 </div>
 
 
+                                <div class="poi_preview_box">
+                                    <div class="poi_preview_content">
+                                        <div class="poi_preview_title">
+                                            Prezzo intero bambini (0-8 anni)
+
+                                        </div>
+                                        <div class="poi_preview_text">
+                                            <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                            <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="clear"></div>     
+                                </div>
                             </div>
+
+
                         </div>
-                </article>
-
-                <article class="component component-text">
-                    <div class="details">
-
-                        <!-- implementare il foreach dei preferiti per categorie-->
-                        <div class="paragrafo">
-                            <div class="favorite-container" style="min-height: 200px;">
-
-                                <div class="category-container">
-                                    <div>
-                                        <span class="category-label">Pio Monte Misericordia</span>
-                                    </div>
-                                    <div class="poi">
 
 
+                    </div>
+                </div>
+        </article>
+      
+        <article class="component component-text">
+            <div class="details">
 
-                                        <div class="poi_preview_box">
+                <!-- implementare il foreach dei preferiti per categorie
+                <div class="paragrafo">
+                    <div class="favorite-container" style="min-height: 200px;">
 
-                                            <div class="poi_preview_content">
-                                                <div class="poi_preview_title">
-                                                    Prezzo Intero Adulti
+                        <div class="category-container">
+                            <div>
+                                <span class="category-label">Pio Monte Misericordia</span>
+                            </div>
+                            <div class="poi">
 
-                                                </div>
-                                                <div class="poi_preview_text">
-                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
-                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
 
-                                                </div>
 
-                                            </div>
-                                            <div class="clear"></div>     
+                                <div class="poi_preview_box">
+
+                                    <div class="poi_preview_content">
+                                        <div class="poi_preview_title">
+                                            Prezzo Intero Adulti
+
+                                        </div>
+                                        <div class="poi_preview_text">
+                                            <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                            <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+
                                         </div>
 
-
-                                        <div class="poi_preview_box">
-                                            <div class="poi_preview_content">
-                                                <div class="poi_preview_title">
-                                                    Prezzo intero bambini (0-8 anni)
-
-                                                </div>
-                                                <div class="poi_preview_text">
-                                                    <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
-                                                    <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
-
-                                                </div>
-
-                                            </div>
-                                            <div class="clear"></div>     
-                                        </div>
                                     </div>
-
-
+                                    <div class="clear"></div>     
                                 </div>
 
 
-                            </div>
-                        </div>
-                </article>
+                                <div class="poi_preview_box">
+                                    <div class="poi_preview_content">
+                                        <div class="poi_preview_title">
+                                            Prezzo intero bambini (0-8 anni)
 
+                                        </div>
+                                        <div class="poi_preview_text">
+                                            <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" ></i>
+                                            <i class="fa fa-trash"  style="cursor:pointer; font-size:16px;" ></i>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="clear"></div>     
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    
+                    </div>
+                </div>
+            </div>
+        </article>
+                -->
 
             </div>
             <div class="col-xs-4">
                 <article class="component component-text">
-                    <div class="details">riepilogo</div>
+                    <div class="details">
+                        riepilogo<br>
+                        crea l'itinerario
+                    </div>
             </div>
         </div>
         <script>
