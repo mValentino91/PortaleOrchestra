@@ -33,6 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DealerOffer.findAll", query = "SELECT d FROM DealerOffer d"),
     @NamedQuery(name = "DealerOffer.findByIdOffer", query = "SELECT d FROM DealerOffer d WHERE d.idOffer = :idOffer"),
     @NamedQuery(name = "DealerOffer.findByIdPoi", query = "SELECT d FROM DealerOffer d WHERE d.idPoi = :idPoi"),
+    @NamedQuery(name = "DealerOffer.findByNome", query = "SELECT d FROM DealerOffer d WHERE d.nome = :nome"),
     @NamedQuery(name = "DealerOffer.findByDesc", query = "SELECT d FROM DealerOffer d WHERE d.desc = :desc"),
     @NamedQuery(name = "DealerOffer.findByFullPrice", query = "SELECT d FROM DealerOffer d WHERE d.fullPrice = :fullPrice"),
     @NamedQuery(name = "DealerOffer.findByDiscountedPrice", query = "SELECT d FROM DealerOffer d WHERE d.discountedPrice = :discountedPrice"),
@@ -51,6 +52,11 @@ public class DealerOffer implements Serializable {
     @Size(min = 1, max = 100)
     @Column(name = "idPoi")
     private String idPoi;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 1000)
+    @Column(name = "nome")
+    private String nome;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 1000)
@@ -86,9 +92,10 @@ public class DealerOffer implements Serializable {
         this.idOffer = idOffer;
     }
 
-    public DealerOffer(Integer idOffer, String idPoi, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd) {
+    public DealerOffer(Integer idOffer, String idPoi, String nome, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd) {
         this.idOffer = idOffer;
         this.idPoi = idPoi;
+        this.nome = nome;
         this.desc = desc;
         this.fullPrice = fullPrice;
         this.discountedPrice = discountedPrice;
@@ -111,6 +118,14 @@ public class DealerOffer implements Serializable {
 
     public void setIdPoi(String idPoi) {
         this.idPoi = idPoi;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDesc() {
