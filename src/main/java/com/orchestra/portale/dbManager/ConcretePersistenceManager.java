@@ -16,10 +16,12 @@ import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import com.orchestra.portale.persistence.sql.entities.Cart;
+import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.persistence.sql.repositories.CartItinerarydetailRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartRepository;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompCategoryComponentRepository;
@@ -92,6 +94,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private DealerOfferRepository dealerRepo;
+    
+    @Autowired
+    private CartItinerarydetailRepository cartdetailRepo;
 
     @Override
     public Poi getPoiById(String Id) {
@@ -327,6 +332,17 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public List<DealerOffer> findOfferByIdPoi(String idPoi) {
          List<DealerOffer> offers = dealerRepo.findOfferByIdPoi(idPoi);
          return offers;
+    }
+    
+    @Override
+    public DealerOffer findOfferByIdOffer(int idOffer){
+        DealerOffer offer = dealerRepo.findOfferByIdOffer(idOffer);
+        return offer;
+    }
+    
+    @Override
+    public void saveCartDetail(CartItinerarydetail cart_detail) {
+        cartdetailRepo.save(cart_detail);
     }
 
 }

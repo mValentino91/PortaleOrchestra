@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="./dist/js/jquery.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
@@ -37,25 +37,25 @@
         <link rel="stylesheet" href="./dist/css/favorites.css" />
 
         <title><spring:message code="label.favoritespoi"></spring:message></title>   
-        
-        
-    </head>
-    <body>
+
+
+        </head>
+        <body>
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
 
-            <div class="col-xs-12">
+            <div class="col-md-12">
                 <jsp:include page="components/CoverComponentFavorites.jsp"/>
             </div>
 
-            <div class="col-xs-8">
+            <div class="col-md-8">
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
                 <jsp:include page="components/FavoriteListComponent.jsp"/> 
 
             </div>
-                
-            <div>
-                <a href="#">Sceglie le offerte e crea il tuo itinerario</a>
+
+            <div class="col-md-4">
+                <jsp:include page="components/FavoriteTopListComponent.jsp"/> 
             </div>
 
 
@@ -70,21 +70,20 @@
 
         <jsp:include page="access/loginModal.jsp" />
         <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
-        
+
         <script>
-       
-            $( document ).ready(function() {
-                enableRatingBar() ;  
-                $(".poi_preview_box").each(function(index) {
+
+            $(document).ready(function () {
+                enableRatingBar();
+                $(".poi_preview_box").each(function (index) {
                     updateRatingBar($(this));
                     enableDeleteButton($(this));
-                    
-  
+
+
                 });
-                
-            });    
-    
-        </script> 
+
+            });
+
+        </script>
     </body>
 </html>
-

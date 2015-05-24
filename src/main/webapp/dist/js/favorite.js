@@ -64,3 +64,31 @@ function deleteCategoryContainer(poiPreviewBox){
 
 
 }
+
+$(document).ready(function () {
+    $(".category_title").each(function (index) {
+        console.log("*************************");
+        var category_title = $(this);
+        $(this).on("click", function () {
+            slideFavoritePoi(category_title);
+            var icon = $(this).find(".expand_icon");
+            icon.toggleClass("fa-chevron-right fa-chevron-down");
+        });
+    });
+});
+
+function slideFavoritePoi(category_title) {
+    //retrive parent linked poi 
+    //console.log(ul_poi);
+
+    var poi = category_title.siblings(".poi");
+
+    console.log(poi);
+    if (poi.is(":hidden")) {
+        poi.slideDown("slow");
+    }
+    else {
+        poi.slideUp("slow");
+    }
+    //son.slideUp("slow");
+}  

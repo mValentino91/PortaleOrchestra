@@ -12,6 +12,7 @@ import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.sql.entities.Cart;
+import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
@@ -65,4 +66,6 @@ public interface PersistenceManager {
     public void deleteEnCompletePOI(EnCompletePOI enpoi);
     public void saveCart(Cart cart);
     public List<DealerOffer>findOfferByIdPoi(String idPoi);
+    public DealerOffer findOfferByIdOffer(int idOffer);
+    public void saveCartDetail(CartItinerarydetail cart_detail);
 }

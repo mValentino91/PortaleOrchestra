@@ -5,17 +5,13 @@
  */
 package com.orchestra.portale.persistence.sql.repositories;
 
-import com.orchestra.portale.persistence.sql.entities.DealerOffer;
-import java.util.List;
+import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  *
  * @author andrea
  */
-public interface DealerOfferRepository extends JpaRepository<DealerOffer, String>{
-    List<DealerOffer> findOfferByIdPoi(String idPoi);
-    DealerOffer findOfferByIdOffer(int idOffer);
-    
+public interface CartItinerarydetailRepository  extends JpaRepository<CartItinerarydetail, Integer>{
     
 }
