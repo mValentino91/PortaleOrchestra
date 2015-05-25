@@ -11,6 +11,8 @@ import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.sql.entities.Card;
+import com.orchestra.portale.persistence.sql.entities.CardItinerary;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
@@ -68,4 +70,8 @@ public interface PersistenceManager {
     public List<DealerOffer>findOfferByIdPoi(String idPoi);
     public DealerOffer findOfferByIdOffer(int idOffer);
     public void saveCartDetail(CartItinerarydetail cart_detail);
+    public void saveCardItinerary(CardItinerary card_itinerary);
+    public Integer findActiveCardByIdUser(int idUser);
+    public void deleteCart(int idUser);
+    public void updateItemItinerary(int idItinerary, int id_user);  
 }

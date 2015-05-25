@@ -30,7 +30,6 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CardItinerary.findAll", query = "SELECT c FROM CardItinerary c"),
     @NamedQuery(name = "CardItinerary.findByIdItinerary", query = "SELECT c FROM CardItinerary c WHERE c.idItinerary = :idItinerary"),
     @NamedQuery(name = "CardItinerary.findByIdCard", query = "SELECT c FROM CardItinerary c WHERE c.idCard = :idCard"),
-    @NamedQuery(name = "CardItinerary.findByIdCartItinerary", query = "SELECT c FROM CardItinerary c WHERE c.idCartItinerary = :idCartItinerary"),
     @NamedQuery(name = "CardItinerary.findByKeyString", query = "SELECT c FROM CardItinerary c WHERE c.keyString = :keyString")})
 public class CardItinerary implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -43,13 +42,7 @@ public class CardItinerary implements Serializable {
     @NotNull
     @Column(name = "idCard")
     private int idCard;
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "idCartItinerary")
-    private int idCartItinerary;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 1000)
+    @Size(max = 1000)
     @Column(name = "keyString")
     private String keyString;
 
@@ -60,11 +53,9 @@ public class CardItinerary implements Serializable {
         this.idItinerary = idItinerary;
     }
 
-    public CardItinerary(Integer idItinerary, int idCard, int idCartItinerary, String keyString) {
+    public CardItinerary(Integer idItinerary, int idCard) {
         this.idItinerary = idItinerary;
         this.idCard = idCard;
-        this.idCartItinerary = idCartItinerary;
-        this.keyString = keyString;
     }
 
     public Integer getIdItinerary() {
@@ -81,14 +72,6 @@ public class CardItinerary implements Serializable {
 
     public void setIdCard(int idCard) {
         this.idCard = idCard;
-    }
-
-    public int getIdCartItinerary() {
-        return idCartItinerary;
-    }
-
-    public void setIdCartItinerary(int idCartItinerary) {
-        this.idCartItinerary = idCartItinerary;
     }
 
     public String getKeyString() {

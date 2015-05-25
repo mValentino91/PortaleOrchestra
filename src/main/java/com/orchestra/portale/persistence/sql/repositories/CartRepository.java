@@ -13,4 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
  */
 public interface CartRepository extends JpaRepository<Cart, Integer> {
     Iterable<Cart> findCartByIdUser(int idUser);
+    
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("delete from Cart c where c.idUser = ?1")
+    void deleteCart(Integer id_user); 
 }

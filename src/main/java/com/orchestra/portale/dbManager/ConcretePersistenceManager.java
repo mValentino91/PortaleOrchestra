@@ -15,12 +15,15 @@ import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository
 import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
+import com.orchestra.portale.persistence.sql.entities.Card;
+import com.orchestra.portale.persistence.sql.entities.CardItinerary;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.persistence.sql.repositories.CardItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartItinerarydetailRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartRepository;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
@@ -97,6 +100,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private CartItinerarydetailRepository cartdetailRepo;
+    
+    @Autowired
+    private CardItineraryRepository cardItineraryRepo;
+    
 
     @Override
     public Poi getPoiById(String Id) {
@@ -343,6 +350,27 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void saveCartDetail(CartItinerarydetail cart_detail) {
         cartdetailRepo.save(cart_detail);
+    }
+
+    @Override
+    public void saveCardItinerary(CardItinerary card_itinerary) {
+        cardItineraryRepo.save(card_itinerary);
+    }
+
+    @Override
+    public Integer findActiveCardByIdUser(int idUser) {
+        Integer card_key = cardItineraryRepo.findActiveCardByIdUser(idUser);
+        return card_key;
+    }
+
+    @Override
+    public void deleteCart(int idUser) {
+        cartRepo.deleteCart(idUser);
+    }
+
+    @Override
+    public void updateItemItinerary(int idItinerary, int id_user) {
+        cartdetailRepo.updateItemItinerary(idItinerary, id_user);
     }
 
 }
