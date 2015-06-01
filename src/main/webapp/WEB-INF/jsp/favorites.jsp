@@ -55,6 +55,10 @@
             </div>
 
             <div class="col-md-4">
+                <div class="big-header contact" id="crea_it" style="background-color:#285E8E; cursor: pointer;">
+                    <a href="./saveInCart" style="color:#fff; text-decoration: none">Crea il tuo itinerario</a>
+                </div>
+                <br>
                 <jsp:include page="components/FavoriteTopListComponent.jsp"/> 
             </div>
 

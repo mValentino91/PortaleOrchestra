@@ -24,6 +24,7 @@ import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.repositories.CardItineraryRepository;
+import com.orchestra.portale.persistence.sql.repositories.CardRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartItinerarydetailRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartRepository;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
@@ -103,6 +104,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private CardItineraryRepository cardItineraryRepo;
+    
+    @Autowired
+    private CardRepository cardRepo;
     
 
     @Override
@@ -356,7 +360,20 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void saveCardItinerary(CardItinerary card_itinerary) {
         cardItineraryRepo.save(card_itinerary);
     }
+    
+    
+    @Override
+    public Integer getIdItineraryByIdCard(int id_card) {
+        Integer id_iti = cardItineraryRepo.getIdItineraryByIdCard(id_card);
+        return id_iti;
+    }
 
+    @Override
+    public Integer findStatusCardByIdUser(int id_user) {
+        Integer status = cardItineraryRepo.findStatusCardByIdUser(id_user);
+        return status;
+    }
+   
     @Override
     public Integer findActiveCardByIdUser(int idUser) {
         Integer card_key = cardItineraryRepo.findActiveCardByIdUser(idUser);
@@ -372,5 +389,17 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void updateItemItinerary(int idItinerary, int id_user) {
         cartdetailRepo.updateItemItinerary(idItinerary, id_user);
     }
+
+    @Override
+    public Iterable<CartItinerarydetail> selectActiveOffer(int idItinerary, int idUser) {
+        Iterable<CartItinerarydetail>offerts = cartdetailRepo.selectActiveOffer(idItinerary, idUser);
+        return offerts;
+    }
+
+    @Override
+    public void activeCard(int id_user) {
+        cardRepo.activeCard(id_user);
+    }
+
 
 }

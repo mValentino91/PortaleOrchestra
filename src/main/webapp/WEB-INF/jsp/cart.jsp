@@ -145,11 +145,11 @@
             <div class="col-xs-4">
                 <article class="component component-text">
                     <div class="details">
-                        riepilogo<br>
-                        crea l'itinerario
+                        <div class="big-header contact" id="crea_it" style="background-color:#285E8E; cursor: pointer;">
+                            <a href="./saveInCard" style="color:#fff; text-decoration: none">Completa l'Itinerario</a>
+                        </div>
                     </div>
             </div>
         </div>
-       
     </body>
 </html>

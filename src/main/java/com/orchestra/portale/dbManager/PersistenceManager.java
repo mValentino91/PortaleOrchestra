@@ -71,7 +71,11 @@ public interface PersistenceManager {
     public DealerOffer findOfferByIdOffer(int idOffer);
     public void saveCartDetail(CartItinerarydetail cart_detail);
     public void saveCardItinerary(CardItinerary card_itinerary);
+    public Integer getIdItineraryByIdCard(int id_card);
+    public Integer findStatusCardByIdUser(int id_user);    
     public Integer findActiveCardByIdUser(int idUser);
     public void deleteCart(int idUser);
     public void updateItemItinerary(int idItinerary, int id_user);  
+    public Iterable<CartItinerarydetail> selectActiveOffer(int idItinerary, int idUser);
+    public void activeCard(int id_user);
 }

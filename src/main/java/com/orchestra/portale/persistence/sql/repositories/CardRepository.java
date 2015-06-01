@@ -5,8 +5,7 @@
  */
 package com.orchestra.portale.persistence.sql.repositories;
 
-import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
-import java.util.List;
+import com.orchestra.portale.persistence.sql.entities.Card;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -16,13 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author andrea
  */
-public interface CartItinerarydetailRepository  extends JpaRepository<CartItinerarydetail, Integer>{
+public interface CardRepository extends JpaRepository<Card, Integer>{
     @Modifying
     @Transactional(readOnly=false)
-    @Query("update CartItinerarydetail c set c.idItinerary= ?1, c.status=1 where c.idUser = ?2")
-    void updateItemItinerary(int idItinerary, int id_user);  
-    
-    @Query("select c from CartItinerarydetail c where c.idItinerary=?1 AND c.idUser = ?2 AND c.status = 1")
-    Iterable<CartItinerarydetail> selectActiveOffer(int idItinerary, int idUser);
+    @Query("update Card c set c.status= 1, c.status=1 where c.idUser = ?1")
+    void activeCard(int id_user);  
     
 }
