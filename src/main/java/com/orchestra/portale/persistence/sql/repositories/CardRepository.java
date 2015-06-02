@@ -21,4 +21,10 @@ public interface CardRepository extends JpaRepository<Card, Integer>{
     @Query("update Card c set c.status= 1, c.status=1 where c.idUser = ?1")
     void activeCard(int id_user);  
     
+    @Query("select c.status from Card c where c.idUser = ?1")
+    Integer findStatusCardByIdUser(int id_user);    
+    
+    @Query("select c.idCard from Card c where c.idUser = ?1 AND c.status <> 2")
+    Integer findActiveCardByIdUser(int id_user); 
+    
 }

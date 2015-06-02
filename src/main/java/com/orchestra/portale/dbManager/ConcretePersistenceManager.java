@@ -352,6 +352,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
     
     @Override
+    public List<DealerOffer> findOfferByIdDealer(int idDealer) {
+        List<DealerOffer> off = dealerRepo.findOfferByIdDealer(idDealer);
+        return off;
+    }
+    
+    @Override
     public void saveCartDetail(CartItinerarydetail cart_detail) {
         cartdetailRepo.save(cart_detail);
     }
@@ -370,13 +376,13 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Override
     public Integer findStatusCardByIdUser(int id_user) {
-        Integer status = cardItineraryRepo.findStatusCardByIdUser(id_user);
+        Integer status = cardRepo.findStatusCardByIdUser(id_user);
         return status;
     }
    
     @Override
     public Integer findActiveCardByIdUser(int idUser) {
-        Integer card_key = cardItineraryRepo.findActiveCardByIdUser(idUser);
+        Integer card_key = cardRepo.findActiveCardByIdUser(idUser);
         return card_key;
     }
 
@@ -400,6 +406,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void activeCard(int id_user) {
         cardRepo.activeCard(id_user);
     }
+
+    @Override
+    public void invalidateOffer(int idItinerary, int idOffer) {
+        cartdetailRepo.invalidateOffer(idItinerary, idOffer);
+    }
+
 
 
 }

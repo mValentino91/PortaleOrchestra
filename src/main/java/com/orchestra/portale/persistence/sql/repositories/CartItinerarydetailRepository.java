@@ -25,4 +25,8 @@ public interface CartItinerarydetailRepository  extends JpaRepository<CartItiner
     @Query("select c from CartItinerarydetail c where c.idItinerary=?1 AND c.idUser = ?2 AND c.status = 1")
     Iterable<CartItinerarydetail> selectActiveOffer(int idItinerary, int idUser);
     
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("update CartItinerarydetail c set c.status= 2 where c.idItinerary = ?1 AND c.idOffer = ?2")
+    void invalidateOffer(int idItinerary, int idOffer);
 }
