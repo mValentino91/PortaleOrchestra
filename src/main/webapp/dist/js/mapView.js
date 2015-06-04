@@ -405,6 +405,15 @@ var interactiveMap = (function() {
     function attachInfo(object) {
         interactiveMap.map.panTo(object.getPosition());
         var contentString = create_balloon_html(object);
+        if(object.external!==""){
+            contentString += "<hr><center><div class='externalResult'></div><img class='loaderInfo' style='height:50px;' src='./dist/img/loading.gif'/></center>";
+            $.ajax({
+                url:object.external
+                }).done(function (data){
+                    $('.loaderInfo').hide();
+                    $('.externalResult').append(data);             
+                });
+        }
         interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, object);
         enable_balloon_actions(object.id);
@@ -412,6 +421,8 @@ var interactiveMap = (function() {
         window.setTimeout(function() {
             object.setAnimation(null);
         }, 1400);
+        
+        
     }
     
 
