@@ -35,7 +35,7 @@ public class BikeSharingService implements ExternalServiceManager {
     private static final String baseUrl = "http://www.movinap.it/_CI/api_v1/station/getAllStationsInfo";
     private static final String getUrl = "http://www.movinap.it/_CI/api_v1/station/getAllStationsInfo";
     private static final String baseImgUrl = "http://www.bikesharingnapoli.it/wp-content/themes/bikesharing/images/maps/stazioni/";
-    private static final String innerUrl = "http://localhost:8080/orchestra/externalService/bikeSharing/get";
+    private static final String innerUrl = "./externalService/bikeSharing/get";
     private static final String[] categoriesName = {"bikesharing", "mobility"};
     private static final String[] categoriesDelete = {"bikesharing"};
     private static Gson gson = new Gson();

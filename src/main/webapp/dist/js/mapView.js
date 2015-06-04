@@ -405,15 +405,8 @@ var interactiveMap = (function() {
     function attachInfo(object) {
         interactiveMap.map.panTo(object.getPosition());
         var contentString = create_balloon_html(object);
-        if(object.external!==""){
-            contentString += "<hr><center><div class='externalResult'></div><img class='loaderInfo' style='height:50px;' src='./dist/img/loading.gif'/></center>";
-            $.ajax({
-                url:object.external
-                }).done(function (data){
-                    $('.loaderInfo').hide();
-                    $('.externalResult').append(data);             
-                });
-        }
+        if(object.external!=="")
+            contentString += "<hr><center><div class='externalResultDiv'></div><img class='loaderExternalService' style='height:50px;' src='./dist/img/loading.gif'/></center>";
         interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, object);
         enable_balloon_actions(object.id);
@@ -422,6 +415,14 @@ var interactiveMap = (function() {
             object.setAnimation(null);
         }, 1400);
         
+        if(object.external!==""){
+            $.ajax({
+                url:object.external
+                }).done(function (data){
+                    $('.loaderExternalService').hide();
+                    $('.externalResultDiv').html(data);             
+                });
+        }
         
     }
     
@@ -628,6 +629,7 @@ var interactiveMap = (function() {
                 interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
                 interactiveMap.markers[i].category = poi[i].categories[0];
                 interactiveMap.markers[i].visibility = poi[i].visibility;
+                interactiveMap.markers[i].external = poi[i].externalUrl;
                 google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
                     interactiveMap.attachInfo(this);
                 });
