@@ -31,7 +31,7 @@
                                     <div class="top_poi_img" style="background-image: url('dist/poi/img/${toppoi.id}/cover.jpg')"></div>
                                     <div class="top_poi_content">
                                         <div class="top_poi_title">
-                                            ${toppoi.name}
+                                            <a href="/getPoi?id=${toppoi.id}"> ${toppoi.name}</a>
                                         </div>
                                         <div class="top_poi_text">
                                             ${toppoi.shortDescription}
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                     </div>
-                </c:forEach>
+                </c:forEach> 
 
             </div>
 
