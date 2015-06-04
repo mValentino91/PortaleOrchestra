@@ -9,7 +9,9 @@ import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.mongo.documents.TopTenComponent;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,6 +99,15 @@ public class GetPageController {
             int index = slug.lastIndexOf(".");
             String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
             Class c;
+            if(cname.equals("topten")){
+                TopTenComponent tp = (TopTenComponent) comp;
+                String top_name =tp.getTable();
+                
+                Iterable pois_id = pm.selectTopPoi(top_name);
+                Iterable<CompletePOI>cp = pm.getCompletePoisById(pois_id);
+                model.addObject("toppois",cp);
+                
+            }
             try {
                 c = Class.forName(slug);
                 model.addObject(cname, c.cast(comp));

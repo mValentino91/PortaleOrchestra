@@ -4,12 +4,13 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
 <article class="component component-text">
     <div class="details">
-        <h2>TOP10</h2>
-        <hr>
+
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
+            <b>Top10</b>
             <p>Disponibile a breve..</p>
         </div>
     </div>

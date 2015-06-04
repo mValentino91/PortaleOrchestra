@@ -80,4 +80,5 @@ public interface PersistenceManager {
     public void activeCard(int id_user);
     public List<DealerOffer> findOfferByIdDealer(int idDealer);
     public void invalidateOffer(int idItinerary, int idOffer);
+    public Iterable<String> selectTopPoi(String val);
 }
