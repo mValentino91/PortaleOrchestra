@@ -291,6 +291,9 @@
             <c:if test="${not empty topten}">
                 <jsp:include page="components/TopTenComponent.jsp"/> 
             </c:if>
+            <c:if test="${not empty anm}">
+                <jsp:include page="components/AnmComponent.jsp"/> 
+            </c:if>
 
             <div class="row" style="height: 170px; margin-top: 20px;">
                 <center>

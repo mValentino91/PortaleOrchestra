@@ -18,7 +18,9 @@ import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
+import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.utils.CoupleString;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.data.geo.GeoResults;
@@ -80,5 +82,5 @@ public interface PersistenceManager {
     public void activeCard(int id_user);
     public List<DealerOffer> findOfferByIdDealer(int idDealer);
     public void invalidateOffer(int idItinerary, int idOffer);
-    public Iterable<String> selectTopPoi(String val);
+    public Iterable<Top10> selectTopPoi(String val);
 }

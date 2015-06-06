@@ -22,7 +22,7 @@
                 </div>
             </div>                        
             <div id="top10-slider" class="owl-carousel owl-theme">
-                <c:forEach var="toppoi" items="${toppois}" >
+                <c:forEach var="toppoi" items="${toppois}">
                     <div style="width: 329px; float: left;">
                         <div class="box-orc">
                             <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">

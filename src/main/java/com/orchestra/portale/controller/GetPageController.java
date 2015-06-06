@@ -10,6 +10,8 @@ import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.documents.TopTenComponent;
+import com.orchestra.portale.persistence.sql.entities.Top10;
+import com.orchestra.portale.utils.CoupleString;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -103,8 +105,15 @@ public class GetPageController {
                 TopTenComponent tp = (TopTenComponent) comp;
                 String top_name =tp.getTable();
                 
-                Iterable pois_id = pm.selectTopPoi(top_name);
-                Iterable<CompletePOI>cp = pm.getCompletePoisById(pois_id);
+                Iterable<Top10> pois_id = pm.selectTopPoi(top_name);
+                
+                ArrayList<CompletePOI> cp= new ArrayList<CompletePOI>();
+                
+                for (Top10 cs : pois_id) {
+                    CompletePOI complete= pm.getCompletePoiById(cs.getIdpoi());
+                    complete.setShortDescription(cs.getDescr());
+                    cp.add(complete);
+                }
                 model.addObject("toppois",cp);
                 
             }

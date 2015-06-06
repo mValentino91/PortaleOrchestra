@@ -9,8 +9,6 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -21,61 +19,55 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andzaccaro
+ * @author Alex
  */
 @Entity
 @Table(name = "top10")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Top10.findAll", query = "SELECT t FROM Top10 t"),
-    @NamedQuery(name = "Top10.findByIdTop", query = "SELECT t FROM Top10 t WHERE t.idTop = :idTop"),
-    @NamedQuery(name = "Top10.findByIdPoi", query = "SELECT t FROM Top10 t WHERE t.idPoi = :idPoi"),
-    @NamedQuery(name = "Top10.findByTipo", query = "SELECT t FROM Top10 t WHERE t.tipo = :tipo")})
+    @NamedQuery(name = "Top10.findByIdtop", query = "SELECT t FROM Top10 t WHERE t.idtop = :idtop"),
+    @NamedQuery(name = "Top10.findByIdpoi", query = "SELECT t FROM Top10 t WHERE t.idpoi = :idpoi"),
+   // @NamedQuery(name = "Top10.findByTipo", query = "SELECT t FROM Top10 t WHERE t.tipo = :tipo")
+    @NamedQuery(name = "Top10.findByDescr", query = "SELECT t FROM Top10 t WHERE t.descr = :descr")})
 public class Top10 implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idTop")
-    private Integer idTop;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
-    @Column(name = "idPoi")
-    private String idPoi;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Column(name = "idtop")
+    private Integer idtop;
+    @Size(max = 45)
+    @Column(name = "idpoi")
+    private String idpoi;
+    @Size(max = 45)
     @Column(name = "tipo")
     private String tipo;
+    @Size(max = 45)
+    @Column(name = "descr")
+    private String descr;
 
     public Top10() {
     }
 
-    public Top10(Integer idTop) {
-        this.idTop = idTop;
+    public Top10(Integer idtop) {
+        this.idtop = idtop;
     }
 
-    public Top10(Integer idTop, String idPoi, String tipo) {
-        this.idTop = idTop;
-        this.idPoi = idPoi;
-        this.tipo = tipo;
+    public Integer getIdtop() {
+        return idtop;
     }
 
-    public Integer getIdTop() {
-        return idTop;
+    public void setIdtop(Integer idtop) {
+        this.idtop = idtop;
     }
 
-    public void setIdTop(Integer idTop) {
-        this.idTop = idTop;
+    public String getIdpoi() {
+        return idpoi;
     }
 
-    public String getIdPoi() {
-        return idPoi;
-    }
-
-    public void setIdPoi(String idPoi) {
-        this.idPoi = idPoi;
+    public void setIdpoi(String idpoi) {
+        this.idpoi = idpoi;
     }
 
     public String getTipo() {
@@ -86,10 +78,18 @@ public class Top10 implements Serializable {
         this.tipo = tipo;
     }
 
+    public String getDescr() {
+        return descr;
+    }
+
+    public void setDescr(String descr) {
+        this.descr = descr;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idTop != null ? idTop.hashCode() : 0);
+        hash += (idtop != null ? idtop.hashCode() : 0);
         return hash;
     }
 
@@ -100,7 +100,7 @@ public class Top10 implements Serializable {
             return false;
         }
         Top10 other = (Top10) object;
-        if ((this.idTop == null && other.idTop != null) || (this.idTop != null && !this.idTop.equals(other.idTop))) {
+        if ((this.idtop == null && other.idtop != null) || (this.idtop != null && !this.idtop.equals(other.idtop))) {
             return false;
         }
         return true;
@@ -108,7 +108,7 @@ public class Top10 implements Serializable {
 
     @Override
     public String toString() {
-        return "com.orchestra.portale.persistence.sql.entities.Top10[ idTop=" + idTop + " ]";
+        return "com.orchestra.portale.persistence.sql.entities.Top10[ idtop=" + idtop + " ]";
     }
     
 }
