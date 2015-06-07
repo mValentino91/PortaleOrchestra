@@ -54,7 +54,7 @@ function updateRatingBar(poi_prev_box){
 
 function deleteCategoryContainer(poiPreviewBox){
     //retrieve parent category box
-    var cat_box = poiPreviewBox.parents(".category-container");
+    var cat_box = poiPreviewBox.parents(".category_container");
     //obtain number of poi of category
     var n_poi=cat_box.find(".poi_preview_box").size();
     //if the poi inside category box is the last, delete the box
