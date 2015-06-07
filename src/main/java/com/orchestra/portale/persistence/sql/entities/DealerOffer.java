@@ -40,7 +40,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "DealerOffer.findByDiscountedPrice", query = "SELECT d FROM DealerOffer d WHERE d.discountedPrice = :discountedPrice"),
     @NamedQuery(name = "DealerOffer.findByRateDiscount", query = "SELECT d FROM DealerOffer d WHERE d.rateDiscount = :rateDiscount"),
     @NamedQuery(name = "DealerOffer.findByDateStart", query = "SELECT d FROM DealerOffer d WHERE d.dateStart = :dateStart"),
-    @NamedQuery(name = "DealerOffer.findByDateEnd", query = "SELECT d FROM DealerOffer d WHERE d.dateEnd = :dateEnd")})
+    @NamedQuery(name = "DealerOffer.findByDateEnd", query = "SELECT d FROM DealerOffer d WHERE d.dateEnd = :dateEnd"),
+    @NamedQuery(name = "DealerOffer.findBySecretCode", query = "SELECT d FROM DealerOffer d WHERE d.secretCode = :secretCode")})
 public class DealerOffer implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -50,8 +51,9 @@ public class DealerOffer implements Serializable {
     private Integer idOffer;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "idDealer")
-    private int idDealer;
+    private String idDealer;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -89,6 +91,10 @@ public class DealerOffer implements Serializable {
     @Column(name = "date_end")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateEnd;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "secretCode")
+    private int secretCode;
 
     public DealerOffer() {
     }
@@ -97,7 +103,7 @@ public class DealerOffer implements Serializable {
         this.idOffer = idOffer;
     }
 
-    public DealerOffer(Integer idOffer, int idDealer, String idPoi, String nome, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd) {
+    public DealerOffer(Integer idOffer, String idDealer, String idPoi, String nome, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd, int secretCode) {
         this.idOffer = idOffer;
         this.idDealer = idDealer;
         this.idPoi = idPoi;
@@ -108,6 +114,7 @@ public class DealerOffer implements Serializable {
         this.rateDiscount = rateDiscount;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.secretCode = secretCode;
     }
 
     public Integer getIdOffer() {
@@ -118,11 +125,11 @@ public class DealerOffer implements Serializable {
         this.idOffer = idOffer;
     }
 
-    public int getIdDealer() {
+    public String getIdDealer() {
         return idDealer;
     }
 
-    public void setIdDealer(int idDealer) {
+    public void setIdDealer(String idDealer) {
         this.idDealer = idDealer;
     }
 
@@ -188,6 +195,14 @@ public class DealerOffer implements Serializable {
 
     public void setDateEnd(Date dateEnd) {
         this.dateEnd = dateEnd;
+    }
+
+    public int getSecretCode() {
+        return secretCode;
+    }
+
+    public void setSecretCode(int secretCode) {
+        this.secretCode = secretCode;
     }
 
     @Override

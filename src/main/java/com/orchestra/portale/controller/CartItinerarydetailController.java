@@ -25,7 +25,7 @@ public class CartItinerarydetailController {
     
     @RequestMapping(value = "/saveOffer", method = RequestMethod.GET)
     public @ResponseBody
-    String saveOffer(@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String qta) {
+    String saveOffer(@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String qta, @RequestParam String sum) {
        
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -34,16 +34,13 @@ public class CartItinerarydetailController {
         CartItinerarydetail cart_detail = new CartItinerarydetail();
         
         DealerOffer offer = pm.findOfferByIdOffer(Integer.parseInt(id_offer));
-        float price =offer.getDiscountedPrice();
-        Integer quantity = Integer.parseInt(qta);
-        System.out.println("price: " + price);
-        price = price*quantity;
         
         cart_detail.setIdPoi(id_poi);
         cart_detail.setIdUser(Integer.parseInt(id_user));
         cart_detail.setIdOffer(Integer.parseInt(id_offer));
-        cart_detail.setQta(quantity);
-        cart_detail.setSum(price);
+        cart_detail.setQta(Integer.parseInt(qta));
+        cart_detail.setSum(Float.parseFloat(sum));
+        cart_detail.setStatus(1);
         pm.saveCartDetail(cart_detail);
         return "ok";
     }

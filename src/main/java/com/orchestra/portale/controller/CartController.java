@@ -1,16 +1,21 @@
 package com.orchestra.portale.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.utils.MapPoiCat;
+import com.orchestra.portale.utils.MapPoiOff;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -110,6 +115,12 @@ public class CartController {
         CompletePOI poi;
         List<DealerOffer> list_off = new ArrayList<DealerOffer>();
         
+        MapPoiOff map = new MapPoiOff();
+        Map<String,List<DealerOffer>> map_poi_off = new HashMap<String,List<DealerOffer>>();
+        Map<String,CompletePOI> map_poi = new HashMap<String,CompletePOI>();
+        Map<String,List<TicketPrice>> map_poi_stockPrice = new HashMap<String,List<TicketPrice>>();
+        
+        
         Map<CompletePOI,List<DealerOffer>> detailOffer = new HashMap<CompletePOI,List<DealerOffer>>();
         Cart cart = new Cart();
         
@@ -118,14 +129,39 @@ public class CartController {
         for (Favorite f : favorites ) {
             cart.setIdUser(Integer.parseInt(id_user));
             cart.setIdPoi(f.getIdPoi());
-            idpoi=f.getIdPoi();
-            poi = pm.getCompletePoiById(idpoi);
-            list_off = pm.findOfferByIdPoi(idpoi);
-            detailOffer.put(poi, list_off);
+            idpoi=f.getIdPoi(); //stringa del poi
+            poi = pm.getCompletePoiById(idpoi); //CompletePOI
+            /*
+            for (AbstractPoiComponent comp : poi.getComponents()) {
+                String slug = comp.slug();
+                int index = slug.lastIndexOf(".");
+                Class c;
+                String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+                if (cname.equals("pricescomponent")) {
+                    try {
+                        c = Class.forName(slug);
+                    c.cast(comp)
+                    } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                }
+                    
+            }
+            */
+            
+            list_off = pm.findOfferByIdPoi(idpoi); //List<DealerOffer>
+            
+            map_poi_off.put(idpoi, list_off);
+            map_poi.put(idpoi, poi);
+            map.setMap_off(map_poi_off);
+            map.setMap_poi(map_poi);
+            
             pm.saveCart(cart);
         }
         
-        model.addObject("detailOffer",detailOffer);
+        
+        model.addObject("id_user",id_user);
+        model.addObject("map",map);
         return model;
     }
 

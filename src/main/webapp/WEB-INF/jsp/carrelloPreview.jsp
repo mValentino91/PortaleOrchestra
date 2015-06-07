@@ -34,7 +34,8 @@
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-                
+                // magin-top: 10px;
+                //margin-bottom: 10px;
                 position: relative;
 
                 //border: 1px solid #E9EAED;
@@ -50,7 +51,7 @@
                 background-size: cover;
                 background-position: center center;
                 border-radius: 0px;        
-                
+                //border: 0px solid green;
             }
 
             .poi_preview_content{
@@ -59,10 +60,10 @@
                 box-sizing: border-box;
                 height: 100%; 
                 width: 35%; 
-                
+                //border: 1px solid red; 
                 float: left;
                 padding: 10px;
-                //border: 1px solid red; 
+                //border-bottom: 1px solid #E9EAED;
             }
             
             .poi_preview_content2{
@@ -73,7 +74,7 @@
                 width: 10%; 
                 float: left;
                 padding: 10px;
-                
+                //border-bottom: 1px solid #E9EAED;
                 //border: 1px solid red; 
             }
 
@@ -126,7 +127,7 @@
                 box-sizing: border-box;
                 height: 100%; 
                 width: 100%; 
-                //border: 1px solid yellow; 
+                border: 1px solid yellow; 
                 float: left;
                 text-align: left;
                 margin-bottom: 10px;
@@ -159,21 +160,11 @@
                 text-align: left;
                 padding: 10px;
                 padding-top: 0px;
-                //border: 1px solid #285E8E;
-                
-                
-            }
-            
-            .off_name{
+                border: 1px solid #285E8E;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-            }
-            
-            .off_desc{
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
+                
             }
             
             .poi_offer_detail_quantity{
@@ -181,12 +172,12 @@
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 height: 100%; 
-                width:25%;
+                width:30%;
                 float: left;
                 text-align: left;
                 padding: 10px;
                 padding-top: 0px;
-                //border: 1px solid #285E8E;
+                border: 1px solid #285E8E;
             }
             
             .poi_offer_detail_price{
@@ -194,28 +185,14 @@
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 height: 100%; 
-                width:30%;
+                width:25%;
                 float: left;
                 text-align: right;
                 padding: 10px;
                 padding-bottom: 10px;
-                padding-top: 1px;
-                //border:none;
-                //border: 1px solid #285E8E;
-            }
-            
-            .poi_offer_detail_rate{
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                height: 100%; 
-                width:30%;
-                float: left;
-                text-align: right;
-                padding: 0px;
-                padding-top: 3px;
-                //border:none;
-                //border: 1px solid #285E8E;
+                padding-top: 5px;
+
+                border: 1px solid #285E8E;
             }
 
             .seleziona{
@@ -271,39 +248,7 @@
             $(document).ready(function () {
         
                 console.log("*************************");
-                $(".add_offer").each(function (index) { 
-                    
-                    var sel = $(this);
-                    $(this).on("click", function () {
-                        var idUser=$("#idUser").val();
-                        //var off_name = sel.siblings(".off_name").text();
-                        //var off_desc = sel.siblings(".off_desc").text();
-                        var qta = sel.parent().parent().find(".qta").val();
-                        var sum = sel.parent().parent().find("#val-discounted").val();
-                        var idOffer = sel.parent().parent().prop("id");
-                        var idPoi = sel.parent().parent().parent().parent().prop("id");
-                        alert(qta);
-                        console.log(idPoi);
-                        //@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String qta
-                        //"id_poi="+poiId+"&rating="+rating,
-                       
-                        $.ajax({
-                            type: "GET",
-                            url: "./saveOffer",
-                            data: "id_offer="+idOffer+"&id_poi="+idPoi+"&qta="+qta+"&sum="+sum,	
-                            success: function(){
-                                alert("Offerta inserita");
-                            }                 
-                        }); 
-                        
-                        
-                        <%--var idPoi = ${map.map_poi.get(idpoi).name}; 
-                        
-                        
-                        
-                        --%>
-                    });
-                });
+                
                 
                 
                 
@@ -326,21 +271,18 @@
                         var qta = sel.siblings(".qta");
                         //alert(qta.val());
                         var stock = sel.parents().siblings(".stock").val();
-                        var stock_disc = sel.parents().siblings(".stock_disc").val();
                         var total_poi = sel.parents().siblings(".tot");
                         
                         if(operator == "up"){
                             
                             ret=modify_qty(qta,+1);
                             qta.val(ret);
-                            var tot_intero = sel.parents().siblings("#val");
-                            var tot_scontato = sel.parents().siblings("#val-discounted");
-                            tot_intero.val(stock*ret);
-                            tot_scontato.val(stock_disc*ret);
-                            //total_poi.val(stock*ret);
-                            //var back_value=0;
-                            //back_value = parseInt(tp.value)+parseInt(total_poi.val());
-                            //tp.value=back_value;
+                            var tot = sel.parents().siblings(".poi_offer_detail_price");
+                            tot.val(stock*ret);
+                            total_poi.val(stock*ret);
+                            var back_value=0;
+                            back_value = parseInt(tp.value)+parseInt(total_poi.val());
+                            tp.value=back_value;
                             
                         }
                         else{
@@ -406,40 +348,46 @@
             <div class="col-md-8">
                 <article class="component component-text">
                     <div class="details">
+
+                        <!-- implementare il foreach dei preferiti per categorie-->
                         <div class="paragrafo">
                             <div class="favorite_container" style="min-height: 200px;">
-                                <div class="category_container" >
-                                    <input id="idUser" type="hidden" value="${id_user}"/>
-                                    <c:forEach var="idpoi" items="${map.map_poi.keySet()}">
-                                        <div class="poi" id="${map.map_poi.get(idpoi).id}"><!--style="border: 1px solid purple;"-->
+                                <!--
+                                <%-- <c:if test="${empty map_cat.map.keySet()}">--%>
+                                   <div class="no_favorites_result">
+                                <spring:message code="label.no_favorites_presents"></spring:message>
+                                </div>
+                                <%-- </c:if>--%>
+                                -->
 
-                                            
+                                <%-- <c:forEach var="cat" items="${map_cat.map.keySet()}"> --%>
+                                <div class="category_container">
+
+                                        <!--<span class="category_label category_title" ><%--${map_slug.get(cat)} --%><i class="expand_icon fa fa-chevron-down" style="font-size:12px;"></i></span>-->
+
+                                    <div class="poi" ><!--style="border: 1px solid purple;"-->
+
+                                        <%--<c:forEach var="p" items="${map_cat.map.get(cat)}">--%>
                                         <div class="poi_preview_box">
                                             <div class="poi_preview_img">
-                                                <!-- <img src="./dist/poi/img/${map.map_poi.get(idpoi).id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> -->
+                                                <!-- <img src="./dist/poi/img/${p.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> -->
                                                 <img src="./dist/poi/img/550885d0edc9635d04573597/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/>
                                             </div>
                                             <div class="poi_preview_content">
 
                                                 <div class="poi_preview_title">
-                                                    ${map.map_poi.get(idpoi).name}
+                                                    Pio Monte della Misericordia
                                                 </div>
-                                                
-                                                
 
                                                 <div class="poi_preview_text">
                                                     <div class="seleziona">Seleziona</div>
                                                 </div>
-                                                
-                                                
-                                                
                                             </div>
-                                                
                                                     
                                             <div class="poi_preview_content2">
 
                                                 <div class="poi_icons">
-                                                    <a href="./getPoi?id=${map.map_poi.get(idpoi).id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
+                                                    <a href="./getPoi?id=${p.id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
                                                     <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
                                                 </div>
                                             </div>
@@ -449,45 +397,113 @@
 
                                         </div>
                                         <div class="poi_offer" style="display:none">
-                                            <div class="poi_offer_filler"></div>
-                                            <div class="poi_offer_detail_info"><strong>Offerte Card</strong></div>
-                                            <c:forEach var="offer" items="${map.map_off.get(idpoi)}">
-                                                <div id="${offer.idOffer}" class="poi_offer_detail">
-                                                    <div class="poi_offer_filler"></div>
-                                                    <div  class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
-                                                        <div class="off_name" >${offer.nome}</div>
-                                                        <div class="off_desc" >${offer.desc}</div>
-                                                        <div class="add_offer" style="cursor:pointer;">Aggiungi offerta</div>
-                                                    </div>
-                                                
-                                                    <div class="poi_offer_detail_quantity">
-                                                        <div style="display:inline-block">Quantità: </div>
-                                                        <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
-                                                        <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="1"/>
-                                                        <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
-
-                                                    </div>
-                                                    <input style="border:1px solid red;" class="tot" type="hidden" value="0"/>
-                                                    <input class="stock" type="hidden" value="${offer.fullPrice}" style="padding:0px;"/>
-                                                    <input class="stock_disc" type="hidden" value="${offer.discountedPrice}" style="padding:0px;"/>
-                                                    <input id="val" class="poi_offer_detail_price" style="width:50px;padding:0px;" value="${offer.fullPrice}"/>
-                                                    <input id="val-discounted" class="poi_offer_detail_price" style="padding:0px; display: inline-block; width:50px" value="${offer.discountedPrice}"/>
-                                                    <div class="poi_offer_detail_rate" style="display: inline-block; width:50px">${offer.rateDiscount}%</div>
-                                                    
+                                            
+                                            <div class="poi_offer_detail">
+                                                <div class="poi_offer_filler"></div>
+                                                <div class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
+                                                    Biglietto adulti<br>
+                                                    Descrizione dettagliata dell'offerta con ellipsis...
                                                 </div>
-                                            </c:forEach>
+                                                
+                                                <div class="poi_offer_detail_quantity">
+                                                    <div style="display:inline-block">Quantità: </div>
+                                                    <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
+                                                    <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="10"/>
+                                                    <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
+                                                   
+                                                </div>
+                                                <input class="tot" type="hidden" value="0"/>
+                                                <input class="stock" type="hidden" value="10"/>
+                                                <input id="val" class="poi_offer_detail_price" value="10"/>
+                                            </div>
+                                            <div class="poi_offer_detail">
+                                                <div class="poi_offer_filler"></div>
+                                                <div class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
+                                                    Biglietto adulti<br>
+                                                    Descrizione dettagliata dell'offerta con ellipsis...
+                                                </div>
+                                                
+                                                <div class="poi_offer_detail_quantity">
+                                                    <div style="display:inline-block">Quantità: </div>
+                                                    <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
+                                                    <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="0"/>
+                                                    <i id="down"  style="display:inline-block" class="control fa fa-minus"></i>
+                                                   
+                                                </div>
+                                                <input class="tot" type="hidden" value="0"/>
+                                                <input class="stock" type="hidden" value="10"/>
+                                                <input id="val" class="poi_offer_detail_price" value="10"/>
+                                            </div>
                                             
+                                            <div class="poi_offer_detail">
+                                                <div class="poi_offer_filler"></div>
+                                                <div class="seleziona">Offerte Card</div>
+                                            </div>
                                             
-                                            
-                                            
-                                            
+                                            <div class="poi_offer_detail">
+                                                <div class="poi_offer_filler"></div>
+                                                <div class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
+                                                    Biglietto adulti<br>
+                                                    Descrizione dettagliata dell'offerta con ellipsis...
+                                                </div>
+                                                
+                                                <div class="poi_offer_detail_quantity">
+                                                    <div style="display:inline-block">Quantità: </div>
+                                                    <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
+                                                    <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="0"/>
+                                                    <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
+                                                   
+                                                </div>
+                                                <input class="tot" type="hidden" value="0"/>
+                                                <input class="stock" type="hidden" value="10"/>
+                                                <input id="val" class="poi_offer_detail_price" value="10"/>
+                                            </div>
                                             
                                         </div>
                                         <div class="clear"></div>     
                                         <%-- </c:forEach> --%>
                                     </div>
-                                    </c:forEach>    
                                     
+                                    <div class="poi">
+
+                                        <%--<c:forEach var="p" items="${map_cat.map.get(cat)}">--%>
+                                        <div class="poi_preview_box">
+                                            <div class="poi_preview_img">
+                                                <!-- <img src="./dist/poi/img/${p.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> -->
+                                                <img src="./dist/poi/img/550885d0edc9635d04573597/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/>
+                                            </div>
+                                            <div class="poi_preview_content">
+
+                                                <div class="poi_preview_title">
+                                                    Pio Monte della Misericordia
+                                                </div>
+
+                                                <div class="poi_preview_text">
+                                                    <div>Seleziona</div>
+                                                </div>
+                                            </div>
+                                                    
+                                            <div class="poi_preview_content2">
+
+                                                <div class="poi_icons">
+                                                    <a href="./getPoi?id=${p.id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
+                                                    <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="poi_price_total">Con Orchestra Card 10€</div>
+
+
+                                        </div>
+                                                    
+                                        
+                                        <div class="poi_offer">
+                                            <div class="poi_offer_filler"></div>
+                                            <div class="poi_offer_detail">ddd</div>
+                                        </div>
+                                        <div class="clear"></div>     
+                                        <%-- </c:forEach> --%>
+                                    </div>
                                 </div>
                                 <%-- </c:forEach> --%>
                             </div>

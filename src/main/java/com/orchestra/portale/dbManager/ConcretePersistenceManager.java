@@ -352,7 +352,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
     
     @Override
-    public List<DealerOffer> findOfferByIdDealer(int idDealer) {
+    public List<DealerOffer> findOfferByIdDealer(String idDealer) {
         List<DealerOffer> off = dealerRepo.findOfferByIdDealer(idDealer);
         return off;
     }

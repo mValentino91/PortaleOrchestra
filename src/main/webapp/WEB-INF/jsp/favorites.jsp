@@ -37,7 +37,22 @@
         <link rel="stylesheet" href="./dist/css/favorites.css" />
 
         <title><spring:message code="label.favoritespoi"></spring:message></title>   
-
+        <style>
+            .new_it_button{
+                user-drag: none; 
+                -moz-user-select: none;
+                -webkit-user-drag: none;
+                background-color:#285E8E;
+                color:#fff;
+                height: 50px;
+                text-align: center;
+                vertical-align: middle;
+                line-height: 50px; 
+                font-weight: bold;
+                cursor: pointer;
+                
+            }
+        </style>
 
         </head>
         <body>
@@ -55,9 +70,9 @@
             </div>
 
             <div class="col-md-4">
-                <div class="big-header contact" id="crea_it" style="background-color:#285E8E; cursor: pointer;">
-                    <a href="./saveInCart" style="color:#fff; text-decoration: none">Crea il tuo itinerario</a>
-                </div>
+                 <a style="display:block" href="./saveInCart">
+                    <div id="nuovo_it" class="new_it_button">Crea il tuo itinerario</div>
+                </a>
                 <br>
                 <jsp:include page="components/FavoriteTopListComponent.jsp"/> 
             </div>

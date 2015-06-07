@@ -16,7 +16,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface DealerOfferRepository extends JpaRepository<DealerOffer, String>{
     List<DealerOffer> findOfferByIdPoi(String idPoi);
     DealerOffer findOfferByIdOffer(int idOffer);
-    List<DealerOffer> findOfferByIdDealer(int idDealer);
+    List<DealerOffer> findOfferByIdDealer(String idDealer);
     
     
 }
