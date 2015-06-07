@@ -33,6 +33,7 @@ public class CiRoService implements ExternalServiceManager {
     private PersistenceManager pm;
     private static final String loadUrl = "http://ciro.techmobile.eu:8080/CiRo/prenotazioneService/getPuntiCiro";
     private static final String getUrl = "http://ciro.techmobile.eu:8080/CiRo/administrator/PrenotazioneService/checkDispoVetture";
+        private static final String innerUrl = "./externalService/ciro/get";
     private static final String[] categoriesName = {"ciro", "mobility"};
     private static final String[] categoriesDelete = {"ciro"};
     private static Gson gson = new Gson();
@@ -72,9 +73,9 @@ public class CiRoService implements ExternalServiceManager {
             urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString().replace('_', '-'));
             String result = IOUtils.toString(urlConnection.getInputStream());
             urlConnection.disconnect();
-            return result;
+            return "Servizio Momentaneamente Non Disponibile!";
         } catch (IOException e) {
-            return "response{code:1,error:" + e.getMessage() + "}";
+            return "Servizio Momentaneamente Non Disponibile!";
         }
     }
 
@@ -100,6 +101,7 @@ public class CiRoService implements ExternalServiceManager {
         String id = puntiCiro.get(item).getAsJsonObject().get("id").getAsString();
         externalServiceComponent.setURL(getUrl);
         externalServiceComponent.setParameters("id="+id);
+        newPoi.setExternalUrl(innerUrl+"?id="+id);
         newlistComponent.add(externalServiceComponent);
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));
