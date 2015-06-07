@@ -840,7 +840,7 @@ var categoriesTail = (function() {
     function parseJsonCategories() {
         $.getJSON("./jsonDB/categoriesTree", function(data) {
             parsedTree = data;
-            for (var i = 0; i < data.length && i< maxTail; i++) {
+            for (var i = 0; i < data.length; i++) {
                 $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
                         + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
                         + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
@@ -851,7 +851,7 @@ var categoriesTail = (function() {
                         + '<i class="' + data[i].icon + '"></i>'
                         + '</button>');
             }
-            $('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
+            /*$('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
                         + 'onclick="categoriesTail.viewMoreCategories()"'
                         + 'title="view more..."'
                         + 'style="background-color:#6c7a89;">'
@@ -864,7 +864,7 @@ var categoriesTail = (function() {
                         + 'style="background-color:#6c7a89;display:none">'
 
                         + '<i class="fa fa-minus"></i>'
-                        + '</button>');
+                        + '</button>');*/
         });
     }
     function viewMoreCategories() {
