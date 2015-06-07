@@ -3,7 +3,87 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+function setallchecked(id) {
+    var checks = document.getElementById(id).getElementsByTagName("input");
+    var btn = document.getElementById("nuovogiorno");
+    if (checks[0].checked) {
+        for (var i = 0; i < checks.length; i++) {
+            checks[i].checked = true;
+        }
+        btn.disabled = true;
+    }
+    else {
+        for (var i = 0; i < checks.length; i++) {
+            checks[i].checked = false;
+        }
+        btn.disabled = false;
+    }
+}
+function addripann(tasto) {
+    var cont = document.getElementById("orari");
+    var lastor = document.getElementsByClassName("ripann");
+    var x = lastor.length;
+    x = x + 1;
 
+    var newcont = document.createElement("div");
+    newcont.id = "RDA" + x;
+    newcont.className = "RDAs";
+
+    var newdel = document.createElement("input");
+    newdel.type = "button";
+    newdel.value = "Elimina";
+    newdel.className = "btn btn-danger";
+    newdel.setAttribute("style", "margin-bottom: 5px;");
+    newdel.setAttribute("onclick", "delparent(this)");
+
+    var newrda = document.createElement("input");
+    var newbr = document.createElement("br");
+    newrda.type = "text";
+    newrda.className = "form-control ripann obb";
+    newrda.name = "RDA" + x;
+    var newrd = document.createTextNode("Giorno di riposo (GG/MM/AAAA) *");
+
+    newcont.appendChild(newrd);
+    newcont.appendChild(newrda);
+    newcont.appendChild(newbr);
+    newcont.appendChild(newdel);
+
+    cont.insertBefore(newcont, tasto);
+
+}
+function addripannval(tasto, val) {
+    var orari = document.getElementById(tasto);
+    var cont = document.getElementById("orari");
+    var lastor = document.getElementsByClassName("ripann");
+    var x = lastor.length;
+    x = x + 1;
+
+    var newcont = document.createElement("div");
+    newcont.id = "RDA" + x;
+    newcont.className = "RDAs";
+
+    var newdel = document.createElement("input");
+    newdel.type = "button";
+    newdel.value = "Elimina";
+    newdel.className = "btn btn-danger";
+    newdel.setAttribute("onclick", "delparent(this)");
+
+    var newrda = document.createElement("input");
+    var newbr = document.createElement("br");
+    newrda.type = "text";
+    newrda.className = "form-control ripann obb";
+    newrda.name = "RDA" + x;
+    newrda.value = val;
+    var newrd = document.createTextNode("Giorno di riposo (GG/MM/AAAA) *");
+
+    newcont.appendChild(newrd);
+    newcont.appendChild(newrda);
+    newcont.appendChild(newbr);
+    newcont.appendChild(newdel);
+
+    orari.appendChild(newcont);
+
+}
 
 function delcat(tasto) {
     var name = $(tasto).prev().attr("name");
@@ -209,7 +289,7 @@ function add_date(tasto) {
 
 }
 function addwd(tasto) {
-
+    var cont = document.getElementById("orari");
     var bt = document.getElementById("bt");
     var lastor = document.getElementsByClassName("giornilav");
     var x = lastor.length;
@@ -226,13 +306,13 @@ function addwd(tasto) {
 
     var newdelgiorno = document.createElement("input");
     newdelgiorno.type = "button";
-    newdelgiorno.value = "Elimina giorno evento";
+    newdelgiorno.value = "Elimina giorno lavorativo";
     newdelgiorno.className = "btn btn-danger";
     newdelgiorno.setAttribute("style", "margin-top: 5px; margin-bottom:15px;");
     newdelgiorno.setAttribute("onclick", "delparent(this)");
 
     var newgg = document.createElement("h3");
-    newgg.innerHTML = "Data"
+    newgg.innerHTML = "GIORNO "
     var newgiorno = document.createTextNode("Giorno*");
     var newbr4 = document.createElement("br");
     var newbr5 = document.createElement("br");
@@ -245,7 +325,6 @@ function addwd(tasto) {
     var newopt = document.createElement("input");
     var newoptdiv = document.createElement("div");
     newoptdiv.className = "col-md-3";
-
     if (x == 1) {
         newopt.type = "checkbox";
         newopt.name = "Tutti i giorni";
@@ -369,6 +448,7 @@ function addwd(tasto) {
 
 
 }
+
 
 function addor(contid, tasto) {
     var cont = document.getElementById(contid);
@@ -1079,6 +1159,60 @@ function pre_submit() {
                 cont = cont + 1;
             }
 
+
+        }
+        var days = $(".daysCheck");
+        var form = $(".inserimento")[0];
+
+        var cont = 0;
+        for (var i = 0; i < days.length; i++) {
+            var checks = days[i].getElementsByTagName("input");
+            for (var j = 0; j < checks.length; j++) {
+                if (checks[j].name != "Tutti i giorni" && checks[j].checked) {
+                    cont = cont + 1;
+                    var newind = document.createElement("input");
+
+                    newind.type = "text";
+                    newind.name = "WD" + cont;
+                    newind.value = checks[j].name;
+                    var k = 1;
+                    var orari = 0;
+                    while (orari != undefined && orari != null) {
+                        orari = document.getElementById("D" + (i + 1) + "-" + k);
+                        if (orari != undefined && orari != null) {
+                            orari = orari.getElementsByTagName("input");
+                            var newind1 = document.createElement("input");
+                            newind1.type = "hidden";
+                            newind1.name = "WD" + cont + "start" + k + "H";
+                            newind1.value = orari[0].value;
+
+                            var newind2 = document.createElement("input");
+                            newind2.type = "hidden";
+                            newind2.name = "WD" + cont + "start" + k + "M";
+                            newind2.value = orari[1].value;
+
+                            var newind3 = document.createElement("input");
+                            newind3.type = "hidden";
+                            newind3.name = "WD" + cont + "end" + k + "H";
+                            newind3.value = orari[2].value;
+
+                            var newind4 = document.createElement("input");
+                            newind4.type = "hidden";
+                            newind4.name = "WD" + cont + "end" + k + "M";
+                            newind4.value = orari[3].value;
+
+                            form.appendChild(newind1);
+                            form.appendChild(newind2);
+                            form.appendChild(newind3);
+                            form.appendChild(newind4);
+
+                        }
+                        k = k + 1;
+                    }
+                    form.appendChild(newind);
+
+                }
+            }
 
         }
         var colls = document.getElementsByClassName("colls");

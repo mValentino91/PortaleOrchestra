@@ -16,7 +16,7 @@ import org.springframework.data.annotation.TypeAlias;
 public class ExternalServiceComponent extends AbstractPoiComponent {
 
     private String URL;
-    private Map<String, String[]> mapParams;
+    private String parameters;
 
     /**
      * @return the URL
@@ -33,17 +33,18 @@ public class ExternalServiceComponent extends AbstractPoiComponent {
     }
 
     /**
-     * @return the mapParams
+     * @return the parameters
      */
-    public Map<String, String[]> getMapParams() {
-        return mapParams;
+    public String getParameters() {
+        return parameters;
     }
 
     /**
-     * @param mapParams the mapParams to set
+     * @param parameters the parameters to set
      */
-    public void setMapParams(Map<String, String[]> mapParams) {
-        this.mapParams = mapParams;
+    public void setParameters(String parameters) {
+        this.parameters = parameters;
     }
+
 
 }

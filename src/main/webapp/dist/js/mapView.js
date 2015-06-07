@@ -405,6 +405,8 @@ var interactiveMap = (function() {
     function attachInfo(object) {
         interactiveMap.map.panTo(object.getPosition());
         var contentString = create_balloon_html(object);
+        if(object.external!=="")
+            contentString += "<hr><center><div class='externalResultDiv'></div><img class='loaderExternalService' style='height:50px;' src='./dist/img/loading.gif'/></center>";
         interactiveMap.infowindow.setContent(contentString);
         interactiveMap.infowindow.open(interactiveMap.map, object);
         enable_balloon_actions(object.id);
@@ -412,6 +414,16 @@ var interactiveMap = (function() {
         window.setTimeout(function() {
             object.setAnimation(null);
         }, 1400);
+        
+        if(object.external!==""){
+            $.ajax({
+                url:object.external
+                }).done(function (data){
+                    $('.loaderExternalService').hide();
+                    $('.externalResultDiv').html(data);             
+                });
+        }
+        
     }
     
 
@@ -617,6 +629,7 @@ var interactiveMap = (function() {
                 interactiveMap.markers[i].shortDescription = poi[i].shortDescription;
                 interactiveMap.markers[i].category = poi[i].categories[0];
                 interactiveMap.markers[i].visibility = poi[i].visibility;
+                interactiveMap.markers[i].external = poi[i].externalUrl;
                 google.maps.event.addListener(interactiveMap.markers[i], 'click', function() {
                     interactiveMap.attachInfo(this);
                 });
@@ -827,7 +840,7 @@ var categoriesTail = (function() {
     function parseJsonCategories() {
         $.getJSON("./jsonDB/categoriesTree", function(data) {
             parsedTree = data;
-            for (var i = 0; i < data.length && i< maxTail; i++) {
+            for (var i = 0; i < data.length; i++) {
                 $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
                         + 'onclick="categoriesTail.macroCategoryHandler(' + "'"
                         + data[i].color + "'," + "'" + data[i].slug + "'," + "'"
@@ -838,7 +851,7 @@ var categoriesTail = (function() {
                         + '<i class="' + data[i].icon + '"></i>'
                         + '</button>');
             }
-            $('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
+            /*$('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
                         + 'onclick="categoriesTail.viewMoreCategories()"'
                         + 'title="view more..."'
                         + 'style="background-color:#6c7a89;">'
@@ -851,7 +864,7 @@ var categoriesTail = (function() {
                         + 'style="background-color:#6c7a89;display:none">'
 
                         + '<i class="fa fa-minus"></i>'
-                        + '</button>');
+                        + '</button>');*/
         });
     }
     function viewMoreCategories() {

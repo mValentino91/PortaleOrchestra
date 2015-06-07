@@ -12,6 +12,7 @@ import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoi;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoiComponent;
+import com.orchestra.portale.persistence.sql.entities.User;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +26,8 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.GeoResults;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -117,7 +120,29 @@ public class PoiViewController {
             poivicini.add(p.getContent());
             
         }
-            model.addObject("poivicini", poivicini);
+        model.addObject("poivicini", poivicini);
+        
+        
+        //check if POI is favorite
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if(auth != null && auth.isAuthenticated()){
+             
+            if(auth.getName()!=null && !auth.getName().equals("anonymousUser") && auth.getName().trim()!=""){
+                
+                User user= pm.findUserByUsername(auth.getName());
+               String id_user = user.getId().toString();
+
+               Integer rating = pm.ifFavorite(Integer.parseInt(id_user), poi.getId());   
+               model.addObject("fav_rating", rating);           
+            }
+            
+
+            
+        }
+        
+        
+        
+        
         return model;
     }
 }

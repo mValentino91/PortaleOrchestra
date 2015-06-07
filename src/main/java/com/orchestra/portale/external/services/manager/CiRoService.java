@@ -33,8 +33,9 @@ public class CiRoService implements ExternalServiceManager {
     private PersistenceManager pm;
     private static final String loadUrl = "http://ciro.techmobile.eu:8080/CiRo/prenotazioneService/getPuntiCiro";
     private static final String getUrl = "http://ciro.techmobile.eu:8080/CiRo/administrator/PrenotazioneService/checkDispoVetture";
+        private static final String innerUrl = "./externalService/ciro/get";
     private static final String[] categoriesName = {"ciro", "mobility"};
-    private static final String[] categoriesDelete  = {"ciro"};
+    private static final String[] categoriesDelete = {"ciro"};
     private static Gson gson = new Gson();
 
     public CiRoService(PersistenceManager manager) {
@@ -72,20 +73,18 @@ public class CiRoService implements ExternalServiceManager {
             urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString().replace('_', '-'));
             String result = IOUtils.toString(urlConnection.getInputStream());
             urlConnection.disconnect();
-            return result;
+            return "Servizio Momentaneamente Non Disponibile!";
         } catch (IOException e) {
-            return "response{code:1,error:" + e.getMessage() + "}";
+            return "Servizio Momentaneamente Non Disponibile!";
         }
     }
 
     private void deletePois() {
-        /*for (String categorie : categoriesDelete) {
-            Iterator<CompletePOI> pois = pm.getCompletePoiByCategories(categorie).iterator();
-            while (pois.hasNext()) {
-                CompletePOI poi = pois.next();
-                pm.deletePoi(poi);
-            }
-        }*/
+        Iterator<CompletePOI> pois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
+        while (pois.hasNext()) {
+            CompletePOI poi = pois.next();
+            pm.deletePoi(poi);
+        }
     }
 
     private String createPoi(int item, JsonArray puntiCiro) {
@@ -99,11 +98,10 @@ public class CiRoService implements ExternalServiceManager {
         newPoi.setLocation(location);
         ArrayList<AbstractPoiComponent> newlistComponent = new ArrayList<AbstractPoiComponent>();
         ExternalServiceComponent externalServiceComponent = new ExternalServiceComponent();
-        Map<String, String[]> map = new HashMap<String, String[]>();
-        String[] id = {puntiCiro.get(item).getAsJsonObject().get("id").getAsString()};
-        map.put("id", id);
+        String id = puntiCiro.get(item).getAsJsonObject().get("id").getAsString();
         externalServiceComponent.setURL(getUrl);
-        externalServiceComponent.setMapParams(map);
+        externalServiceComponent.setParameters("id="+id);
+        newPoi.setExternalUrl(innerUrl+"?id="+id);
         newlistComponent.add(externalServiceComponent);
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));

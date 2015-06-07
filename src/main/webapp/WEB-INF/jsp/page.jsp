@@ -18,62 +18,62 @@
         <script src="./dist/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
         <link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
-        
+
         <script type="text/javascript" src="./dist/js/struttura.js"></script>
-        
+
         <!-- Owl Carousel -->
         <link href="./dist/owl-carousel/owl.carousel.css" rel="stylesheet">        
         <script src="./dist/owl-carousel/owl.carousel.js"></script>
-        
+
         <style>
             .nano {width: 100%;}
             .nano .nano-pane   { background: #d9d9d9!important; }
             .nano .nano-slider { background: #B6B6B6!important; }
         </style>
-        
-       
-        
+
+
+
         <script>
             $(document).ready(function () {
-                
+
                 //enable tile animation
-                $.enableTileAnimation(); 
-                
+                $.enableTileAnimation();
+
                 $.enableTileButtons();
-                
+
                 $(".nano").nanoScroller();
-                
+
                 $.enableTop10Slider();
-                
+
             });
         </script>
 
-        
+
     </head>
 
     <body>
-<jsp:include page="components/topBar.jsp"/>
+        <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
-            
+
             <input type="hidden" value="${pages.id}">
             <div class="row">
                 <div class="col-md-6 col-orc">
                     <div class="box-orc">
 
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-                           
+
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner" role="listbox" style="height:100%">
                                 <c:forEach var="img" varStatus="cont" items="${pages.imgList}">
                                     <div class="item <c:if test="${cont.count == 1}"> active </c:if> >">
                                         <div class="carousel_content" style="background-image: url('./dist/page/img/${pages.id}/${img.link}');"></div>
-                                            
-                                            
+
+
                                         <c:if test="${not empty img.titolo || not empty img.testo}">
-                                        <div class="carousel-caption">
-                                            <h5>${img.titolo}</h5>
-                                            <p>${img.testo}</p>
-                                        </div>
+                                            <div class="carousel-caption">
+                                                <h5>${img.titolo}</h5>
+                                                <p>${img.testo}</p>
+                                            </div>
                                         </c:if>
                                     </div>
                                 </c:forEach>
@@ -100,17 +100,17 @@
                 <c:set var="subtiles" value="${(tot_tiles/n_tiles) - ((tot_tiles/n_tiles)%1) + ((tot_tiles%n_tiles>0 )?1:0)}"/>
                 <c:set var="tot_tiles_round" value="${tot_tiles + ((tot_tiles%n_tiles>0 )?(n_tiles-tot_tiles%n_tiles):0)}"/>
                 <c:set var="color_schema" value="${pages.colorSchemaList[0]}"/>
-                
+
                 <div class="col-md-6 col-orc">
                     <div class="col-md-12 col-orc box-orc-half">
- 
+
                         <!-- Tiles -->
                         <c:forEach var="i" begin="0" end="2">
                             <div class="col-md-4 col-orc">
                                 <div class="box-orc">
 
                                     <div class="tile" <c:if test="${not empty color_schema.tileColors[i]}"> style="background-color: ${color_schema.tileColors[i]}" </c:if> >
-                                        <div class="tile_inner"> 
+                                            <div class="tile_inner"> 
                                             <c:forEach var="j" varStatus="contTile" begin="0" end="${tot_tiles_round-1}" step="${n_tiles}">
                                                 <!-- Sub Tiles -->
                                                 <c:choose>
@@ -124,15 +124,15 @@
                                                                     </div>
                                                                 </c:if> 
                                                                 <c:if test="${not empty tile.text}">
-                                                                <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
-                                                                    <div class="tile_text_content">
-                                                                        ${tile.text}                                                 
+                                                                    <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                                <div class="tile_text_content">
+                                                                            ${tile.text}                                                 
+                                                                        </div>
                                                                     </div>
-                                                                </div>
                                                                 </c:if> 
-                                                             </a>
+                                                            </a>
                                                         </div>                                                         
-                                                        
+
                                                     </c:when>
                                                     <c:otherwise>
                                                         <div class="tile_content dis"> 
@@ -150,17 +150,17 @@
                                 </div> 
                             </div>
                         </c:forEach>                        
-                        
+
                     </div>
 
                     <div class="col-md-12 col-orc box-orc-half">
-                         <!-- Tiles -->
+                        <!-- Tiles -->
                         <c:forEach var="i" begin="3" end="${n_tiles-1}">
                             <div class="col-md-4 col-orc">
                                 <div class="box-orc">
 
                                     <div class="tile" <c:if test="${not empty color_schema.tileColors[i]}"> style="background-color: ${color_schema.tileColors[i]}" </c:if> >
-                                        <div class="tile_inner"> 
+                                            <div class="tile_inner"> 
                                             <c:forEach var="j" varStatus="contTile" begin="0" end="${tot_tiles_round-1}" step="${n_tiles}">
                                                 <!-- Sub Tiles -->
                                                 <c:choose>
@@ -174,15 +174,15 @@
                                                                     </div>
                                                                 </c:if>   
                                                                 <c:if test="${not empty tile.text}">
-                                                                <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
-                                                                    <div class="tile_text_content">
-                                                                        ${tile.text}  
+                                                                    <div class="tile_text <c:choose><c:when test="${tile.start == 'text'}">tile_icon_act</c:when><c:otherwise>tile_icon_dis</c:otherwise></c:choose>">
+                                                                                <div class="tile_text_content">
+                                                                            ${tile.text}  
+                                                                        </div>
                                                                     </div>
-                                                                </div>
                                                                 </c:if> 
-                                                             </a>
+                                                            </a>
                                                         </div>                                                         
-                                                        
+
                                                     </c:when>
                                                     <c:otherwise>
                                                         <div class="tile_content dis"> 
@@ -200,40 +200,40 @@
                                 </div> 
                             </div>
                         </c:forEach>  
-                        
+
                         <c:if test="${tot_tiles>6}"> 
-                        <div class="col-md-4 col-orc">
-                            <div class="box-orc">
+                            <div class="col-md-4 col-orc">
+                                <div class="box-orc">
 
-                                <div class="tile"  <c:if test="${not empty color_schema.tileColors[5]}"> style="background-color: ${color_schema.tileColors[5]}" </c:if>>
-                                    <div class="tile_inner"> 
-                                        <a href="#">
-                                            <div class="tile_content act"> 
-                                                <div class="tile_text tile_icon_act">
-                                                    <div class="tile_text_content">
-                                                        
-                                                            <div class="tile_more">
-                                                                <div class="tile_ellipsis" style="display: none;">
-                                                                    <i class="fa fa-ellipsis-h"></i>
+                                    <div class="tile"  <c:if test="${not empty color_schema.tileColors[5]}"> style="background-color: ${color_schema.tileColors[5]}" </c:if>>
+                                            <div class="tile_inner"> 
+                                                <a href="#">
+                                                    <div class="tile_content act"> 
+                                                        <div class="tile_text tile_icon_act">
+                                                            <div class="tile_text_content">
+
+                                                                <div class="tile_more">
+                                                                    <div class="tile_ellipsis" style="display: none;">
+                                                                        <i class="fa fa-ellipsis-h"></i>
+                                                                    </div>
+                                                                    <div class="tile_arrows">
+                                                                        <i id="button_p" class="fa fa-arrow-left disabled" style="margin-right:10px;"></i>
+                                                                        <i id="button_n" class="fa fa-arrow-right" style="margin-left:10px;"></i> 
+                                                                    </div>
                                                                 </div>
-                                                                <div class="tile_arrows">
-                                                                    <i id="button_p" class="fa fa-arrow-left disabled" style="margin-right:10px;"></i>
-                                                                    <i id="button_n" class="fa fa-arrow-right" style="margin-left:10px;"></i> 
-                                                                </div>
+
                                                             </div>
-                                                       
-                                                    </div>
-                                                </div>
+                                                        </div>
+                                                    </div> 
+                                                </a>             
                                             </div> 
-                                        </a>             
-                                    </div> 
-                                </div>                                
-                                
+                                        </div>                                
 
-                            </div>
-                        </div>                        
+
+                                    </div>
+                                </div>                        
                         </c:if>
-                         
+
                     </div>
 
                 </div>
@@ -286,146 +286,15 @@
                 </div>
 
             </div>
-                        
-           
-           <!--             
-            <div id="top10-row" class="row" style="height:100px; position: relative;">
-                 <div class="col-md-12 col-orc">
-                     
-                    <div class="top10-container">
-                        <div id="poi-prev" class="top_arrow_box top_arrow_left_box">
-                            <div class="top_arrow top_arrow_left">
-                                <i class="fa fa-chevron-left"></i>
-                            </div>
-                        </div>
-                        <div id="poi-next" class="top_arrow_box top_arrow_right_box">
-                            <div class="top_arrow top_arrow_right">
-                                <i class="fa fa-chevron-right"></i>
-                            </div>
-                        </div>                        
-                            <div id="top10-slider" class="owl-carousel owl-theme">
 
-                                <div style="width: 329px; float: left;">
-                                   <div class="box-orc">
-                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                                           <div class="top_poi_box">
-                                               <div class="top_flag"></div>
-                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
-                                               <div class="top_poi_content">
-                                                   <div class="top_poi_title">
-                                                       Pio monte della misericordia
-                                                   </div>
-                                                   <div class="top_poi_text">
-                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
 
-                                <div style="width: 329px; float: left;">
-                                   <div class="box-orc">
-                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                                           <div class="top_poi_box">
-                                               <div class="top_flag"></div>
-                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
-                                               <div class="top_poi_content">
-                                                   <div class="top_poi_title">
-                                                       Pio monte della misericordia
-                                                   </div>
-                                                   <div class="top_poi_text">
-                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
+            <c:if test="${not empty topten}">
+                <jsp:include page="components/TopTenComponent.jsp"/> 
+            </c:if>
+            <c:if test="${not empty anm}">
+                <jsp:include page="components/AnmComponent.jsp"/> 
+            </c:if>
 
-                                <div style="width: 329px; float: left;">
-                                   <div class="box-orc">
-                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                                           <div class="top_poi_box">
-                                               <div class="top_flag"></div>
-                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
-                                               <div class="top_poi_content">
-                                                   <div class="top_poi_title">
-                                                       Pio monte della misericordia
-                                                   </div>
-                                                   <div class="top_poi_text">
-                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>                        
-
-                                <div style="width: 329px; float: left;">
-                                   <div class="box-orc">
-                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                                           <div class="top_poi_box">
-                                               <div class="top_flag"></div>
-                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
-                                               <div class="top_poi_content">
-                                                   <div class="top_poi_title">
-                                                       Pio monte della misericordia
-                                                   </div>
-                                                   <div class="top_poi_text">
-                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-
-                                <div style="width: 329px; float: left;">
-                                   <div class="box-orc">
-                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                                           <div class="top_poi_box">
-                                               <div class="top_flag"></div>
-                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
-                                               <div class="top_poi_content">
-                                                   <div class="top_poi_title">
-                                                       Pio monte della misericordia
-                                                   </div>
-                                                   <div class="top_poi_text">
-                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>
-
-                                <div style="width: 329px; float: left;">
-                                   <div class="box-orc">
-                                       <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
-                                           <div class="top_poi_box">
-                                               <div class="top_flag"></div>
-                                               <div class="top_poi_img" style="background-image: url('dist/poi/img/5496cfecdf6ef624f2d63de7/cover.jpg')"></div>
-                                               <div class="top_poi_content">
-                                                   <div class="top_poi_title">
-                                                       Pio monte della misericordia
-                                                   </div>
-                                                   <div class="top_poi_text">
-                                                       Questo è il pio monte della misericordia, questo è il pio monte della misericordia.
-                                                   </div>
-                                               </div>
-                                           </div>
-                                       </div>
-                                   </div>
-                               </div>                                 
-                            </div>
-
-                    </div>
-                </div>
-            </div>
-            
-           -->
-            
             <div class="row" style="height: 170px; margin-top: 20px;">
                 <center>
                     <img class="img-responsive" src="./dist/img/footerPON.png" alt="footer"/>
@@ -434,7 +303,7 @@
 
 
         </div>
-        
+
         <jsp:include page="access/loginModal.jsp" />
     </body>
 </html>

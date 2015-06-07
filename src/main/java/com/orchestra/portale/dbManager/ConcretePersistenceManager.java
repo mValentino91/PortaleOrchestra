@@ -22,6 +22,7 @@ import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Poi;
+import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.repositories.CardItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CardRepository;
@@ -34,7 +35,9 @@ import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.DealerOfferRepository;
 import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
+import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
+import com.orchestra.portale.utils.CoupleString;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -107,6 +110,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private CardRepository cardRepo;
+    
+    @Autowired
+    private Top10Repository topRepo;
     
 
     @Override
@@ -410,6 +416,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void invalidateOffer(int idItinerary, int idOffer) {
         cartdetailRepo.invalidateOffer(idItinerary, idOffer);
+    }
+
+    @Override
+    public Iterable<Top10> selectTopPoi(String val) {
+        return topRepo.findByTipo(val);
+         
     }
 
 

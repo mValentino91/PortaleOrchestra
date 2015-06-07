@@ -255,6 +255,7 @@
         interactiveMap.markers[<%=i%>].categories = "${poi.categories}";
         interactiveMap.markers[<%=i%>].shortDescription = "${poi.shortDescription}";
         interactiveMap.markers[<%=i%>].visibility = "${poi.visibility}";
+        interactiveMap.markers[<%=i%>].external = "${poi.externalUrl}";
         google.maps.event.addListener(interactiveMap.markers[<%=i%>], 'click', function() {
             interactiveMap.attachInfo(this);
         });

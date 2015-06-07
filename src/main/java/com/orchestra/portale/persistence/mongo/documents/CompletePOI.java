@@ -26,6 +26,7 @@ public class CompletePOI {
     private List<String> categories;
     private String start_date;
     private String end_date;
+    private String externalUrl;
 
     /**
      * @return the id
@@ -149,6 +150,20 @@ public class CompletePOI {
 
     public void setEnd_date(String end_date) {
         this.end_date = end_date;
+    }
+
+    /**
+     * @return the externalUrl
+     */
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+
+    /**
+     * @param externalUrl the externalUrl to set
+     */
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
     }
     
     
