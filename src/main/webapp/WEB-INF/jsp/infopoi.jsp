@@ -29,6 +29,15 @@
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
         <script src="./dist/js/readmore.js"></script>
+        
+        <script src="./dist/js/favorite_ajax.js"></script>
+        <script src="./dist/js/favorite.js"></script>
+        <script src="./dist/js/favorite_poi_component.js"></script>
+        <link href="./dist/css/favorite_poi_component.css" rel="stylesheet">
+        <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
+        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
+        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
+        
         <script>
             function loaded() {
                 adjustimgHeights();
@@ -61,6 +70,10 @@
 
 
             <div class="col-xs-12 col-sm-4 col-md-4 padding_sx">
+                
+                <c:if test="${not empty fav_rating}">
+                    <jsp:include page="components/FavoritePoiComponent.jsp"/>
+                </c:if>
 
                 <c:if test="${not empty imggallery}">
                     <jsp:include page="components/ImgGalleryComponent2.jsp"/> 
