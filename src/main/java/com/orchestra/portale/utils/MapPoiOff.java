@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.utils;
 
+import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
@@ -18,7 +19,7 @@ import java.util.Map;
 public class MapPoiOff {
     private Map<String,List<DealerOffer>> map_off;
     private Map<String,CompletePOI> map_poi;
-    private Map<String,List<TicketPrice>> map_poi_stockPrice;
+    private Map<String,AbstractPoiComponent> map_poi_stockPrice;
 
     /**
      * @return the map_off
@@ -51,16 +52,17 @@ public class MapPoiOff {
     /**
      * @return the map_poi_stockPrice
      */
-    public Map<String,List<TicketPrice>> getMap_poi_stockPrice() {
+    public Map<String,AbstractPoiComponent> getMap_poi_stockPrice() {
         return map_poi_stockPrice;
     }
 
     /**
      * @param map_poi_stockPrice the map_poi_stockPrice to set
      */
-    public void setMap_poi_stockPrice(Map<String,List<TicketPrice>> map_poi_stockPrice) {
+    public void setMap_poi_stockPrice(Map<String,AbstractPoiComponent> map_poi_stockPrice) {
         this.map_poi_stockPrice = map_poi_stockPrice;
     }
+
     
     
 }
