@@ -166,20 +166,6 @@ public class CompletePOI {
     public void setExternalUrl(String externalUrl) {
         this.externalUrl = externalUrl;
     }
-
-    /**
-     * @return the lang
-     */
-    public String getLang() {
-        return lang;
-    }
-
-    /**
-     * @param lang the lang to set
-     */
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
     
     
     

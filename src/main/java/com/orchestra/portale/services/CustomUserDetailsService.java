@@ -27,7 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomUserDetailsService implements UserDetailsService {
 	
 	
-	PersistenceManager pm = new ConcretePersistenceManager();
+	PersistenceManager pm = new ConcretePersistenceManager(null);
         
         @Autowired
         UserRepository usr;

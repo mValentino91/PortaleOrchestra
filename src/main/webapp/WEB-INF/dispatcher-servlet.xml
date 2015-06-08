@@ -57,9 +57,9 @@
     
     <context:component-scan base-package="com.orchestra.portale.external.services.manager" />
   
-    <!--Per lo scan del manager per la persistenza-->
+    <!--Per lo scan del manager per la persistenza
     <bean id="concretePersistence" class="com.orchestra.portale.dbManager.ConcretePersistenceManager"/>
-    <context:component-scan base-package="com.orchestra.portale.dbManager" />
+    <context:component-scan base-package="com.orchestra.portale.dbManager" />-->
     
     <!-- Scan user profiling component-->
     <context:component-scan base-package="com.orchestra.portale.profiler" />
