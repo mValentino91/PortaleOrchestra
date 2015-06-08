@@ -119,7 +119,8 @@ public class CartController {
         Map<String,List<DealerOffer>> map_poi_off = new HashMap<String,List<DealerOffer>>();
         Map<String,CompletePOI> map_poi = new HashMap<String,CompletePOI>();
         Map<String,List<TicketPrice>> map_poi_stockPrice = new HashMap<String,List<TicketPrice>>();
-        
+        Map<String,AbstractPoiComponent> map_comp = new HashMap<String,AbstractPoiComponent>();
+        //Map<String,String> map_comp2 = new HashMap<String,String>();
         
         Map<CompletePOI,List<DealerOffer>> detailOffer = new HashMap<CompletePOI,List<DealerOffer>>();
         Cart cart = new Cart();
@@ -131,23 +132,25 @@ public class CartController {
             cart.setIdPoi(f.getIdPoi());
             idpoi=f.getIdPoi(); //stringa del poi
             poi = pm.getCompletePoiById(idpoi); //CompletePOI
-            /*
+            
             for (AbstractPoiComponent comp : poi.getComponents()) {
                 String slug = comp.slug();
                 int index = slug.lastIndexOf(".");
                 Class c;
                 String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
-                if (cname.equals("pricescomponent")) {
+                if (cname.equals("prices")) {
                     try {
                         c = Class.forName(slug);
-                    c.cast(comp)
+                        //map_comp2.put(idpoi, "cacca");
+                        map_comp.put(idpoi, comp                         ); 
+                        
                     } catch (ClassNotFoundException ex) {
                             Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
                         }
                 }
                     
             }
-            */
+            
             
             list_off = pm.findOfferByIdPoi(idpoi); //List<DealerOffer>
             
@@ -155,6 +158,9 @@ public class CartController {
             map_poi.put(idpoi, poi);
             map.setMap_off(map_poi_off);
             map.setMap_poi(map_poi);
+            //map.setMap_poi_stockPrice(map_comp);
+            
+            
             
             pm.saveCart(cart);
         }
@@ -162,6 +168,8 @@ public class CartController {
         
         model.addObject("id_user",id_user);
         model.addObject("map",map);
+        model.addObject("map_comp",map_comp);
+        //model.addObject("map_comp2",map_comp2);
         return model;
     }
 

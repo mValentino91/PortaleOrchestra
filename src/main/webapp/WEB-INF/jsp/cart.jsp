@@ -450,9 +450,44 @@
                                         </div>
                                         <div class="poi_offer" style="display:none">
                                             <div class="poi_offer_filler"></div>
+                                            
+                                            <c:forEach items="${map_comp.get(idpoi).prices}" var="stock">
+                                                <div class="poi_offer_detail">
+                                                    
+                                                    
+                                                    
+                                                    <div class="poi_offer_filler"></div>
+                                                    <div  class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
+                                                        <div class="off_name" >${stock.type}</div>
+                                                        <div class="off_desc" >${stock.type_description}</div>
+                                                        <div class="add_offer" style="cursor:pointer;">Aggiungi offerta</div>
+                                                    </div>
+                                                
+                                                    <div class="poi_offer_detail_quantity">
+                                                        <div style="display:inline-block">Quantità: </div>
+                                                        <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
+                                                        <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="1"/>
+                                                        <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
+
+                                                    </div>
+                                                    <input style="border:1px solid red;" class="tot" type="hidden" value="0"/>
+                                                    <input class="stock" type="hidden" value="${stock.price}" style="padding:0px;"/>
+                                                    <input class="stock_disc" type="hidden" value="${stock.price}" style="padding:0px;"/>
+                                                    <input id="val" class="poi_offer_detail_price" style="width:50px;padding:0px;" value="${stock.price}"/>
+                                                    <input type="hidden"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id="val-discounted" class="poi_offer_detail_price" style="padding:0px; display: inline-block; width:50px" value="${stock.price}"/>
+                                                    
+                                                </div>
+                                                        
+                                                        <%--${stock.get(idpoi).price}
+                                                        ${stock.get(idpoi).type_description}--%>
+                                            </c:forEach>
+                                            
                                             <div class="poi_offer_detail_info"><strong>Offerte Card</strong></div>
                                             <c:forEach var="offer" items="${map.map_off.get(idpoi)}">
                                                 <div id="${offer.idOffer}" class="poi_offer_detail">
+                                                    
+                                                    
+                                                    
                                                     <div class="poi_offer_filler"></div>
                                                     <div  class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
                                                         <div class="off_name" >${offer.nome}</div>

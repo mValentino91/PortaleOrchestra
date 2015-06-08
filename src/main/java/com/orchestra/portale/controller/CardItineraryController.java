@@ -13,7 +13,9 @@ import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.NamedQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -46,7 +48,8 @@ public class CardItineraryController {
         List<Integer>offerte_id = new ArrayList<Integer>();
         ArrayList<String>poi_id = new ArrayList<String>();
         List<DealerOffer>offerte = new ArrayList<DealerOffer>();
-        Iterable<CompletePOI>elenco_poi = new ArrayList<CompletePOI>();
+        List<CompletePOI>elenco_poi = new ArrayList<CompletePOI>();
+        Map<CompletePOI,List<DealerOffer>> m = new HashMap<CompletePOI,List<DealerOffer>>();
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
@@ -73,19 +76,35 @@ public class CardItineraryController {
             
             //recupero gli id delle offerte
             for (CartItinerarydetail off : offer_row ) {
-                offerte.add(pm.findOfferByIdOffer(off.getIdOffer()));
-                poi_id.add(off.getIdPoi());
+                
+                List<DealerOffer> x = m.get(off.getIdPoi());
+                elenco_poi.add(pm.getCompletePoiById(off.getIdPoi()));
+                if(x == null){
+                    List<DealerOffer> L1 = new ArrayList<DealerOffer>();
+                    DealerOffer id_off=pm.findOfferByIdOffer(off.getIdOffer());
+                    L1.add(id_off);
+                    m.put(pm.getCompletePoiById(off.getIdPoi()),L1);
+                }
+                else
+                    x.add(pm.findOfferByIdOffer(off.getIdOffer()));
+                
+                //offerte.add(pm.findOfferByIdOffer(off.getIdOffer()));
+                //poi_id.add(off.getIdPoi());
             }
-            
+                
+                
+                
             //ho ottenuto tutti i poi 
-            elenco_poi = pm.getCompletePoisById(poi_id);
+            //elenco_poi = pm.getCompletePoisById(poi_id);
             
             //ciclo ottenendo una lista di offerte
             model.addObject("idcard",idcard);
             model.addObject("id_iti",id_iti);
             model.addObject("user",user);
-            model.addObject("elenco_poi",elenco_poi);
+            model.addObject("m",m);
+            /*model.addObject("elenco_poi",elenco_poi);
             model.addObject("offerte",offerte);
+                    */
             
             return model;
         } else {
