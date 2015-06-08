@@ -7,15 +7,12 @@ package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
-import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.repositories.DeepeningPageMongoRepository;
-import com.orchestra.portale.persistence.mongo.repositories.EnPoiMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
-import com.orchestra.portale.persistence.sql.entities.Card;
 import com.orchestra.portale.persistence.sql.entities.CardItinerary;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
@@ -37,8 +34,6 @@ import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
-import com.orchestra.portale.utils.CoupleString;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +42,7 @@ import org.springframework.data.geo.GeoResults;
 import org.springframework.data.geo.Metrics;
 import org.springframework.data.geo.Point;
 import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import org.springframework.data.mongodb.core.query.NearQuery;
 import org.springframework.data.mongodb.core.query.Query;
@@ -56,6 +52,8 @@ import org.springframework.data.mongodb.core.query.Query;
  * @author Marco Valentino
  */
 public class ConcretePersistenceManager implements PersistenceManager {
+
+    private String lang;
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -79,9 +77,6 @@ public class ConcretePersistenceManager implements PersistenceManager {
     private PoiMongoRepository poiMongoRepo;
 
     @Autowired
-    private EnPoiMongoRepository enPoiMongoRepo;
-
-    @Autowired
     private UserRepository userRepository;
 
     @Autowired
@@ -95,25 +90,32 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
     private FavoriteRepository favoriteRepo;
-    
+
     @Autowired
     private CartRepository cartRepo;
-    
+
     @Autowired
     private DealerOfferRepository dealerRepo;
-    
+
     @Autowired
     private CartItinerarydetailRepository cartdetailRepo;
-    
+
     @Autowired
     private CardItineraryRepository cardItineraryRepo;
-    
+
     @Autowired
     private CardRepository cardRepo;
-    
+
     @Autowired
     private Top10Repository topRepo;
-    
+
+    public ConcretePersistenceManager(String lang) {
+        if (lang == null) {
+            this.lang = "it";
+        } else {
+            this.lang = lang;
+        }
+    }
 
     @Override
     public Poi getPoiById(String Id) {
@@ -131,6 +133,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id) {
         return poiMongoRepo.findAll(id);
     }
+
     @Override
     public Iterable<DeepeningPage> getDeepeningPagesById(Iterable<String> id) {
         return deepRepo.findAll(id);
@@ -144,7 +147,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Override
     public Iterable<CompletePOI> getAllCompletePoi() {
-        return poiMongoRepo.findAll();
+        return mongoOps.find(new Query(where("lang").is(this.lang)), CompletePOI.class);
     }
 
     @Override
@@ -155,13 +158,13 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public Iterable<CompletePOI> getCompletePoiByCategories(String[] categories) {
 
-        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
+        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("lang").is(this.lang)), CompletePOI.class);
     }
 
     @Override
     public CompletePOI findOneCompletePoiByName(String name) {
 
-        Iterable<CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
+        Iterable<CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)).and("lang").is(this.lang)), CompletePOI.class);
         for (CompletePOI p : pois) {
             if (p.getName().toLowerCase().equals(name.toLowerCase())) {
                 return p;
@@ -169,12 +172,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
         }
         return null;
     }
+
     @Override
-    public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String [] categories) {
-        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
+    public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String[] categories) {
+        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)).and("lang").is(this.lang)), CompletePOI.class);
     }
-    
-    
+
     @Override
     public void deletePoi(CompletePOI poi) {
         poiMongoRepo.delete(poi);
@@ -185,7 +188,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
         return mongoOps.find(new Query(where("categories").regex(Pattern.compile(category, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
                 .and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
-                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),
+                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("lang").is(this.lang)),
                 CompletePOI.class);
     }
 
@@ -197,11 +201,6 @@ public class ConcretePersistenceManager implements PersistenceManager {
         NearQuery query = NearQuery.near(point).maxDistance(new Distance(radius, Metrics.KILOMETERS));
 
         return mongoOps.geoNear(query, CompletePOI.class);
-    }
-
-    @Override
-    public void saveEnPoi(EnCompletePOI enpoi) {
-        enPoiMongoRepo.save(enpoi);
     }
 
     @Override
@@ -275,11 +274,11 @@ public class ConcretePersistenceManager implements PersistenceManager {
         }
         return null;
     }
-    
+
     @Override
-    public void saveCart(Cart cart){
+    public void saveCart(Cart cart) {
         cartRepo.save(cart);
-        
+
     }
 
     @Override
@@ -335,34 +334,25 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void deleteDeepeningPage(DeepeningPage dp) {
         deepRepo.delete(dp);
     }
-    @Override
-    public EnCompletePOI findEnCompletePoiById(String id) {
-        return enPoiMongoRepo.findOne(id);
-    }
-
-    @Override 
-    public void deleteEnCompletePOI(EnCompletePOI enpoi) {
-        enPoiMongoRepo.delete(enpoi);
-    }
 
     @Override
     public List<DealerOffer> findOfferByIdPoi(String idPoi) {
-         List<DealerOffer> offers = dealerRepo.findOfferByIdPoi(idPoi);
-         return offers;
+        List<DealerOffer> offers = dealerRepo.findOfferByIdPoi(idPoi);
+        return offers;
     }
-    
+
     @Override
-    public DealerOffer findOfferByIdOffer(int idOffer){
+    public DealerOffer findOfferByIdOffer(int idOffer) {
         DealerOffer offer = dealerRepo.findOfferByIdOffer(idOffer);
         return offer;
     }
-    
+
     @Override
     public List<DealerOffer> findOfferByIdDealer(String idDealer) {
         List<DealerOffer> off = dealerRepo.findOfferByIdDealer(idDealer);
         return off;
     }
-    
+
     @Override
     public void saveCartDetail(CartItinerarydetail cart_detail) {
         cartdetailRepo.save(cart_detail);
@@ -372,8 +362,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void saveCardItinerary(CardItinerary card_itinerary) {
         cardItineraryRepo.save(card_itinerary);
     }
-    
-    
+
     @Override
     public Integer getIdItineraryByIdCard(int id_card) {
         Integer id_iti = cardItineraryRepo.getIdItineraryByIdCard(id_card);
@@ -385,7 +374,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
         Integer status = cardRepo.findStatusCardByIdUser(id_user);
         return status;
     }
-   
+
     @Override
     public Integer findActiveCardByIdUser(int idUser) {
         Integer card_key = cardRepo.findActiveCardByIdUser(idUser);
@@ -404,7 +393,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Override
     public Iterable<CartItinerarydetail> selectActiveOffer(int idItinerary, int idUser) {
-        Iterable<CartItinerarydetail>offerts = cartdetailRepo.selectActiveOffer(idItinerary, idUser);
+        Iterable<CartItinerarydetail> offerts = cartdetailRepo.selectActiveOffer(idItinerary, idUser);
         return offerts;
     }
 
@@ -421,9 +410,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public Iterable<Top10> selectTopPoi(String val) {
         return topRepo.findByTipo(val);
-         
+
     }
 
-
+    @Override
+    public Iterable<CompletePOI> getAll() {
+        return poiMongoRepo.findAll();
+    }
 
 }

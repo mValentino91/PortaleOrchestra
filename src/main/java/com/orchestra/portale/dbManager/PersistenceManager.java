@@ -8,7 +8,6 @@ package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
-import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.Home;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.sql.entities.Card;
@@ -31,6 +30,7 @@ import org.springframework.data.geo.GeoResults;
  */
 public interface PersistenceManager {
     
+    public Iterable<CompletePOI> getAll();
     public Poi getPoiById(String Id);
     public Iterable<Poi> getAllPoi();
     public CompletePOI getCompletePoiById(String id);
@@ -43,7 +43,6 @@ public interface PersistenceManager {
     public CompletePOI findOneCompletePoiByName(String name);
     public void deletePoi(CompletePOI poi);
     public void savePoi(CompletePOI poi);
-    public void saveEnPoi(EnCompletePOI enpoi);
     public User findUserByUsername(String username);
     public User findUserByFbUser(String fbUser);
     public User findUserByFbEmail(String fbEmail);
@@ -66,8 +65,6 @@ public interface PersistenceManager {
     public void deleteFavorite(int idUser, String idPoi);
     public void deleteDeepeningPage(DeepeningPage dp);
     public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String [] categories);
-    public EnCompletePOI findEnCompletePoiById(String id);
-    public void deleteEnCompletePOI(EnCompletePOI enpoi);
     public void saveCart(Cart cart);
     public List<DealerOffer>findOfferByIdPoi(String idPoi);
     public DealerOffer findOfferByIdOffer(int idOffer);
