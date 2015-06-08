@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Role;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -17,6 +18,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,12 +36,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserEditController {
 
-    @Autowired
-    PersistenceManager pm;
-
+   
     @RequestMapping("userEditProfile")
     @Secured("ROLE_USER")
     public ModelAndView editUser(HttpServletRequest request) {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("userEditProfile", "command", new User());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
@@ -64,6 +65,7 @@ public class UserEditController {
     @Secured("ROLE_USER")
     public ModelAndView updateUser(HttpServletRequest request, @ModelAttribute("SpringWeb") User user,
             MultipartFile avatar) {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("userInfo");
         User olduser = pm.findUserByUsername(user.getUsername());
         user.setId(olduser.getId());

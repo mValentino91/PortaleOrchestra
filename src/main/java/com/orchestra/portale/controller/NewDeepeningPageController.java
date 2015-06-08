@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
@@ -28,6 +29,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,11 +45,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/admin")
 public class NewDeepeningPageController {
 
-    @Autowired
-    PersistenceManager pm;
-
+    
     @RequestMapping("/newdpage")
     public ModelAndView newdpage() {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
         ArrayList<CouplePOI> lista2 = new ArrayList<CouplePOI>();
@@ -79,7 +80,7 @@ public class NewDeepeningPageController {
     @RequestMapping(value = "/savedpage", method = RequestMethod.POST)
     public ModelAndView savedpage(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestParam("cover") MultipartFile cover, @RequestParam("file") MultipartFile[] files) throws InterruptedException {
         ModelAndView model = new ModelAndView("okpageadmin");
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         DeepeningPage dp = new DeepeningPage();
         dp.setName(params.get("name"));
                 System.out.println(params.get("name"));

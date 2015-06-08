@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,13 +31,13 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class GetPageController {
-    @Autowired
-    PersistenceManager pm;
+    
    
     
     @RequestMapping(value= "/getPage", params="id")
     public ModelAndView getPagebyId(@RequestParam(value = "id") String id) {
       ModelAndView model = new ModelAndView("page");
+      PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
       Pages page=pm.findPageById(id);
       model.addObject("pages", page);
        ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();
@@ -78,6 +80,7 @@ public class GetPageController {
           if(sluginp.equals("home")){
            model = new ModelAndView("home");
           }
+          PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
       Pages page=pm.findPageBySlug(sluginp);
       model.addObject("pages", page);
       ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();

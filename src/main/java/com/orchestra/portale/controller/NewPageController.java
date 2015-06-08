@@ -6,6 +6,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CarouselPages;
@@ -19,6 +20,7 @@ import com.orchestra.portale.persistence.mongo.documents.Tile;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -30,11 +32,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class NewPageController {
 
-    @Autowired
-    PersistenceManager pm;
 
     @RequestMapping("/newpage")
     public ModelAndView newPage() {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("insertpoi");
 
         Pages page = new Pages();
