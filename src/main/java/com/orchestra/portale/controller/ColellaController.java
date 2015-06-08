@@ -39,12 +39,12 @@ import org.springframework.context.i18n.LocaleContextHolder;
 @Controller
 public class ColellaController {
     
-    
+    @Autowired
+    PersistenceManager pm ;
     
     @RequestMapping(value = "/colellaImport")
     public @ResponseBody
     String colellaImport(HttpServletRequest request) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         
         HttpSession session = request.getSession();
         ServletContext sc = session.getServletContext();

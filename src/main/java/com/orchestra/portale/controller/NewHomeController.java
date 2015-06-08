@@ -26,10 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class NewHomeController {
     
-    
+        @Autowired
+    PersistenceManager pm ;
     @RequestMapping("/newhome")
     public ModelAndView newHome() {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("insertpoi");
         Home home= new Home();
         home.setDescription("Questa è la home");

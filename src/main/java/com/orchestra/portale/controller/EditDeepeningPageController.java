@@ -48,7 +48,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value= "/admin")
 public class EditDeepeningPageController {
      
-
+    @Autowired
+    PersistenceManager pm ;
     @RequestMapping(value= "/editdpage")
     public ModelAndView editDpage() {
         ModelAndView model = new ModelAndView("editdpage");
@@ -57,7 +58,6 @@ public class EditDeepeningPageController {
     @RequestMapping(value= "/editdpage", params="name")
     public ModelAndView editPoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("editdpageform");
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         try {
         DeepeningPage poi= pm.findDeepeningPageByName(name);
        model.addObject("nome", poi.getName());
@@ -96,7 +96,6 @@ public class EditDeepeningPageController {
     @RequestMapping(value= "/editdpage", params="id")
     public ModelAndView editPoibyID(@RequestParam(value = "id") String id) {
         ModelAndView model = new ModelAndView("editdpageform");
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         try {
         DeepeningPage poi= pm.findDeepeningPage(id);
         model.addObject("nome", poi.getName());
@@ -151,7 +150,6 @@ public class EditDeepeningPageController {
     }
      @RequestMapping(value= "/updatedpage", method = RequestMethod.POST)
     public ModelAndView updatePoi(HttpServletRequest request, @RequestParam Map<String,String> params, @RequestParam(value="file", required=false) MultipartFile[] files, @RequestParam(value="cover", required=false) MultipartFile cover, @RequestParam(value="fileprec", required=false) String[] fileprec, @RequestParam(value="imgdel", required=false) String[] imgdel ) throws InterruptedException {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
          DeepeningPage poi= pm.findDeepeningPage(params.get("id"));
          CoverImgComponent coverimg=new CoverImgComponent();
          ArrayList<AbstractPoiComponent> listComponent = new ArrayList<AbstractPoiComponent>();

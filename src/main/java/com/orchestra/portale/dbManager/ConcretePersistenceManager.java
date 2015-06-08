@@ -53,7 +53,7 @@ import org.springframework.data.mongodb.core.query.Query;
  */
 public class ConcretePersistenceManager implements PersistenceManager {
 
-    private String lang;
+    private String lang = "it";
 
     @Autowired
     private CategoryRepository categoryRepository;
@@ -109,7 +109,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Autowired
     private Top10Repository topRepo;
 
-    public ConcretePersistenceManager(String lang) {
+    @Override
+    public void setLang(String lang) {
         if (lang == null) {
             this.lang = "it";
         } else {

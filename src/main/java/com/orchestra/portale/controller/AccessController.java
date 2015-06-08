@@ -23,7 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping
 public class AccessController {
 
-    
+        @Autowired
+    PersistenceManager pm ;
     
 
     @RequestMapping("/login")
@@ -49,7 +50,6 @@ public class AccessController {
 
     @RequestMapping("/loginArea")
     public ModelAndView loginArea(HttpServletRequest request) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         HttpSession session = request.getSession(true);
         ModelAndView model = new ModelAndView("access/loginArea");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

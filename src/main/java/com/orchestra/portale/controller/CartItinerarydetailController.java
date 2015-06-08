@@ -23,13 +23,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Secured("ROLE_USER")
 public class CartItinerarydetailController {
     
-    
+    @Autowired
+    PersistenceManager pm ;
     @RequestMapping(value = "/saveOffer", method = RequestMethod.GET)
     public @ResponseBody
     String saveOffer(@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String qta, @RequestParam String sum) {
-       
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+               Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
         CartItinerarydetail cart_detail = new CartItinerarydetail();

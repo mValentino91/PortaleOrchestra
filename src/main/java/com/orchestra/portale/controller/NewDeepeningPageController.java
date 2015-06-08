@@ -45,10 +45,10 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping(value = "/admin")
 public class NewDeepeningPageController {
 
-    
+        @Autowired
+    PersistenceManager pm ;
     @RequestMapping("/newdpage")
     public ModelAndView newdpage() {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
         ArrayList<CouplePOI> lista2 = new ArrayList<CouplePOI>();
@@ -80,7 +80,6 @@ public class NewDeepeningPageController {
     @RequestMapping(value = "/savedpage", method = RequestMethod.POST)
     public ModelAndView savedpage(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestParam("cover") MultipartFile cover, @RequestParam("file") MultipartFile[] files) throws InterruptedException {
         ModelAndView model = new ModelAndView("okpageadmin");
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         DeepeningPage dp = new DeepeningPage();
         dp.setName(params.get("name"));
                 System.out.println(params.get("name"));

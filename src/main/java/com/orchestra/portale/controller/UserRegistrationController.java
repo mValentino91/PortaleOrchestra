@@ -31,8 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class UserRegistrationController {
     //Manager della persistenza
-  
-
+    @Autowired
+    PersistenceManager pm ;
    @RequestMapping(value = "/userSignIn", method = RequestMethod.GET)
    public ModelAndView signin() {
       return new ModelAndView("userSignIn", "command", new User());
@@ -41,7 +41,6 @@ public class UserRegistrationController {
    @RequestMapping(value = "/userSignIn", method = RequestMethod.POST)
    public ModelAndView addUser(HttpServletRequest request, @ModelAttribute("SpringWeb")User user, @RequestParam(value="avatar", required=false)
     MultipartFile avatar) {
-       PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
        ModelAndView model2 = new ModelAndView("okpage");
         User usertest=pm.findUserByUsername(user.getUsername());
         if(usertest!= null && usertest.getUsername().toLowerCase().equals(user.getUsername().toLowerCase())){

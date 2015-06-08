@@ -36,11 +36,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserEditController {
 
-   
+    @Autowired
+    PersistenceManager pm;
+
     @RequestMapping("userEditProfile")
     @Secured("ROLE_USER")
     public ModelAndView editUser(HttpServletRequest request) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("userEditProfile", "command", new User());
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
@@ -65,7 +66,6 @@ public class UserEditController {
     @Secured("ROLE_USER")
     public ModelAndView updateUser(HttpServletRequest request, @ModelAttribute("SpringWeb") User user,
             MultipartFile avatar) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("userInfo");
         User olduser = pm.findUserByUsername(user.getUsername());
         user.setId(olduser.getId());

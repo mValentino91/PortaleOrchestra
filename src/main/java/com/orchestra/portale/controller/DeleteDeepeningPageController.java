@@ -20,50 +20,46 @@ import org.springframework.web.servlet.ModelAndView;
  *
  * @author Alex
  */
-    @Controller
-@RequestMapping(value= "/admin")
+@Controller
+@RequestMapping(value = "/admin")
 public class DeleteDeepeningPageController {
-    
 
-    @RequestMapping(value= "/deletedpage")
+    @Autowired
+    PersistenceManager pm;
+
+    @RequestMapping(value = "/deletedpage")
     public ModelAndView deletePoi() {
         ModelAndView model = new ModelAndView("deletedpage");
         return model;
     }
-    
-    @RequestMapping(value= "/deldpage", params="name")
-    public ModelAndView deletePoi(@RequestParam(value = "name") String name) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
-        ModelAndView model = new ModelAndView("deleted");
-        try{
-        DeepeningPage poi= pm.findDeepeningPageByName(name);
-        pm.deleteDeepeningPage(poi);
-        
-        return model;
-        }
-        catch(RuntimeException e){
-            ModelAndView model2= new ModelAndView("errorViewPoi");
-            model2.addObject("err", "Errore impossibile trovare il poi: "+name);
-            return model2;
-        }
-    }
-   
-    
-    @RequestMapping(value= "/deldpage", params="id")
-    public ModelAndView deletePoiById(@RequestParam(value = "id") String id) {
-        try{
-            PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
-        ModelAndView model = new ModelAndView("deleted");
-        DeepeningPage poi= pm.findDeepeningPage(id);
-        pm.deleteDeepeningPage(poi);
-        return model;
-    }
-    catch(RuntimeException e){
-            ModelAndView model2= new ModelAndView("errorViewPoi");
-            model2.addObject("err", "Errore impossibile trovare il poi con id: "+id);
-            return model2;
-        }
-    }
-    
-}
 
+    @RequestMapping(value = "/deldpage", params = "name")
+    public ModelAndView deletePoi(@RequestParam(value = "name") String name) {
+        ModelAndView model = new ModelAndView("deleted");
+        try {
+            DeepeningPage poi = pm.findDeepeningPageByName(name);
+            pm.deleteDeepeningPage(poi);
+
+            return model;
+        } catch (RuntimeException e) {
+            ModelAndView model2 = new ModelAndView("errorViewPoi");
+            model2.addObject("err", "Errore impossibile trovare il poi: " + name);
+            return model2;
+        }
+    }
+
+    @RequestMapping(value = "/deldpage", params = "id")
+    public ModelAndView deletePoiById(@RequestParam(value = "id") String id) {
+        try {
+            ModelAndView model = new ModelAndView("deleted");
+            DeepeningPage poi = pm.findDeepeningPage(id);
+            pm.deleteDeepeningPage(poi);
+            return model;
+        } catch (RuntimeException e) {
+            ModelAndView model2 = new ModelAndView("errorViewPoi");
+            model2.addObject("err", "Errore impossibile trovare il poi con id: " + id);
+            return model2;
+        }
+    }
+
+}

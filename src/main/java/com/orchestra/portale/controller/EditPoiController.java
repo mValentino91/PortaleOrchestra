@@ -65,7 +65,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value= "/admin")
 public class EditPoiController {
-   
+       @Autowired
+    PersistenceManager pm ;
 
     @RequestMapping(value= "/editpoi")
     public ModelAndView editPoi() {
@@ -76,7 +77,6 @@ public class EditPoiController {
     @RequestMapping(value= "/editpoi", params="name")
     public ModelAndView editPoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("editform");
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         try {
         CompletePOI poi= pm.findOneCompletePoiByName(name);
        model.addObject("nome", poi.getName());
@@ -116,7 +116,6 @@ public class EditPoiController {
     
     @RequestMapping(value= "/editpoi", params="id")
     public ModelAndView editPoibyID(@RequestParam(value = "id") String id) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
        ModelAndView model = new ModelAndView("editform");
         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
@@ -166,7 +165,7 @@ public class EditPoiController {
             }
 
             //RECUPERO POI INGLESE
-            EnCompletePOI enpoi = pm.findEnCompletePoiById(id);
+            /*EnCompletePOI enpoi = pm.findEnCompletePoiById(id);
             if(enpoi != null) {
             model.addObject("ennome", enpoi.getName());
             model.addObject("enloc", enpoi.getLocation());
@@ -191,7 +190,7 @@ public class EditPoiController {
                 }
             }
             }
-
+*/
             return model;
         } catch (RuntimeException e) {
             ModelAndView model2 = new ModelAndView("errorViewPoi");
@@ -202,7 +201,6 @@ public class EditPoiController {
     
     @RequestMapping(value= "/updatepoi", method = RequestMethod.POST)
     public ModelAndView updatePoi(@RequestParam Map<String,String> params, @RequestParam(value="file", required=false) MultipartFile[] files, @RequestParam(value="cover", required=false) MultipartFile cover, @RequestParam(value="fileprec", required=false) String[] fileprec, @RequestParam(value="imgdel", required=false) String[] imgdel, HttpServletRequest request ) throws InterruptedException {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
          CompletePOI poi = pm.getCompletePoiById(params.get("id"));
         CoverImgComponent coverimg = new CoverImgComponent();
         ArrayList<AbstractPoiComponent> listComponent = new ArrayList<AbstractPoiComponent>();
@@ -592,7 +590,7 @@ public class EditPoiController {
             enpoi.setLocation(new double[]{enlat, enlongi});
             enpoi.setComponents(listComponent);
 
-            pm.saveEnPoi(enpoi);
+//            pm.saveEnPoi(enpoi);
         }
         for (int z = 0; z < files.length; z++) {
             MultipartFile file = files[z];
@@ -655,7 +653,6 @@ public class EditPoiController {
     }
 
     public void addeng(Map<String, String> params, String id, CoverImgComponent cover, ImgGalleryComponent gallery) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         EnCompletePOI enpoi = new EnCompletePOI();
         enpoi.setId(id);
         enpoi.setName(params.get("enname"));
@@ -960,6 +957,6 @@ public class EditPoiController {
         listComponent.add(cover);
         listComponent.add(gallery);
         enpoi.setComponents(listComponent);
-        pm.saveEnPoi(enpoi);
+//        pm.saveEnPoi(enpoi);
     }
 }

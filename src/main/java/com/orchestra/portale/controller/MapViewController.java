@@ -27,7 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Scope("request")
 @RequestMapping("/Map")
 public class MapViewController {
-
+    @Autowired
+    PersistenceManager pm ;
     @Autowired
     private FbProfiler fbProfiler;
 
@@ -38,7 +39,6 @@ public class MapViewController {
              @RequestParam(value = "lon1") String lon1*/) {
         //Creo la view che sarà mostrata all'utente
 
-        PersistenceManager pm = new ConcretePersistenceManager(LocaleContextHolder.getLocale().getDisplayLanguage());
         ModelAndView model = new ModelAndView("mapView");
         Iterable<CompletePOI> poiList = pm.getAllCompletePoi();
         //aggiungo la lista al model
@@ -55,7 +55,7 @@ public class MapViewController {
      @RequestParam(value = "lat1") String lat1,
      @RequestParam(value = "lon1") String lon1*/) {
         //Creo la view che sarà mostrata all'utente
-        PersistenceManager pm = new ConcretePersistenceManager(LocaleContextHolder.getLocale().getDisplayLanguage());
+        pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
         ModelAndView model = new ModelAndView("mapView");
         Iterable<CompletePOI> poiList = pm.getCompletePoiByCategories(categories);
         //aggiungo la lista al model
@@ -68,7 +68,7 @@ public class MapViewController {
     @RequestMapping(value = "/JSON", params = "category=all")
     public @ResponseBody
     String getJson(@RequestParam String category) {
-        PersistenceManager pm = new ConcretePersistenceManager(LocaleContextHolder.getLocale().getDisplayLanguage());
+        pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
         Gson pois = new Gson();
         return pois.toJson(pm.getAllCompletePoi());
     }
@@ -76,7 +76,7 @@ public class MapViewController {
     @RequestMapping(value = "/JSON")
     public @ResponseBody
     String getJsonForCategory(@RequestParam String[] category) {
-        PersistenceManager pm = new ConcretePersistenceManager(LocaleContextHolder.getLocale().getDisplayLanguage());
+        pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
         Gson pois = new Gson();
         return pois.toJson(pm.getCompletePoiByCategories(category));
 
@@ -85,7 +85,7 @@ public class MapViewController {
     @RequestMapping(value = "/fbPois")
     public @ResponseBody
     String getFbPois() {
-        PersistenceManager pm = new ConcretePersistenceManager(LocaleContextHolder.getLocale().getDisplayLanguage());
+        pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
         Gson pois = new Gson();
         return pois.toJson(pm.getCompletePoisById(fbProfiler.getPoiStereotype()));
 

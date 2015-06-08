@@ -22,11 +22,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class SetVisibilityController {
 
-    
+        @Autowired
+    PersistenceManager pm ;
 
     @RequestMapping("/setvis")
     public ModelAndView setvis() {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("insertpoi");
         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
         for (CompletePOI p : poilist) {

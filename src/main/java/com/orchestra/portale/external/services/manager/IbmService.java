@@ -99,6 +99,7 @@ public class IbmService implements ExternalServiceManager {
             alberghi.get(item).getAsJsonObject().get("location").getAsJsonArray().get(1).getAsDouble()
         };
         newPoi.setLocation(location);
+        newPoi.setLang("it");
         newPoi.setShortDescription(alberghi.get(item).getAsJsonObject().get("classificazione").getAsString().replace("\"", ""));
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));

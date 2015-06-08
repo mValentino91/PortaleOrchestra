@@ -36,13 +36,13 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class OwnerEditPoiController {
-     //Manager della persistenza
-    
 
-    
+    //Manager della persistenza
+    @Autowired
+    PersistenceManager pm;
+
     @RequestMapping(value = "/UpdatePoi", params = "id")
     public ModelAndView getPoi(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("updatepoi");
         ModelAndView error = new ModelAndView("errorViewPoi");
@@ -59,10 +59,10 @@ public class OwnerEditPoiController {
             String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
             if (cname.equals("workingtime")) {
                 GregorianCalendar gc = new GregorianCalendar();
-                
+
                 String oggi = "";
-                
-                int giorno =gc.get(Calendar.DAY_OF_WEEK);
+
+                int giorno = gc.get(Calendar.DAY_OF_WEEK);
                 switch (giorno) {
                     case 2:
                         oggi = "Lunedì";
@@ -86,14 +86,14 @@ public class OwnerEditPoiController {
                         oggi = "Domenica";
                         break;
                 }
-                String data=gc.get(Calendar.DAY_OF_MONTH)+"/"+(gc.get(Calendar.MONTH)+1)+"/"+gc.get(Calendar.YEAR);
+                String data = gc.get(Calendar.DAY_OF_MONTH) + "/" + (gc.get(Calendar.MONTH) + 1) + "/" + gc.get(Calendar.YEAR);
                 model.addObject("oggi", oggi);
                 model.addObject("data", data);
-                
+
             }
-            if(cname.equals("linkedpoi")) {
+            if (cname.equals("linkedpoi")) {
                 HttpSession session = request.getSession();
-                    ServletContext sc = session.getServletContext();
+                ServletContext sc = session.getServletContext();
                 ArrayList<LinkedEntities> linkent = LinkedEntitiesManager.linkedmanager((LinkedPoiComponent) comp, sc, pm);
                 model.addObject("linkent", linkent);
             }
@@ -107,16 +107,16 @@ public class OwnerEditPoiController {
 
         }
         GeoResults<CompletePOI> poilist;
-        poilist= pm.findNearCompletePoi(id, 0.3);
-        
+        poilist = pm.findNearCompletePoi(id, 0.3);
+
         ArrayList<CompletePOI> poivicini = new ArrayList<CompletePOI>();
-      
+
         for (GeoResult<CompletePOI> p : poilist) {
             poivicini.add(p.getContent());
-            
+
         }
-            model.addObject("poivicini", poivicini);
+        model.addObject("poivicini", poivicini);
         return model;
     }
-    
+
 }

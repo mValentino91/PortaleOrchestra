@@ -60,13 +60,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value = "/admin")
 public class NewEventController {
-
+    @Autowired
+    PersistenceManager pm ;
     //Manager della persistenza
-    
-
     @RequestMapping(value = "/newevent")
     public ModelAndView newEvent() {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         //Creo la view che sarà mostrata all'utente
         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
@@ -388,7 +386,7 @@ public class NewEventController {
                 enpoi.setLocation(new double[]{enlat, enlongi});
                 enpoi.setComponents(listComponent);
 
-                pm.saveEnPoi(enpoi);
+//                pm.saveEnPoi(enpoi);
             }
 
             for (int z = 0; z < files.length; z++) {
@@ -667,6 +665,6 @@ public class NewEventController {
         listComponent.add(cover);
         listComponent.add(gallery);
         enpoi.setComponents(listComponent);
-        pm.saveEnPoi(enpoi);
+//        pm.saveEnPoi(enpoi);
     }
 }

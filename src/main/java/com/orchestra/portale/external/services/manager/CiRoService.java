@@ -102,6 +102,7 @@ public class CiRoService implements ExternalServiceManager {
         externalServiceComponent.setURL(getUrl);
         externalServiceComponent.setParameters("id="+id);
         newPoi.setExternalUrl(innerUrl+"?id="+id);
+        newPoi.setLang("it");
         newlistComponent.add(externalServiceComponent);
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));

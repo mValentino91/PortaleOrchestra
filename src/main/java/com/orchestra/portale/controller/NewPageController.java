@@ -32,10 +32,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class NewPageController {
 
-
+    @Autowired
+    PersistenceManager pm ;
     @RequestMapping("/newpage")
     public ModelAndView newPage() {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("insertpoi");
 
         Pages page = new Pages();

@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller.editing.components;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
@@ -23,6 +24,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,25 +37,24 @@ import org.springframework.web.multipart.MultipartFile;
  */
 @Controller
 public class UpdateGallery {
-
     @Autowired
-    PersistenceManager pm;
-
+    PersistenceManager pm ;
     @ResponseBody
     @RequestMapping(value = "/UpdateGallery")
     public void UpdateGallery(HttpServletRequest request, @RequestParam("files") MultipartFile[] files, @RequestParam("id") String id) throws InterruptedException {
+
         CompletePOI poi = pm.getCompletePoiById(id);
         ArrayList<AbstractPoiComponent> complist = new ArrayList<AbstractPoiComponent>();
         ArrayList<ImgGallery> imglist = new ArrayList<ImgGallery>();
         int fd = 0;
-        int ok=0;
+        int ok = 0;
         for (AbstractPoiComponent comp : poi.getComponents()) {
 
             String slug = comp.slug();
             int index = slug.lastIndexOf(".");
             String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
             if (cname.equals("imggallery")) {
-                ok=1;
+                ok = 1;
                 ImgGalleryComponent imggallery = (ImgGalleryComponent) comp;
                 imglist = (ArrayList<ImgGallery>) imggallery.getLinks();
                 fd = imggallery.getLinks().size();
@@ -69,7 +70,7 @@ public class UpdateGallery {
 
                     i = i + 1;
                     imglist.add(imgG);
-                    
+
                 }
                 imggallery.setLinks(imglist);
                 complist.add(imggallery);
@@ -78,30 +79,29 @@ public class UpdateGallery {
             }
 
         }
-        if (ok==0) {
+        if (ok == 0) {
             ImgGalleryComponent imggallery = new ImgGalleryComponent();
-                
-                
-                int i = 0;
-                while (i < files.length) {
-                    ImgGallery imgG = new ImgGallery();
 
-                    Thread.sleep(100);
-                    Date date = new Date();
-                    SimpleDateFormat sdf = new SimpleDateFormat("MMddyyyyhmmssSSa");
-                    String currentTimestamp = sdf.format(date);
-                    imgG.setLink("img_" + currentTimestamp + ".jpg");
+            int i = 0;
+            while (i < files.length) {
+                ImgGallery imgG = new ImgGallery();
 
-                    i = i + 1;
-                    imglist.add(imgG);
-                    
-                }
-                imggallery.setLinks(imglist);
-                complist.add(imggallery);
+                Thread.sleep(100);
+                Date date = new Date();
+                SimpleDateFormat sdf = new SimpleDateFormat("MMddyyyyhmmssSSa");
+                String currentTimestamp = sdf.format(date);
+                imgG.setLink("img_" + currentTimestamp + ".jpg");
+
+                i = i + 1;
+                imglist.add(imgG);
+
+            }
+            imggallery.setLinks(imglist);
+            complist.add(imggallery);
         }
         poi.setComponents(complist);
         pm.savePoi(poi);
-        int k=0;
+        int k = 0;
         for (int z = fd; z < imglist.size(); z++) {
             MultipartFile file = files[k];
 
@@ -124,20 +124,22 @@ public class UpdateGallery {
                 stream.close();
 
             } catch (Exception e) {
-                System.out.println(""+e.getMessage());
+                System.out.println("" + e.getMessage());
             }
             k++;
         }
     }
+
     @ResponseBody
     @RequestMapping(value = "/DeleteImg")
     public void Delete(HttpServletRequest request, @RequestParam("del") int del, @RequestParam("id") String id) {
+
         CompletePOI poi = pm.getCompletePoiById(id);
         ArrayList<AbstractPoiComponent> complist = new ArrayList<AbstractPoiComponent>();
         ArrayList<ImgGallery> imglist = new ArrayList<ImgGallery>();
         ArrayList<ImgGallery> delimglist = new ArrayList<ImgGallery>();
-        String delete="";
-        
+        String delete = "";
+
         for (AbstractPoiComponent comp : poi.getComponents()) {
 
             String slug = comp.slug();
@@ -147,15 +149,14 @@ public class UpdateGallery {
                 ImgGalleryComponent imggallery = (ImgGalleryComponent) comp;
                 imglist = (ArrayList<ImgGallery>) imggallery.getLinks();
                 int i = 0;
-                for(ImgGallery img : imglist) {
-                    if(i!=del-1){
+                for (ImgGallery img : imglist) {
+                    if (i != del - 1) {
                         delimglist.add(img);
-                    }
-                    else {
-                       delete= img.getLink();
+                    } else {
+                        delete = img.getLink();
                     }
                     i++;
-                    
+
                 }
                 imggallery.setLinks(delimglist);
                 complist.add(imggallery);
@@ -166,7 +167,7 @@ public class UpdateGallery {
         }
         poi.setComponents(complist);
         pm.savePoi(poi);
-        delimg(request,poi.getId(),delete);
-        
+        delimg(request, poi.getId(), delete);
+
     }
 }

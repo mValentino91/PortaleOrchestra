@@ -31,13 +31,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @Controller
 public class GetPageController {
-    
-   
-    
+        @Autowired
+    PersistenceManager pm ;
+
     @RequestMapping(value= "/getPage", params="id")
     public ModelAndView getPagebyId(@RequestParam(value = "id") String id) {
       ModelAndView model = new ModelAndView("page");
-      PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
       Pages page=pm.findPageById(id);
       model.addObject("pages", page);
        ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();
@@ -80,7 +79,6 @@ public class GetPageController {
           if(sluginp.equals("home")){
            model = new ModelAndView("home");
           }
-          PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
       Pages page=pm.findPageBySlug(sluginp);
       model.addObject("pages", page);
       ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();

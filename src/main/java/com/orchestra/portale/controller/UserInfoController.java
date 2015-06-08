@@ -41,7 +41,6 @@ public class UserInfoController {
     @RequestMapping(value="/userInfo")
     @Secured("ROLE_USER")
     public ModelAndView getUserInfo(HttpServletRequest request) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView model = new ModelAndView("userInfo");
         ModelAndView model2 = new ModelAndView("index");

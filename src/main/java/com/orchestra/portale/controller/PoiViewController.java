@@ -43,12 +43,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class PoiViewController {
 
     //Manager della persistenza
-    
+        @Autowired
+    PersistenceManager pm ;
 
     //Richiesta per la visualizzazione di un singolo poi
     @RequestMapping(value = "/getPoi", params = "id")
     public ModelAndView getPoi(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
-PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("infopoi");
         ModelAndView error = new ModelAndView("errorViewPoi");

@@ -24,11 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AllPoisIdController {
-   
+       @Autowired
+    PersistenceManager pm ;
     
     @RequestMapping(value= "/poiId")
     public ModelAndView listid () {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
    Iterable<CompletePOI> poilist =  pm.getAllCompletePoi();
    ArrayList<String> idlist = new ArrayList<String>();
    int i=1;

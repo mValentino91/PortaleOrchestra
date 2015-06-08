@@ -30,6 +30,7 @@ import org.springframework.data.geo.GeoResults;
  */
 public interface PersistenceManager {
     
+    public void setLang(String lang);
     public Iterable<CompletePOI> getAll();
     public Poi getPoiById(String Id);
     public Iterable<Poi> getAllPoi();

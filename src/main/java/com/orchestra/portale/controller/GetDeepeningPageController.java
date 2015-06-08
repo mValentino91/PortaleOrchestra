@@ -34,11 +34,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class GetDeepeningPageController {
     //Manager della persistenza
-    
+        @Autowired
+    PersistenceManager pm ;
     //Richiesta per la visualizzazione di un singolo poi
     @RequestMapping(value = "/getDP", params = "id")
     public ModelAndView getDp(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
-PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("infopoi");
         ModelAndView error = new ModelAndView("errorViewPoi");
@@ -75,7 +75,6 @@ PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getL
 }
     @RequestMapping("/admin/viewallDP")
     public ModelAndView viewAll() {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
          ArrayList<DeepeningPage> list = (ArrayList<DeepeningPage>) pm.findAllDeepeningPages();
          ModelAndView model =  new ModelAndView("viewdps");
          model.addObject("list", list);

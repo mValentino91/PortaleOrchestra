@@ -22,55 +22,49 @@ import org.springframework.web.servlet.ModelAndView;
  * @author Alex
  */
 @Controller
-@RequestMapping(value= "/admin")
+@RequestMapping(value = "/admin")
 public class DeletePoiController {
-    
-
-    @RequestMapping(value= "/deletepoi")
+    @Autowired
+    PersistenceManager pm ;
+    @RequestMapping(value = "/deletepoi")
     public ModelAndView deletePoi() {
         ModelAndView model = new ModelAndView("deleteform");
         return model;
     }
-    
-    @RequestMapping(value= "/deleteevent")
+
+    @RequestMapping(value = "/deleteevent")
     public ModelAndView deleteEvt() {
         ModelAndView model = new ModelAndView("deleteeventform");
         return model;
     }
-    
-    @RequestMapping(value= "/deletepoi", params="name")
+
+    @RequestMapping(value = "/deletepoi", params = "name")
     public ModelAndView deletePoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("deleted");
-        try{
-        CompletePOI poi= pm.findOneCompletePoiByName(name);
-        pm.deletePoi(poi);
-        return model;
-        }
-        catch(RuntimeException e){
-            ModelAndView model2= new ModelAndView("errorViewPoi");
-            model2.addObject("err", "Errore impossibile trovare il poi: "+name);
+        try {
+            CompletePOI poi = pm.findOneCompletePoiByName(name);
+            pm.deletePoi(poi);
+            return model;
+        } catch (RuntimeException e) {
+            ModelAndView model2 = new ModelAndView("errorViewPoi");
+            model2.addObject("err", "Errore impossibile trovare il poi: " + name);
             return model2;
         }
     }
-   
-    
-    @RequestMapping(value= "/deletepoi", params="id")
+
+    @RequestMapping(value = "/deletepoi", params = "id")
     public ModelAndView deletePoiById(@RequestParam(value = "id") String id) {
-        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
-        try{
-        ModelAndView model = new ModelAndView("deleted");
-        CompletePOI poi= pm.getCompletePoiById(id);
-        
-        
-        
-        pm.deletePoi(poi);
-        return model;
-    }
-    catch(RuntimeException e){
-            ModelAndView model2= new ModelAndView("errorViewPoi");
-            model2.addObject("err", "Errore impossibile trovare il poi con id: "+id);
+        try {
+            ModelAndView model = new ModelAndView("deleted");
+            CompletePOI poi = pm.getCompletePoiById(id);
+
+            pm.deletePoi(poi);
+            return model;
+        } catch (RuntimeException e) {
+            ModelAndView model2 = new ModelAndView("errorViewPoi");
+            model2.addObject("err", "Errore impossibile trovare il poi con id: " + id);
             return model2;
         }
     }
-    
+
 }

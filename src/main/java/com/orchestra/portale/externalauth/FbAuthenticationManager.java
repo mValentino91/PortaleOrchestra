@@ -5,9 +5,6 @@
  */
 package com.orchestra.portale.externalauth;
 
-import com.orchestra.portale.dbManager.ConcretePersistenceManager;
-import com.orchestra.portale.dbManager.PersistenceManager;
-
 import com.orchestra.portale.externalauth.NetworkUtils;
 import com.orchestra.portale.externalauth.exception.FacebookException;
 import com.orchestra.portale.externalauth.exception.UserNotFoundException;
