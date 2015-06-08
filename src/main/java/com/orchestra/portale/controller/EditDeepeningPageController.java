@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
@@ -31,6 +32,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,8 +47,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value= "/admin")
 public class EditDeepeningPageController {
-     @Autowired
-    PersistenceManager pm;
+     
 
     @RequestMapping(value= "/editdpage")
     public ModelAndView editDpage() {
@@ -56,6 +57,7 @@ public class EditDeepeningPageController {
     @RequestMapping(value= "/editdpage", params="name")
     public ModelAndView editPoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("editdpageform");
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         try {
         DeepeningPage poi= pm.findDeepeningPageByName(name);
        model.addObject("nome", poi.getName());
@@ -94,6 +96,7 @@ public class EditDeepeningPageController {
     @RequestMapping(value= "/editdpage", params="id")
     public ModelAndView editPoibyID(@RequestParam(value = "id") String id) {
         ModelAndView model = new ModelAndView("editdpageform");
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         try {
         DeepeningPage poi= pm.findDeepeningPage(id);
         model.addObject("nome", poi.getName());
@@ -148,7 +151,7 @@ public class EditDeepeningPageController {
     }
      @RequestMapping(value= "/updatedpage", method = RequestMethod.POST)
     public ModelAndView updatePoi(HttpServletRequest request, @RequestParam Map<String,String> params, @RequestParam(value="file", required=false) MultipartFile[] files, @RequestParam(value="cover", required=false) MultipartFile cover, @RequestParam(value="fileprec", required=false) String[] fileprec, @RequestParam(value="imgdel", required=false) String[] imgdel ) throws InterruptedException {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
          DeepeningPage poi= pm.findDeepeningPage(params.get("id"));
          CoverImgComponent coverimg=new CoverImgComponent();
          ArrayList<AbstractPoiComponent> listComponent = new ArrayList<AbstractPoiComponent>();

@@ -5,10 +5,12 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,8 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
     @Controller
 @RequestMapping(value= "/admin")
 public class DeleteDeepeningPageController {
-    @Autowired
-    PersistenceManager pm;
+    
 
     @RequestMapping(value= "/deletedpage")
     public ModelAndView deletePoi() {
@@ -32,6 +33,7 @@ public class DeleteDeepeningPageController {
     
     @RequestMapping(value= "/deldpage", params="name")
     public ModelAndView deletePoi(@RequestParam(value = "name") String name) {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("deleted");
         try{
         DeepeningPage poi= pm.findDeepeningPageByName(name);
@@ -50,6 +52,7 @@ public class DeleteDeepeningPageController {
     @RequestMapping(value= "/deldpage", params="id")
     public ModelAndView deletePoiById(@RequestParam(value = "id") String id) {
         try{
+            PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         ModelAndView model = new ModelAndView("deleted");
         DeepeningPage poi= pm.findDeepeningPage(id);
         pm.deleteDeepeningPage(poi);

@@ -5,12 +5,14 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import org.springframework.stereotype.Controller;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,11 +24,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AllPoisIdController {
-    @Autowired
-    PersistenceManager pm;
+   
     
     @RequestMapping(value= "/poiId")
     public ModelAndView listid () {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
    Iterable<CompletePOI> poilist =  pm.getAllCompletePoi();
    ArrayList<String> idlist = new ArrayList<String>();
    int i=1;

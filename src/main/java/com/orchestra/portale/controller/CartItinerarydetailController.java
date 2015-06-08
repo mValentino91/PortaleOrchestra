@@ -1,11 +1,13 @@
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.repositories.DealerOfferRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,14 +22,13 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @Secured("ROLE_USER")
 public class CartItinerarydetailController {
-    @Autowired
-    private PersistenceManager pm;
+    
     
     @RequestMapping(value = "/saveOffer", method = RequestMethod.GET)
     public @ResponseBody
     String saveOffer(@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String qta, @RequestParam String sum) {
        
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();

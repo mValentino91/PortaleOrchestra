@@ -1,5 +1,6 @@
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.io.File;
@@ -7,6 +8,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -21,8 +23,8 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping
 public class AccessController {
 
-    @Autowired
-    PersistenceManager pm;
+    
+    
 
     @RequestMapping("/login")
     public String login() {
@@ -47,7 +49,7 @@ public class AccessController {
 
     @RequestMapping("/loginArea")
     public ModelAndView loginArea(HttpServletRequest request) {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         HttpSession session = request.getSession(true);
         ModelAndView model = new ModelAndView("access/loginArea");
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

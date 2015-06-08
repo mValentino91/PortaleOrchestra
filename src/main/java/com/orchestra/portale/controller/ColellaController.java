@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import colellaparser.Produttore;
 import colellaparser.XMLParser;
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import java.io.File;
@@ -29,6 +30,7 @@ import com.orchestra.portale.persistence.mongo.documents.PhoneContact;
 import com.orchestra.portale.persistence.mongo.documents.Section;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  *
@@ -36,14 +38,13 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @Controller
 public class ColellaController {
-    @Autowired
-    PersistenceManager pm;
+    
     
     
     @RequestMapping(value = "/colellaImport")
     public @ResponseBody
     String colellaImport(HttpServletRequest request) {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         
         HttpSession session = request.getSession();
         ServletContext sc = session.getServletContext();

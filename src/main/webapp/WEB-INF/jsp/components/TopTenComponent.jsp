@@ -28,10 +28,10 @@
                             <div class="box-elem component component-text" style="overflow: hidden; border: 0px solid green;">
                                 <div class="top_poi_box">
                                     <div class="top_flag"></div>
-                                    <a href="/getPoi?id=${toppoi.id}"><div class="top_poi_img" style="background-image: url('dist/poi/img/${toppoi.id}/cover.jpg')"></div></a>
+                                    <a href="getPoi?id=${toppoi.id}"><div class="top_poi_img" style="background-image: url('dist/poi/img/${toppoi.id}/cover.jpg')"></div></a>
                                     <div class="top_poi_content">
                                         <div class="top_poi_title">
-                                            <a href="/getPoi?id=${toppoi.id}"> ${toppoi.name}</a>
+                                            <a href="getPoi?id=${toppoi.id}"> ${toppoi.name}</a>
                                         </div>
                                         <div class="top_poi_text">
                                             ${toppoi.shortDescription}
