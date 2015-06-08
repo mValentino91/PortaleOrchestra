@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompactWorkingDays;
@@ -44,6 +45,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,11 +62,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class NewEventController {
 
     //Manager della persistenza
-    @Autowired
-    PersistenceManager pm;
+    
 
     @RequestMapping(value = "/newevent")
     public ModelAndView newEvent() {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         //Creo la view che sarà mostrata all'utente
         ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();

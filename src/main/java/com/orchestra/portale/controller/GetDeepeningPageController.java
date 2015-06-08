@@ -7,6 +7,7 @@ package com.orchestra.portale.controller;
 
 import com.orchestra.portale.components.LinkedEntities;
 import com.orchestra.portale.components.LinkedEntitiesManager;
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
@@ -20,6 +21,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,13 +34,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class GetDeepeningPageController {
     //Manager della persistenza
-    @Autowired
-    private PersistenceManager pm;
-
+    
     //Richiesta per la visualizzazione di un singolo poi
     @RequestMapping(value = "/getDP", params = "id")
     public ModelAndView getDp(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
-
+PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("infopoi");
         ModelAndView error = new ModelAndView("errorViewPoi");
@@ -75,6 +75,7 @@ public class GetDeepeningPageController {
 }
     @RequestMapping("/admin/viewallDP")
     public ModelAndView viewAll() {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
          ArrayList<DeepeningPage> list = (ArrayList<DeepeningPage>) pm.findAllDeepeningPages();
          ModelAndView model =  new ModelAndView("viewdps");
          model.addObject("list", list);

@@ -7,6 +7,7 @@ package com.orchestra.portale.controller;
 
 import com.orchestra.portale.components.LinkedEntities;
 import com.orchestra.portale.components.LinkedEntitiesManager;
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
@@ -21,6 +22,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.geo.GeoResult;
 import org.springframework.data.geo.GeoResults;
 import org.springframework.stereotype.Controller;
@@ -35,13 +37,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class OwnerEditPoiController {
      //Manager della persistenza
-    @Autowired
-    private PersistenceManager pm;
+    
 
     
     @RequestMapping(value = "/UpdatePoi", params = "id")
     public ModelAndView getPoi(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
-
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("updatepoi");
         ModelAndView error = new ModelAndView("errorViewPoi");

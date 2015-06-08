@@ -6,6 +6,7 @@
 package com.orchestra.portale.controller;
 
 import com.google.gson.Gson;
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,13 +36,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Secured("ROLE_USER")
 public class FavoriteController {
     //Manager della persistenza
-    @Autowired
-    PersistenceManager pm;
+   
 
     @RequestMapping(value = "/saveFavorite", method = RequestMethod.GET)
     public @ResponseBody
     String saveFavorite(@RequestParam String id_poi) {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         System.out.println("***************************");
@@ -60,7 +61,7 @@ public class FavoriteController {
     @RequestMapping(value = "/saveFavoriteRating", method = RequestMethod.GET)
     public @ResponseBody
     String saveFavoriteRating(@RequestParam String id_poi, @RequestParam String rating) {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
@@ -72,7 +73,7 @@ public class FavoriteController {
     @RequestMapping(value = "/getFavorites", method = RequestMethod.GET)
     public @ResponseBody
     String getFavorites() {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
@@ -93,7 +94,7 @@ public class FavoriteController {
 
     @RequestMapping(value = "/favorites")
     public ModelAndView favorites() {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
@@ -159,7 +160,7 @@ public class FavoriteController {
     @RequestMapping(value = "/ifFavorite", method = RequestMethod.GET)
     public @ResponseBody
     String ifFavorite(@RequestParam String id_poi) {
-        
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
@@ -172,6 +173,7 @@ public class FavoriteController {
     @RequestMapping(value = "/deleteFavorite", method = RequestMethod.GET)
     public @ResponseBody
     String deleteFavorite(@RequestParam String id_poi) {
+        PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();

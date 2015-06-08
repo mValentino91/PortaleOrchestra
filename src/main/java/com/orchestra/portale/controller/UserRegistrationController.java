@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.controller;
 
+import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Role;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -17,6 +18,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,8 +31,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class UserRegistrationController {
     //Manager della persistenza
-    @Autowired
-    PersistenceManager pm;
+  
 
    @RequestMapping(value = "/userSignIn", method = RequestMethod.GET)
    public ModelAndView signin() {
@@ -40,6 +41,7 @@ public class UserRegistrationController {
    @RequestMapping(value = "/userSignIn", method = RequestMethod.POST)
    public ModelAndView addUser(HttpServletRequest request, @ModelAttribute("SpringWeb")User user, @RequestParam(value="avatar", required=false)
     MultipartFile avatar) {
+       PersistenceManager pm = new ConcretePersistenceManager( LocaleContextHolder.getLocale().getDisplayLanguage() );
        ModelAndView model2 = new ModelAndView("okpage");
         User usertest=pm.findUserByUsername(user.getUsername());
         if(usertest!= null && usertest.getUsername().toLowerCase().equals(user.getUsername().toLowerCase())){
