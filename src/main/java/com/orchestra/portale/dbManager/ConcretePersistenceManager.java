@@ -149,6 +149,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public Iterable<CompletePOI> getAllCompletePoi() {
         return mongoOps.find(new Query(where("lang").is(this.lang)), CompletePOI.class);
+        //return poiMongoRepo.findAll();
     }
 
     @Override
@@ -160,11 +161,13 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public Iterable<CompletePOI> getCompletePoiByCategories(String[] categories) {
 
         return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("lang").is(this.lang)), CompletePOI.class);
+        //return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
     }
 
     @Override
     public CompletePOI findOneCompletePoiByName(String name) {
 
+        //Iterable<CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
         Iterable<CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)).and("lang").is(this.lang)), CompletePOI.class);
         for (CompletePOI p : pois) {
             if (p.getName().toLowerCase().equals(name.toLowerCase())) {
@@ -177,6 +180,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String[] categories) {
         return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)).and("lang").is(this.lang)), CompletePOI.class);
+        //return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
     }
 
     @Override
@@ -192,6 +196,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
                 .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
                 .and("lang").is(this.lang)),
                 CompletePOI.class);
+        /*
+        return mongoOps.find(new Query(where("categories").regex(Pattern.compile(category, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),
+                CompletePOI.class);
+        */
     }
 
     @Override
