@@ -282,26 +282,22 @@
                         var sum = sel.parent().parent().find("#val-discounted").val();
                         var idOffer = sel.parent().parent().prop("id");
                         var idPoi = sel.parent().parent().parent().parent().prop("id");
-                        alert(qta);
-                        console.log(idPoi);
+                        var type = sel.parent().parent().attr("data-type");
+                        alert(idPoi);
+                        alert(idOffer);
+                        console.log(type);
                         //@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String qta
                         //"id_poi="+poiId+"&rating="+rating,
                        
                         $.ajax({
                             type: "GET",
                             url: "./saveOffer",
-                            data: "id_offer="+idOffer+"&id_poi="+idPoi+"&qta="+qta+"&sum="+sum,	
+                            data: "id_offer="+idOffer+"&id_poi="+idPoi+"&qta="+qta+"&sum="+sum+"&type="+type,	
                             success: function(){
                                 alert("Offerta inserita");
                             }                 
                         }); 
-                        
-                        
-                        <%--var idPoi = ${map.map_poi.get(idpoi).name}; 
-                        
-                        
-                        
-                        --%>
+                       
                     });
                 });
                 
@@ -452,7 +448,7 @@
                                             <div class="poi_offer_filler"></div>
                                             
                                             <c:forEach items="${map_comp.get(idpoi).prices}" var="stock">
-                                                <div class="poi_offer_detail">
+                                                <div data-type="${stock.type}" class="poi_offer_detail">
                                                     
                                                     
                                                     
@@ -484,7 +480,7 @@
                                             
                                             <div class="poi_offer_detail_info"><strong>Offerte Card</strong></div>
                                             <c:forEach var="offer" items="${map.map_off.get(idpoi)}">
-                                                <div id="${offer.idOffer}" class="poi_offer_detail">
+                                                <div data-type="NULL" id="${offer.idOffer}" class="poi_offer_detail">
                                                     
                                                     
                                                     

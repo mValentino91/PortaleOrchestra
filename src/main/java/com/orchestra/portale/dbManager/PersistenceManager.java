@@ -81,4 +81,7 @@ public interface PersistenceManager {
     public List<DealerOffer> findOfferByIdDealer(String idDealer);
     public void invalidateOffer(int idItinerary, int idOffer);
     public Iterable<Top10> selectTopPoi(String val);
+    public Iterable<CartItinerarydetail> findCartItineraryByIdUser(int idUser);
+    public void updateQuantity(int qta, int id_user,int idOffer);
+    public void UpdateOfferStockByType(int qta,String type, String idPOi);
 }

@@ -29,13 +29,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "CartItinerarydetail.findAll", query = "SELECT c FROM CartItinerarydetail c"),
     @NamedQuery(name = "CartItinerarydetail.findByIdCartItinerary", query = "SELECT c FROM CartItinerarydetail c WHERE c.idCartItinerary = :idCartItinerary"),
+    @NamedQuery(name = "CartItinerarydetail.findByIdCard", query = "SELECT c FROM CartItinerarydetail c WHERE c.idCard = :idCard"),
     @NamedQuery(name = "CartItinerarydetail.findByIdItinerary", query = "SELECT c FROM CartItinerarydetail c WHERE c.idItinerary = :idItinerary"),
     @NamedQuery(name = "CartItinerarydetail.findByIdUser", query = "SELECT c FROM CartItinerarydetail c WHERE c.idUser = :idUser"),
     @NamedQuery(name = "CartItinerarydetail.findByIdPoi", query = "SELECT c FROM CartItinerarydetail c WHERE c.idPoi = :idPoi"),
     @NamedQuery(name = "CartItinerarydetail.findByQta", query = "SELECT c FROM CartItinerarydetail c WHERE c.qta = :qta"),
     @NamedQuery(name = "CartItinerarydetail.findBySum", query = "SELECT c FROM CartItinerarydetail c WHERE c.sum = :sum"),
     @NamedQuery(name = "CartItinerarydetail.findByIdOffer", query = "SELECT c FROM CartItinerarydetail c WHERE c.idOffer = :idOffer"),
-    @NamedQuery(name = "CartItinerarydetail.findByStatus", query = "SELECT c FROM CartItinerarydetail c WHERE c.status = :status")})
+    @NamedQuery(name = "CartItinerarydetail.findByStatus", query = "SELECT c FROM CartItinerarydetail c WHERE c.status = :status"),
+    @NamedQuery(name = "CartItinerarydetail.findByTipoStock", query = "SELECT c FROM CartItinerarydetail c WHERE c.tipoStock = :tipoStock")})
 public class CartItinerarydetail implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,6 +45,10 @@ public class CartItinerarydetail implements Serializable {
     @Basic(optional = false)
     @Column(name = "idCartItinerary")
     private Integer idCartItinerary;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idCard")
+    private int idCard;
     @Basic(optional = false)
     @NotNull
     @Column(name = "idItinerary")
@@ -64,14 +70,15 @@ public class CartItinerarydetail implements Serializable {
     @NotNull
     @Column(name = "sum")
     private float sum;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "idOffer")
-    private int idOffer;
+    private Integer idOffer;
     @Basic(optional = false)
     @NotNull
     @Column(name = "status")
     private int status;
+    @Size(max = 200)
+    @Column(name = "tipoStock")
+    private String tipoStock;
 
     public CartItinerarydetail() {
     }
@@ -80,14 +87,14 @@ public class CartItinerarydetail implements Serializable {
         this.idCartItinerary = idCartItinerary;
     }
 
-    public CartItinerarydetail(Integer idCartItinerary, int idItinerary, int idUser, String idPoi, int qta, float sum, int idOffer, int status) {
+    public CartItinerarydetail(Integer idCartItinerary, int idCard, int idItinerary, int idUser, String idPoi, int qta, float sum, int status) {
         this.idCartItinerary = idCartItinerary;
+        this.idCard = idCard;
         this.idItinerary = idItinerary;
         this.idUser = idUser;
         this.idPoi = idPoi;
         this.qta = qta;
         this.sum = sum;
-        this.idOffer = idOffer;
         this.status = status;
     }
 
@@ -97,6 +104,14 @@ public class CartItinerarydetail implements Serializable {
 
     public void setIdCartItinerary(Integer idCartItinerary) {
         this.idCartItinerary = idCartItinerary;
+    }
+
+    public int getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(int idCard) {
+        this.idCard = idCard;
     }
 
     public int getIdItinerary() {
@@ -139,11 +154,11 @@ public class CartItinerarydetail implements Serializable {
         this.sum = sum;
     }
 
-    public int getIdOffer() {
+    public Integer getIdOffer() {
         return idOffer;
     }
 
-    public void setIdOffer(int idOffer) {
+    public void setIdOffer(Integer idOffer) {
         this.idOffer = idOffer;
     }
 
@@ -153,6 +168,14 @@ public class CartItinerarydetail implements Serializable {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getTipoStock() {
+        return tipoStock;
+    }
+
+    public void setTipoStock(String tipoStock) {
+        this.tipoStock = tipoStock;
     }
 
     @Override

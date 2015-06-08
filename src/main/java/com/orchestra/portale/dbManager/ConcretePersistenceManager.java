@@ -419,4 +419,21 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return poiMongoRepo.findAll();
     }
 
+    @Override
+    public Iterable<CartItinerarydetail> findCartItineraryByIdUser(int idUser) {
+        Iterable<CartItinerarydetail> c = cartdetailRepo.findByIdUser(idUser);
+        return c;
+    }
+
+    @Override
+    public void updateQuantity(int qta, int id_user, int idOffer) {
+        cartdetailRepo.updateQta(qta, id_user, idOffer);
+    }
+
+    @Override
+    public void UpdateOfferStockByType(int qta,String type, String idPoi) {
+        cartdetailRepo.updateQtaByType(qta,type,idPoi);
+        
+    }
+
 }
