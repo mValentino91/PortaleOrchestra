@@ -8,7 +8,7 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.DescriptionComponent;
@@ -49,10 +49,10 @@ public class NewDeepeningPageController {
     PersistenceManager pm ;
     @RequestMapping("/newdpage")
     public ModelAndView newdpage() {
-        ArrayList<CompletePOI> poilist = (ArrayList<CompletePOI>) pm.getAllCompletePoi();
+        ArrayList<CompletePOI_It> poilist = (ArrayList<CompletePOI_It>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
         ArrayList<CouplePOI> lista2 = new ArrayList<CouplePOI>();
-        for (CompletePOI p : poilist) {
+        for (CompletePOI_It p : poilist) {
             CouplePOI temp = new CouplePOI();
             temp.setIdpoi(p.getId());
             temp.setNome(p.getName());

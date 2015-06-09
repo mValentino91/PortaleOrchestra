@@ -11,7 +11,7 @@ import com.orchestra.portale.external.services.manager.BikeSharingService;
 import com.orchestra.portale.external.services.manager.CiRoService;
 import com.orchestra.portale.external.services.manager.IbmService;
 import com.orchestra.portale.external.services.manager.ServiceManagerDispacher;
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -85,15 +85,5 @@ public class ExternalServiceController {
         return serviceDispacher.loadExternalService();
     }
 
-    @RequestMapping(value = "/reset/lang")
-    public @ResponseBody
-    String resetLang() {
-        pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
-        Iterable<CompletePOI> pois = pm.getAll();
-        for (CompletePOI completePOI : pois) {
-            completePOI.setLang("it");
-            pm.savePoi(completePOI);
-        }
-        return "OK";
-    }
+    
 }

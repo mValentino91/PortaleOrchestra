@@ -11,6 +11,7 @@ import com.google.gson.JsonObject;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import java.util.Iterator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +39,18 @@ public class SearchController {
     public @ResponseBody
     String find(@RequestParam String name, @RequestParam String address, @RequestParam String category) {
         Gson pois = new Gson();
+        pm.setLang(LocaleContextHolder.getLocale().toString());
         return pois.toJson(pm.findCompletePoi(name, address, category));
     }
 
     @RequestMapping(value = "/Autocomplete")
     public @ResponseBody
     String autocomplete(@RequestParam String query) {
+        pm.setLang(LocaleContextHolder.getLocale().toString());
         Gson pois = new Gson();
         JsonObject j= new JsonObject();
         JsonArray array = new JsonArray();
-        Iterable<CompletePOI> results = pm.findCompletePoi(query, "", "");
+        Iterable<? extends CompletePOI> results = pm.findCompletePoi(query, "", "");
         for (CompletePOI c : results) {
             JsonObject json = new JsonObject();
             json.addProperty("value", c.getName());
@@ -61,13 +64,14 @@ public class SearchController {
     @RequestMapping(value = "/Autocompleteevent")
     public @ResponseBody
     String autocompleteevent(@RequestParam String query) {
+        pm.setLang(LocaleContextHolder.getLocale().toString());
         Gson pois = new Gson();
         JsonObject j= new JsonObject();
         JsonArray array = new JsonArray();
         String [] categories = new String [10];
         categories[1] = "event";
         categories[2] = "expo";
-        Iterable<CompletePOI> results = pm.findCompletePoiByNameAndCategories(query,categories);
+        Iterable<? extends CompletePOI> results = pm.findCompletePoiByNameAndCategories(query,categories);
         for (CompletePOI c : results) {
             JsonObject json = new JsonObject();
             json.addProperty("value", c.getName());
@@ -83,6 +87,7 @@ public class SearchController {
     @RequestMapping(value = "/Autocompletedpage")
     public @ResponseBody
     String autocompletedpage(@RequestParam String query) {
+        pm.setLang(LocaleContextHolder.getLocale().toString());
         Gson pois = new Gson();
         JsonObject j= new JsonObject();
         JsonArray array = new JsonArray();
@@ -101,6 +106,7 @@ public class SearchController {
     public @ResponseBody
     String near(@RequestParam String id, @RequestParam double radius) {
         Gson pois = new Gson();
+        pm.setLang(LocaleContextHolder.getLocale().toString());
         return pois.toJson(pm.findNearCompletePoi(id, radius));
 
     }

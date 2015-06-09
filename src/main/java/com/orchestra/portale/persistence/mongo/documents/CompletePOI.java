@@ -13,174 +13,111 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *
  * @author mekko
  */
-@Document(collection = "poi")
-public class CompletePOI {
-    @Id
-    private String id;
-    private String name;
-    private String visibility;
-    private double[] location;
-    private String shortDescription;
-    private String address;
-    private List<AbstractPoiComponent> components;
-    private List<String> categories;
-    private String start_date;
-    private String end_date;
-    private String externalUrl;
-    private String lang;
 
-    /**
-     * @return the id
-     */
-    public String getId() {
-        return id;
-    }
+public interface CompletePOI {
 
-    public String getVisibility() {
-        return visibility;
-    }
+    public abstract String getId();
 
-    public void setVisibility(String visibility) {
-        this.visibility = visibility;
-    }
+    public abstract String getVisibility();
+
+    public abstract void setVisibility(String visibility);
 
     
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
-        this.id = id;
-    }
+    public abstract void setId(String id);
 
     /**
      * @return the name
      */
-    public String getName() {
-        return name;
-    }
+    public abstract String getName();
 
     /**
      * @param name the name to set
      */
-    public void setName(String name) {
-        this.name = name;
-    }
+    public abstract void setName(String name);
     
     /**
      * @return the shortDescription
      */
-    public String getShortDescription() {
-        return shortDescription;
-    }
+    public abstract String getShortDescription();
 
     /**
      * @param shortDescription the shortDescription to set
      */
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
+    public abstract void setShortDescription(String shortDescription);
 
     /**
      * @return the address
      */
-    public String getAddress() {
-        return address;
-    }
+    public abstract String getAddress();
 
     /**
      * @param address the address to set
      */
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public abstract void setAddress(String address);
 
     /**
      * @return the components
      */
-    public List<AbstractPoiComponent> getComponents() {
-        return components;
-    }
+    public abstract List<AbstractPoiComponent> getComponents();
 
     /**
      * @param components the components to set
      */
-    public void setComponents(List<AbstractPoiComponent> components) {
-        this.components = components;
-    }
+    public abstract void setComponents(List<AbstractPoiComponent> components);
 
     /**
      * @return the categories
      */
-    public List<String> getCategories() {
-        return categories;
-    }
+    public abstract List<String> getCategories();
 
     /**
      * @param categories the categories to set
      */
-    public void setCategories(List<String> categories) {
-        this.categories = categories;
-    }
+    public abstract void setCategories(List<String> categories);
 
     /**
      * @return the location
      */
-    public double[] getLocation() {
-        return location;
-    }
+    public abstract double[] getLocation();
 
     /**
      * @param location the location to set
      */
-    public void setLocation(double[] location) {
-        this.location = location;
-    }
+    public abstract void setLocation(double[] location);
 
-    public String getStart_date() {
-        return start_date;
-    }
+    public abstract String getStart_date();
 
-    public String getEnd_date() {
-        return end_date;
-    }
+    public abstract String getEnd_date();
 
-    public void setStart_date(String start_date) {
-        this.start_date = start_date;
-    }
+    public abstract void setStart_date(String start_date);
 
-    public void setEnd_date(String end_date) {
-        this.end_date = end_date;
-    }
+    public abstract void setEnd_date(String end_date);
 
     /**
      * @return the externalUrl
      */
-    public String getExternalUrl() {
-        return externalUrl;
-    }
+    public abstract String getExternalUrl();
 
     /**
      * @param externalUrl the externalUrl to set
      */
-    public void setExternalUrl(String externalUrl) {
-        this.externalUrl = externalUrl;
-    }
+    public abstract void setExternalUrl(String externalUrl);
 
     /**
      * @return the lang
      */
-    public String getLang() {
-        return lang;
-    }
+  
 
     /**
      * @param lang the lang to set
      */
-    public void setLang(String lang) {
-        this.lang = lang;
-    }
+   
     
     
     
 }
+

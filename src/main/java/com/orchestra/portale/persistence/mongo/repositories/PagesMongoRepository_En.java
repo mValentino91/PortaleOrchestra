@@ -5,7 +5,8 @@
  */
 package com.orchestra.portale.persistence.mongo.repositories;
 
-import com.orchestra.portale.persistence.mongo.documents.Pages;
+import com.orchestra.portale.persistence.mongo.documents.Pages_En;
+
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -13,7 +14,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  *
  * @author Alex
  */
-public interface PagesMongoRepository extends PagingAndSortingRepository<Pages, String> {
+public interface PagesMongoRepository_En extends PagingAndSortingRepository<Pages_En, String> {
 
     
 }

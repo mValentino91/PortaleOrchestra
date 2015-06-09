@@ -1,7 +1,7 @@
 
 package com.orchestra.portale.utils;
 
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,19 +12,19 @@ import java.util.Map;
  * @author andrea
  */
 public class MapPoiCat {
-    private Map<String,List<CompletePOI>> map;
+    private Map<String,List<CompletePOI_It>> map;
     
     private Map<String, Integer> ratings;
 
     /**
      * @return the map
      */
-    public Map<String,List<CompletePOI>> getMap() {
+    public Map<String,List<CompletePOI_It>> getMap() {
         return map;
     }
 
     public MapPoiCat(){
-        this.map = new HashMap<String,List<CompletePOI>>();
+        this.map = new HashMap<String,List<CompletePOI_It>>();
         this.ratings = new HashMap<String,Integer>();
         
     }
@@ -41,12 +41,12 @@ public class MapPoiCat {
         }
         return ok;
     }
-    public void insertPoi(String cat, CompletePOI poi){
-        List<CompletePOI> elem;
+    public void insertPoi(String cat, CompletePOI_It poi){
+        List<CompletePOI_It> elem;
         elem=map.get(cat);
         if(elem==null){
             System.out.println("nuova lista");
-            List<CompletePOI> newele = new ArrayList<CompletePOI>();
+            List<CompletePOI_It> newele = new ArrayList<CompletePOI_It>();
             newele.add(poi);
             map.put(cat,newele);
             

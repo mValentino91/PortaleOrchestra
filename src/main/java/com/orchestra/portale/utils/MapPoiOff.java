@@ -7,6 +7,7 @@ package com.orchestra.portale.utils;
 
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import java.util.List;

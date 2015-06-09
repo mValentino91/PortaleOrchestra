@@ -108,7 +108,7 @@
                         <input style="margin-top: 8px" id="autocomplete" type="text" class="form-control" placeholder="<spring:message code='label.topsearch'></spring:message>" />
                     </li>
                     
-                    <!--
+                    
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img class="translate-icon" src="./dist/img/translate.png" />
@@ -139,7 +139,7 @@
                         </ul>
                         
                     </li>
-                    -->
+                   
                     
                     <li id="loginArea" class="dropdown">
                         <jsp:include page="../access/loginArea.jsp" />

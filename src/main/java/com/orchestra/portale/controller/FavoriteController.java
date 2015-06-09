@@ -8,7 +8,7 @@ package com.orchestra.portale.controller;
 import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.utils.MapPoiCat;
@@ -78,12 +78,12 @@ public class FavoriteController {
     
         Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(id_user)); /*id_user*/
         ArrayList<String> idlist = new ArrayList<String>();        
-        Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
+        Iterable<CompletePOI_It> poilist = new ArrayList<CompletePOI_It>();
         
         for (Favorite f : favorites ) {
             idlist.add(f.getIdPoi());
         }
-        poilist = pm.getCompletePoisById(idlist);
+        poilist = (Iterable<CompletePOI_It>) pm.getCompletePoisById(idlist);
         
         Gson j_poilist = new Gson();
         return j_poilist.toJson(poilist);
@@ -99,7 +99,7 @@ public class FavoriteController {
         
         Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(id_user));/*idUser*/
         ArrayList<String> idlist = new ArrayList<String>();        
-        Iterable<CompletePOI> poilist = new ArrayList<CompletePOI>();
+        Iterable<CompletePOI_It> poilist = new ArrayList<CompletePOI_It>();
         Map<String,String>cat_slug_ita = new HashMap<String,String>();
         
         cat_slug_ita.put("culture","Cultura");
@@ -122,7 +122,7 @@ public class FavoriteController {
             map_cat.insertRate(f.getIdPoi(), f.getRating());
         }
         
-        poilist = pm.getCompletePoisById(idlist);
+        poilist = (Iterable<CompletePOI_It>) pm.getCompletePoisById(idlist);
         
         List<String> main_category = new ArrayList<String>();
         main_category.add("culture");
@@ -138,7 +138,7 @@ public class FavoriteController {
         
         
         /*Occorre definire un array di categorie stock ed estrapolare le main category dai poi*/
-        for(CompletePOI cp : poilist){
+        for(CompletePOI_It cp : poilist){
             List<String>poi_category = cp.getCategories();
             String cat_map = MapPoiCat.checkCategory(main_category,poi_category);
             

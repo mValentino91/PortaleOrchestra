@@ -11,7 +11,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.orchestra.portale.dbManager.PersistenceManager;
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoi;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoiComponent;
@@ -42,9 +42,9 @@ public class LinkedEntitiesManager {
         ArrayList<LinkedPoi> lplist = lp.getLinked();
         ArrayList<String> pois = new ArrayList<String>();
         ArrayList<String> dpages = new ArrayList<String>();
-        ArrayList<CompletePOI> completepois = new ArrayList<CompletePOI>();
+        ArrayList<CompletePOI_It> completepois = new ArrayList<CompletePOI_It>();
         ArrayList<DeepeningPage> deepeningpages = new ArrayList<DeepeningPage>();
-        Map<String, CompletePOI> poiMap = new HashMap<String, CompletePOI>();
+        Map<String, CompletePOI_It> poiMap = new HashMap<String, CompletePOI_It>();
         Map<String, DeepeningPage> dpageMap = new HashMap<String, DeepeningPage>();
         Map<String, String> catMap = new HashMap<String, String>();
         BufferedReader br = new BufferedReader(
@@ -71,10 +71,10 @@ public class LinkedEntitiesManager {
 
             }
         }
-        completepois = (ArrayList<CompletePOI>) pm.getCompletePoisById(pois);
+        completepois = (ArrayList<CompletePOI_It>) pm.getCompletePoisById(pois);
         deepeningpages = (ArrayList<DeepeningPage>) pm.getDeepeningPagesById(dpages);
 
-        for (CompletePOI p : completepois) {
+        for (CompletePOI_It p : completepois) {
             poiMap.put(p.getId(), p);
         }
         for (DeepeningPage dp : deepeningpages) {

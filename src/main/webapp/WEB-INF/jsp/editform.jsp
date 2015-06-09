@@ -314,6 +314,14 @@
                                             </div>
                                         </div>
 
+                                    </div>
+                                      <div class="row">
+
+
+                                        <div class="col-md-6">Visibilità <select name="visibility" class="form-control"> <option value="1" <c:if test="${visibility == '1'}">selected</c:if>>Visibile</option>
+                                                <option value="0" <c:if test="${visibility == '0'}">selected</c:if>>Solo preview</option></select>
+                                        </div>
+
                                     </div><br>
                                 </center>
                             </div>
@@ -1110,7 +1118,7 @@
 
                 <div class="col-md-12">  
                     <center>
-                        <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA EVENTO" onclick="pre_submit()">
+                        <input type="button" class="btn btn-success" style="width: 150px; height: 50px; margin-top:25px; margin-bottom: 25px;" value="SALVA POI" onclick="pre_submit()">
                     </center>
                 </div>
             </form>

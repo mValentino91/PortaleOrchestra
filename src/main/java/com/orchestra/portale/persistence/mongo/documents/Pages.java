@@ -15,121 +15,68 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author Alex
  *
  **/
-@Document(collection = "pages")
-public class Pages {
-    @Id
-    private String id;
-    private String slug;
-    private String title;
-    private String description;
-    private ArrayList<Tile> tilesList;
-    private SubMenu submenu;
-    private ArrayList<PageColorSchema> colorSchemaList;
 
-    public void setSubmenu(SubMenu submenu) {
-        this.submenu = submenu;
-    }
+public interface Pages {
+   
+  
 
-    public SubMenu getSubmenu() {
-        return submenu;
-    }
-    private List<AbstractPoiComponent> components;
-    private ArrayList<CarouselPages> imgList;
-    private String [] categorySlugList;
-    private ArrayList<String> idPoiList;
+    public abstract void setSubmenu(SubMenu submenu);
 
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
+    public abstract SubMenu getSubmenu();
+ 
+
+    public abstract void setSlug(String slug);
 
     
 
-    public void setIdPoiList(ArrayList<String> idPoiList) {
-        this.idPoiList = idPoiList;
-    }
+    public abstract void setIdPoiList(ArrayList<String> idPoiList);
 
-    public String getSlug() {
-        return slug;
-    }
+    public abstract String getSlug();
 
-    public String[] getCategorySlugList() {
-        return categorySlugList;
-    }
+    public abstract String[] getCategorySlugList();
 
-    public void setCategorySlugList(String[] categorySlugList) {
-        this.categorySlugList = categorySlugList;
-    }
+    public abstract void setCategorySlugList(String[] categorySlugList);
 
     
 
-    public ArrayList<String> getIdPoiList() {
-        return idPoiList;
-    }
+    public abstract ArrayList<String> getIdPoiList();
 
    
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public abstract void setId(String id);
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    public abstract void setTitle(String title);
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public abstract void setDescription(String description);
 
-    public void setTilesList(ArrayList<Tile> tilesList) {
-        this.tilesList = tilesList;
-    }
+    public abstract void setTilesList(ArrayList<Tile> tilesList);
 
    
 
-    public void setComponents(List<AbstractPoiComponent> components) {
-        this.components = components;
-    }
+    public abstract void setComponents(List<AbstractPoiComponent> components);
 
-    public String getId() {
-        return id;
-    }
+    public abstract String getId();
 
-    public String getTitle() {
-        return title;
-    }
+    public abstract String getTitle();
 
-    public String getDescription() {
-        return description;
-    }
+    public abstract String getDescription();
 
-    public ArrayList<Tile> getTilesList() {
-        return tilesList;
-    }
+    public abstract ArrayList<Tile> getTilesList();
 
-    public List<AbstractPoiComponent> getComponents() {
-        return components;
-    }
+    public abstract List<AbstractPoiComponent> getComponents();
 
-    public ArrayList<CarouselPages> getImgList() {
-        return imgList;
-    }
+    public abstract ArrayList<CarouselPages> getImgList();
 
-    public void setImgList(ArrayList<CarouselPages> imgList) {
-        this.imgList = imgList;
-    }
+    public abstract void setImgList(ArrayList<CarouselPages> imgList);
 
     /**
      * @return the colorSchemaList
      */
-    public ArrayList<PageColorSchema> getColorSchemaList() {
-        return colorSchemaList;
-    }
+    public abstract ArrayList<PageColorSchema> getColorSchemaList();
 
     /**
      * @param colorSchemaList the colorSchemaList to set
      */
-    public void setColorSchemaList(ArrayList<PageColorSchema> colorSchemaList) {
-        this.colorSchemaList = colorSchemaList;
-    }
+    public abstract void setColorSchemaList(ArrayList<PageColorSchema> colorSchemaList);
     
 }

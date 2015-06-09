@@ -9,6 +9,7 @@ import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.documents.TopTenComponent;
 import com.orchestra.portale.persistence.sql.entities.Top10;
@@ -39,16 +40,16 @@ public class GetPageController {
       ModelAndView model = new ModelAndView("page");
       Pages page=pm.findPageById(id);
       model.addObject("pages", page);
-       ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();
+       ArrayList<CompletePOI_It> pois=new ArrayList<CompletePOI_It>();
        
       if(page.getIdPoiList() != null ){
-         pois= (ArrayList<CompletePOI>) pm.getCompletePoisById(page.getIdPoiList());
+         pois= (ArrayList<CompletePOI_It>) pm.getCompletePoisById(page.getIdPoiList());
          model.addObject("poivicini", pois);
       }
       else {
           if (page.getCategorySlugList()!=null) {
               
-            Iterable<CompletePOI> poilist =  pm.getCompletePoiByCategories(page.getCategorySlugList());
+            Iterable<? extends CompletePOI> poilist =  pm.getCompletePoiByCategories(page.getCategorySlugList());
              model.addObject("poivicini", poilist);
           }
       }
@@ -79,18 +80,19 @@ public class GetPageController {
           if(sluginp.equals("home")){
            model = new ModelAndView("home");
           }
+          pm.setLang(LocaleContextHolder.getLocale().toString());
       Pages page=pm.findPageBySlug(sluginp);
       model.addObject("pages", page);
-      ArrayList<CompletePOI> pois=new ArrayList<CompletePOI>();
+      ArrayList<CompletePOI_It> pois=new ArrayList<CompletePOI_It>();
        
       if(page.getIdPoiList() != null ){
-         pois= (ArrayList<CompletePOI>) pm.getCompletePoisById(page.getIdPoiList());
+         pois= (ArrayList<CompletePOI_It>) pm.getCompletePoisById(page.getIdPoiList());
          model.addObject("poivicini", pois);
       }
       else {
           if (page.getCategorySlugList()!=null) {
               
-            Iterable<CompletePOI> poilist =  pm.getCompletePoiByCategories(page.getCategorySlugList());
+            Iterable<? extends CompletePOI> poilist =  pm.getCompletePoiByCategories(page.getCategorySlugList());
              model.addObject("poivicini", poilist);
           }
       }
@@ -108,10 +110,10 @@ public class GetPageController {
                 
                 Iterable<Top10> pois_id = pm.selectTopPoi(top_name);
                 
-                ArrayList<CompletePOI> cp= new ArrayList<CompletePOI>();
+                ArrayList<CompletePOI_It> cp= new ArrayList<CompletePOI_It>();
                 
                 for (Top10 cs : pois_id) {
-                    CompletePOI complete= pm.getCompletePoiById(cs.getIdpoi());
+                    CompletePOI_It complete= (CompletePOI_It) pm.getCompletePoiById(cs.getIdpoi());
                     complete.setShortDescription(cs.getDescr());
                     cp.add(complete);
                 }

@@ -10,7 +10,7 @@ import com.orchestra.portale.components.LinkedEntitiesManager;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoiComponent;
 import java.io.FileNotFoundException;

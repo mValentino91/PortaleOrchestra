@@ -8,8 +8,9 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
-import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
-import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
+import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_It;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class DeletePoiController {
     public ModelAndView deletePoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("deleted");
         try {
-            CompletePOI poi = pm.findOneCompletePoiByName(name);
+            CompletePOI_It poi = (CompletePOI_It) pm.findOneCompletePoiByName(name);
             pm.deletePoi(poi);
             return model;
         } catch (RuntimeException e) {
@@ -56,7 +57,7 @@ public class DeletePoiController {
     public ModelAndView deletePoiById(@RequestParam(value = "id") String id) {
         try {
             ModelAndView model = new ModelAndView("deleted");
-            CompletePOI poi = pm.getCompletePoiById(id);
+            CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
 
             pm.deletePoi(poi);
             return model;

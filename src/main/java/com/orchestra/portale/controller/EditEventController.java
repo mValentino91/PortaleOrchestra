@@ -10,12 +10,13 @@ import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompactWorkingDays;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.ContactsComponent;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
 import com.orchestra.portale.persistence.mongo.documents.DescriptionComponent;
 import com.orchestra.portale.persistence.mongo.documents.EmailContact;
-import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
 import com.orchestra.portale.persistence.mongo.documents.EventsDateComponent;
 import com.orchestra.portale.persistence.mongo.documents.EventsDates;
 import com.orchestra.portale.persistence.mongo.documents.EventsHours;
@@ -140,7 +141,7 @@ public class EditEventController {
         model.addObject("lista", lista);
         model.addObject("lista2", lista2);
         try {
-            CompletePOI poi = pm.getCompletePoiById(id);
+            CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
             model.addObject("nome", poi.getName());
             model.addObject("loc", poi.getLocation());
             model.addObject("cat", poi.getCategories());
@@ -167,7 +168,7 @@ public class EditEventController {
             }
 
             //RECUPERO POI INGLESE
-           /* EnCompletePOI enpoi = pm.findEnCompletePoiById(id);
+            CompletePOI_En enpoi = (CompletePOI_En) pm.getCompletePoiById(id);
             model.addObject("ennome", enpoi.getName());
             model.addObject("enloc", enpoi.getLocation());
             model.addObject("encat", enpoi.getCategories());
@@ -190,7 +191,7 @@ public class EditEventController {
                     Logger.getLogger(PoiViewController.class.getName()).log(Level.SEVERE, null, ex);
 
                 }
-            }*/
+            }
 
             return model;
         } catch (RuntimeException e) {
@@ -202,7 +203,7 @@ public class EditEventController {
 
     @RequestMapping(value = "/updateevent", method = RequestMethod.POST)
     public ModelAndView updateEvent(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestParam(value = "file", required = false) MultipartFile[] files, @RequestParam(value = "cover", required = false) MultipartFile cover, @RequestParam(value = "fileprec", required = false) String[] fileprec, @RequestParam(value = "imgdel", required = false) String[] imgdel) throws InterruptedException {
-        CompletePOI poi = pm.getCompletePoiById(params.get("id"));
+        CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(params.get("id"));
         CoverImgComponent coverimg = new CoverImgComponent();
         ArrayList<AbstractPoiComponent> listComponent = new ArrayList<AbstractPoiComponent>();
         for (AbstractPoiComponent comp : poi.getComponents()) {
@@ -494,13 +495,13 @@ public class EditEventController {
 
         pm.savePoi(poi);
 
-        CompletePOI poi2 = (CompletePOI) pm.findOneCompletePoiByName(poi.getName());
+        CompletePOI poi2 = (CompletePOI_It) pm.findOneCompletePoiByName(poi.getName());
 
         // POI INGLESE 
         if (params.get("inglese").equals("true")) {
             addeng(params, poi2.getId(), coverimg, img_gallery);
         } else {
-            EnCompletePOI enpoi = new EnCompletePOI();
+            CompletePOI_En enpoi = new CompletePOI_En();
             enpoi.setAddress(poi.getAddress());
             enpoi.setCategories(poi.getCategories());
             enpoi.setId(poi.getId());
@@ -508,12 +509,13 @@ public class EditEventController {
             enpoi.setShortDescription(poi.getShortDescription());
             enpoi.setStart_date(poi.getStart_date());
             enpoi.setEnd_date(poi.getEnd_date());
+            enpoi.setVisibility("1");
             double enlat = Double.parseDouble(params.get("latitude"));
             double enlongi = Double.parseDouble(params.get("longitude"));
             enpoi.setLocation(new double[]{enlat, enlongi});
             enpoi.setComponents(listComponent);
 
-//            pm.saveEnPoi(enpoi);
+            pm.saveEnPoi(enpoi);
         }
         for (int z = 0; z < files.length; z++) {
             MultipartFile file = files[z];
@@ -576,7 +578,7 @@ public class EditEventController {
     }
 
     public void addeng(Map<String, String> params, String id, CoverImgComponent cover, ImgGalleryComponent gallery) {
-        EnCompletePOI enpoi = new EnCompletePOI();
+        CompletePOI_En enpoi = new CompletePOI_En();
         enpoi.setId(id);
         enpoi.setName(params.get("enname"));
         enpoi.setAddress(params.get("enaddress"));
@@ -586,6 +588,7 @@ public class EditEventController {
         enpoi.setShortDescription(params.get("enshortd"));
         enpoi.setStart_date(params.get("endatai"));
         enpoi.setEnd_date(params.get("endataf"));
+        enpoi.setVisibility("1");
         int i = 1;
         ArrayList<String> categories = new ArrayList<String>();
         while (params.containsKey("encategory" + i)) {
@@ -797,8 +800,9 @@ public class EditEventController {
         }
 
         listComponent.add(cover);
+        if(gallery != null && gallery.getLinks() != null)
         listComponent.add(gallery);
         enpoi.setComponents(listComponent);
-       // pm.saveEnPoi(enpoi);
+         pm.saveEnPoi(enpoi);
     }
 }

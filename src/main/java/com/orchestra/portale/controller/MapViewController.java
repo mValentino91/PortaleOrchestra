@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.profiler.FbProfiler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -41,7 +42,7 @@ public class MapViewController {
         //Creo la view che sarà mostrata all'utente
         pm.setLang(LocaleContextHolder.getLocale().toString());
         ModelAndView model = new ModelAndView("mapView");
-        Iterable<CompletePOI> poiList = pm.getAllCompletePoi();
+        Iterable<CompletePOI_It> poiList = (Iterable<CompletePOI_It>) pm.getAllCompletePoi();
         //aggiungo la lista al model
         model.addObject("poiList", poiList);
 
@@ -58,7 +59,7 @@ public class MapViewController {
         //Creo la view che sarà mostrata all'utente
         pm.setLang(LocaleContextHolder.getLocale().toString());
         ModelAndView model = new ModelAndView("mapView");
-        Iterable<CompletePOI> poiList = pm.getCompletePoiByCategories(categories);
+        Iterable<? extends CompletePOI> poiList = pm.getCompletePoiByCategories(categories);
         //aggiungo la lista al model
         model.addObject("poiList", poiList);
         model.addObject("categories", categories);

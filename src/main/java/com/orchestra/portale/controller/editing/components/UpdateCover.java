@@ -10,6 +10,7 @@ import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -64,7 +65,7 @@ public class UpdateCover {
 
         }
         poi.setComponents(complist);
-        pm.savePoi(poi);
+       // pm.savePoi(poi);
 
         if (cover != null && !cover.isEmpty()) {
             MultipartFile file = cover;

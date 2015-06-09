@@ -8,8 +8,9 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import org.springframework.stereotype.Controller;
-import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
+import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_It;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -29,7 +30,7 @@ public class AllPoisIdController {
     
     @RequestMapping(value= "/poiId")
     public ModelAndView listid () {
-   Iterable<CompletePOI> poilist =  pm.getAllCompletePoi();
+   Iterable<? extends CompletePOI> poilist =  pm.getAllCompletePoi();
    ArrayList<String> idlist = new ArrayList<String>();
    int i=1;
    for (CompletePOI poi : poilist ) {

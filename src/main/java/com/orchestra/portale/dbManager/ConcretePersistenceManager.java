@@ -6,13 +6,19 @@
 package com.orchestra.portale.dbManager;
 
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.DeepeningPage;
+import com.orchestra.portale.persistence.mongo.documents.Pages_En;
 import com.orchestra.portale.persistence.mongo.documents.Home;
+import com.orchestra.portale.persistence.mongo.documents.Pages_It;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.repositories.DeepeningPageMongoRepository;
+import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository_En;
 import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
-import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository;
-import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository;
+import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository_It;
+import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_En;
+import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_It;
 import com.orchestra.portale.persistence.sql.entities.CardItinerary;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
@@ -34,6 +40,7 @@ import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,14 +81,20 @@ public class ConcretePersistenceManager implements PersistenceManager {
     private MongoOperations mongoOps;
 
     @Autowired
-    private PoiMongoRepository poiMongoRepo;
+    private PoiMongoRepository_It poiMongoRepo;
+    
+    @Autowired
+    private PoiMongoRepository_En enpoiMongoRepo;
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    PagesMongoRepository pagesRepo;
-
+    PagesMongoRepository_It pagesRepo;
+    
+    @Autowired
+    PagesMongoRepository_En enpagesRepo;
+    
     @Autowired
     HomeMongoRepository homeRepo;
 
@@ -120,9 +133,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Override
     public Poi getPoiById(String Id) {
-        return null;
-
-    }
+       return  null;
+}
 
     @Override
     public Iterable<Poi> getAllPoi() {
@@ -131,9 +143,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public Iterable<CompletePOI> getCompletePoisById(Iterable<String> id) {
-        return poiMongoRepo.findAll(id);
-    }
+    public Iterable<? extends CompletePOI> getCompletePoisById(Iterable<String> id) {
+        return poiMongoRepo.findAll();
+        }
+    
 
     @Override
     public Iterable<DeepeningPage> getDeepeningPagesById(Iterable<String> id) {
@@ -142,60 +155,121 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Override
     public CompletePOI getCompletePoiById(String id) {
-
+        switch(this.lang) {
+        case "it":
+        return poiMongoRepo.findOne(id);
+        case "en":
+            return enpoiMongoRepo.findOne(id);
+        default:
         return poiMongoRepo.findOne(id);
     }
-
+    }
     @Override
-    public Iterable<CompletePOI> getAllCompletePoi() {
-        return mongoOps.find(new Query(where("lang").is(this.lang)), CompletePOI.class);
-        //return poiMongoRepo.findAll();
+    public Iterable<? extends CompletePOI> getAllCompletePoi() {
+        switch(this.lang) {
+        case "it":
+        return mongoOps.findAll(CompletePOI_It.class);
+        case "en" :
+        return mongoOps.findAll(CompletePOI_En.class);
+        default :
+        return mongoOps.findAll(CompletePOI_It.class);  
+    }
+        
     }
 
     @Override
-    public void savePoi(CompletePOI poi) {
+    public void savePoi(CompletePOI_It poi) {
         poiMongoRepo.save(poi);
     }
+    
+    @Override
+    public void saveEnPoi(CompletePOI_En poi) {
+        enpoiMongoRepo.save(poi);
+    }
 
     @Override
-    public Iterable<CompletePOI> getCompletePoiByCategories(String[] categories) {
-
-        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("lang").is(this.lang)), CompletePOI.class);
-        //return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI.class);
+    public Iterable<? extends CompletePOI> getCompletePoiByCategories(String[] categories) {
+            switch(this.lang){
+                case "it" :
+        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI_It.class);
+                case "en" :
+        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI_En.class);            
+                default :
+       return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories))), CompletePOI_It.class);          
+    }
     }
 
     @Override
     public CompletePOI findOneCompletePoiByName(String name) {
 
-        //Iterable<CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
-        Iterable<CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)).and("lang").is(this.lang)), CompletePOI.class);
+        switch (this.lang) {
+            
+            case "it" :
+        Iterable<? extends CompletePOI> poisit = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI_It.class);
+        for (CompletePOI p : poisit) {
+            if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+                return p;
+            }
+        }
+            case "en" :
+                Iterable<? extends CompletePOI> pois = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI_En.class);
         for (CompletePOI p : pois) {
             if (p.getName().toLowerCase().equals(name.toLowerCase())) {
                 return p;
             }
         }
+            default :
+                Iterable<? extends CompletePOI> poisitd = mongoOps.find(new Query(where("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI_It.class);
+        for (CompletePOI p : poisitd) {
+            if (p.getName().toLowerCase().equals(name.toLowerCase())) {
+                return p;
+            }
+        }
+                
         return null;
     }
-
-    @Override
-    public Iterable<CompletePOI> findCompletePoiByNameAndCategories(String name, String[] categories) {
-        return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE)).and("lang").is(this.lang)), CompletePOI.class);
-        //return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI.class);
     }
 
     @Override
-    public void deletePoi(CompletePOI poi) {
+    public Iterable<? extends CompletePOI> findCompletePoiByNameAndCategories(String name, String[] categories) {
+        switch(this.lang) {
+            case "it" :
+                    return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI_It.class);
+            case "en" :
+                   return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI_En.class);
+            default :
+                   return mongoOps.find(new Query(where("categories").in(java.util.Arrays.asList(categories)).and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))), CompletePOI_It.class);
+        }
+    }
+    @Override
+    public void deletePoi(CompletePOI_It poi) {
         poiMongoRepo.delete(poi);
     }
+    
+    @Override
+    public void deleteEnPoi(CompletePOI_En poi) {
+        enpoiMongoRepo.delete(poi);
+    }
 
     @Override
-    public Iterable<CompletePOI> findCompletePoi(String name, String address, String category) {
-
+    public Iterable<? extends CompletePOI> findCompletePoi(String name, String address, String category) {
+            switch(this.lang) {
+                
+                case "it" :
         return mongoOps.find(new Query(where("categories").regex(Pattern.compile(category, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
                 .and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
-                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
-                .and("lang").is(this.lang)),
-                CompletePOI.class);
+                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),
+                CompletePOI_It.class);
+                case "en" :
+        return mongoOps.find(new Query(where("categories").regex(Pattern.compile(category, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),
+                CompletePOI_En.class);
+                default :
+        return mongoOps.find(new Query(where("categories").regex(Pattern.compile(category, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
+                .and("address").regex(Pattern.compile(address, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))),
+                CompletePOI_It.class);    
         /*
         return mongoOps.find(new Query(where("categories").regex(Pattern.compile(category, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
                 .and("name").regex(Pattern.compile(name, Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE))
@@ -203,17 +277,32 @@ public class ConcretePersistenceManager implements PersistenceManager {
                 CompletePOI.class);
         */
     }
-
+    }
     @Override
-    public GeoResults<CompletePOI> findNearCompletePoi(String id, double radius) {
-
+    public GeoResults<? extends CompletePOI> findNearCompletePoi(String id, double radius) {
+        
+        switch(this.lang) {
+            case "it":
         CompletePOI poi = getCompletePoiById(id);
         Point point = new Point(poi.getLocation()[0], poi.getLocation()[1]);
         NearQuery query = NearQuery.near(point).maxDistance(new Distance(radius, Metrics.KILOMETERS));
 
-        return mongoOps.geoNear(query, CompletePOI.class);
-    }
+        return mongoOps.geoNear(query, CompletePOI_It.class);
+            case "en" :
+        CompletePOI poien = getCompletePoiById(id);
+        Point pointen = new Point(poien.getLocation()[0], poien.getLocation()[1]);
+        NearQuery queryen = NearQuery.near(pointen).maxDistance(new Distance(radius, Metrics.KILOMETERS));
 
+        return mongoOps.geoNear(queryen, CompletePOI_En.class);
+          
+            default :
+        CompletePOI poid = getCompletePoiById(id);
+        Point pointd = new Point(poid.getLocation()[0], poid.getLocation()[1]);
+        NearQuery queryd = NearQuery.near(pointd).maxDistance(new Distance(radius, Metrics.KILOMETERS));
+
+        return mongoOps.geoNear(queryd, CompletePOI_It.class);
+    }
+    }
     @Override
     public User findUserByUsername(String username) {
         User usr = userRepository.findByUsername(username);
@@ -244,22 +333,42 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public void savePage(Pages page) {
+    public void savePage(Pages_It page) {
         pagesRepo.save(page);
+    }
+    @Override
+    public void saveEnPage(Pages_En page) {
+        enpagesRepo.save(page);
     }
 
     @Override
     public Pages findPageById(String id) {
-        Pages page = pagesRepo.findOne(id);
+        Pages page = null;
+        switch(this.lang) {
+            case "it" :
+                 page= pagesRepo.findOne(id);
+                break;
+            case "en" :
+                page = enpagesRepo.findOne(id);
+                break;
+        }
         return page;
     }
 
     @Override
     public Pages findPageBySlug(String slug) {
-        return mongoOps.findOne(new Query(where("slug").is(slug)), Pages.class);
-
+        switch(this.lang) {
+            case "it":
+                return mongoOps.findOne(new Query(where("slug").is(slug)), Pages_It.class);
+                
+            case "en":
+                return mongoOps.findOne(new Query(where("slug").is(slug)), Pages_En.class);
+                
+            default:
+                return mongoOps.findOne(new Query(where("slug").is(slug)), Pages_It.class);
     }
-
+    }
+    
     @Override
     public void saveHome(Home home) {
         homeRepo.save(home);
@@ -425,7 +534,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public Iterable<CompletePOI> getAll() {
+    public Iterable<? extends CompletePOI> getAll() {
         return poiMongoRepo.findAll();
     }
 

@@ -12,6 +12,8 @@ import com.google.gson.JsonParser;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.ExternalServiceComponent;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -23,6 +25,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  *
@@ -73,22 +76,38 @@ public class CiRoService implements ExternalServiceManager {
             urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString().replace('_', '-'));
             String result = IOUtils.toString(urlConnection.getInputStream());
             urlConnection.disconnect();
+            if (LocaleContextHolder.getLocale().toString().equals("en")){
+                 return "Service temporarily unavailable";
+             }
             return "Servizio Momentaneamente Non Disponibile!";
         } catch (IOException e) {
+            if (LocaleContextHolder.getLocale().toString().equals("en")){
+                 return "Service temporarily unavailable";
+             }
             return "Servizio Momentaneamente Non Disponibile!";
         }
     }
 
     private void deletePois() {
-        Iterator<CompletePOI> pois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
+        pm.setLang("it");
+        Iterator<? extends CompletePOI> pois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
         while (pois.hasNext()) {
-            CompletePOI poi = pois.next();
-            pm.deletePoi(poi);
+            CompletePOI poi =  pois.next();
+            pm.deletePoi((CompletePOI_It) poi);
+            
+        }
+        
+        pm.setLang("en");
+        Iterator<? extends CompletePOI> enpois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
+        while (enpois.hasNext()) {
+            CompletePOI poi =  enpois.next();
+            pm.deleteEnPoi((CompletePOI_En) poi);
+            
         }
     }
 
     private String createPoi(int item, JsonArray puntiCiro) {
-        CompletePOI newPoi = new CompletePOI();
+        CompletePOI_It newPoi = new CompletePOI_It();
         newPoi.setName(puntiCiro.get(item).getAsJsonObject().get("nome").getAsString());
         newPoi.setAddress(puntiCiro.get(item).getAsJsonObject().get("indirizzo").getAsString());
         double[] location = {
@@ -102,14 +121,37 @@ public class CiRoService implements ExternalServiceManager {
         externalServiceComponent.setURL(getUrl);
         externalServiceComponent.setParameters("id="+id);
         newPoi.setExternalUrl(innerUrl+"?id="+id);
-        newPoi.setLang("it");
+  
         newlistComponent.add(externalServiceComponent);
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));
         newPoi.setCategories(categories);
         newPoi.setComponents(newlistComponent);
 
-        pm.savePoi(newPoi);
+        pm.savePoi((CompletePOI_It) newPoi);
+        
+        CompletePOI_En newEnPoi = new CompletePOI_En();
+        newEnPoi.setName(puntiCiro.get(item).getAsJsonObject().get("nome").getAsString());
+        newEnPoi.setAddress(puntiCiro.get(item).getAsJsonObject().get("indirizzo").getAsString());
+        double[] enlocation = {
+            puntiCiro.get(item).getAsJsonObject().get("latitudine").getAsDouble(),
+            puntiCiro.get(item).getAsJsonObject().get("longitudine").getAsDouble()
+        };
+        newEnPoi.setLocation(enlocation);
+        ArrayList<AbstractPoiComponent> ennewlistComponent = new ArrayList<AbstractPoiComponent>();
+        ExternalServiceComponent enexternalServiceComponent = new ExternalServiceComponent();
+        String enid = puntiCiro.get(item).getAsJsonObject().get("id").getAsString();
+        enexternalServiceComponent.setURL(getUrl);
+        enexternalServiceComponent.setParameters("id="+enid);
+        newEnPoi.setExternalUrl(innerUrl+"?id="+enid);
+  
+        ennewlistComponent.add(enexternalServiceComponent);
+        ArrayList<String> encategories = new ArrayList<String>();
+        encategories.addAll(Arrays.asList(categoriesName));
+        newEnPoi.setCategories(encategories);
+        newEnPoi.setComponents(ennewlistComponent);
+        
+        pm.saveEnPoi(newEnPoi);
 
         return gson.toJson(newPoi);
     }

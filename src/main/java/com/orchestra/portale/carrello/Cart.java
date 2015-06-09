@@ -6,7 +6,7 @@
 
 package com.orchestra.portale.carrello;
 
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import java.util.ArrayList;
 
 /**
@@ -15,31 +15,31 @@ import java.util.ArrayList;
  */
 public class Cart {
     
-    private ArrayList<CompletePOI> poiList;
+    private ArrayList<CompletePOI_It> poiList;
     
     public Cart(){
-        poiList= new ArrayList<CompletePOI>();
+        poiList= new ArrayList<CompletePOI_It>();
     }
 
     /**
      * @return the poiList
      */
-    public ArrayList<CompletePOI> getPoiList() {
+    public ArrayList<CompletePOI_It> getPoiList() {
         return poiList;
     }
 
     /**
      * @param poiList the poiList to set
      */
-    public void setPoiList(ArrayList<CompletePOI> poiList) {
+    public void setPoiList(ArrayList<CompletePOI_It> poiList) {
         this.poiList = poiList;
     }
     
-    public void addPoi(CompletePOI poi){
+    public void addPoi(CompletePOI_It poi){
         poiList.add(poi);
     }
     
-    public void deletePoi(CompletePOI poi){
+    public void deletePoi(CompletePOI_It poi){
         poiList.remove(poi);
     }
     

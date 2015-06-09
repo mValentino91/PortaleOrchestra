@@ -4,6 +4,7 @@ import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
@@ -87,7 +88,7 @@ public class CartController {
        
         
         
-         for(CompletePOI cp : poilist){
+         for(CompletePOI_It cp : poilist){
          List<String>poi_category = cp.getCategories();
          String cat_map = MapPoiCat.checkCategory(main_category,poi_category);
             

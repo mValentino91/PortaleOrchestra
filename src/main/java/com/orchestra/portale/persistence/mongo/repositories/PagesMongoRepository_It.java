@@ -5,19 +5,15 @@
  */
 package com.orchestra.portale.persistence.mongo.repositories;
 
-import com.orchestra.portale.persistence.mongo.documents.EnCompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.Pages_It;
+
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
  *
- * @author mekko
+ * @author Alex
  */
-public interface EnPoiMongoRepository extends PagingAndSortingRepository<EnCompletePOI, String>{
+public interface PagesMongoRepository_It extends PagingAndSortingRepository<Pages_It, String> {
 
-    
-    
-    
-    
     
 }
-

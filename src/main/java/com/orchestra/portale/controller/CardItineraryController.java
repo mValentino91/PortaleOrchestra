@@ -8,6 +8,7 @@ package com.orchestra.portale.controller;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.sql.entities.Card;
 import com.orchestra.portale.persistence.sql.entities.CardItinerary;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;

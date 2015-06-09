@@ -12,6 +12,8 @@ import com.google.gson.JsonParser;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.ExternalServiceComponent;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -24,6 +26,7 @@ import java.util.Locale;
 import java.util.Map;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 
 /**
  *
@@ -84,29 +87,52 @@ public class BikeSharingService implements ExternalServiceManager {
             JsonArray puntiBike = json.getAsJsonObject().get("response_data").getAsJsonArray();
             for (int i = 0; i < puntiBike.size(); i++) {
                  if(puntiBike.get(i).getAsJsonObject().get("station_id").getAsString().equals(mapParams.get("id")[0])){
+                      if (LocaleContextHolder.getLocale().toString().equals("en")){
+                          return "<b>Available Locks:</b> "+puntiBike.get(i).getAsJsonObject().get("available_locks").getAsString()
+                             +"<br><b>Available Bikes:</b> "+puntiBike.get(i).getAsJsonObject().get("available_bikes").getAsString()
+                             +"<br><b>Capacity :</b>"+puntiBike.get(i).getAsJsonObject().get("capacity").getAsString();
+                      }
+                      else {
                      return "<b>Postazioni libere:</b> "+puntiBike.get(i).getAsJsonObject().get("available_locks").getAsString()
                              +"<br><b>Biciclette disponibili:</b> "+puntiBike.get(i).getAsJsonObject().get("available_bikes").getAsString()
                              +"<br><b>Capacità :</b>"+puntiBike.get(i).getAsJsonObject().get("capacity").getAsString();
-                 }
+                      }
+                      }
             }
-            
+             if (LocaleContextHolder.getLocale().toString().equals("en")){
+                 return "Service temporarily unavailable";
+             }
             return "Servizio Momentaneamente Non Disponibile!";
             
         } catch (IOException e) {
+            if (LocaleContextHolder.getLocale().toString().equals("en")){
+                 return "Service temporarily unavailable";
+             }
             return "Servizio Momentaneamente Non Disponibile!";
         }
     }
 
     private void deletePois() {
-        Iterator<CompletePOI> pois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
+        pm.setLang("it");
+        Iterator<? extends CompletePOI> pois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
         while (pois.hasNext()) {
-            CompletePOI poi = pois.next();
-            pm.deletePoi(poi);
+            CompletePOI poi = (CompletePOI) pois.next();
+            
+            pm.deletePoi((CompletePOI_It) poi);
+          
+        }
+        
+        pm.setLang("en");
+        Iterator<? extends CompletePOI> enpois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
+        while (enpois.hasNext()) {
+            CompletePOI poi = (CompletePOI) enpois.next();
+            
+            pm.deleteEnPoi((CompletePOI_En) poi);
         }
     }
 
     private String createPoi(int item, JsonArray puntiBike) {
-        CompletePOI newPoi = new CompletePOI();
+        CompletePOI_It newPoi = new CompletePOI_It();
         newPoi.setName("Bike Sharing - "+puntiBike.get(item).getAsJsonObject().get("title").getAsString());
         newPoi.setAddress(puntiBike.get(item).getAsJsonObject().get("address").getAsString());
         double[] location = {
@@ -120,15 +146,37 @@ public class BikeSharingService implements ExternalServiceManager {
         externalServiceComponent.setURL(innerUrl);
         externalServiceComponent.setParameters("id="+id);
         newPoi.setExternalUrl(innerUrl+"?id="+id);
-        newPoi.setLang("it");
+        
         newlistComponent.add(externalServiceComponent);
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));
         newPoi.setCategories(categories);
         newPoi.setComponents(newlistComponent);
 
-        pm.savePoi(newPoi);
-
+        pm.savePoi((CompletePOI_It) newPoi);
+        
+        CompletePOI_En newEnPoi = new CompletePOI_En();
+        newEnPoi.setName("Bike Sharing - "+puntiBike.get(item).getAsJsonObject().get("title").getAsString());
+        newEnPoi.setAddress(puntiBike.get(item).getAsJsonObject().get("address").getAsString());
+        double[] enlocation = {
+            puntiBike.get(item).getAsJsonObject().get("latitude").getAsDouble(),
+            puntiBike.get(item).getAsJsonObject().get("longitude").getAsDouble()
+        };
+        newEnPoi.setLocation(enlocation);
+        ArrayList<AbstractPoiComponent> ennewlistComponent = new ArrayList<AbstractPoiComponent>();
+        ExternalServiceComponent enexternalServiceComponent = new ExternalServiceComponent();
+        String enid = puntiBike.get(item).getAsJsonObject().get("station_id").getAsString();
+        enexternalServiceComponent.setURL(innerUrl);
+        enexternalServiceComponent.setParameters("id="+enid);
+        newEnPoi.setExternalUrl(innerUrl+"?id="+enid);
+        
+        ennewlistComponent.add(enexternalServiceComponent);
+        ArrayList<String> encategories = new ArrayList<String>();
+        encategories.addAll(Arrays.asList(categoriesName));
+        newEnPoi.setCategories(encategories);
+        newEnPoi.setComponents(ennewlistComponent);
+        pm.saveEnPoi(newEnPoi);
+        
         return gson.toJson(newPoi);
     }
 }

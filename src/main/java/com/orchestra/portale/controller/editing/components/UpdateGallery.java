@@ -9,6 +9,7 @@ import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.ImgGallery;
 import com.orchestra.portale.persistence.mongo.documents.ImgGalleryComponent;
@@ -100,7 +101,7 @@ public class UpdateGallery {
             complist.add(imggallery);
         }
         poi.setComponents(complist);
-        pm.savePoi(poi);
+//        pm.savePoi(poi);
         int k = 0;
         for (int z = fd; z < imglist.size(); z++) {
             MultipartFile file = files[k];
@@ -166,7 +167,7 @@ public class UpdateGallery {
 
         }
         poi.setComponents(complist);
-        pm.savePoi(poi);
+//        pm.savePoi(poi);
         delimg(request, poi.getId(), delete);
 
     }

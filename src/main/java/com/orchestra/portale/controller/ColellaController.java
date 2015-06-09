@@ -20,7 +20,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.ContactsComponent;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.DescriptionComponent;
@@ -58,7 +58,7 @@ public class ColellaController {
             System.out.println("*******************************");
             
             //Dati obbligatori
-            CompletePOI p = new CompletePOI();
+            CompletePOI_It p = new CompletePOI_It();
             String den = prod.getDenominazione().replace("'", "&#039;");
             den = den.replace("\"", "&quot;").replace("\n", "").replace("\r", "");
             p.setName(den);

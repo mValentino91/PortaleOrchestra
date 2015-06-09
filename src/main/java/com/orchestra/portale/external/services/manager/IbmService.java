@@ -15,6 +15,8 @@ import com.google.gson.JsonParser;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.ExternalServiceComponent;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -84,14 +86,14 @@ public class IbmService implements ExternalServiceManager {
         for (String categorie : categoriesDelete) {
             Iterator<CompletePOI> pois = pm.getCompletePoiByCategories(categorie).iterator();
             while (pois.hasNext()) {
-                CompletePOI poi = pois.next();
+                CompletePOI_It poi = pois.next();
                 pm.deletePoi(poi);
             }
         }
     }*/
 
     private String createPoi(int item, JsonArray alberghi) {
-        CompletePOI newPoi = new CompletePOI();
+        CompletePOI_It newPoi = new CompletePOI_It();
         newPoi.setName(alberghi.get(item).getAsJsonObject().get("nome").getAsString());
         newPoi.setAddress(alberghi.get(item).getAsJsonObject().get("indirizzo").getAsString().replace("\"", ""));
         double[] location = {
@@ -99,12 +101,25 @@ public class IbmService implements ExternalServiceManager {
             alberghi.get(item).getAsJsonObject().get("location").getAsJsonArray().get(1).getAsDouble()
         };
         newPoi.setLocation(location);
-        newPoi.setLang("it");
         newPoi.setShortDescription(alberghi.get(item).getAsJsonObject().get("classificazione").getAsString().replace("\"", ""));
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));
         newPoi.setCategories(categories);
-        pm.savePoi(newPoi);
+        pm.savePoi( newPoi);
+        
+        CompletePOI_En newEnPoi = new CompletePOI_En();
+        newEnPoi.setName(alberghi.get(item).getAsJsonObject().get("nome").getAsString());
+        newEnPoi.setAddress(alberghi.get(item).getAsJsonObject().get("indirizzo").getAsString().replace("\"", ""));
+        double[] enlocation = {
+            alberghi.get(item).getAsJsonObject().get("location").getAsJsonArray().get(0).getAsDouble(),
+            alberghi.get(item).getAsJsonObject().get("location").getAsJsonArray().get(1).getAsDouble()
+        };
+        newEnPoi.setLocation(enlocation);
+        newEnPoi.setShortDescription(alberghi.get(item).getAsJsonObject().get("classificazione").getAsString().replace("\"", ""));
+        ArrayList<String> encategories = new ArrayList<String>();
+        encategories.addAll(Arrays.asList(categoriesName));
+        newEnPoi.setCategories(encategories);
+        pm.saveEnPoi(newEnPoi);
 
         return gson.toJson(newPoi);
     }

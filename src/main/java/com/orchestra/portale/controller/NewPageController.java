@@ -13,6 +13,7 @@ import com.orchestra.portale.persistence.mongo.documents.CarouselPages;
 import com.orchestra.portale.persistence.mongo.documents.CategorySubMenu;
 import com.orchestra.portale.persistence.mongo.documents.ContactsComponent;
 import com.orchestra.portale.persistence.mongo.documents.EmailContact;
+import com.orchestra.portale.persistence.mongo.documents.Pages_It;
 import com.orchestra.portale.persistence.mongo.documents.Pages;
 import com.orchestra.portale.persistence.mongo.documents.PhoneContact;
 import com.orchestra.portale.persistence.mongo.documents.SubMenu;
@@ -38,7 +39,7 @@ public class NewPageController {
     public ModelAndView newPage() {
         ModelAndView model = new ModelAndView("insertpoi");
 
-        Pages page = new Pages();
+        Pages_It page = new Pages_It();
 
         page.setSlug("expo");
         ArrayList<CarouselPages> cpsl = new ArrayList<CarouselPages>();

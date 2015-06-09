@@ -11,6 +11,7 @@ import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoi;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoiComponent;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -50,9 +51,10 @@ public class PoiViewController {
     @RequestMapping(value = "/getPoi", params = "id")
     public ModelAndView getPoi(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
         //Creo la view che sarÃ  mostrata all'utente
+        pm.setLang(LocaleContextHolder.getLocale().toString());
         ModelAndView model = new ModelAndView("infopoi");
         ModelAndView error = new ModelAndView("errorViewPoi");
-        CompletePOI poi = pm.getCompletePoiById(id);
+        CompletePOI poi =  pm.getCompletePoiById(id);
         //aggiungo il poi al model
         model.addObject("poi", poi);
 
@@ -112,12 +114,11 @@ public class PoiViewController {
             }
 
         }
-        GeoResults<CompletePOI> poilist;
-        poilist= pm.findNearCompletePoi(id, 0.3);
+        
         
         ArrayList<CompletePOI> poivicini = new ArrayList<CompletePOI>();
       
-        for (GeoResult<CompletePOI> p : poilist) {
+        for (GeoResult<? extends CompletePOI> p : pm.findNearCompletePoi(id, 0.3)) {
             poivicini.add(p.getContent());
             
         }

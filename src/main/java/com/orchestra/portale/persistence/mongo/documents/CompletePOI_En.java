@@ -16,7 +16,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author mekko
  */
 @Document(collection = "poi_en")
-public class EnCompletePOI {
+public class CompletePOI_En implements CompletePOI {
     @Id
     private String id;
     private String name;
@@ -28,6 +28,16 @@ public class EnCompletePOI {
     private String start_date;
     private String end_date;
     private String visibility;
+    private String externalUrl;
+
+    public String getExternalUrl() {
+        return externalUrl;
+    }
+
+    public void setExternalUrl(String externalUrl) {
+        this.externalUrl = externalUrl;
+    }
+    
 
     /**
      * @return the id
