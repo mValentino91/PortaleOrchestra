@@ -133,6 +133,7 @@ public class CiRoService implements ExternalServiceManager {
         CompletePOI_En newEnPoi = new CompletePOI_En();
         newEnPoi.setName(puntiCiro.get(item).getAsJsonObject().get("nome").getAsString());
         newEnPoi.setAddress(puntiCiro.get(item).getAsJsonObject().get("indirizzo").getAsString());
+        newEnPoi.setId(newPoi.getId());
         double[] enlocation = {
             puntiCiro.get(item).getAsJsonObject().get("latitudine").getAsDouble(),
             puntiCiro.get(item).getAsJsonObject().get("longitudine").getAsDouble()

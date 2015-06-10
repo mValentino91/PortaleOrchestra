@@ -154,9 +154,9 @@ public class BikeSharingService implements ExternalServiceManager {
         newPoi.setComponents(newlistComponent);
 
         pm.savePoi((CompletePOI_It) newPoi);
-        
         CompletePOI_En newEnPoi = new CompletePOI_En();
         newEnPoi.setName("Bike Sharing - "+puntiBike.get(item).getAsJsonObject().get("title").getAsString());
+        newEnPoi.setId(newPoi.getId());
         newEnPoi.setAddress(puntiBike.get(item).getAsJsonObject().get("address").getAsString());
         double[] enlocation = {
             puntiBike.get(item).getAsJsonObject().get("latitude").getAsDouble(),
