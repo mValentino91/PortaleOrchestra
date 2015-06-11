@@ -88,12 +88,12 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><spring:message code="label.categories"></spring:message> <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="./page?sec=culture"><spring:message code="label.culture"></spring:message></a></li>
-                            <li><a href="#"><spring:message code="label.accommodation"></spring:message></a></li>
+                            <li><a href="./page?sec=accommodation"><spring:message code="label.accommodation"></spring:message></a></li>
                             <li><a href="./page?sec=food"><spring:message code="label.food"></spring:message></a></li>
-                            <li><a href="#"><spring:message code="label.craft"></spring:message></a></li>
-                            <li><a href="#"><spring:message code="label.mobility"></spring:message></a></li>
+                            <li><a href="./page?sec=craft"><spring:message code="label.craft"></spring:message></a></li>
+                            <li><a href="./page?sec=mobility"><spring:message code="label.mobility"></spring:message></a></li>
                             <li class="divider"></li>
-                            <li><a href="#"><spring:message code="label.event"></spring:message></a></li>
+                            <li><a href="./page?sec=event"><spring:message code="label.event"></spring:message></a></li>
                             <li><a href="#"><spring:message code="label.cultural_association"></spring:message></a></li>
                             <li><a href="./page?sec=expo"><spring:message code="label.expo"></spring:message></a></li>
                         </ul>
