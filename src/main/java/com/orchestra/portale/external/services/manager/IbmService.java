@@ -17,7 +17,10 @@ import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
+import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.ExternalServiceComponent;
+import static com.orchestra.portale.utils.BackupRestoreUtils.copy;
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -27,6 +30,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 
 /**
@@ -47,7 +55,7 @@ public class IbmService implements ExternalServiceManager {
     }
 
     @Override
-    public String load() {
+    public String load(HttpSession session) {
         try {
             HttpURLConnection urlConnection = (HttpURLConnection) new URL(loadUrl).openConnection();
             urlConnection.setConnectTimeout(15000);
@@ -59,7 +67,7 @@ public class IbmService implements ExternalServiceManager {
             JsonArray alberghi = json.getAsJsonArray();
             StringBuilder insertedPoi = new StringBuilder();
             for (int i = 0; i < alberghi.size(); i++) {
-                insertedPoi.append(createPoi(i, alberghi));
+                insertedPoi.append(createPoi(i, alberghi, session));
             }
             return insertedPoi.toString();
         } catch (Exception e) {
@@ -92,7 +100,7 @@ public class IbmService implements ExternalServiceManager {
         }
     }*/
 
-    private String createPoi(int item, JsonArray alberghi) {
+    private String createPoi(int item, JsonArray alberghi, HttpSession session) {
         CompletePOI_It newPoi = new CompletePOI_It();
         newPoi.setName(alberghi.get(item).getAsJsonObject().get("nome").getAsString());
         newPoi.setAddress(alberghi.get(item).getAsJsonObject().get("indirizzo").getAsString().replace("\"", ""));
@@ -106,6 +114,25 @@ public class IbmService implements ExternalServiceManager {
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));
         newPoi.setCategories(categories);
+        ArrayList<AbstractPoiComponent> newlistComponent = new ArrayList<AbstractPoiComponent>();
+        CoverImgComponent cover = new CoverImgComponent();
+        cover.setLink("cover.jpg");
+        newlistComponent.add(cover);
+        newPoi.setComponents(newlistComponent);
+
+        pm.savePoi((CompletePOI_It) newPoi);
+
+        ServletContext sc = session.getServletContext();
+        File dir = new File(sc.getRealPath("/") + "dist" + File.separator + "img" + File.separator + "webservice" + File.separator + "alberghi" + File.separator + "cover.jpg");
+        File dir2 = new File(sc.getRealPath("/") + "dist" + File.separator + "poi" + File.separator + "img" + File.separator + newPoi.getId());
+        if (!dir2.exists()) {
+            dir2.mkdirs();
+        }
+        try {
+            copy(dir.getCanonicalPath(), dir2.getCanonicalPath());
+        } catch (IOException ex) {
+            Logger.getLogger(CiRoService.class.getName()).log(Level.SEVERE, null, ex);
+        }
         pm.savePoi( newPoi);
         
         CompletePOI_En newEnPoi = new CompletePOI_En();

@@ -8,15 +8,19 @@ package com.orchestra.portale.controller;
 import com.google.gson.Gson;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.profiler.FbProfiler;
 import com.orchestra.portale.utils.MapPoiCat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -33,11 +37,15 @@ import org.springframework.web.servlet.ModelAndView;
  * @author antonio
  */
 @Controller
+@Scope("request")
 @Secured("ROLE_USER")
 public class FavoriteController {
     //Manager della persistenza
        @Autowired
     PersistenceManager pm ;
+        
+    @Autowired
+    private FbProfiler fbProfiler;
 
     @RequestMapping(value = "/saveFavorite", method = RequestMethod.GET)
     public @ResponseBody
@@ -91,7 +99,7 @@ public class FavoriteController {
 
 
     @RequestMapping(value = "/favorites")
-    public ModelAndView favorites() {
+    public ModelAndView favorites(HttpServletRequest request) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
@@ -150,6 +158,24 @@ public class FavoriteController {
         
         model.addObject("map_slug",cat_slug_ita);
         model.addObject("map_cat", map_cat);
+        
+         List<String> listid;
+        /*FACEBOOK USER*/
+        if (request.isUserInRole("ROLE_FB")) {
+            listid = fbProfiler.getPoiStereotype();
+            model.addObject("listRTitle", "recFb");
+        } 
+        /*INTERNAL USER*/ 
+        else {
+            listid = new ArrayList<String>();
+            for (Object[] s : pm.getMostFavorites()) {
+                listid.add(s[1].toString());
+            }
+            model.addObject("listRTitle", "recU");   
+        }
+
+         ArrayList<CompletePOI> listpoi = (ArrayList<CompletePOI>) pm.getCompletePoisById(listid);
+         model.addObject("listR",listpoi);
         
         return model;
     }            

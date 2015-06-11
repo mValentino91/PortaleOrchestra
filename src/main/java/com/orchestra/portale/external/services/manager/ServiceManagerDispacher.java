@@ -6,6 +6,7 @@
 package com.orchestra.portale.external.services.manager;
 
 import java.util.Map;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -24,8 +25,8 @@ public class ServiceManagerDispacher {
         return service;
     }
 
-    public String loadExternalService() {
-        return service.load();
+    public String loadExternalService(HttpSession session) {
+        return service.load(session);
     }
 
     public String getExternalServiceResponse(Map<String,String[]> mapParams) {

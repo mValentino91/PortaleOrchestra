@@ -144,7 +144,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Override
     public Iterable<? extends CompletePOI> getCompletePoisById(Iterable<String> id) {
-        return poiMongoRepo.findAll();
+        return poiMongoRepo.findAll(id);
         }
     
 
@@ -553,6 +553,11 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void UpdateOfferStockByType(int qta,String type, String idPoi) {
         cartdetailRepo.updateQtaByType(qta,type,idPoi);
         
+    }
+    
+    @Override
+    public Iterable<Object[]> getMostFavorites() {
+        return favoriteRepo.getMostFavorites();
     }
 
 }

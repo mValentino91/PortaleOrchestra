@@ -29,5 +29,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     @Query("delete from Favorite f where f.idUser = ?1 AND f.idPoi = ?2")
     void deleteFavorite(Integer id_user, String id_poi);      
     
- 
+    @Query("SELECT count(f) , f.idPoi FROM Favorite f GROUP BY f.idPoi ORDER BY count(f) DESC")
+    Iterable<Object[]> getMostFavorites(); 
 }

@@ -14,7 +14,11 @@ import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
+import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.ExternalServiceComponent;
+import com.orchestra.portale.utils.BackupRestoreUtils;
+import static com.orchestra.portale.utils.BackupRestoreUtils.copy;
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,6 +28,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.springframework.context.i18n.LocaleContextHolder;
 
@@ -36,7 +45,7 @@ public class CiRoService implements ExternalServiceManager {
     private PersistenceManager pm;
     private static final String loadUrl = "http://ciro.techmobile.eu:8080/CiRo/prenotazioneService/getPuntiCiro";
     private static final String getUrl = "http://ciro.techmobile.eu:8080/CiRo/administrator/PrenotazioneService/checkDispoVetture";
-        private static final String innerUrl = "./externalService/ciro/get";
+    private static final String innerUrl = "./externalService/ciro/get";
     private static final String[] categoriesName = {"ciro", "mobility"};
     private static final String[] categoriesDelete = {"ciro"};
     private static Gson gson = new Gson();
@@ -46,7 +55,7 @@ public class CiRoService implements ExternalServiceManager {
     }
 
     @Override
-    public String load() {
+    public String load(HttpSession session) {
         try {
             deletePois();
             HttpURLConnection urlConnection = (HttpURLConnection) new URL(loadUrl).openConnection();
@@ -59,7 +68,7 @@ public class CiRoService implements ExternalServiceManager {
             JsonArray puntiCiro = json.getAsJsonObject().get("puntiCiro").getAsJsonArray();
             StringBuilder insertedPoi = new StringBuilder();
             for (int i = 0; i < puntiCiro.size(); i++) {
-                insertedPoi.append(createPoi(i, puntiCiro));
+                insertedPoi.append(createPoi(i, puntiCiro, session));
             }
             return insertedPoi.toString();
         } catch (Exception e) {
@@ -76,14 +85,14 @@ public class CiRoService implements ExternalServiceManager {
             urlConnection.addRequestProperty("Accept-Language", Locale.getDefault().toString().replace('_', '-'));
             String result = IOUtils.toString(urlConnection.getInputStream());
             urlConnection.disconnect();
-            if (LocaleContextHolder.getLocale().toString().equals("en")){
-                 return "Service temporarily unavailable";
-             }
+            if (LocaleContextHolder.getLocale().toString().equals("en")) {
+                return "Service temporarily unavailable";
+            }
             return "Servizio Momentaneamente Non Disponibile!";
         } catch (IOException e) {
-            if (LocaleContextHolder.getLocale().toString().equals("en")){
-                 return "Service temporarily unavailable";
-             }
+            if (LocaleContextHolder.getLocale().toString().equals("en")) {
+                return "Service temporarily unavailable";
+            }
             return "Servizio Momentaneamente Non Disponibile!";
         }
     }
@@ -92,21 +101,21 @@ public class CiRoService implements ExternalServiceManager {
         pm.setLang("it");
         Iterator<? extends CompletePOI> pois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
         while (pois.hasNext()) {
-            CompletePOI poi =  pois.next();
+            CompletePOI poi = pois.next();
             pm.deletePoi((CompletePOI_It) poi);
-            
+
         }
-        
+
         pm.setLang("en");
         Iterator<? extends CompletePOI> enpois = pm.getCompletePoiByCategories(categoriesDelete).iterator();
         while (enpois.hasNext()) {
-            CompletePOI poi =  enpois.next();
+            CompletePOI poi = enpois.next();
             pm.deleteEnPoi((CompletePOI_En) poi);
-            
+
         }
     }
 
-    private String createPoi(int item, JsonArray puntiCiro) {
+    private String createPoi(int item, JsonArray puntiCiro, HttpSession session) {
         CompletePOI_It newPoi = new CompletePOI_It();
         newPoi.setName(puntiCiro.get(item).getAsJsonObject().get("nome").getAsString());
         newPoi.setAddress(puntiCiro.get(item).getAsJsonObject().get("indirizzo").getAsString());
@@ -119,9 +128,11 @@ public class CiRoService implements ExternalServiceManager {
         ExternalServiceComponent externalServiceComponent = new ExternalServiceComponent();
         String id = puntiCiro.get(item).getAsJsonObject().get("id").getAsString();
         externalServiceComponent.setURL(getUrl);
-        externalServiceComponent.setParameters("id="+id);
-        newPoi.setExternalUrl(innerUrl+"?id="+id);
-  
+        externalServiceComponent.setParameters("id=" + id);
+        newPoi.setExternalUrl(innerUrl + "?id=" + id);
+        CoverImgComponent cover = new CoverImgComponent();
+        cover.setLink("cover.jpg");
+        newlistComponent.add(cover);
         newlistComponent.add(externalServiceComponent);
         ArrayList<String> categories = new ArrayList<String>();
         categories.addAll(Arrays.asList(categoriesName));
@@ -129,7 +140,19 @@ public class CiRoService implements ExternalServiceManager {
         newPoi.setComponents(newlistComponent);
 
         pm.savePoi((CompletePOI_It) newPoi);
-        
+
+        ServletContext sc = session.getServletContext();
+        File dir = new File(sc.getRealPath("/") + "dist" + File.separator + "img" + File.separator + "webservice" + File.separator + "ciro" + File.separator + "cover.jpg");
+        File dir2 = new File(sc.getRealPath("/") + "dist" + File.separator + "poi" + File.separator + "img" + File.separator + newPoi.getId());
+        if (!dir2.exists()) {
+            dir2.mkdirs();
+        }
+        try {
+            copy(dir.getCanonicalPath(), dir2.getCanonicalPath());
+        } catch (IOException ex) {
+            Logger.getLogger(CiRoService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         CompletePOI_En newEnPoi = new CompletePOI_En();
         newEnPoi.setName(puntiCiro.get(item).getAsJsonObject().get("nome").getAsString());
         newEnPoi.setAddress(puntiCiro.get(item).getAsJsonObject().get("indirizzo").getAsString());
@@ -143,15 +166,15 @@ public class CiRoService implements ExternalServiceManager {
         ExternalServiceComponent enexternalServiceComponent = new ExternalServiceComponent();
         String enid = puntiCiro.get(item).getAsJsonObject().get("id").getAsString();
         enexternalServiceComponent.setURL(getUrl);
-        enexternalServiceComponent.setParameters("id="+enid);
-        newEnPoi.setExternalUrl(innerUrl+"?id="+enid);
-  
+        enexternalServiceComponent.setParameters("id=" + enid);
+        newEnPoi.setExternalUrl(innerUrl + "?id=" + enid);
+
         ennewlistComponent.add(enexternalServiceComponent);
         ArrayList<String> encategories = new ArrayList<String>();
         encategories.addAll(Arrays.asList(categoriesName));
         newEnPoi.setCategories(encategories);
         newEnPoi.setComponents(ennewlistComponent);
-        
+
         pm.saveEnPoi(newEnPoi);
 
         return gson.toJson(newPoi);

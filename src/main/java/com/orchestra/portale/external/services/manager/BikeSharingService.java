@@ -14,7 +14,10 @@ import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
+import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.ExternalServiceComponent;
+import static com.orchestra.portale.utils.BackupRestoreUtils.copy;
+import java.io.File;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -24,6 +27,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -48,7 +56,7 @@ public class BikeSharingService implements ExternalServiceManager {
     }
 
     @Override
-    public String load() {
+    public String load(HttpSession session) {
         try {
             deletePois();
             HttpURLConnection urlConnection = (HttpURLConnection) new URL(baseUrl).openConnection();
@@ -63,7 +71,7 @@ public class BikeSharingService implements ExternalServiceManager {
             JsonArray puntiBike = json.getAsJsonObject().get("response_data").getAsJsonArray();
             StringBuilder insertedPoi = new StringBuilder();
             for (int i = 0; i < puntiBike.size(); i++) {
-                insertedPoi.append(createPoi(i, puntiBike));
+                insertedPoi.append(createPoi(i, puntiBike, session));
             }
             return insertedPoi.toString();
         } catch (IOException e) {
@@ -131,7 +139,7 @@ public class BikeSharingService implements ExternalServiceManager {
         }
     }
 
-    private String createPoi(int item, JsonArray puntiBike) {
+    private String createPoi(int item, JsonArray puntiBike, HttpSession session) {
         CompletePOI_It newPoi = new CompletePOI_It();
         newPoi.setName("Bike Sharing - "+puntiBike.get(item).getAsJsonObject().get("title").getAsString());
         newPoi.setAddress(puntiBike.get(item).getAsJsonObject().get("address").getAsString());
@@ -146,6 +154,9 @@ public class BikeSharingService implements ExternalServiceManager {
         externalServiceComponent.setURL(innerUrl);
         externalServiceComponent.setParameters("id="+id);
         newPoi.setExternalUrl(innerUrl+"?id="+id);
+        CoverImgComponent cover = new CoverImgComponent();
+        cover.setLink("cover.jpg");
+        newlistComponent.add(cover);
         
         newlistComponent.add(externalServiceComponent);
         ArrayList<String> categories = new ArrayList<String>();
@@ -154,6 +165,19 @@ public class BikeSharingService implements ExternalServiceManager {
         newPoi.setComponents(newlistComponent);
 
         pm.savePoi((CompletePOI_It) newPoi);
+        
+         ServletContext sc = session.getServletContext();
+        File dir = new File(sc.getRealPath("/") + "dist" + File.separator + "img" + File.separator + "webservice" + File.separator + "bikesharing" + File.separator + "cover.jpg");
+        File dir2 = new File(sc.getRealPath("/") + "dist" + File.separator + "poi" + File.separator + "img" + File.separator + newPoi.getId());
+        if (!dir2.exists()) {
+            dir2.mkdirs();
+        }
+        try {
+            copy(dir.getCanonicalPath(), dir2.getCanonicalPath());
+        } catch (IOException ex) {
+            Logger.getLogger(CiRoService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
         CompletePOI_En newEnPoi = new CompletePOI_En();
         newEnPoi.setName("Bike Sharing - "+puntiBike.get(item).getAsJsonObject().get("title").getAsString());
         newEnPoi.setId(newPoi.getId());

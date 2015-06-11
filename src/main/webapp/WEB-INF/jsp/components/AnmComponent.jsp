@@ -60,7 +60,7 @@
         font-weight: bold;
     }
 </style>
-<div class="row">
+
     <div class="col-md-6 col-orc" >
         <div class="box-orc">
             <div class="box-elem component component-text" style=" overflow: hidden;">
@@ -98,7 +98,6 @@
 
 
     </div>
-</div>
 <div class="col-md-4"></div>
 
 

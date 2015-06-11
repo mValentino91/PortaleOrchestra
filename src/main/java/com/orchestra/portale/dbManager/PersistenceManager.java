@@ -91,4 +91,5 @@ public interface PersistenceManager {
     public Iterable<CartItinerarydetail> findCartItineraryByIdUser(int idUser);
     public void updateQuantity(int qta, int id_user,int idOffer);
     public void UpdateOfferStockByType(int qta,String type, String idPOi);
+    public Iterable<Object[]> getMostFavorites();
 }

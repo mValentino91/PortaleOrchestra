@@ -13,6 +13,8 @@ import com.orchestra.portale.external.services.manager.IbmService;
 import com.orchestra.portale.external.services.manager.ServiceManagerDispacher;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -45,10 +47,10 @@ public class ExternalServiceController {
 
     @RequestMapping(value = "/ciro/load")
     public @ResponseBody
-    String loadCiRo() {
+    String loadCiRo(HttpSession session) {
         pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
         serviceDispacher.setService(new CiRoService(pm));
-        return serviceDispacher.loadExternalService();
+        return serviceDispacher.loadExternalService(session);
     }
 
     @RequestMapping(value = "/bikeSharing/get")
@@ -62,10 +64,10 @@ public class ExternalServiceController {
 
     @RequestMapping(value = "/bikeSharing/load")
     public @ResponseBody
-    String loadBikeSharing() {
+    String loadBikeSharing(HttpSession session) {
         pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
         serviceDispacher.setService(new BikeSharingService(pm));
-        return serviceDispacher.loadExternalService();
+        return serviceDispacher.loadExternalService(session);
     }
 
     @RequestMapping(value = "/ibm/get")
@@ -79,10 +81,10 @@ public class ExternalServiceController {
 
     @RequestMapping(value = "/ibm/load")
     public @ResponseBody
-    String loadIbm() {
+    String loadIbm(HttpSession session) {
         pm.setLang(LocaleContextHolder.getLocale().getDisplayLanguage());
         serviceDispacher.setService(new IbmService(pm));
-        return serviceDispacher.loadExternalService();
+        return serviceDispacher.loadExternalService(session);
     }
 
     
