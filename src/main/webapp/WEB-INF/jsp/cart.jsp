@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
+        <script src="./dist/js/bootstrap.min.js"></script>
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
 
@@ -24,6 +24,7 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
         <link href="./dist/css/OrchestraFontIcon.css" rel="stylesheet"> 
+        
 
         <title>JSP Page</title>
         <style>
@@ -34,7 +35,7 @@
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
-                
+
                 position: relative;
 
                 //border: 1px solid #E9EAED;
@@ -50,7 +51,7 @@
                 background-size: cover;
                 background-position: center center;
                 border-radius: 0px;        
-                
+
             }
 
             .poi_preview_content{
@@ -59,12 +60,12 @@
                 box-sizing: border-box;
                 height: 100%; 
                 width: 35%; 
-                
+
                 float: left;
                 padding: 10px;
                 //border: 1px solid red; 
             }
-            
+
             .poi_preview_content2{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -73,7 +74,7 @@
                 width: 10%; 
                 float: left;
                 padding: 10px;
-                
+
                 //border: 1px solid red; 
             }
 
@@ -89,24 +90,41 @@
                 top: 0px;
                 right: 0px;
             }
-            
+
             .poi_icons{
                 padding-top:5px;
             }
-            
+
             .poi_price_total{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
                 box-sizing: border-box;
                 height: 100%; 
-                width: 35%; 
+
                 //border: 1px solid yellow; 
                 float: left;
                 text-align: right;
                 padding: 10px;
+                padding-right: 0px;
                 width: 45%;
             }
-            
+
+            .poi_prices{
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                height: 100%; 
+                width: 30%; 
+                //border: 1px solid yellow; 
+                float: left;
+                //text-align: right;
+                padding-top: 5px;
+                padding-left: 5px;
+
+            }
+
+
+
             .poi_offer_filler{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -117,9 +135,9 @@
                 float: left;
                 text-align: right;
                 padding: 10px;
-                
+
             }
-            
+
             .poi_offer{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -131,9 +149,9 @@
                 text-align: left;
                 margin-bottom: 10px;
 
-                
+
             }
-            
+
             .poi_offer_detail{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -148,7 +166,37 @@
 
                 //border: 1px solid yellow; 
             }
-            
+
+            .card_offers_section{
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                height: 100%; 
+                width: 100%; 
+                float: left;
+                text-align: left;
+                padding: 10px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+
+                //border: 1px solid yellow; 
+            }
+
+            .card_offers_section_info{
+                -moz-box-sizing: border-box;
+                -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+                height: 100%; 
+                width:45%;
+                float: left;
+                text-align: left;
+                padding: 10px;
+                padding-top: 0px;
+                //border: 1px solid #285E8E;
+
+
+            }
+
             .poi_offer_detail_info{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -160,22 +208,22 @@
                 padding: 10px;
                 padding-top: 0px;
                 //border: 1px solid #285E8E;
-                
-                
+
+
             }
-            
+
             .off_name{
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-            
+
             .off_desc{
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
             }
-            
+
             .poi_offer_detail_quantity{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -188,7 +236,7 @@
                 padding-top: 0px;
                 //border: 1px solid #285E8E;
             }
-            
+
             .poi_offer_detail_price{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -203,7 +251,7 @@
                 //border:none;
                 //border: 1px solid #285E8E;
             }
-            
+
             .poi_offer_detail_rate{
                 -moz-box-sizing: border-box;
                 -webkit-box-sizing: border-box;
@@ -229,7 +277,7 @@
                 padding-right: 5px;
                 cursor: pointer;
             }
-            
+
             .clear{
                 clear:both;
             }
@@ -242,7 +290,7 @@
                 //color: #fff;
                 //background-color: blue;
             }
-            
+
             .new_it_button{
                 user-drag: none; 
                 -moz-user-select: none;
@@ -255,123 +303,190 @@
                 line-height: 50px; 
                 font-weight: bold;
                 cursor: pointer;
-                
+
             }
-            
+
             .control{
                 cursor: pointer;
             }
 
-            
-            
+            .fullPrice, .discPrice, .rateOffer{
+                width:50px;
+                text-align: right;
+                display: inline-block;
+            }
+
+            .rateOffer{
+                font-weight: bold;
+                color: red;
+            }
+
+            .discPrice{
+                font-weight: bold;
+            }
+
+            .fullPrice{
+                text-decoration: line-through;
+
+            }
+            .valuta{
+                width: 1px;
+                display: inline-block;
+            }
+
+
         </style>    
-        
-        
+
+
         <script>
             $(document).ready(function () {
-        
+                
+
+                
                 console.log("*************************");
-                $(".add_offer").each(function (index) { 
-                    
+                $(".add_offer").each(function (index) {
+
                     var sel = $(this);
                     $(this).on("click", function () {
-                        var idUser=$("#idUser").val();
-                        //var off_name = sel.siblings(".off_name").text();
-                        //var off_desc = sel.siblings(".off_desc").text();
-                        var qta = sel.parent().parent().find(".qta").val();
-                        var sum = sel.parent().parent().find("#val-discounted").val();
-                        var idOffer = sel.parent().parent().prop("id");
-                        var idPoi = sel.parent().parent().parent().parent().prop("id");
-                        var type = sel.parent().parent().attr("data-type");
-                        alert(idPoi);
-                        alert(idOffer);
-                        console.log(type);
-                        //@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String qta
-                        //"id_poi="+poiId+"&rating="+rating,
                        
+                        var qta = sel.parent().parent().find(".qta");
+                        var off_name = sel.siblings(".off_name").text();
+                        var off_desc = sel.siblings(".off_desc").text();
+                        
+                        var type = sel.parent().parent().attr("type");
+                        var fullPrice = sel.parent().parent().attr("fullPrice");
+                        var discPrice = sel.parent().parent().attr("discPrice");
+                        
+                        var idPoi = sel.parent().parent().attr("idPoi");
+                        var idOffer = sel.parent().parent().attr("idOffer");
+
+                        var rateOffer = sel.parent().parent().find(".rateOffer").text();
+                        
+                       
+                        
+                        
+                        if (type == "CARD") {
+                            var sum = discPrice;
+                        }
+                        else{
+                            var sum = fullPrice;
+                        }
+
+            
                         $.ajax({
                             type: "GET",
                             url: "./saveOffer",
-                            data: "id_offer="+idOffer+"&id_poi="+idPoi+"&qta="+qta+"&sum="+sum+"&type="+type,	
-                            success: function(){
+                            data: "id_offer=" + idOffer + "&id_poi=" + idPoi + "&qta=" + qta.val() + "&sum=" + sum + "&type=" + type,
+                            success: function () {
                                 alert("Offerta inserita");
-                            }                 
-                        }); 
-                       
+                            }
+                        });
+            
+
                     });
                 });
-                
-                
-                
-                $(".seleziona").each(function (index) { 
+
+
+
+                $(".seleziona").each(function (index) {
                     var sel = $(this);
                     $(this).on("click", function () {
                         slideOfferPoi(sel);
 
                     });
                 });
-                
-                $(".control").each(function (index) { 
+
+                $(".control").each(function (index) {
                     var sel = $(this);
                     var operator = sel.prop("id");
+
+                    //var qta = sel.parent().find(".qta");
+
+                    var off_name = sel.siblings(".off_name").text();
+                    var off_desc = sel.siblings(".off_desc").text();
+                    var type = sel.parent().parent().attr("type");
+
+
+
+
                     var ret;
                     var tp = document.getElementById("poi_total");
-                    
+
                     $(this).on("click", function () {
-                        
+
                         var qta = sel.siblings(".qta");
-                        //alert(qta.val());
-                        var stock = sel.parents().siblings(".stock").val();
-                        var stock_disc = sel.parents().siblings(".stock_disc").val();
-                        var total_poi = sel.parents().siblings(".tot");
+                        var type = sel.parent().parent().attr("type");
+                        var fullPrice = sel.parent().parent().attr("fullPrice");
+                        var discPrice = sel.parent().parent().attr("discPrice");
+
+                        var fullPrice_box = sel.parent().parent().find(".fullPrice");
+                        var discPrice_box = sel.parent().parent().find(".discPrice");
                         
-                        if(operator == "up"){
-                            
-                            ret=modify_qty(qta,+1);
+
+                        if (operator == "up") {
+                            //fare controllo se l'offerta è un tipo stock 
+                            ret = modify_qty(qta, +1);
                             qta.val(ret);
-                            var tot_intero = sel.parents().siblings("#val");
-                            var tot_scontato = sel.parents().siblings("#val-discounted");
-                            tot_intero.val(stock*ret);
-                            tot_scontato.val(stock_disc*ret);
-                            //total_poi.val(stock*ret);
-                            //var back_value=0;
-                            //back_value = parseInt(tp.value)+parseInt(total_poi.val());
-                            //tp.value=back_value;
-                            
+
+                            if (type == "CARD") {
+                                var sommaFull = parseInt(fullPrice) * parseInt(ret);
+                                var sommaDisc = parseFloat(discPrice) * parseInt(ret);
+                                fullPrice_box.html(sommaFull);
+                                discPrice_box.html(sommaDisc);
+                            }
+                            else {
+                                var sommaFull = parseInt(fullPrice) * parseInt(ret);
+                                fullPrice_box.html(sommaFull);
+
+                            }
+
                         }
-                        else{
-                            ret=modify_qty(qta,-1);
+                        else {
+                            ret = modify_qty(qta, -1);
                             qta.val(ret);
-                            
+
+                            if (type == "CARD") {
+                                var sommaFull = parseInt(fullPrice) * parseInt(ret);
+                                var sommaDisc = parseFloat(discPrice) * parseInt(ret);
+                                fullPrice_box.html(sommaFull);
+                                discPrice_box.html(sommaDisc);
+                            }
+                            else {
+                                var sommaFull = parseInt(fullPrice) * parseInt(ret);
+                                fullPrice_box.html(sommaFull);
+
+                            }
+
                         }
-                             
                         
                         
                         
+                        
+                            
                     });
-                    
+
                 });
-                
-                
+
+
             });
-            
-            
+
+
             function modify_qty(qta, val) {
                 var qtaval = qta.val();
-                 var new_qty = parseInt(qtaval,10) + val;
-                 //alert(new_qty);
-        
-                
+                var new_qty = parseInt(qtaval, 10) + val;
+                //alert(new_qty);
+
+
 
                 if (new_qty < 0) {
                     new_qty = 0;
                 }
-                
+
                 return new_qty;
             }
-            
+
             function slideOfferPoi(box_select) {
-                
+
                 var offer = box_select.parent().parent().parent().siblings(".poi_offer");
 
                 console.log(offer);
@@ -382,16 +497,16 @@
                     offer.slideUp("slow");
                 }
                 //son.slideUp("slow");
-            }  
-           
-            
-            
-            
+            }
+
+
+
+
 
         </script>
 
     </head>
-    <body>
+    <body  style="min-width:600px;">
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
 
@@ -403,124 +518,127 @@
                 <article class="component component-text">
                     <div class="details">
                         <div class="paragrafo">
-                            <div class="favorite_container" style="min-height: 200px;">
-                                <div class="category_container" >
-                                    <input id="idUser" type="hidden" value="${id_user}"/>
-                                    <c:forEach var="idpoi" items="${map.map_poi.keySet()}">
-                                        <div class="poi" id="${map.map_poi.get(idpoi).id}"><!--style="border: 1px solid purple;"-->
 
-                                            
-                                        <div class="poi_preview_box">
-                                            <div class="poi_preview_img">
-                                                <!-- <img src="./dist/poi/img/${map.map_poi.get(idpoi).id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> -->
-                                                <img src="./dist/poi/img/550885d0edc9635d04573597/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/>
+                            <%-- ciclo su poi --%>
+                            <c:forEach var="idpoi" items="${map.map_poi.keySet()}">
+                                <div class="poi" id="${map.map_poi.get(idpoi).id}"><!--style="border: 1px solid purple;"-->
+
+
+                                    <div class="poi_preview_box">
+                                        <div class="poi_preview_img">
+                                            <img src="./dist/poi/img/${map.map_poi.get(idpoi).id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/>
+                                            <!-- <img src="./dist/poi/img/550885d0edc9635d04573597/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> -->
+                                        </div>
+                                        <div class="poi_preview_content">
+
+                                            <div class="poi_preview_title">
+                                                ${map.map_poi.get(idpoi).name}
                                             </div>
-                                            <div class="poi_preview_content">
 
-                                                <div class="poi_preview_title">
-                                                    ${map.map_poi.get(idpoi).name}
-                                                </div>
-                                                
-                                                
-
-                                                <div class="poi_preview_text">
-                                                    <div class="seleziona">Seleziona</div>
-                                                </div>
-                                                
-                                                
-                                                
+                                            <div class="poi_preview_text">
+                                                <div class="seleziona">Seleziona</div>
                                             </div>
-                                                
-                                                    
-                                            <div class="poi_preview_content2">
+                                        </div>
 
-                                                <div class="poi_icons">
-                                                    <a href="./getPoi?id=${map.map_poi.get(idpoi).id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
-                                                    <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
-                                                </div>
+
+                                        <div class="poi_preview_content2">
+
+                                            <div class="poi_icons">
+                                                <a href="./getPoi?id=${map.map_poi.get(idpoi).id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
+                                                <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
                                             </div>
-                                            
-                                            <div class="poi_price_total">Con Orchestra Card 10€</div>
+                                        </div>
 
+                                        <%-- se map off not empty stampa questo div--%>
+                                        <div class="poi_price_total"><c:if test="${not empty map_off}">Sconti con Orchestra Card</c:if> </div>
 
                                         </div>
                                         <div class="poi_offer" style="display:none">
-                                            <div class="poi_offer_filler"></div>
-                                            
+
+                                        <%-- OFFERTE STOCK --%>
+                                        <c:if test="${not empty map_comp}">
                                             <c:forEach items="${map_comp.get(idpoi).prices}" var="stock">
-                                                <div data-type="${stock.type}" class="poi_offer_detail">
-                                                    
-                                                    
-                                                    
+
+                                                <div class="poi_offer_detail" idPoi="${idpoi}" type="${stock.type}" typeDesc="${stock.type}" fullPrice="${stock.price}">
+
                                                     <div class="poi_offer_filler"></div>
                                                     <div  class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
                                                         <div class="off_name" >${stock.type}</div>
-                                                        <div class="off_desc" >${stock.type_description}</div>
+                                                        <div class="off_desc" data-toggle="tooltip" data-original-title="${stock.type_description}">${stock.type_description}</div>
                                                         <div class="add_offer" style="cursor:pointer;">Aggiungi offerta</div>
                                                     </div>
-                                                
+
                                                     <div class="poi_offer_detail_quantity">
                                                         <div style="display:inline-block">Quantità: </div>
                                                         <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
-                                                        <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="1"/>
+                                                        <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="0"/>
                                                         <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
 
                                                     </div>
-                                                    <input style="border:1px solid red;" class="tot" type="hidden" value="0"/>
-                                                    <input class="stock" type="hidden" value="${stock.price}" style="padding:0px;"/>
-                                                    <input class="stock_disc" type="hidden" value="${stock.price}" style="padding:0px;"/>
-                                                    <input id="val" class="poi_offer_detail_price" style="width:50px;padding:0px;" value="${stock.price}"/>
-                                                    <input type="hidden"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        id="val-discounted" class="poi_offer_detail_price" style="padding:0px; display: inline-block; width:50px" value="${stock.price}"/>
-                                                    
+
+                                                    <div class="poi_prices">
+                                                        <div class="fullPrice">${stock.price}</div><div class="valuta">€</div>
+                                                    </div>
                                                 </div>
-                                                        
-                                                        <%--${stock.get(idpoi).price}
-                                                        ${stock.get(idpoi).type_description}--%>
                                             </c:forEach>
-                                            
-                                            <div class="poi_offer_detail_info"><strong>Offerte Card</strong></div>
-                                            <c:forEach var="offer" items="${map.map_off.get(idpoi)}">
-                                                <div data-type="NULL" id="${offer.idOffer}" class="poi_offer_detail">
-                                                    
-                                                    
-                                                    
+                                        </c:if>
+
+                                        <c:choose>
+                                            <c:when test="${empty map.map_off.get(idpoi)}">
+                                                <div class="poi_offer_filler"></div>
+                                                <div class="card_offers_section_info">Nessuna offerta disponibile</div>
+                                                
+                                            </c:when>
+
+                                            <c:otherwise>
+                                                <div class="card_offers_section" >
+
+
                                                     <div class="poi_offer_filler"></div>
-                                                    <div  class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
-                                                        <div class="off_name" >${offer.nome}</div>
-                                                        <div class="off_desc" >${offer.desc}</div>
-                                                        <div class="add_offer" style="cursor:pointer;">Aggiungi offerta</div>
-                                                    </div>
-                                                
-                                                    <div class="poi_offer_detail_quantity">
-                                                        <div style="display:inline-block">Quantità: </div>
-                                                        <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
-                                                        <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="1"/>
-                                                        <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
-
-                                                    </div>
-                                                    <input style="border:1px solid red;" class="tot" type="hidden" value="0"/>
-                                                    <input class="stock" type="hidden" value="${offer.fullPrice}" style="padding:0px;"/>
-                                                    <input class="stock_disc" type="hidden" value="${offer.discountedPrice}" style="padding:0px;"/>
-                                                    <input id="val" class="poi_offer_detail_price" style="width:50px;padding:0px;" value="${offer.fullPrice}"/>
-                                                    <input id="val-discounted" class="poi_offer_detail_price" style="padding:0px; display: inline-block; width:50px" value="${offer.discountedPrice}"/>
-                                                    <div class="poi_offer_detail_rate" style="display: inline-block; width:50px">${offer.rateDiscount}%</div>
-                                                    
+                                                    <div class="card_offers_section_info"><strong>Offerte Orchestra Pass&spass</strong></div>
                                                 </div>
-                                            </c:forEach>
-                                            
-                                            
-                                            
-                                            
-                                            
-                                            
-                                        </div>
-                                        <div class="clear"></div>     
-                                        <%-- </c:forEach> --%>
+                                                <%-- CICLO OFF CARD  --%>
+
+                                                <c:forEach var="offer" items="${map.map_off.get(idpoi)}">
+
+
+                                                    <div class="poi_offer_detail" type="CARD" idPoi="${idpoi}" idOffer="${offer.idOffer}" fullPrice="${offer.fullPrice}" discPrice="${offer.discountedPrice}">
+
+                                                        <div class="poi_offer_filler"></div>
+                                                        <div  class="poi_offer_detail_info">
+                                                            <div class="off_name" >${offer.nome}</div>
+                                                            <div class="off_desc"  data-toggle="tooltip" data-original-title="${offer.desc}" >${offer.desc}</div>
+                                                            <div class="add_offer" style="cursor:pointer;">Aggiungi offerta</div>
+                                                        </div>
+
+                                                        <div class="poi_offer_detail_quantity">
+                                                            <div style="display:inline-block">Quantità: </div>
+                                                            <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
+                                                            <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="1"/>
+                                                            <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
+
+                                                        </div>
+
+                                                        <div class="poi_prices">
+                                                            <div class="fullPrice">${offer.fullPrice}</div><div class="valuta">€</div>
+                                                            <div class="discPrice">${offer.discountedPrice}</div><div class="valuta">€</div>
+                                                            <div class="rateOffer">-${offer.rateDiscount}</div><div class="valuta" style="color:red;">%</div>
+                                                        </div>
+                                                    </div>
+                                                </c:forEach>
+
+
+                                            </c:otherwise>
+                                        </c:choose>
+
+
+
+
+
+
                                     </div>
-                                    </c:forEach>    
-                                    
-                                </div>
-                                <%-- </c:forEach> --%>
+                                    <div class="clear"></div>     
+                                </c:forEach> 
                             </div>
                         </div>
                     </div>
@@ -537,15 +655,15 @@
                             <input type="text" id="poi_total" value="0"/>
                         </div>
                     </div>
-                    
-                    
+
+
                 </article>
-                <a style="display:block" href="./saveInCart">
+                <a style="display:block" href="./saveInCard">
                     <div id="nuovo_it" class="new_it_button">Completa l'itinerario</div>
                 </a>
-                
-                
-                
+
+
+
             </div>
 
 
@@ -557,7 +675,12 @@
 
         </div>
 
+                            <script>
+                                $(function () {
+                    $('.off_desc').tooltip();
 
+                });
+                                </script>
 
 
     </body>

@@ -32,41 +32,112 @@ public class CartItinerarydetailController {
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
         CartItinerarydetail cart_detail = new CartItinerarydetail();
+        Float total = Float.parseFloat(sum) * Integer.parseInt(qta);
         
         //DealerOffer offer = pm.findOfferByIdOffer(Integer.parseInt(id_offer));
         Iterable<CartItinerarydetail> c = pm.findCartItineraryByIdUser(Integer.parseInt(id_user));
         
         
-        
-        
-        
-        if(type.equals("NULL")){
-            //offerte nn stock
-            for(CartItinerarydetail ci : c){
+        /*
+        for(CartItinerarydetail ci : c){
+           
+           
+            
+            
+            if(type.equals("CARD")){
+                System.out.println("ENTATOOO");
+                //offerte nn stock
                 if(Integer.parseInt(id_offer) == ci.getIdOffer()){
-                    
                     pm.updateQuantity(Integer.parseInt(qta), Integer.parseInt(id_user), Integer.parseInt(id_offer));
                     return "ok";
                 }
+                
             }
+            else{
+               //offerte stock 
+                if(type.equals(ci.getTipoStock())){
+                    pm.UpdateOfferStockByType(Integer.parseInt(qta),type,id_poi);
+                    return "ok";
+                
+                }
+            }
+        }
+        if(type.equals("CARD")){
             cart_detail.setIdPoi(id_poi);
             cart_detail.setIdUser(Integer.parseInt(id_user));
             cart_detail.setIdOffer(Integer.parseInt(id_offer));
             cart_detail.setQta(Integer.parseInt(qta));
             cart_detail.setSum(Float.parseFloat(sum));
             cart_detail.setStatus(1);
-            cart_detail.setTipoStock("NULL");
+            cart_detail.setTipoStock("CARD");
+            pm.saveCartDetail(cart_detail);
+
+            return "ok";
+            
+        }
+        else{
+            cart_detail.setIdPoi(id_poi);
+            cart_detail.setIdUser(Integer.parseInt(id_user));
+            cart_detail.setQta(Integer.parseInt(qta));
+            cart_detail.setSum(Float.parseFloat(sum));
+            cart_detail.setStatus(1);
+            cart_detail.setTipoStock(type);
+            pm.saveCartDetail(cart_detail);
+            return "ok";
+        }
+        
+        
+        */
+        
+        
+        
+        if(type.equals("CARD")){
+            //offerte nn stock
+            for(CartItinerarydetail ci : c){
+                System.out.println("CIAOOOOO33");
+                
+                if(ci.getIdOffer()!=null){
+                    if(Integer.parseInt(id_offer) == ci.getIdOffer()){
+
+                        pm.updateQuantity(Integer.parseInt(qta), total,Integer.parseInt(id_user), Integer.parseInt(id_offer));
+                        return "ok";
+                    }
+                }
+            }
+            cart_detail.setIdPoi(id_poi);
+            cart_detail.setIdUser(Integer.parseInt(id_user));
+            cart_detail.setIdOffer(Integer.parseInt(id_offer));
+            cart_detail.setQta(Integer.parseInt(qta));
+            cart_detail.setSum(total);
+            cart_detail.setStatus(1);
+            cart_detail.setTipoStock("CARD");
             pm.saveCartDetail(cart_detail);
 
             return "ok";
         }
         else{
             //offerte stock
+            for(CartItinerarydetail ci : c){
+                if(type.equals(ci.getTipoStock())){
+                    pm.UpdateOfferStockByType(Integer.parseInt(qta),total,type,id_poi,Integer.parseInt(id_user));
+                    return "ok";
+                
+                }
+            }
+            cart_detail.setIdPoi(id_poi);
+            cart_detail.setIdUser(Integer.parseInt(id_user));
+            cart_detail.setQta(Integer.parseInt(qta));
+            cart_detail.setSum(total);
+            cart_detail.setStatus(1);
+            cart_detail.setTipoStock(type);
+            pm.saveCartDetail(cart_detail);
+            return "ok";
+                
             
             
         }
-        return "ok";
         
+       
         
     }
 }

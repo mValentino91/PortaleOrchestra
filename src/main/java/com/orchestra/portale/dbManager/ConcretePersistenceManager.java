@@ -546,16 +546,15 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public void updateQuantity(int qta, int id_user, int idOffer) {
-        cartdetailRepo.updateQta(qta, id_user, idOffer);
+    public void updateQuantity(int qta, float tot, int id_user, int idOffer) {
+        cartdetailRepo.updateQta(qta, tot, id_user, idOffer);
     }
 
     @Override
-    public void UpdateOfferStockByType(int qta,String type, String idPoi) {
-        cartdetailRepo.updateQtaByType(qta,type,idPoi);
-        
+    public void UpdateOfferStockByType(int qta, float tot, String type, String idPoi, int idUser) {
+        cartdetailRepo.updateQtaByType(qta, tot, type, idPoi, idUser);
+
     }
-    
     @Override
     public Iterable<Object[]> getMostFavorites() {
         return favoriteRepo.getMostFavorites();
