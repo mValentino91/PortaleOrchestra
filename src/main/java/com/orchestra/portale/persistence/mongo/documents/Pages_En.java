@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * @author Alex
  *
  **/
-@Document(collection = "enpages")
+@Document(collection = "pages_en")
 public class Pages_En implements Pages {
     @Id
     private String id;
