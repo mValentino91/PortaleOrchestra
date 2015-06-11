@@ -19,6 +19,7 @@ import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository_It;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_En;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_It;
+import com.orchestra.portale.persistence.sql.entities.Card;
 import com.orchestra.portale.persistence.sql.entities.CardItinerary;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
@@ -559,4 +560,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public Iterable<Object[]> getMostFavorites() {
         return favoriteRepo.getMostFavorites();
     }
+    
+    
+    @Override
+    public void saveCard(Card c){
+        cardRepo.save(c);
+    }    
 }

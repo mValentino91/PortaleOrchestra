@@ -92,4 +92,5 @@ public interface PersistenceManager {
     public void updateQuantity(int qta, int id_user,int idOffer);
     public void UpdateOfferStockByType(int qta,String type, String idPOi);
     public Iterable<Object[]> getMostFavorites();
+    public void saveCard(Card c);
 }
