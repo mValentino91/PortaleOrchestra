@@ -56,16 +56,17 @@ import org.springframework.web.servlet.*;
  * @author Alex
  */
 @Controller
-@RequestMapping(value= "/admin")
+@RequestMapping(value = "/admin")
 public class NewPoiController {
 
     //Manager della persistenza
-        @Autowired
-    PersistenceManager pm ;
+    @Autowired
+    PersistenceManager pm;
 
     //Richiesta per la visualizzazione di un singolo poi
     @RequestMapping(value = "/newpoi")
     public ModelAndView newPoi() {
+        pm.setLang(LocaleContextHolder.getLocale().toString());
         //Creo la view che sarà mostrata all'utente
         ArrayList<CompletePOI_It> poilist = (ArrayList<CompletePOI_It>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();
@@ -90,10 +91,11 @@ public class NewPoiController {
         model.addObject("lista", lista);
         model.addObject("lista2", lista2);
         return model;
-}
-    @RequestMapping(value= "/insertpoi", method = RequestMethod.POST)
-    public ModelAndView insertPoi(@RequestParam Map<String,String> params, @RequestParam("file") MultipartFile[] files, @RequestParam("cover") MultipartFile cover,HttpServletRequest request ) throws InterruptedException {
-         CompletePOI_It poi = new CompletePOI_It();
+    }
+
+    @RequestMapping(value = "/insertpoi", method = RequestMethod.POST)
+    public ModelAndView insertPoi(@RequestParam Map<String, String> params, @RequestParam("file") MultipartFile[] files, @RequestParam("cover") MultipartFile cover, HttpServletRequest request) throws InterruptedException {
+        CompletePOI_It poi = new CompletePOI_It();
         CompletePOI_It poitest = new CompletePOI_It();
 
         ModelAndView model = new ModelAndView("insertpoi");
@@ -111,7 +113,7 @@ public class NewPoiController {
             double longi = Double.parseDouble(params.get("longitude"));
             poi.setLocation(new double[]{lat, longi});
             poi.setShortDescription(params.get("shortd"));
-            
+
             int i = 1;
             ArrayList<String> categories = new ArrayList<String>();
             while (params.containsKey("category" + i)) {
@@ -269,118 +271,123 @@ public class NewPoiController {
                 description_component.setSectionsList(list);
                 listComponent.add(description_component);
             }
-             //Orari
-             i=1;
-             int k=1;
-             boolean ok=false;
-              String gg="";
-              boolean[] aperto= new boolean[8];
-              for (int z=1; z<=7; z++){
-                     aperto[z]=false;
-                 }
-             WorkingTimeComponent workingtime = new WorkingTimeComponent();
-             if(params.containsKey("WD"+i+"start"+k+"H")){
-                
-                
-                ok=true;
+            //Orari
+            i = 1;
+            int k = 1;
+            boolean ok = false;
+            String gg = "";
+            boolean[] aperto = new boolean[8];
+            for (int z = 1; z <= 7; z++) {
+                aperto[z] = false;
+            }
+            WorkingTimeComponent workingtime = new WorkingTimeComponent();
+            if (params.containsKey("WD" + i + "start" + k + "H")) {
+
+                ok = true;
                 ArrayList<CompactWorkingDays> workingdays = new ArrayList<CompactWorkingDays>();
-               
-                 while(params.containsKey("WD"+i)){
-                      ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
-                     k=1;
-                       while(params.containsKey("WD"+i+"start"+k+"H")){
-                           WorkingHours wh = new WorkingHours();
-                        wh.setStart(params.get("WD"+i+"start"+k+"H")+":"+params.get("WD"+i+"start"+k+"M"));
-                        wh.setEnd(params.get("WD"+i+"end"+k+"H")+":"+params.get("WD"+i+"end"+k+"M"));
+
+                while (params.containsKey("WD" + i)) {
+                    ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
+                    k = 1;
+                    while (params.containsKey("WD" + i + "start" + k + "H")) {
+                        WorkingHours wh = new WorkingHours();
+                        wh.setStart(params.get("WD" + i + "start" + k + "H") + ":" + params.get("WD" + i + "start" + k + "M"));
+                        wh.setEnd(params.get("WD" + i + "end" + k + "H") + ":" + params.get("WD" + i + "end" + k + "M"));
                         Listwh.add(wh);
-                        k=k+1;
-                       }
-                       CompactWorkingDays cwd = new CompactWorkingDays();
-                        cwd.setDays(params.get("WD"+i));
-                        cwd.setWorkinghours(Listwh);
-                        workingdays.add(cwd);
-                        i=i+1;
-                 }
-                 int grn=1;
-                 ArrayList<CompactWorkingDays> wdef = new ArrayList<CompactWorkingDays>();
-                 
-                 for (int z=1; z<=7; z++){
-                     aperto[z]=false;
-                 }
-                 while(grn<=7){
-                     
-                     for(CompactWorkingDays g : workingdays) {
-                         
-                         if (grn==1 && g.getDays().equals("Lunedì")){
-                             aperto[1]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==2 && g.getDays().equals("Martedì")){
-                             aperto[2]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==3 && g.getDays().equals("Mercoledì")){
-                             aperto[3]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==4 && g.getDays().equals("Giovedì")){
-                             aperto[4]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==5 && g.getDays().equals("Venerdì")){
-                             aperto[5]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==6 && g.getDays().equals("Sabato")){
-                             aperto[6]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==7 && g.getDays().equals("Domenica")){
-                             aperto[7]=true;
-                             wdef.add(g);
-                         }
-                         
-                             
-                     }
-                     grn++;
-                 }
-                 workingtime.setWorkingdays(wdef);
-                 for(int z=1; z<=7; z++) {
-                         if(aperto[z]==false && z==1 )
-                             gg=gg+" "+"Lunedì";
-                         if(aperto[z]==false && z==2 )
-                             gg=gg+" "+"Martedì";
-                         if(aperto[z]==false && z==3 )
-                             gg=gg+" "+"Mercoledì";
-                         if(aperto[z]==false && z==4 )
-                             gg=gg+" "+"Giovedì";
-                         if(aperto[z]==false && z==5 )
-                             gg=gg+" "+"Venerdì";
-                         if(aperto[z]==false && z==6 )
-                             gg=gg+" "+"Sabato";
-                         if(aperto[z]==false && z==7 )
-                             gg=gg+" "+"Domenica";
-                 }
-                                 
-                 if(!gg.equals("")){
-                     ok=true;
-                     workingtime.setWeekly_day_of_rest(gg);
-                 }
-             }
-                 
-                 i=1;
-                 String ggs="";
-                 while(params.containsKey("RDA"+i)){
-                     ggs=ggs+" "+params.get("RDA"+i);
-                     i=i+1;
-                 }
-                 if(!ggs.equals("")){
-                     ok=true;
-                     workingtime.setDays_of_rest(ggs);
-                 }
-                 if(ok){
-                 listComponent.add(workingtime);
-                 }
+                        k = k + 1;
+                    }
+                    CompactWorkingDays cwd = new CompactWorkingDays();
+                    cwd.setDays(params.get("WD" + i));
+                    cwd.setWorkinghours(Listwh);
+                    workingdays.add(cwd);
+                    i = i + 1;
+                }
+                int grn = 1;
+                ArrayList<CompactWorkingDays> wdef = new ArrayList<CompactWorkingDays>();
+
+                for (int z = 1; z <= 7; z++) {
+                    aperto[z] = false;
+                }
+                while (grn <= 7) {
+
+                    for (CompactWorkingDays g : workingdays) {
+
+                        if (grn == 1 && g.getDays().equals("Lunedì")) {
+                            aperto[1] = true;
+                            wdef.add(g);
+                        }
+                        if (grn == 2 && g.getDays().equals("Martedì")) {
+                            aperto[2] = true;
+                            wdef.add(g);
+                        }
+                        if (grn == 3 && g.getDays().equals("Mercoledì")) {
+                            aperto[3] = true;
+                            wdef.add(g);
+                        }
+                        if (grn == 4 && g.getDays().equals("Giovedì")) {
+                            aperto[4] = true;
+                            wdef.add(g);
+                        }
+                        if (grn == 5 && g.getDays().equals("Venerdì")) {
+                            aperto[5] = true;
+                            wdef.add(g);
+                        }
+                        if (grn == 6 && g.getDays().equals("Sabato")) {
+                            aperto[6] = true;
+                            wdef.add(g);
+                        }
+                        if (grn == 7 && g.getDays().equals("Domenica")) {
+                            aperto[7] = true;
+                            wdef.add(g);
+                        }
+
+                    }
+                    grn++;
+                }
+                workingtime.setWorkingdays(wdef);
+                for (int z = 1; z <= 7; z++) {
+                    if (aperto[z] == false && z == 1) {
+                        gg = gg + " " + "Lunedì";
+                    }
+                    if (aperto[z] == false && z == 2) {
+                        gg = gg + " " + "Martedì";
+                    }
+                    if (aperto[z] == false && z == 3) {
+                        gg = gg + " " + "Mercoledì";
+                    }
+                    if (aperto[z] == false && z == 4) {
+                        gg = gg + " " + "Giovedì";
+                    }
+                    if (aperto[z] == false && z == 5) {
+                        gg = gg + " " + "Venerdì";
+                    }
+                    if (aperto[z] == false && z == 6) {
+                        gg = gg + " " + "Sabato";
+                    }
+                    if (aperto[z] == false && z == 7) {
+                        gg = gg + " " + "Domenica";
+                    }
+                }
+
+                if (!gg.equals("")) {
+                    ok = true;
+                    workingtime.setWeekly_day_of_rest(gg);
+                }
+            }
+
+            i = 1;
+            String ggs = "";
+            while (params.containsKey("RDA" + i)) {
+                ggs = ggs + " " + params.get("RDA" + i);
+                i = i + 1;
+            }
+            if (!ggs.equals("")) {
+                ok = true;
+                workingtime.setDays_of_rest(ggs);
+            }
+            if (ok) {
+                listComponent.add(workingtime);
+            }
 
             LinkedPoiComponent lpc = new LinkedPoiComponent();
             ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
@@ -446,9 +453,9 @@ public class NewPoiController {
 
             CompletePOI_It poi2 = (CompletePOI_It) pm.findOneCompletePoiByName(poi.getName());
             // POI INGLESE
-            
+
             if (params.get("inglese").equals("on")) {
-                
+
                 addeng(params, poi2.getId(), coverimg, img_gallery);
             } else {
                 CompletePOI_En enpoi = new CompletePOI_En();
@@ -458,7 +465,7 @@ public class NewPoiController {
                 enpoi.setId(poi.getId());
                 enpoi.setName(poi.getName());
                 enpoi.setShortDescription(poi.getShortDescription());
-                
+
                 double enlat = Double.parseDouble(params.get("latitude"));
                 double enlongi = Double.parseDouble(params.get("longitude"));
                 enpoi.setLocation(new double[]{enlat, enlongi});
@@ -529,7 +536,7 @@ public class NewPoiController {
         double longi = Double.parseDouble(params.get("enlongitude"));
         enpoi.setLocation(new double[]{lat, longi});
         enpoi.setShortDescription(params.get("enshortd"));
-        
+
         enpoi.setVisibility(params.get("visibility"));
         int i = 1;
         ArrayList<String> categories = new ArrayList<String>();
@@ -658,118 +665,123 @@ public class NewPoiController {
             description_component.setSectionsList(list);
             listComponent.add(description_component);
         }
-         //Orari
-             i=1;
-             int k=1;
-             boolean ok=false;
-              String gg="";
-              boolean[] aperto= new boolean[8];
-              for (int z=1; z<=7; z++){
-                     aperto[z]=false;
-                 }
-             WorkingTimeComponent workingtime = new WorkingTimeComponent();
-             if(params.containsKey("WD"+i+"start"+k+"H")){
-                
-                
-                ok=true;
-                ArrayList<CompactWorkingDays> workingdays = new ArrayList<CompactWorkingDays>();
-               
-                 while(params.containsKey("enWD"+i)){
-                      ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
-                     k=1;
-                       while(params.containsKey("enWD"+i+"start"+k+"H")){
-                           WorkingHours wh = new WorkingHours();
-                        wh.setStart(params.get("enWD"+i+"start"+k+"H")+":"+params.get("enWD"+i+"start"+k+"M"));
-                        wh.setEnd(params.get("enWD"+i+"end"+k+"H")+":"+params.get("enWD"+i+"end"+k+"M"));
-                        Listwh.add(wh);
-                        k=k+1;
-                       }
-                       CompactWorkingDays cwd = new CompactWorkingDays();
-                        cwd.setDays(params.get("enWD"+i));
-                        cwd.setWorkinghours(Listwh);
-                        workingdays.add(cwd);
-                        i=i+1;
-                 }
-                 int grn=1;
-                 ArrayList<CompactWorkingDays> wdef = new ArrayList<CompactWorkingDays>();
-                 
-                 for (int z=1; z<=7; z++){
-                     aperto[z]=false;
-                 }
-                 while(grn<=7){
-                     
-                     for(CompactWorkingDays g : workingdays) {
-                         
-                         if (grn==1 && g.getDays().equals("Lunedì")){
-                             aperto[1]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==2 && g.getDays().equals("Martedì")){
-                             aperto[2]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==3 && g.getDays().equals("Mercoledì")){
-                             aperto[3]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==4 && g.getDays().equals("Giovedì")){
-                             aperto[4]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==5 && g.getDays().equals("Venerdì")){
-                             aperto[5]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==6 && g.getDays().equals("Sabato")){
-                             aperto[6]=true;
-                             wdef.add(g);
-                         }
-                         if (grn==7 && g.getDays().equals("Domenica")){
-                             aperto[7]=true;
-                             wdef.add(g);
-                         }
-                         
-                             
-                     }
-                     grn++;
-                 }
-                 workingtime.setWorkingdays(wdef);
-                 for(int z=1; z<=7; z++) {
-                         if(aperto[z]==false && z==1 )
-                             gg=gg+" "+"Lunedì";
-                         if(aperto[z]==false && z==2 )
-                             gg=gg+" "+"Martedì";
-                         if(aperto[z]==false && z==3 )
-                             gg=gg+" "+"Mercoledì";
-                         if(aperto[z]==false && z==4 )
-                             gg=gg+" "+"Giovedì";
-                         if(aperto[z]==false && z==5 )
-                             gg=gg+" "+"Venerdì";
-                         if(aperto[z]==false && z==6 )
-                             gg=gg+" "+"Sabato";
-                         if(aperto[z]==false && z==7 )
-                             gg=gg+" "+"Domenica";
-                 }
-                                 
-                 if(!gg.equals("")){
-                     ok=true;
-                     workingtime.setWeekly_day_of_rest(gg);
-                 }
-             }
-                 
-                 i=1;
-                 String ggs="";
-                 while(params.containsKey("RDA"+i)){
-                     ggs=ggs+" "+params.get("RDA"+i);
-                     i=i+1;
-                 }
-                 if(!ggs.equals("")){
-                     ok=true;
-                     workingtime.setDays_of_rest(ggs);
-                 }
-                 if(ok){
-                 listComponent.add(workingtime);
-                 }
+        //Orari
+        i = 1;
+        int k = 1;
+        boolean ok = false;
+        String gg = "";
+        boolean[] aperto = new boolean[8];
+        for (int z = 1; z <= 7; z++) {
+            aperto[z] = false;
+        }
+        WorkingTimeComponent workingtime = new WorkingTimeComponent();
+        if (params.containsKey("WD" + i + "start" + k + "H")) {
+
+            ok = true;
+            ArrayList<CompactWorkingDays> workingdays = new ArrayList<CompactWorkingDays>();
+
+            while (params.containsKey("enWD" + i)) {
+                ArrayList<WorkingHours> Listwh = new ArrayList<WorkingHours>();
+                k = 1;
+                while (params.containsKey("enWD" + i + "start" + k + "H")) {
+                    WorkingHours wh = new WorkingHours();
+                    wh.setStart(params.get("enWD" + i + "start" + k + "H") + ":" + params.get("enWD" + i + "start" + k + "M"));
+                    wh.setEnd(params.get("enWD" + i + "end" + k + "H") + ":" + params.get("enWD" + i + "end" + k + "M"));
+                    Listwh.add(wh);
+                    k = k + 1;
+                }
+                CompactWorkingDays cwd = new CompactWorkingDays();
+                cwd.setDays(params.get("enWD" + i));
+                cwd.setWorkinghours(Listwh);
+                workingdays.add(cwd);
+                i = i + 1;
+            }
+            int grn = 1;
+            ArrayList<CompactWorkingDays> wdef = new ArrayList<CompactWorkingDays>();
+
+            for (int z = 1; z <= 7; z++) {
+                aperto[z] = false;
+            }
+            while (grn <= 7) {
+
+                for (CompactWorkingDays g : workingdays) {
+
+                    if (grn == 1 && g.getDays().equals("Lunedì")) {
+                        aperto[1] = true;
+                        wdef.add(g);
+                    }
+                    if (grn == 2 && g.getDays().equals("Martedì")) {
+                        aperto[2] = true;
+                        wdef.add(g);
+                    }
+                    if (grn == 3 && g.getDays().equals("Mercoledì")) {
+                        aperto[3] = true;
+                        wdef.add(g);
+                    }
+                    if (grn == 4 && g.getDays().equals("Giovedì")) {
+                        aperto[4] = true;
+                        wdef.add(g);
+                    }
+                    if (grn == 5 && g.getDays().equals("Venerdì")) {
+                        aperto[5] = true;
+                        wdef.add(g);
+                    }
+                    if (grn == 6 && g.getDays().equals("Sabato")) {
+                        aperto[6] = true;
+                        wdef.add(g);
+                    }
+                    if (grn == 7 && g.getDays().equals("Domenica")) {
+                        aperto[7] = true;
+                        wdef.add(g);
+                    }
+
+                }
+                grn++;
+            }
+            workingtime.setWorkingdays(wdef);
+            for (int z = 1; z <= 7; z++) {
+                if (aperto[z] == false && z == 1) {
+                    gg = gg + " " + "Lunedì";
+                }
+                if (aperto[z] == false && z == 2) {
+                    gg = gg + " " + "Martedì";
+                }
+                if (aperto[z] == false && z == 3) {
+                    gg = gg + " " + "Mercoledì";
+                }
+                if (aperto[z] == false && z == 4) {
+                    gg = gg + " " + "Giovedì";
+                }
+                if (aperto[z] == false && z == 5) {
+                    gg = gg + " " + "Venerdì";
+                }
+                if (aperto[z] == false && z == 6) {
+                    gg = gg + " " + "Sabato";
+                }
+                if (aperto[z] == false && z == 7) {
+                    gg = gg + " " + "Domenica";
+                }
+            }
+
+            if (!gg.equals("")) {
+                ok = true;
+                workingtime.setWeekly_day_of_rest(gg);
+            }
+        }
+
+        i = 1;
+        String ggs = "";
+        while (params.containsKey("RDA" + i)) {
+            ggs = ggs + " " + params.get("RDA" + i);
+            i = i + 1;
+        }
+        if (!ggs.equals("")) {
+            ok = true;
+            workingtime.setDays_of_rest(ggs);
+        }
+        if (ok) {
+            listComponent.add(workingtime);
+        }
         /*
          LinkedPoiComponent lpc = new LinkedPoiComponent();
          ArrayList<LinkedPoi> alp = new ArrayList<LinkedPoi>();
@@ -823,9 +835,10 @@ public class NewPoiController {
         }
 
         listComponent.add(cover);
-        if(gallery != null && gallery.getLinks() != null)
-        listComponent.add(gallery);
-        
+        if (gallery != null && gallery.getLinks() != null) {
+            listComponent.add(gallery);
+        }
+
         enpoi.setComponents(listComponent);
         pm.saveEnPoi(enpoi);
     }
