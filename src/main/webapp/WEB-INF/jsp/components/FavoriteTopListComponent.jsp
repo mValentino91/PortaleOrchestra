@@ -49,18 +49,22 @@
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
             <b><spring:message code="label.${listRTitle}"></spring:message></b>
+            <c:set var="count" scope="page" value="${0}"/>
             <c:forEach var="poiR" items="${listR}">
-                <div class="poiR">
-                    <div class="poiRimg">
-                       <img src="./dist/poi/img/${poiR.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
-                    </div>
-                    <div class="poiRnameContainer">
-                        <div class="poiRname">
-                            <a href="getPoi?id=${poiR.id}">${poiR.name}</a>
+                <c:if test="${count < 10 }">
+                    <div class="poiR">
+                        <div class="poiRimg">
+                           <img src="./dist/poi/img/${poiR.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                        </div>
+                        <div class="poiRnameContainer">
+                            <div class="poiRname">
+                                <a href="getPoi?id=${poiR.id}">${poiR.name}</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-                          
+                </c:if>
+                
+                <c:set var="count" value="${count + 1}" scope="page"/>         
                 </c:forEach>
             <div class="clear"></div>
         </div>
