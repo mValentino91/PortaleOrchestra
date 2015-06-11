@@ -87,9 +87,12 @@ public class FavoriteController {
         Iterable <Favorite> favorites = pm.findFavoritesByIdUser(Integer.parseInt(id_user)); /*id_user*/
         ArrayList<String> idlist = new ArrayList<String>();        
         Iterable<CompletePOI_It> poilist = new ArrayList<CompletePOI_It>();
-        
+        int cont = 0;
         for (Favorite f : favorites ) {
+            if(cont==10)
+                break;
             idlist.add(f.getIdPoi());
+            cont++;
         }
         poilist = (Iterable<CompletePOI_It>) pm.getCompletePoisById(idlist);
         
