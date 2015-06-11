@@ -7,6 +7,7 @@ package com.orchestra.portale.controller;
 
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.sql.entities.Card;
 import com.orchestra.portale.persistence.sql.entities.Role;
 import com.orchestra.portale.persistence.sql.entities.User;
 import static com.orchestra.portale.utils.MD5.crypt;
@@ -58,9 +59,9 @@ public class UserRegistrationController {
         user.setRoles(new_user_roles);
         pm.saveUser(user);
         
-        if (avatar.getSize() > 0  ){
-            
         User user2= pm.findUserByUsername(user.getUsername());
+        
+        if (avatar.getSize() > 0  ){
       
          MultipartFile file = avatar;
             
@@ -85,6 +86,13 @@ public class UserRegistrationController {
             }
         }
             model2.addObject("mess", "Registrazione completata con successo!<br><br><center> <a href='page?sec=home' class='btn btn-primary'>Torna alla Home</a></center> ");
+            
+      Card c = new Card();     
+      c.setIdUser(user2.getId().intValue());
+      c.setStatus(0);
+      pm.saveCard(c);
+      //TODO: cambiare id user in LONG
+            
       return model2;
    }
 }

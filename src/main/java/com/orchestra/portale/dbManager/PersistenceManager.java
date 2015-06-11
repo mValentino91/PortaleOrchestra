@@ -89,7 +89,8 @@ public interface PersistenceManager {
     public void invalidateOffer(int idItinerary, int idOffer);
     public Iterable<Top10> selectTopPoi(String val);
     public Iterable<CartItinerarydetail> findCartItineraryByIdUser(int idUser);
-    public void updateQuantity(int qta, int id_user,int idOffer);
-    public void UpdateOfferStockByType(int qta,String type, String idPOi);
+    public void updateQuantity(int qta, float tot, int id_user, int idOffer);
+    public void UpdateOfferStockByType(int qta, float tot, String type, String idPoi, int idUser);
     public Iterable<Object[]> getMostFavorites();
+    public void saveCard(Card c);
 }

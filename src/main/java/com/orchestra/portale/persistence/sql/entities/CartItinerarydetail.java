@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "CartItinerarydetail.findByIdCartItinerary", query = "SELECT c FROM CartItinerarydetail c WHERE c.idCartItinerary = :idCartItinerary"),
     @NamedQuery(name = "CartItinerarydetail.findByIdCard", query = "SELECT c FROM CartItinerarydetail c WHERE c.idCard = :idCard"),
     @NamedQuery(name = "CartItinerarydetail.findByIdItinerary", query = "SELECT c FROM CartItinerarydetail c WHERE c.idItinerary = :idItinerary"),
-    @NamedQuery(name = "CartItinerarydetail.findByIdUser", query = "SELECT c FROM CartItinerarydetail c WHERE c.idUser = :idUser"),
+    //@NamedQuery(name = "CartItinerarydetail.findByIdUser", query = "SELECT c FROM CartItinerarydetail c WHERE c.idUser = :idUser"),
     @NamedQuery(name = "CartItinerarydetail.findByIdPoi", query = "SELECT c FROM CartItinerarydetail c WHERE c.idPoi = :idPoi"),
     @NamedQuery(name = "CartItinerarydetail.findByQta", query = "SELECT c FROM CartItinerarydetail c WHERE c.qta = :qta"),
     @NamedQuery(name = "CartItinerarydetail.findBySum", query = "SELECT c FROM CartItinerarydetail c WHERE c.sum = :sum"),

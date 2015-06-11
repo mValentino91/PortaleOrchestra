@@ -19,6 +19,7 @@ import com.orchestra.portale.persistence.mongo.repositories.HomeMongoRepository;
 import com.orchestra.portale.persistence.mongo.repositories.PagesMongoRepository_It;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_En;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_It;
+import com.orchestra.portale.persistence.sql.entities.Card;
 import com.orchestra.portale.persistence.sql.entities.CardItinerary;
 import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
@@ -545,18 +546,23 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public void updateQuantity(int qta, int id_user, int idOffer) {
-        cartdetailRepo.updateQta(qta, id_user, idOffer);
+    public void updateQuantity(int qta, float tot, int id_user, int idOffer) {
+        cartdetailRepo.updateQta(qta, tot, id_user, idOffer);
     }
 
     @Override
-    public void UpdateOfferStockByType(int qta,String type, String idPoi) {
-        cartdetailRepo.updateQtaByType(qta,type,idPoi);
-        
+    public void UpdateOfferStockByType(int qta, float tot, String type, String idPoi, int idUser) {
+        cartdetailRepo.updateQtaByType(qta, tot, type, idPoi, idUser);
+
     }
-    
     @Override
     public Iterable<Object[]> getMostFavorites() {
         return favoriteRepo.getMostFavorites();
     }
+    
+    
+    @Override
+    public void saveCard(Card c){
+        cardRepo.save(c);
+    }    
 }
