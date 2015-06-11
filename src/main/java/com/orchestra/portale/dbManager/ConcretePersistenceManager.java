@@ -559,5 +559,4 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public Iterable<Object[]> getMostFavorites() {
         return favoriteRepo.getMostFavorites();
     }
-
 }
