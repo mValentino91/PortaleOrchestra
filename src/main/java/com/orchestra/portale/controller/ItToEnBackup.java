@@ -52,27 +52,7 @@ public class ItToEnBackup {
             pm.saveEnPoi(poiEn);
             
             }
-        
-           for (Pages poi : pm.ge) {
-                
-            CompletePOI_En poiEn = new CompletePOI_En();
-            poiEn.setId(poi.getId());
-            poiEn.setAddress(poi.getAddress());
-            poiEn.setCategories(poi.getCategories());
-            poiEn.setComponents(poi.getComponents());
-            poiEn.setEnd_date(poi.getEnd_date());
-            poiEn.setExternalUrl(poi.getExternalUrl());
-            poiEn.setLocation(poi.getLocation());
-            poiEn.setName(poi.getName());
-            poiEn.setShortDescription(poi.getShortDescription());
-            poiEn.setStart_date(poi.getStart_date());
-            poiEn.setVisibility(poi.getVisibility());
-            
-            pm.saveEnPoi(poiEn);
-            
-            }
-        
-        
+  
         return "OK";
     }
     
