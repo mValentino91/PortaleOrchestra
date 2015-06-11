@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andrea
+ * @author andzaccaro
  */
 @Entity
 @Table(name = "card")
@@ -46,13 +46,9 @@ public class Card implements Serializable {
     @NotNull
     @Column(name = "idUser")
     private int idUser;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "creation_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationDate;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "activation_date")
     @Temporal(TemporalType.TIMESTAMP)
     private Date activationDate;
@@ -68,11 +64,9 @@ public class Card implements Serializable {
         this.idCard = idCard;
     }
 
-    public Card(Integer idCard, int idUser, Date creationDate, Date activationDate, int status) {
+    public Card(Integer idCard, int idUser, int status) {
         this.idCard = idCard;
         this.idUser = idUser;
-        this.creationDate = creationDate;
-        this.activationDate = activationDate;
         this.status = status;
     }
 
