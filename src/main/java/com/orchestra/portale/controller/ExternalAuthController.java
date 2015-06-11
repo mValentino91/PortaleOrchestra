@@ -66,6 +66,6 @@ public class ExternalAuthController {
         
         
         return "{\"login\":\"ok\"}";
-    }           
+    }    
     
 }

@@ -13,6 +13,7 @@ public class TileSlider {
     private String link;
     private String titolo;
     private String testo;
+    private String img;
 
     /**
      * @return the link
@@ -54,6 +55,20 @@ public class TileSlider {
      */
     public void setTesto(String testo) {
         this.testo = testo;
+    }
+
+    /**
+     * @return the img
+     */
+    public String getImg() {
+        return img;
+    }
+
+    /**
+     * @param img the img to set
+     */
+    public void setImg(String img) {
+        this.img = img;
     }
     
 }
