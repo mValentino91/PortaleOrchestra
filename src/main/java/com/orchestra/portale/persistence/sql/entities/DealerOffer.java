@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andrea
+ * @author antonio
  */
 @Entity
 @Table(name = "dealerOffer")
@@ -51,8 +51,9 @@ public class DealerOffer implements Serializable {
     private Integer idOffer;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 100)
     @Column(name = "idDealer")
-    private int idDealer;
+    private String idDealer;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -102,7 +103,7 @@ public class DealerOffer implements Serializable {
         this.idOffer = idOffer;
     }
 
-    public DealerOffer(Integer idOffer, int idDealer, String idPoi, String nome, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd, int dealerCode) {
+    public DealerOffer(Integer idOffer, String idDealer, String idPoi, String nome, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd, int dealerCode) {
         this.idOffer = idOffer;
         this.idDealer = idDealer;
         this.idPoi = idPoi;
@@ -124,11 +125,11 @@ public class DealerOffer implements Serializable {
         this.idOffer = idOffer;
     }
 
-    public int getIdDealer() {
+    public String getIdDealer() {
         return idDealer;
     }
 
-    public void setIdDealer(int idDealer) {
+    public void setIdDealer(String idDealer) {
         this.idDealer = idDealer;
     }
 

@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *
  * @author andrea
  */
-public interface DealerOfferRepository extends JpaRepository<DealerOffer, String>{
+public interface DealerOfferRepository extends JpaRepository<DealerOffer, Integer>{
     List<DealerOffer> findOfferByIdPoi(String idPoi);
     DealerOffer findOfferByIdOffer(int idOffer);
     List<DealerOffer> findOfferByIdDealer(String idDealer);
