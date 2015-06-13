@@ -96,7 +96,7 @@
             icon: "./dist/img/markers/${poiv.categories[0]}/marker.png",
             title: "${poiv.name}"});
             marker.id = '${poiv.id}';
-            marker.name = '${poiv.name}';
+            marker.name = "${poiv.name}";
             google.maps.event.addListener(marker, 'click', function() {
             if (infowindowprec) {
             infowindowprec.close();
