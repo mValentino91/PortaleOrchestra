@@ -853,7 +853,7 @@ var categoriesTail = (function() {
                         + '</button>');
             }
              if(ifAuth()){
-                $('.categoriesTails').append('<button type="button" class="moreCategories btn btn-plus-cat btn-default btn-lg"'
+                $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
                 + 'onclick="interactiveMap.showFavoritesPois()"'
                 + 'title="Preferiti"'
                 + 'style="display:none; background-color:#ed5565;">'
