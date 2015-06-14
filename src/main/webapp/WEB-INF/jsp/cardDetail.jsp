@@ -99,7 +99,7 @@
                                     <c:if test="${not empty map_off.get(idpoi)}">
 
                                         <div class="offer_container" >
-                                            <div style="margin-left: 10%;">Offerte Orchestra PassSpass</div>
+                                            <div style="margin-left: 10%;">Offerte Orchestra Pass&Spass</div>
                                             <c:forEach var="offer" items="${map_off.get(idpoi)}">
 
                                                 <div style="margin-left:10%;border: 1px solid #bdbdbd; padding: 3px; margin-bottom: 5px;">
