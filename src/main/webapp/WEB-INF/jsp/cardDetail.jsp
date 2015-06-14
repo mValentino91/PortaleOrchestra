@@ -61,7 +61,13 @@
             }
         </style>
         
-
+        <script>
+            $(document).ready(function () {
+                $("#print").click(function(){
+                    window.print();
+                });
+            });
+        </script>
     </head>
 
     <body>
@@ -103,6 +109,10 @@
                                                     <c:if test="${offer.fullPrice!=0}">
                                                         <div style="text-decoration:line-through">Prezzo intero: ${offer.fullPrice}€</div>
                                                         <div style="display:inline-block"><strong>Prezzo scontato:</strong> ${offer.discountedPrice}€</div>
+                                                        <c:forEach var="det" items="${map_off_det.get(offer.idOffer)}">
+                                                            <div><strong>Quantità acquistata:</strong> ${det.qta}</div> 
+                                                            <div><strong>Totale acquistato:</strong> ${det.sum}</div>
+                                                        </c:forEach>
                                                     </c:if>
                                                 </div>
 
@@ -122,6 +132,8 @@
                                                     <div><strong>Nome offerta:</strong> ${stock.get("type")}</div>
                                                     <div><strong>Descrizione: </strong>${stock.get("desc")}</div>
                                                     <div><strong>Prezzo intero:</strong> ${stock.get("price")}€</div>
+                                                    <div><strong>Quantità acquistata:</strong> ${stock.get("qta")}</div>
+                                                    <div><strong>Totale acquistato:</strong> ${stock.get("sum")}€</div>
                                                 </div>
 
 
@@ -185,7 +197,7 @@
                     </div>
                 </article>
                 --%>
-                <div class="big-header contact" id="crea_it" style="background-color:#285E8E; cursor: pointer;">
+                <div class="big-header contact" id="print" style="background-color:#285E8E; cursor: pointer;">
                     <a href="#" style="color:#fff; text-decoration: none">Stampa</a>
                 </div>
                 

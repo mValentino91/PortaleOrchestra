@@ -60,6 +60,7 @@ public class CardItineraryController {
         Map<String, List<DealerOffer>> map_off = new HashMap<String, List<DealerOffer>>();
         //Map<String, AbstractPoiComponent> map_comp = new HashMap<String, AbstractPoiComponent>();
         Map<String, List<Map<String, String>>> map_comp = new HashMap<String, List<Map<String, String>>>();
+        Map<Integer,List<Map<String, String>>> map_off_det = new HashMap<Integer,List<Map<String,String>>>();
 
         Map<String, List<CartItinerarydetail>> m2 = new HashMap<String, List<CartItinerarydetail>>();
 
@@ -105,13 +106,27 @@ public class CardItineraryController {
                             System.out.println("ENTRO CARD");
                             //offerte nn stock
                             List<DealerOffer> x = map_off.get(off.getIdPoi());
+                            
 
                             if (x == null) {
                                 List<DealerOffer> L1 = new ArrayList<DealerOffer>();
+                                
+                                List<Map<String, String>> mc = new ArrayList<Map<String, String>>();
+                                Map<String,String> mdet = new HashMap<String,String>();
+                                
                                 DealerOffer id_off = pm.findOfferByIdOffer(off.getIdOffer());
                                 System.out.println(id_off.getDesc());
                                 L1.add(id_off);
+                                Integer qt = off.getQta();
+                                Float sum = off.getSum();
+                                
+                                mdet.put("qta",qt.toString());
+                                mdet.put("sum", sum.toString());
+                                mc.add(mdet);
+                                
                                 map_off.put(off.getIdPoi(), L1);
+                                
+                                map_off_det.put(off.getIdOffer(), mc);
                             } else {
                                 x.add(pm.findOfferByIdOffer(off.getIdOffer()));
                             }
@@ -149,6 +164,10 @@ public class CardItineraryController {
                                         mo.put("desc", p.getType_description());
                                         Double pr = p.getPrice();
                                         mo.put("price", pr.toString());
+                                        Integer qt = off.getQta();
+                                        Float sum = off.getSum();
+                                        mo.put("qta",qt.toString());
+                                        mo.put("sum",sum.toString());
 
                                         x.add(mo);
                                     }
@@ -170,6 +189,7 @@ public class CardItineraryController {
 
                     if (map_off.size() > 0) {
                         model.addObject("map_off", map_off);
+                        model.addObject("map_off_det", map_off_det);
                     }
 
                     if (map_comp.size() > 0) {
