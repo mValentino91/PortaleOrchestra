@@ -852,6 +852,14 @@ var categoriesTail = (function() {
                         + '<i class="' + data[i].icon + '"></i>'
                         + '</button>');
             }
+             if(ifAuth()){
+                $('.categoriesTails').append('<button type="button" class="moreCategories btn btn-plus-cat btn-default btn-lg"'
+                + 'onclick="interactiveMap.showFavoritesPois()"'
+                + 'title="Preferiti"'
+                + 'style="display:none; background-color:#ed5565;">'
+                + '<i class="fa fa-heart"></i>'
+                + '</button>');
+            }
             /*$('.categoriesTails').append('<button type="button" class="btn btn-plus-cat btn-default btn-lg"'
                         + 'onclick="categoriesTail.viewMoreCategories()"'
                         + 'title="view more..."'

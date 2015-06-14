@@ -14,6 +14,7 @@
 </div>
 <div class="categoriesTailMacro">
     <div class="categoriesTails">
+
     </div>
     <div class="panel-group" id="categoriesPanelGroup">
     </div>
