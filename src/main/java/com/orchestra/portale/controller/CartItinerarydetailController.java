@@ -140,4 +140,45 @@ public class CartItinerarydetailController {
        
         
     }
+    
+    @RequestMapping(value = "/deleteOffer", method = RequestMethod.GET)
+    public @ResponseBody
+    String deleteOffer(@RequestParam String id_offer, @RequestParam String id_poi, @RequestParam String type) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        String id_user = user.getId().toString();
+        
+        CartItinerarydetail cart_detail = new CartItinerarydetail();
+        Iterable<CartItinerarydetail> c = pm.findCartItineraryByIdUser(Integer.parseInt(id_user));
+        
+        if(c.iterator().hasNext()){
+            if(type.equals("CARD")){
+                //offerte nn stock
+                for(CartItinerarydetail ci : c){
+                    if(ci.getIdOffer() == Integer.parseInt(id_offer)){
+                        pm.deleteOfferCard(Integer.parseInt(id_offer), Integer.parseInt(id_user));
+                        return "Offerta rimossa";
+                        //cancella row
+                    }
+                }
+            }
+            else{
+                for(CartItinerarydetail ci : c){
+                    if(ci.getIdPoi().equals(id_poi) && ci.getTipoStock().equals(type)){
+                        //cancella row
+                        pm.deleteOfferStock(Integer.parseInt(id_user), id_poi, type);
+                        return "Offerta rimossa";
+                    }
+                }
+                
+            }
+            
+        }
+        else
+            return "Offerta non presente";
+        
+        
+        
+        return "ok";
+    }
 }

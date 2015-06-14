@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface CardRepository extends JpaRepository<Card, Integer>{
     @Modifying
     @Transactional(readOnly=false)
-    @Query("update Card c set c.status= 1, c.status=1 where c.idUser = ?1")
+    @Query("update Card c set c.status= 1 where c.idUser = ?1")
     void activeCard(int id_user);  
     
     @Query("select c.status from Card c where c.idUser = ?1")
