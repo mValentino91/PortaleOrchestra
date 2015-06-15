@@ -35,6 +35,9 @@ public class ExternalAuthController {
     private FbProfiler fbProfiler;
     
     @Autowired
+    private PersistenceManager pm;
+    
+    @Autowired
     UserRepository userRepository;
 
     @RequestMapping("/fblogin")
@@ -46,7 +49,7 @@ public class ExternalAuthController {
     @RequestMapping(value="/fbLoginJs", produces="application/json")
     public @ResponseBody
     String fbLoginJs(HttpServletRequest request, HttpServletResponse response){
-        User user = FbAuthenticationManager.fbLoginJs(request, response, userRepository);
+        User user = FbAuthenticationManager.fbLoginJs(request, response, userRepository, pm);
         
         Authentication auth = new FbAuthentication(user);
         SecurityContext securityContext = SecurityContextHolder.getContext();
