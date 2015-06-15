@@ -565,4 +565,14 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void saveCard(Card c){
         cardRepo.save(c);
     }    
+
+    @Override
+    public void deleteOfferCard(Integer id_offer, Integer id_user) {
+        cartdetailRepo.deleteOfferCard(id_offer, id_user);
+    }
+
+    @Override
+    public void deleteOfferStock(Integer id_user, String idPoi, String type) {
+        cartdetailRepo.deleteOfferStock(id_user, idPoi, type);
+    }
 }

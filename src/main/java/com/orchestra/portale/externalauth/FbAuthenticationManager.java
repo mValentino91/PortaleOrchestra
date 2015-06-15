@@ -5,9 +5,11 @@
  */
 package com.orchestra.portale.externalauth;
 
+import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.externalauth.NetworkUtils;
 import com.orchestra.portale.externalauth.exception.FacebookException;
 import com.orchestra.portale.externalauth.exception.UserNotFoundException;
+import com.orchestra.portale.persistence.sql.entities.Card;
 import com.orchestra.portale.persistence.sql.entities.Role;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.io.BufferedInputStream;
@@ -59,7 +61,7 @@ public class FbAuthenticationManager {
 
     }
 
-    public static User fbLoginJs(HttpServletRequest request, HttpServletResponse response, UserRepository userRepository) {
+    public static User fbLoginJs(HttpServletRequest request, HttpServletResponse response, UserRepository userRepository, PersistenceManager pm) {
 
         //Get access_token from request
         String access_token = request.getParameter("access_token");
@@ -136,6 +138,13 @@ public class FbAuthenticationManager {
                                 accountNonLocked,
                                 getAuthorities(new_user.getRoles()));
 
+                        /*Create card*/
+                        com.orchestra.portale.persistence.sql.entities.User user2= pm.findUserByUsername(user.getUsername());
+                        Card c = new Card();     
+                        c.setIdUser(user2.getId().intValue());
+                        c.setStatus(0);
+                        pm.saveCard(c);
+                        
                     }
 
                 }

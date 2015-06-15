@@ -24,12 +24,12 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
         <link href="./dist/css/OrchestraFontIcon.css" rel="stylesheet"> 
-        
+
 
         <title>JSP Page</title>
         <style>
             .poi_preview_box{
-                height: 75px; 
+                height: 70px; 
                 width: 100%; 
 
                 -moz-box-sizing: border-box;
@@ -80,7 +80,6 @@
 
 
             .poi_preview_title{
-                //font-weight: bold;
                 text-align: left!important;
                 padding-top: 3px;
             }
@@ -147,6 +146,7 @@
                 //border: 1px solid yellow; 
                 float: left;
                 text-align: left;
+                margin-top: 10px;
                 margin-bottom: 10px;
 
 
@@ -160,11 +160,9 @@
                 width: 100%; 
                 float: left;
                 text-align: left;
-                padding: 10px;
-                padding-top: 5px;
-                padding-bottom: 5px;
+                
 
-                //border: 1px solid yellow; 
+                //border: 1px solid brown; 
             }
 
             .card_offers_section{
@@ -175,7 +173,7 @@
                 width: 100%; 
                 float: left;
                 text-align: left;
-                padding: 10px;
+                
                 padding-top: 5px;
                 padding-bottom: 5px;
 
@@ -192,7 +190,9 @@
                 text-align: left;
                 padding: 10px;
                 padding-top: 0px;
-                //border: 1px solid #285E8E;
+                font-weight: bold;
+                text-decoration: underline;
+                //border-bottom: 1px solid #bdbdbd;
 
 
             }
@@ -216,6 +216,7 @@
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                font-weight: bold;
             }
 
             .off_desc{
@@ -235,6 +236,7 @@
                 padding: 10px;
                 padding-top: 0px;
                 //border: 1px solid #285E8E;
+                //border-bottom: 1px solid #bdbdbd;
             }
 
             .poi_offer_detail_price{
@@ -250,6 +252,7 @@
                 padding-top: 1px;
                 //border:none;
                 //border: 1px solid #285E8E;
+                //border-bottom: 1px solid #bdbdbd;
             }
 
             .poi_offer_detail_rate{
@@ -310,7 +313,7 @@
                 cursor: pointer;
             }
 
-            .fullPrice, .discPrice, .rateOffer{
+            .fullPrice, .fullPrice_stock,.discPrice, .rateOffer{
                 width:50px;
                 text-align: right;
                 display: inline-block;
@@ -329,59 +332,115 @@
                 text-decoration: line-through;
 
             }
+            
             .valuta{
                 width: 1px;
                 display: inline-block;
             }
+            
+            
+            .list_poi_element{
+                clear: both;
+                margin: 0px;
+                position: relative;
+                height: 35px;
+                cursor: pointer;
+            }	
+            
+            .add_offer{
+                user-drag: none; 
+                -moz-user-select: none;
+                -webkit-user-drag: none;
+                display: inline-block;
+                background-color: #1e88e5;
+                color: #fff;
+                padding: 3px;
+                cursor: pointer;
+            }
+            
+            .del_offer{
+                user-drag: none; 
+                -moz-user-select: none;
+                -webkit-user-drag: none;
+                display: inline-block;
+                background-color: #ef5350;
+                color: #fff;
+                padding: 3px;
+                cursor: pointer;
+            }
+
+            
 
 
         </style>    
 
 
         <script>
+        <%--   
+            window.onbeforeunload = function(e) {
+                return 'Dialog text here.';
+              };
+        --%>        
             $(document).ready(function () {
-                
-
-                
                 console.log("*************************");
+                $(".del_offer").each(function (index) {
+
+                    var sel = $(this);
+                    $(this).on("click", function () {
+
+                        var type = sel.parent().parent().attr("type");
+                        var idPoi = sel.parent().parent().attr("idPoi");
+                        var idOffer = sel.parent().parent().attr("idOffer");
+                        
+                        $.ajax({
+                            type: "GET",
+                            url: "./deleteOffer",
+                            data: "id_offer=" + idOffer + "&id_poi=" + idPoi + "&type=" + type,
+                            success: function (data) {
+                                alert(data);
+                            }
+                        });
+                      
+                    });
+                });
+                
+                
                 $(".add_offer").each(function (index) {
 
                     var sel = $(this);
                     $(this).on("click", function () {
-                       
+
                         var qta = sel.parent().parent().find(".qta");
                         var off_name = sel.siblings(".off_name").text();
                         var off_desc = sel.siblings(".off_desc").text();
-                        
+
                         var type = sel.parent().parent().attr("type");
                         var fullPrice = sel.parent().parent().attr("fullPrice");
                         var discPrice = sel.parent().parent().attr("discPrice");
-                        
+
                         var idPoi = sel.parent().parent().attr("idPoi");
                         var idOffer = sel.parent().parent().attr("idOffer");
 
                         var rateOffer = sel.parent().parent().find(".rateOffer").text();
-                        
-                       
-                        
-                        
+
+
+
+
                         if (type == "CARD") {
                             var sum = discPrice;
                         }
-                        else{
+                        else {
                             var sum = fullPrice;
                         }
-
-            
+                        
                         $.ajax({
                             type: "GET",
                             url: "./saveOffer",
                             data: "id_offer=" + idOffer + "&id_poi=" + idPoi + "&qta=" + qta.val() + "&sum=" + sum + "&type=" + type,
                             success: function () {
-                                alert("Offerta inserita");
+                                alert("Offerta inserita nella card");
                             }
                         });
-            
 
                     });
                 });
@@ -421,7 +480,7 @@
 
                         var fullPrice_box = sel.parent().parent().find(".fullPrice");
                         var discPrice_box = sel.parent().parent().find(".discPrice");
-                        
+
 
                         if (operator == "up") {
                             //fare controllo se l'offerta è un tipo stock 
@@ -458,11 +517,11 @@
                             }
 
                         }
-                        
-                        
-                        
-                        
-                            
+
+
+
+
+
                     });
 
                 });
@@ -518,7 +577,10 @@
                 <article class="component component-text">
                     <div class="details">
                         <div class="paragrafo">
-
+                            
+                            
+                            
+                            
                             <%-- ciclo su poi --%>
                             <c:forEach var="idpoi" items="${map.map_poi.keySet()}">
                                 <div class="poi" id="${map.map_poi.get(idpoi).id}"><!--style="border: 1px solid purple;"-->
@@ -545,57 +607,69 @@
 
                                             <div class="poi_icons">
                                                 <a href="./getPoi?id=${map.map_poi.get(idpoi).id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
-                                                <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
+                                                <c:if test="${not empty map.map_off}"><i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i></c:if>
                                             </div>
                                         </div>
 
                                         <%-- se map off not empty stampa questo div--%>
-                                        <div class="poi_price_total"><c:if test="${not empty map_off}">Sconti con Orchestra Card</c:if> </div>
+                                        <div class="poi_price_total"><c:if test="${not empty map.map_off}"><div style="color:red;">Sconti con Orchestra Card</div></c:if> </div>
 
                                         </div>
                                         <div class="poi_offer" style="display:none">
 
                                         <%-- OFFERTE STOCK --%>
-                                        <c:if test="${not empty map_comp}">
+                                        <c:if test="${not empty map_comp.get(idpoi)}">
+                                            
+                                            <div class="card_offers_section" >
+                                                <div class="poi_offer_filler"></div>
+                                                <div class="card_offers_section_info"><li>Altre offerte</li></div>
+                                            </div>
+                                            
+                                            
                                             <c:forEach items="${map_comp.get(idpoi).prices}" var="stock">
 
-                                                <div class="poi_offer_detail" idPoi="${idpoi}" type="${stock.type}" typeDesc="${stock.type}" fullPrice="${stock.price}">
+                                                    <div class="poi_offer_detail" idPoi="${idpoi}" type="${stock.type}" typeDesc="${stock.type}" fullPrice="${stock.price}">
 
-                                                    <div class="poi_offer_filler"></div>
-                                                    <div  class="poi_offer_detail_info" data-toggle="tooltip" data-original-title="Descrizione dettagliata dell'offerta con ellipsis...">
-                                                        <div class="off_name" >${stock.type}</div>
-                                                        <div class="off_desc" data-toggle="tooltip" data-original-title="${stock.type_description}">${stock.type_description}</div>
-                                                        <div class="add_offer" style="cursor:pointer;">Aggiungi offerta</div>
+                                                        <div class="poi_offer_filler"></div>
+                                                        <div  class="poi_offer_detail_info">
+                                                            <div class="off_name" >${stock.type} </div>
+                                                            <div class="off_desc" data-toggle="tooltip" data-original-title="${stock.type_description}">${stock.type_description}</div>
+
+                                                            <div class="add_offer">Aggiungi</div>
+                                                            <div class="del_offer">Elimina</div>
+
+
+                                                        </div>
+
+                                                        <div class="poi_offer_detail_quantity">
+                                                            <div style="display:inline-block">Quantità: </div>
+                                                            <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
+                                                            <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="0"/>
+                                                            <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
+
+                                                        </div>
+
+                                                        <div class="poi_prices">
+                                                            <div class="fullPrice fullPrice_stock" style="text-decoration:none;">${stock.price}</div><div class="valuta">€</div>
+                                                        </div>
                                                     </div>
 
-                                                    <div class="poi_offer_detail_quantity">
-                                                        <div style="display:inline-block">Quantità: </div>
-                                                        <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
-                                                        <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="0"/>
-                                                        <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
-
-                                                    </div>
-
-                                                    <div class="poi_prices">
-                                                        <div class="fullPrice">${stock.price}</div><div class="valuta">€</div>
-                                                    </div>
-                                                </div>
                                             </c:forEach>
+                                            
                                         </c:if>
 
                                         <c:choose>
                                             <c:when test="${empty map.map_off.get(idpoi)}">
-                                                <div class="poi_offer_filler"></div>
-                                                <div class="card_offers_section_info">Nessuna offerta disponibile</div>
-                                                
+                                                <div class="card_offers_section" >
+                                                    <div class="poi_offer_filler"></div>
+                                                    <div class="card_offers_section_info">Nessuna offerta disponibile</div>
+                                                </div>
                                             </c:when>
 
                                             <c:otherwise>
                                                 <div class="card_offers_section" >
-
-
                                                     <div class="poi_offer_filler"></div>
-                                                    <div class="card_offers_section_info"><strong>Offerte Orchestra Pass&spass</strong></div>
+                                                    <div class="card_offers_section_info"><li>Offerte Orchestra Card Pass&Spass</li></div>
                                                 </div>
                                                 <%-- CICLO OFF CARD  --%>
 
@@ -608,22 +682,31 @@
                                                         <div  class="poi_offer_detail_info">
                                                             <div class="off_name" >${offer.nome}</div>
                                                             <div class="off_desc"  data-toggle="tooltip" data-original-title="${offer.desc}" >${offer.desc}</div>
-                                                            <div class="add_offer" style="cursor:pointer;">Aggiungi offerta</div>
+                                                            <div class="add_offer">Aggiungi</div>
+                                                            <div class="del_offer">Elimina</div>
                                                         </div>
+                                                            
+                                                        <c:choose>
+                                                            <c:when test="${offer.fullPrice!=0}">     
+                                                                <div class="poi_offer_detail_quantity">
+                                                                    <div style="display:inline-block">Quantità: </div>
+                                                                    <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
+                                                                    <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="0"/>
+                                                                    <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
+                                                                </div>
 
-                                                        <div class="poi_offer_detail_quantity">
-                                                            <div style="display:inline-block">Quantità: </div>
-                                                            <i id="up" style="display:inline-block" class="control fa fa-plus"></i>
-                                                            <input id="qta" class="qta" style="display:inline-block; width:30px; text-align: center;" type="text" value="1"/>
-                                                            <i id="down" style="display:inline-block" class="control fa fa-minus"></i>
 
-                                                        </div>
-
-                                                        <div class="poi_prices">
-                                                            <div class="fullPrice">${offer.fullPrice}</div><div class="valuta">€</div>
-                                                            <div class="discPrice">${offer.discountedPrice}</div><div class="valuta">€</div>
-                                                            <div class="rateOffer">-${offer.rateDiscount}</div><div class="valuta" style="color:red;">%</div>
-                                                        </div>
+                                                                <div class="poi_prices">
+                                                                    <div class="fullPrice">${offer.fullPrice}</div><div class="valuta">€</div>
+                                                                    <div class="discPrice">${offer.discountedPrice}</div><div class="valuta">€</div>
+                                                                    <div class="rateOffer">-${offer.rateDiscount}</div><div class="valuta" style="color:red;">%</div>
+                                                                </div>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <input type="hidden" id="qta" class="qta" value="0"/>
+                                                                <div class="rateOffer">-${offer.rateDiscount}</div><div class="valuta" style="color:red;">%</div>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </div>
                                                 </c:forEach>
 
@@ -646,6 +729,7 @@
             </div>
 
             <div class="col-md-4">
+                <%--
                 <article class="component component-text">
                     <div class="details">
                         <h2>Riepilogo</h2>
@@ -655,7 +739,7 @@
                             <input type="text" id="poi_total" value="0"/>
                         </div>
                     </div>
-
+                --%>
 
                 </article>
                 <a style="display:block" href="./saveInCard">
@@ -675,12 +759,12 @@
 
         </div>
 
-                            <script>
-                                $(function () {
-                    $('.off_desc').tooltip();
+        <script>
+            $(function () {
+                $('.off_desc').tooltip();
 
-                });
-                                </script>
+            });
+        </script>
 
 
     </body>

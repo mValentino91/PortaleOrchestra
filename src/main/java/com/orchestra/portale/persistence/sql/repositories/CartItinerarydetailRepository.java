@@ -43,5 +43,16 @@ public interface CartItinerarydetailRepository  extends JpaRepository<CartItiner
     @Transactional(readOnly=false)
     @Query("update CartItinerarydetail c set c.qta= ?1, c.sum = ?2 where c.tipoStock = ?3 AND c.idPoi = ?4 AND c.idUser= ?5")
     public void updateQtaByType(int qta, float tot, String type, String idPoi, int idUser);
+    
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("delete from  CartItinerarydetail c where c.idOffer= ?1 AND c.idUser = ?2")
+    void deleteOfferCard(Integer id_offer, Integer id_user);
 
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("delete from  CartItinerarydetail c where c.idPoi= ?2 AND c.idUser = ?1 AND c.tipoStock = ?3")
+    void deleteOfferStock(Integer id_user, String idPoi, String type);
+    
+    
 }
