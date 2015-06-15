@@ -104,10 +104,12 @@ public class CartItinerarydetailController {
                     }
                 }
             }
+            Integer idcard = pm.findActiveCardByIdUser(Integer.parseInt(id_user));
             cart_detail.setIdPoi(id_poi);
             cart_detail.setIdUser(Integer.parseInt(id_user));
             cart_detail.setIdOffer(Integer.parseInt(id_offer));
             cart_detail.setQta(Integer.parseInt(qta));
+            cart_detail.setIdCard(idcard);
             cart_detail.setSum(total);
             cart_detail.setStatus(1);
             cart_detail.setTipoStock("CARD");
