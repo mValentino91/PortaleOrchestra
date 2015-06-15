@@ -856,7 +856,7 @@ var categoriesTail = (function() {
                 $('.categoriesTails').append('<button type="button" class="btn btn-default btn-lg"'
                 + 'onclick="interactiveMap.showFavoritesPois()"'
                 + 'title="Preferiti"'
-                + 'style="display:none; background-color:#ed5565;">'
+                + 'style="background-color:#ed5565;">'
                 + '<i class="fa fa-heart"></i>'
                 + '</button>');
             }
