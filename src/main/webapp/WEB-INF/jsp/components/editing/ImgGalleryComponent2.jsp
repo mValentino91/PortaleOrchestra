@@ -135,6 +135,9 @@
         setTimeout(function () {
             $(".nano").nanoScroller({scroll: 'bottom'});
         }, 500);
+        setTimeout(function () {
+            $('.imgopel').tooltip();
+        }, 500);
 
         $("#galleryform").ajaxForm(function () {
             setTimeout(function () {
@@ -153,6 +156,7 @@
         reader.onload = function (e) {
             var cont = document.getElementById("imgscont");
             $imgs = $('.imagegallery_container .image_gallery');
+
             var alink = document.createElement("a");
             alink.className = "fancybox";
             alink.setAttribute("href", e.target.result);
@@ -161,20 +165,31 @@
             var newdiv = document.createElement("div");
             newdiv.className = "image_gallery loading";
             newdiv.setAttribute("num", $imgs.length + 1);
-            newdiv.setAttribute("onmouseover", "$('.delimg', this).show();");
-            newdiv.setAttribute("onmouseleave", "$('.delimg', this).hide();");
+            newdiv.setAttribute("onmouseover", "$('.imgop', this).show();");
+            newdiv.setAttribute("onmouseleave", "$('.imgop', this).hide();");
             newdiv.setAttribute("style", "position: relative");
 
             var newdeldiv = document.createElement("div");
-            newdeldiv.className = "delimg";
+            newdeldiv.className = "imgop";
 
 
 
             var newi = document.createElement("i");
-            newi.className = "fa fa-trash";
-            newi.setAttribute("style", "color: red; font-size: 120%;");
+            newi.className = "imgopel fa fa-times";
             newi.setAttribute("onclick", "delimg(this.parentNode.parentNode)");
+            newi.setAttribute("data-toggle", "tooltip");
+            newi.setAttribute("data-placement", "right");
+            newi.setAttribute("data-original-title", "Cancella");
             newdeldiv.appendChild(newi);
+
+            var newic = document.createElement("i");
+            newic.className = "imgopel fa fa-copyright";
+            //newic.setAttribute("onclick", "");
+            newic.setAttribute("data-toggle", "tooltip");
+            newic.setAttribute("data-placement", "right");
+            newic.setAttribute("data-original-title", "Imposta Copyright");
+            newdeldiv.appendChild(newic);
+
             var img = document.createElement("img");
             img.className = "images";
             img.setAttribute("src", e.target.result);
@@ -212,6 +227,43 @@
 
         }).submit();
     }
+    function modcop(img) {
+
+        $("#cimg").val($(img).attr('num'));
+        $("#modinp").val($("div[num ='" + $(img).attr('num') + "'] a").attr("title"));
+        $("#copymod").modal('show');
+
+    }
+    function modcopy() {
+        $("div[num ='" + $("#cimg").val() + "'] a").attr("title", $("#modinp").val());
+        $("#copyr").val($("#modinp").val());
+        $("#modinp").hide();
+        $("#modbtn").hide();
+        var ok = document.createElement("h4");
+        ok.setAttribute("style", "display:none");
+        ok.innerHTML = "<center><b>Fatto</b></center>";
+        $("#modalcont").append(ok);
+        setTimeout(function () {
+            $(ok).fadeIn();
+        }, 300);
+        $("#updateCop").ajaxForm(function () {
+
+            setTimeout(function () {
+
+                $("#closemod").click();
+                $("modinp").val("");
+                $(ok).hide();
+                setTimeout(function () {
+                    $("#modinp").show();
+                    $("#modbtn").show();
+
+                }, 300);
+
+            }, 500);
+        }).submit();
+
+
+    }
 
 </script>
 
@@ -228,13 +280,13 @@
                     <c:choose>
                         <c:when test="${ empty vartype || vartype != 'DeepeningPage' }">
                             <div num="${tot.count}" class="image_gallery" style="position: relative" onmouseover="$('.imgop', this).show();" onmouseleave="$('.imgop', this).hide();">
-                                <a   class="fancybox"   title="${img.credit}" href='./dist/poi/img/${poi.id}/${img.link}'>
+                                <a   class="fancybox"  title="${img.credit}" href='./dist/poi/img/${poi.id}/${img.link}'>
                                     <img class="images" src='./dist/poi/img/${poi.id}/${img.link}'>
 
                                 </a>
                                 <div class="imgop">
                                     <i onclick="delimg(this.parentNode.parentNode)" class="imgopel fa fa-times" data-toggle="tooltip" data-placement="right" data-original-title="Cancella"></i>
-                                    <i onclick="delimg(this.parentNode.parentNode)" class="imgopel fa fa-copyright" data-toggle="tooltip" data-placement="right" data-original-title="Imposta Copyright"></i>
+                                    <i onclick="modcop(this.parentNode.parentNode)" class="imgopel fa fa-copyright" data-toggle="tooltip" data-placement="right" data-original-title="Imposta Copyright"></i>
                                 </div>
                             </div>
                         </c:when>
@@ -266,8 +318,29 @@
     <input type="text"  name="id" value="${poi.id}" style="display: none">
     <input type="text" id="dimg"  name="del" value="" style="display: none">
 </form>
-    <script>
-         $(function () {
+<script>
+    $(function () {
         $('.imgopel').tooltip();
     });
-        </script>
+</script>
+<div id="copymod" class="modal fade bs-example-modal-sm" >
+    <div class="modal-dialog modal-sm">
+
+        <div class="modal-content" id="modalcont">
+            <div class="modal-header">
+                <button type="button" id="closemod" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" >Inserisci copyright</h4>
+            </div>
+            <center>
+                <input class="form-control" id="modinp" style="margin: 5px; width: 250px;" required>
+                <input type="button" class="btn btn-success" id="modbtn" style="margin-bottom: 5px;" onclick="modcopy();" value="SALVA">
+            </center>
+        </div>
+    </div>
+
+</div>
+<form id="updateCop" action="UpdateCopy" method="post">
+    <input type="text" name="id" value="${poi.id}" style="display: none">
+    <input type="text" id="cimg"  name="num" value="" style="display: none">
+    <input type="text" name="copyright" id="copyr" style="display: none">
+</form>

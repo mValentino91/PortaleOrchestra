@@ -9,6 +9,7 @@ import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import com.orchestra.portale.persistence.mongo.documents.ImgGallery;
@@ -43,9 +44,12 @@ public class UpdateGallery {
     @ResponseBody
     @RequestMapping(value = "/UpdateGallery")
     public void UpdateGallery(HttpServletRequest request, @RequestParam("files") MultipartFile[] files, @RequestParam("id") String id) throws InterruptedException {
-
-        CompletePOI poi = pm.getCompletePoiById(id);
+        pm.setLang("it");
+        CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
+        pm.setLang("en");
+        CompletePOI_En enpoi = (CompletePOI_En) pm.getCompletePoiById(id);
         ArrayList<AbstractPoiComponent> complist = new ArrayList<AbstractPoiComponent>();
+        ArrayList<AbstractPoiComponent> complisten = new ArrayList<AbstractPoiComponent>();
         ArrayList<ImgGallery> imglist = new ArrayList<ImgGallery>();
         int fd = 0;
         int ok = 0;
@@ -80,6 +84,20 @@ public class UpdateGallery {
             }
 
         }
+         for (AbstractPoiComponent comp : poi.getComponents()) {
+
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("imggallery")) {
+                ImgGalleryComponent imggallery = (ImgGalleryComponent) comp;
+                imggallery.setLinks(imglist);
+                complisten.add(imggallery);
+            }
+            else {
+                complisten.add(comp);
+            }
+         }
         if (ok == 0) {
             ImgGalleryComponent imggallery = new ImgGalleryComponent();
 
@@ -99,9 +117,13 @@ public class UpdateGallery {
             }
             imggallery.setLinks(imglist);
             complist.add(imggallery);
+            complisten.add(imggallery);
         }
         poi.setComponents(complist);
-//        pm.savePoi(poi);
+        enpoi.setComponents(complisten);
+        pm.savePoi(poi);
+        pm.saveEnPoi(enpoi);
+        
         int k = 0;
         for (int z = fd; z < imglist.size(); z++) {
             MultipartFile file = files[k];
@@ -135,8 +157,13 @@ public class UpdateGallery {
     @RequestMapping(value = "/DeleteImg")
     public void Delete(HttpServletRequest request, @RequestParam("del") int del, @RequestParam("id") String id) {
 
-        CompletePOI poi = pm.getCompletePoiById(id);
+        pm.setLang("it");
+        CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
+        
+        pm.setLang("en");
+        CompletePOI_En enpoi = (CompletePOI_En) pm.getCompletePoiById(id);
         ArrayList<AbstractPoiComponent> complist = new ArrayList<AbstractPoiComponent>();
+        ArrayList<AbstractPoiComponent> encomplist = new ArrayList<AbstractPoiComponent>();
         ArrayList<ImgGallery> imglist = new ArrayList<ImgGallery>();
         ArrayList<ImgGallery> delimglist = new ArrayList<ImgGallery>();
         String delete = "";
@@ -166,9 +193,84 @@ public class UpdateGallery {
             }
 
         }
+        for (AbstractPoiComponent comp : enpoi.getComponents()) {
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("imggallery")) {
+                ImgGalleryComponent imggallery = (ImgGalleryComponent) comp;
+                imggallery.setLinks(delimglist);
+                encomplist.add(imggallery);
+            }
+            else {
+                encomplist.add(comp);
+            }
+        }
         poi.setComponents(complist);
-//        pm.savePoi(poi);
+        enpoi.setComponents(encomplist);
+        pm.savePoi(poi);
+        pm.saveEnPoi(enpoi);
         delimg(request, poi.getId(), delete);
+
+    }
+    @ResponseBody
+    @RequestMapping(value = "/UpdateCopy")
+    public void UpdateCopy(HttpServletRequest request, @RequestParam("num") int del, @RequestParam("id") String id, @RequestParam("copyright") String copyr) {
+
+        pm.setLang("it");
+        CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
+        
+        pm.setLang("en");
+        CompletePOI_En enpoi = (CompletePOI_En) pm.getCompletePoiById(id);
+        ArrayList<AbstractPoiComponent> complist = new ArrayList<AbstractPoiComponent>();
+        ArrayList<AbstractPoiComponent> encomplist = new ArrayList<AbstractPoiComponent>();
+        ArrayList<ImgGallery> imglist = new ArrayList<ImgGallery>();
+        ArrayList<ImgGallery> delimglist = new ArrayList<ImgGallery>();
+        String delete = "";
+
+        for (AbstractPoiComponent comp : poi.getComponents()) {
+
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("imggallery")) {
+                ImgGalleryComponent imggallery = (ImgGalleryComponent) comp;
+                imglist = (ArrayList<ImgGallery>) imggallery.getLinks();
+                int i = 0;
+                for (ImgGallery img : imglist) {
+                    if (i != del - 1) {
+                        delimglist.add(img);
+                    } else {
+                        img.setCredit(copyr);
+                        delimglist.add(img);
+                    }
+                    i++;
+
+                }
+                imggallery.setLinks(delimglist);
+                complist.add(imggallery);
+            } else {
+                complist.add(comp);
+            }
+
+        }
+        for (AbstractPoiComponent comp : enpoi.getComponents()) {
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("imggallery")) {
+                ImgGalleryComponent imggallery = (ImgGalleryComponent) comp;
+                imggallery.setLinks(delimglist);
+                encomplist.add(imggallery);
+            }
+            else {
+                encomplist.add(comp);
+            }
+        }
+        poi.setComponents(complist);
+        enpoi.setComponents(encomplist);
+        pm.savePoi(poi);
+        pm.saveEnPoi(enpoi);
 
     }
 }

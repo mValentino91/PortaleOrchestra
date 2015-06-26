@@ -10,6 +10,7 @@ import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.CoverImgComponent;
 import java.io.BufferedOutputStream;
@@ -41,8 +42,8 @@ public class UpdateCover {
     @ResponseBody
     @RequestMapping(value = "/UpdateCover")
     public void UpdateCover(HttpServletRequest request, @RequestParam(value = "cover", required = false) MultipartFile cover, @RequestParam("top") String top, @RequestParam("left") String left, @RequestParam("id") String id) {
-        
-        CompletePOI poi = pm.getCompletePoiById(id);
+        pm.setLang("it");
+        CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
         ArrayList<AbstractPoiComponent> complist = new ArrayList<AbstractPoiComponent>();
 
         for (AbstractPoiComponent comp : poi.getComponents()) {
@@ -65,7 +66,33 @@ public class UpdateCover {
 
         }
         poi.setComponents(complist);
-       // pm.savePoi(poi);
+        pm.savePoi(poi);
+        
+        pm.setLang("en");
+        CompletePOI_En poien = (CompletePOI_En) pm.getCompletePoiById(id);
+        ArrayList<AbstractPoiComponent> complisten = new ArrayList<AbstractPoiComponent>();
+
+        for (AbstractPoiComponent comp : poien.getComponents()) {
+
+            //associazione delle componenti al model tramite lo slug
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("coverimg")) {
+                CoverImgComponent coverimg = new CoverImgComponent();
+                coverimg.setLink("cover.jpg");
+                coverimg.setLeft(left);
+                System.out.println("LEFT: " + coverimg.getLeft());
+                coverimg.setTop(top);
+                System.out.println("TOP: " + coverimg.getTop());
+                complisten.add(coverimg);
+            } else {
+                complisten.add(comp);
+            }
+
+        }
+        poi.setComponents(complisten);
+        pm.saveEnPoi(poien);
 
         if (cover != null && !cover.isEmpty()) {
             MultipartFile file = cover;

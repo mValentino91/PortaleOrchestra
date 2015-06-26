@@ -34,6 +34,7 @@ import com.orchestra.portale.persistence.sql.repositories.CartItinerarydetailRep
 import com.orchestra.portale.persistence.sql.repositories.CartRepository;
 import com.orchestra.portale.persistence.sql.repositories.CategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompCategoryComponentRepository;
+import com.orchestra.portale.persistence.sql.repositories.CompCatsRepository;
 import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryRepository;
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.DealerOfferRepository;
@@ -122,6 +123,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Autowired
     private Top10Repository topRepo;
+    
+    @Autowired
+    private CompCatsRepository compCats;
 
     @Override
     public void setLang(String lang) {
@@ -574,5 +578,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void deleteOfferStock(Integer id_user, String idPoi, String type) {
         cartdetailRepo.deleteOfferStock(id_user, idPoi, type);
+    }
+    @Override
+    public ArrayList<Object[]> getCompByCat(String cat) {
+       return compCats.getComponentsByCategory(cat);
     }
 }

@@ -95,4 +95,5 @@ public interface PersistenceManager {
     public void saveCard(Card c);
     public void deleteOfferCard(Integer id_offer, Integer id_user);
     public void deleteOfferStock(Integer id_user, String idPoi, String type);
+    public ArrayList<Object[]> getCompByCat(String cat);
 }

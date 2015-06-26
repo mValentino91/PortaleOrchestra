@@ -34,7 +34,12 @@ public class CompletePOI_It implements CompletePOI {
     public String getId() {
         return id;
     }
-
+/**
+     * @param id the id to set
+     */
+    public void setId(String id) {
+        this.id = id;
+    }
     public String getVisibility() {
         return visibility;
     }
@@ -45,12 +50,7 @@ public class CompletePOI_It implements CompletePOI {
 
     
 
-    /**
-     * @param id the id to set
-     */
-    public void setId(String id) {
-        this.id = id;
-    }
+    
 
     /**
      * @return the name

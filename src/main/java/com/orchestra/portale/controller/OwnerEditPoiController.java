@@ -47,8 +47,10 @@ public class OwnerEditPoiController {
         //Creo la view che sarÃ  mostrata all'utente
         ModelAndView model = new ModelAndView("updatepoi");
         ModelAndView error = new ModelAndView("errorViewPoi");
+        pm.setLang("it");
         CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
         //aggiungo il poi al model
+        model.addObject("complist", pm.getCompByCat(poi.getCategories().get(0)));
         model.addObject("poi", poi);
 
         //ciclo sulle componenti del poi
