@@ -13,6 +13,7 @@ import com.orchestra.portale.persistence.mongo.documents.CompletePOI_En;
 import com.orchestra.portale.persistence.mongo.repositories.PoiMongoRepository_It;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class DeletePoiController {
     @Autowired
     PersistenceManager pm ;
+    
+    @Secured({"ROLE_SUPERADMIN", "ROLE_CREATE"})
     @RequestMapping(value = "/deletepoi")
     public ModelAndView deletePoi() {
         ModelAndView model = new ModelAndView("deleteform");
@@ -53,6 +56,7 @@ public class DeletePoiController {
         }
     }
 
+    @Secured({"ROLE_SUPERADMIN", "ROLE_CREATE"})
     @RequestMapping(value = "/deletepoi", params = "id")
     public ModelAndView deletePoiById(@RequestParam(value = "id") String id) {
         try {

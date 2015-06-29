@@ -29,6 +29,7 @@ import com.orchestra.portale.persistence.mongo.documents.ServicesComponent;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.mongo.documents.WorkingHours;
 import com.orchestra.portale.persistence.mongo.documents.WorkingTimeComponent;
+import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.utils.CouplePOI;
 import com.orchestra.portale.utils.InsertUtils;
 import static com.orchestra.portale.utils.InsertUtils.delimg;
@@ -49,6 +50,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,12 +72,14 @@ public class EditPoiController {
        @Autowired
     PersistenceManager pm ;
 
+    @Secured({"ROLE_SUPERADMIN", "ROLE_EDIT"})
     @RequestMapping(value= "/editpoi")
     public ModelAndView editPoi() {
         ModelAndView model = new ModelAndView("editpoi");
         return model;
     }
     
+    @Secured({"ROLE_SUPERADMIN", "ROLE_EDIT"})
     @RequestMapping(value= "/editpoi", params="name")
     public ModelAndView editPoi(@RequestParam(value = "name") String name) {
         ModelAndView model = new ModelAndView("editform");
@@ -114,8 +120,20 @@ public class EditPoiController {
         }
     }
     
+    @Secured({"ROLE_SUPERADMIN", "ROLE_EDIT"})
     @RequestMapping(value= "/editpoi", params="id")
-    public ModelAndView editPoibyID(@RequestParam(value = "id") String id) {
+    public ModelAndView editPoibyID(@RequestParam(value = "id") String id, HttpServletRequest request) {
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        Integer id_user = user.getId().intValue();        
+        
+       if ( !(pm.ifOwner(id_user, id)) ) {
+           ModelAndView error_model = new ModelAndView("error");
+           error_model.addObject("err", "Access Denied");
+           return error_model;
+       }
+        
        ModelAndView model = new ModelAndView("editform");
         ArrayList<CompletePOI_It> poilist = (ArrayList<CompletePOI_It>) pm.getAllCompletePoi();
         ArrayList<CouplePOI> lista = new ArrayList<CouplePOI>();

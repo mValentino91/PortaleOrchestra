@@ -25,6 +25,7 @@ import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
+import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -39,6 +40,7 @@ import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryReposit
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.DealerOfferRepository;
 import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
+import com.orchestra.portale.persistence.sql.repositories.OwnershipRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
@@ -126,7 +128,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private CompCatsRepository compCats;
-
+    
+    @Autowired
+    private OwnershipRepository ownRepo;
+    
     @Override
     public void setLang(String lang) {
         if (lang == null) {
@@ -583,4 +588,28 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public ArrayList<Object[]> getCompByCat(String cat) {
        return compCats.getComponentsByCategory(cat);
     }
+    
+    
+    @Override
+    public Iterable<? extends CompletePOI> getPoiByOwner(Integer id_user){
+        Iterable<String> idPois = ownRepo.getIdPoiByOwner(id_user);
+        
+        Iterable<? extends CompletePOI> pois = this.getCompletePoisById(idPois);
+        
+        return pois;
+    }
+    
+    @Override
+    public Boolean ifOwner(Integer id_user, String id_poi){
+        Iterable<String> idPois = ownRepo.getIdPoiByOwner(id_user);
+        
+        return idPois.iterator().hasNext();
+        
+    }
+    
+    @Override
+    public void saveOwnership(Ownership o){
+        ownRepo.save(o);
+    }
+    
 }

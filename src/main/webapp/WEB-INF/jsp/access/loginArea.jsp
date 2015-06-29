@@ -52,11 +52,15 @@ function reload_access_area(event){
             <li class="divider"></li>
             <li><a href="./privacy"><i class="fa fa-lock"></i> <spring:message code="label.privacypolicy"></spring:message></a></li>            
             <li class="divider"></li>
-            <sec:authorize access="hasAnyRole('ROLE_ADMIN','ROLE_SUPERADMIN')">
+            <sec:authorize access="hasRole('ROLE_SUPERADMIN')">
             <li><a href="./admin"><i class="fa fa-cog"></i> <spring:message code="label.admin"></spring:message></a></li>
             <li class="divider"></li>
             </sec:authorize>
-            
+            <sec:authorize access="hasRole('ROLE_ADMIN')">
+            <li><a href="./getOwnPois"><i class="fa fa-cog"></i> <spring:message code="label.admin"></spring:message></a></li>
+            <li class="divider"></li>
+            </sec:authorize>            
+                 
             <li><a href="./favorites"><i class="fa fa-heart"></i> <spring:message code="label.favoritespoi"></spring:message></a></li>
                <li class="divider"></li>     
             <li><a href="#" onclick="doLogout();"><i class="fa fa-sign-out"></i> <spring:message code="label.logout"></spring:message></a></li>

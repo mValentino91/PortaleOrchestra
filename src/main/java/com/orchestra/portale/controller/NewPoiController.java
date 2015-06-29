@@ -29,6 +29,8 @@ import com.orchestra.portale.persistence.mongo.documents.ServicesComponent;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.mongo.documents.WorkingHours;
 import com.orchestra.portale.persistence.mongo.documents.WorkingTimeComponent;
+import com.orchestra.portale.persistence.sql.entities.Ownership;
+import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.utils.CouplePOI;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -44,6 +46,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -64,6 +69,7 @@ public class NewPoiController {
     PersistenceManager pm;
 
     //Richiesta per la visualizzazione di un singolo poi
+    @Secured({"ROLE_SUPERADMIN", "ROLE_CREATE"})
     @RequestMapping(value = "/newpoi")
     public ModelAndView newPoi() {
         pm.setLang(LocaleContextHolder.getLocale().toString());
@@ -93,6 +99,7 @@ public class NewPoiController {
         return model;
     }
 
+    @Secured({"ROLE_SUPERADMIN", "ROLE_CREATE"})
     @RequestMapping(value = "/insertpoi", method = RequestMethod.POST)
     public ModelAndView insertPoi(@RequestParam Map<String, String> params, @RequestParam("file") MultipartFile[] files, @RequestParam("cover") MultipartFile cover, HttpServletRequest request) throws InterruptedException {
         CompletePOI_It poi = new CompletePOI_It();
@@ -518,6 +525,18 @@ public class NewPoiController {
                 BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
                 stream.write(bytes);
                 stream.close();
+                
+                //Get user id
+                Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                User user= pm.findUserByUsername(auth.getName());
+                Integer id_user = user.getId().intValue(); 
+                
+                //Create ownership
+                Ownership ownership = new Ownership();
+                ownership.setIdPoi(poi2.getId());
+                ownership.setIdUser(id_user);
+                pm.saveOwnership(ownership);
+                
 
             } catch (Exception e) {
                 return model;

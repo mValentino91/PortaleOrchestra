@@ -13,15 +13,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
+        <script src="./dist/js/jquery.js"></script>
+        
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
-        <title>Error page</title>
         <link rel='stylesheet' href='./dist/css/bootstrap.min.css'>
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="./dist/css/font-awesome.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
-        <link href="./dist/css/OrchestraFontIcon.css" rel="stylesheet"> 
+        <link href="./dist/css/OrchestraIconFont.css" rel="stylesheet">  
 
     </head>
     <body>

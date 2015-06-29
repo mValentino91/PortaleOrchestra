@@ -6,9 +6,7 @@
 package com.orchestra.portale.persistence.sql.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,65 +14,53 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author mekko
+ * @author antonio
  */
 @Entity
-@Table(name = "poi", catalog = "Orchestra_Schema", schema = "")
+@Table(name = "poi")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Poi.findAll", query = "SELECT p FROM Poi p"),
     @NamedQuery(name = "Poi.findById", query = "SELECT p FROM Poi p WHERE p.id = :id"),
     @NamedQuery(name = "Poi.findByName", query = "SELECT p FROM Poi p WHERE p.name = :name"),
-    @NamedQuery(name = "Poi.findByLatitude", query = "SELECT p FROM Poi p WHERE p.latitude = :latitude"),
-    @NamedQuery(name = "Poi.findByLongitude", query = "SELECT p FROM Poi p WHERE p.longitude = :longitude"),
-    @NamedQuery(name = "Poi.findByIdmongo", query = "SELECT p FROM Poi p WHERE p.idmongo = :idmongo"),
-    @NamedQuery(name = "Poi.findByShortDescription", query = "SELECT p FROM Poi p WHERE p.shortDescription = :shortDescription")})
+    @NamedQuery(name = "Poi.findByAddress", query = "SELECT p FROM Poi p WHERE p.address = :address"),
+    @NamedQuery(name = "Poi.findByPhone", query = "SELECT p FROM Poi p WHERE p.phone = :phone"),
+    @NamedQuery(name = "Poi.findByIdMongo", query = "SELECT p FROM Poi p WHERE p.idMongo = :idMongo")})
 public class Poi implements Serializable {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(name = "name")
+    private String name;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 300)
     @Column(name = "address")
     private String address;
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic
-    @Column(name = "id")
-    private Integer id;
-    @Basic
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "name")
-    private String name;
-    @Basic
+    @Size(min = 1, max = 100)
+    @Column(name = "phone")
+    private String phone;
+    @Basic(optional = false)
     @NotNull
-    @Column(name = "latitude")
-    private double latitude;
-    @Basic
-    @NotNull
-    @Column(name = "longitude")
-    private double longitude;
-    @Basic
-    @NotNull
-    @Size(min = 1, max = 150)
-    @Column(name = "idmongo")
-    private String idmongo;
-    @Basic
-    @NotNull
-    @Size(min = 1, max = 300)
-    @Column(name = "shortDescription")
-    private String shortDescription;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idpoi")
-    private List<CompPoiCategory> compPoiCategoryList;
+    @Size(min = 1, max = 100)
+    @Column(name = "idMongo")
+    private String idMongo;
 
     public Poi() {
     }
@@ -83,13 +69,12 @@ public class Poi implements Serializable {
         this.id = id;
     }
 
-    public Poi(Integer id, String name, double latitude, double longitude, String idmongo, String shortDescription) {
+    public Poi(Integer id, String name, String address, String phone, String idMongo) {
         this.id = id;
         this.name = name;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.idmongo = idmongo;
-        this.shortDescription = shortDescription;
+        this.address = address;
+        this.phone = phone;
+        this.idMongo = idMongo;
     }
 
     public Integer getId() {
@@ -108,45 +93,28 @@ public class Poi implements Serializable {
         this.name = name;
     }
 
-    public double getLatitude() {
-        return latitude;
+    public String getAddress() {
+        return address;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    public double getLongitude() {
-        return longitude;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
-    public String getIdmongo() {
-        return idmongo;
+    public String getIdMongo() {
+        return idMongo;
     }
 
-    public void setIdmongo(String idmongo) {
-        this.idmongo = idmongo;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    @XmlTransient
-    public List<CompPoiCategory> getCompPoiCategoryList() {
-        return compPoiCategoryList;
-    }
-
-    public void setCompPoiCategoryList(List<CompPoiCategory> compPoiCategoryList) {
-        this.compPoiCategoryList = compPoiCategoryList;
+    public void setIdMongo(String idMongo) {
+        this.idMongo = idMongo;
     }
 
     @Override
@@ -172,14 +140,6 @@ public class Poi implements Serializable {
     @Override
     public String toString() {
         return "com.orchestra.portale.persistence.sql.entities.Poi[ id=" + id + " ]";
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
     
 }

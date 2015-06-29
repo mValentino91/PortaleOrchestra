@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,7 +17,12 @@
     <body>
         <center>
         <h1>POI ELIMINATO CORRETTAMENTE!</h1>
-        <h2><a href="../admin" class="btn btn-primary" style="margin-top: 20px;">Torna a Gestione POI</a></h2>
+        <sec:authorize access="hasRole('ROLE_SUPERADMIN')">
+        <h2><a href="../admin" class="btn btn-primary" style="margin-top: 20px;">Torna a Gestione Orchestra</a></h2>
+        </sec:authorize>
+        <sec:authorize access="hasRole('ROLE_ADMIN')">
+        <h2><a href="../getOwnPois" class="btn btn-primary" style="margin-top: 20px;">Torna a Gestione Orchestra</a></h2>
+        </sec:authorize> 
             </center>
     </body>
 </html>

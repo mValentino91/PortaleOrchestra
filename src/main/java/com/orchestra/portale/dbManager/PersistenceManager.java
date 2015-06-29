@@ -20,6 +20,7 @@ import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
+import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
@@ -96,4 +97,7 @@ public interface PersistenceManager {
     public void deleteOfferCard(Integer id_offer, Integer id_user);
     public void deleteOfferStock(Integer id_user, String idPoi, String type);
     public ArrayList<Object[]> getCompByCat(String cat);
+    public Iterable<? extends CompletePOI> getPoiByOwner(Integer id_user);
+    public Boolean ifOwner(Integer id_user, String id_poi);
+    public void saveOwnership(Ownership o);
 }
