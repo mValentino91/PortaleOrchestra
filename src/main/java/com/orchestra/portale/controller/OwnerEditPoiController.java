@@ -5,8 +5,8 @@
  */
 package com.orchestra.portale.controller;
 
-import com.orchestra.portale.components.LinkedEntities;
-import com.orchestra.portale.components.LinkedEntitiesManager;
+import com.orchestra.portale.componentManagers.LinkedEntities;
+import com.orchestra.portale.componentManagers.LinkedEntitiesManager;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;

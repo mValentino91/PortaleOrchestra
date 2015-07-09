@@ -12,6 +12,7 @@
 
 <article class="component component-text">
     <div class="details">
+        <script src="../../../dist/js/eneventform.js" type="text/javascript"></script>
 
         <!-- implementare il foreach dei preferiti per categorie-->
         <div class="paragrafo">
@@ -22,11 +23,18 @@
                         <spring:message code="label.no_favorites_presents"></spring:message>
                         </div>
                 </c:if>
+                
+                <div class="sel-all-btn" style="float:right;">
+                    <!--<input type="checkbox" id="sel-all" name="checkbox-all" class="css-checkbox" style="font-size: 11px;"/><label for="checkbox-all" class="css-label">Seleziona tutti</label>-->
+                    <input type="checkbox" id="sel-all"/>
+                </div>
+                
                 <c:forEach var="cat" items="${map_cat.map.keySet()}">
+                    
                     <div class="category_container">
 
                         <span class="category_label category_title" >${map_slug.get(cat)} <i class="expand_icon fa fa-chevron-down" style="font-size:12px;"></i></span>
-
+                        
                         <div class="poi">
 
                             <c:forEach var="p" items="${map_cat.map.get(cat)}">
@@ -39,9 +47,10 @@
                                     <div class="poi_preview_content">
 
                                         <div class="poi_preview_text">
-                                            <i class="fa fa-heart"  style="cursor:pointer; font-size:16px; color: #ED5565" data-toggle="tooltip" data-original-title="Lo hai aggiunto ai preferiti"></i>
                                             <a href="./getPoi?id=${p.id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
                                             <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
+                                            <!--<input type="checkbox" name="checkboxG4" id="checkbox" class="sel css-checkbox" style="font-size: 11px;"/><label for="checkboxG4" class="css-label">Seleziona</label>-->
+                                            <input type="checkbox" class="sel"/>
                                         </div>
                                         <div class="poi_preview_title">
                                             ${p.name}
@@ -70,4 +79,6 @@
         $('.fa-info-circle').tooltip();
         $('.fa-credit-card').tooltip();
     });
+    
+    
 </script>

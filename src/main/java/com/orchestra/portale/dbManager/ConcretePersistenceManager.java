@@ -25,10 +25,12 @@ import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
+import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.persistence.sql.entities.UserItinerary;
 import com.orchestra.portale.persistence.sql.repositories.CardItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CardRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartItinerarydetailRepository;
@@ -40,9 +42,11 @@ import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryReposit
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.DealerOfferRepository;
 import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
+import com.orchestra.portale.persistence.sql.repositories.ItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.OwnershipRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
+import com.orchestra.portale.persistence.sql.repositories.UserItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -131,6 +135,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private OwnershipRepository ownRepo;
+    
+    @Autowired
+    private ItineraryRepository itRepo;
+    
+    @Autowired
+    private UserItineraryRepository uitRepo;
     
     @Override
     public void setLang(String lang) {
@@ -610,6 +620,16 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void saveOwnership(Ownership o){
         ownRepo.save(o);
+    }
+
+    @Override
+    public void saveItinerary(Itinerary it) {
+        itRepo.save(it);
+    }
+
+    @Override
+    public void saveUserItinerary(UserItinerary uit) {
+        uitRepo.save(uit);
     }
     
 }

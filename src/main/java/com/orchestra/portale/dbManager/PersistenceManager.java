@@ -20,10 +20,12 @@ import com.orchestra.portale.persistence.sql.entities.Cart;
 import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
+import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.persistence.sql.entities.UserItinerary;
 import com.orchestra.portale.utils.CoupleString;
 import java.util.ArrayList;
 import java.util.List;
@@ -100,4 +102,7 @@ public interface PersistenceManager {
     public Iterable<? extends CompletePOI> getPoiByOwner(Integer id_user);
     public Boolean ifOwner(Integer id_user, String id_poi);
     public void saveOwnership(Ownership o);
+    public void saveItinerary(Itinerary it);
+    public void saveUserItinerary(UserItinerary uit);
+    
 }

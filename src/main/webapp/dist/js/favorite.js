@@ -75,6 +75,29 @@ $(document).ready(function () {
             icon.toggleClass("fa-chevron-right fa-chevron-down");
         });
     });
+    
+    
+    $(".sel").change(function(){
+       alert("hhh"); 
+       if($(this).is(":checked")) {
+           $(this).attr("checked", true);
+       } 
+       else
+           $(this).attr("checked", false);
+    });
+    
+    $("#sel-all").change(function(){
+        if(this.checked) { // check select status
+            $('.sel').each(function() { //loop through each checkbox
+                this.checked = true;  //select all checkboxes with class "checkbox1"              
+            });
+        }else{
+            $('.sel').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+            });        
+        }
+        
+    });
 });
 
 function slideFavoritePoi(category_title) {
@@ -92,3 +115,5 @@ function slideFavoritePoi(category_title) {
     }
     //son.slideUp("slow");
 }  
+
+
