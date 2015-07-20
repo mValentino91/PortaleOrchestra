@@ -128,7 +128,7 @@ public class EditPoiController {
         User user= pm.findUserByUsername(auth.getName());
         Integer id_user = user.getId().intValue();        
         
-       if ( !(pm.ifOwner(id_user, id)) ) {
+       if ( !(pm.ifOwner(id_user, id)) && !(request.isUserInRole("ROLE_SUPERADMIN"))) {
            ModelAndView error_model = new ModelAndView("error");
            error_model.addObject("err", "Access Denied");
            return error_model;

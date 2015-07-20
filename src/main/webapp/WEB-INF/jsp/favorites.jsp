@@ -2,7 +2,7 @@
     Document   : infopoi
     Created on : 2-dic-2014, 12.10.28
     Author     : Alex
-
+--%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -70,10 +70,7 @@
             </div>
 
             <div class="col-md-4">
-                 <a style="display:block" href="./saveInCart">
-                    <div id="nuovo_it" class="new_it_button">Crea il tuo itinerario</div>
-                </a>
-                <br>
+                 
                 <jsp:include page="components/FavoriteTopListComponent.jsp"/> 
             </div>
 
@@ -106,12 +103,12 @@
         </script>
     </body>
 </html>
---%>
+
 <%-- 
     Document   : infopoi
     Created on : 2-dic-2014, 12.10.28
     Author     : Alex
---%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -242,13 +239,11 @@
                     <div id="nuovo_it" class="new_it_button">Crea il tuo itinerario</div>
                 </a>
                 
-                <%-- Lista dei propri itinerari con lo status -- da def controller --%>
                 <article class="component component-text">
                     <div class="details">
                         <div class="paragrafo">
                             <b>I tuoi itinerari</b>
                             <div class="itinerary-container">
-                                <%-- cicla un foreach--%>
                                 <div class="poi_it_container">
                                     <div class="poi_it_img">
                                         <img src="./dist/poi/img/${poiR.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
@@ -288,7 +283,7 @@
                                 </div>    
 
                                 <div class="clear"></div>    
-                                <%-- fine foreach --%>    
+                                   
                             </div>
                         </div>    
                     </div>
@@ -330,4 +325,4 @@
 </html>
 
 
-
+--%>

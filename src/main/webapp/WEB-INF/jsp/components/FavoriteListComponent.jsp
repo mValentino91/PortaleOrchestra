@@ -26,7 +26,7 @@
                 
                 <div class="sel-all-btn" style="float:right;">
                     <!--<input type="checkbox" id="sel-all" name="checkbox-all" class="css-checkbox" style="font-size: 11px;"/><label for="checkbox-all" class="css-label">Seleziona tutti</label>-->
-                    <input type="checkbox" id="sel-all"/>
+                    <!--<input type="checkbox" id="sel-all"/> -->
                 </div>
                 
                 <c:forEach var="cat" items="${map_cat.map.keySet()}">
@@ -50,7 +50,7 @@
                                             <a href="./getPoi?id=${p.id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
                                             <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
                                             <!--<input type="checkbox" name="checkboxG4" id="checkbox" class="sel css-checkbox" style="font-size: 11px;"/><label for="checkboxG4" class="css-label">Seleziona</label>-->
-                                            <input type="checkbox" class="sel"/>
+                                            <!--<input type="checkbox" class="sel"/>--->
                                         </div>
                                         <div class="poi_preview_title">
                                             ${p.name}

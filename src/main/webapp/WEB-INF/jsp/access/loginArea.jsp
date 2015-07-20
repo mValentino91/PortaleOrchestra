@@ -65,6 +65,8 @@ function reload_access_area(event){
                <li class="divider"></li>     
             <li><a href="#" onclick="doLogout();"><i class="fa fa-sign-out"></i> <spring:message code="label.logout"></spring:message></a></li>
             <a id="logout_url" href="${logoutUrl}" style="display: none"></a>
+            <li class="divider"></li>
+            <li><a href="http://www.smile.unina.it/questionario/favquest.php?uid=${uid}"><i class="fa fa-heart"></i>Questionario Valutazione</a></li>
         </ul>
  
     <script type="text/javascript">

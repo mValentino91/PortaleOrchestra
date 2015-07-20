@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  *
  * @author andzaccaro
- */
+
 @Controller
 @Secured("ROLE_USER")
 public class ItineraryController {
@@ -45,3 +45,4 @@ public class ItineraryController {
     }
     
 }
+ */
