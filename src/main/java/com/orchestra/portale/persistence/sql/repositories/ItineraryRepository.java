@@ -5,7 +5,6 @@
  */
 package com.orchestra.portale.persistence.sql.repositories;
 
-import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import org.springframework.data.jpa.repository.JpaRepository;
 

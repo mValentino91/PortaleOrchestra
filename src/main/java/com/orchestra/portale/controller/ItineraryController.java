@@ -24,25 +24,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  *
  * @author andzaccaro
+*/
 
 @Controller
 @Secured("ROLE_USER")
 public class ItineraryController {
-    @Autowired PersistenceManager pm ;
-    @Autowired ItineraryManager im;
     
-    @RequestMapping(value = "/saveFavorite", method = RequestMethod.GET)
-    public @ResponseBody String createItinerary() {
-        
-        //@RequestParam String id_poi
-        
+    
+    @Autowired PersistenceManager pm ;
+
+    @RequestMapping(value = "/newItinerary", method = RequestMethod.GET)
+    public @ResponseBody
+    String createItinerary(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
         
-        im.createItinerary(Integer.parseInt(id_user));
-        return "ok";
+        ItineraryManager im = new ItineraryManager();
+        
+        
+            
+       im.createItinerary(pm, id_user);
+
+            return "ok";
     }
-    
 }
- */

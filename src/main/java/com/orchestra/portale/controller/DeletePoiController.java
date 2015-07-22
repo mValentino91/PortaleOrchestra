@@ -64,6 +64,9 @@ public class DeletePoiController {
             CompletePOI_It poi = (CompletePOI_It) pm.getCompletePoiById(id);
 
             pm.deletePoi(poi);
+            CompletePOI_En enpoi = (CompletePOI_En) pm.getCompletePoiById(id);
+            pm.deleteEnPoi(enpoi);
+            
             return model;
         } catch (RuntimeException e) {
             ModelAndView model2 = new ModelAndView("errorViewPoi");

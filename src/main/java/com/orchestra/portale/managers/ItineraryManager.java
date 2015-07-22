@@ -1,20 +1,42 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.orchestra.portale.managers;
 
+import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
+import com.orchestra.portale.persistence.sql.entities.User;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
  * @author andzaccaro
  */
-public class ItineraryManager {
+
+public class ItineraryManager{ 
     
-    public void createItinerary(int id_user){
+    
+    public void createItinerary(PersistenceManager pm, String id_user ){
         //istanziazione itinerario e salvataggio in persistenza
+        
+        
+            
+           
+        
+        Itinerary it = new Itinerary();
+        //passare il nome dell'itinerario nel set parametri
+        it.setIdUser(Integer.parseInt(id_user));
+        it.setStatus(0);
+        it.setKeyString("blabla");
+        it.setName("cacca");
+        //pm.saveItinerary(it);
+        pm.saveItinerary(it);
+        
+        
     }
     
     /*

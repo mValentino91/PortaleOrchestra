@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Itinerary.findAll", query = "SELECT i FROM Itinerary i"),
     @NamedQuery(name = "Itinerary.findByIdItinerary", query = "SELECT i FROM Itinerary i WHERE i.idItinerary = :idItinerary"),
+    @NamedQuery(name = "Itinerary.findByIdUser", query = "SELECT i FROM Itinerary i WHERE i.idUser = :idUser"),
     @NamedQuery(name = "Itinerary.findByName", query = "SELECT i FROM Itinerary i WHERE i.name = :name"),
     @NamedQuery(name = "Itinerary.findByStatus", query = "SELECT i FROM Itinerary i WHERE i.status = :status"),
     @NamedQuery(name = "Itinerary.findByKeyString", query = "SELECT i FROM Itinerary i WHERE i.keyString = :keyString")})
@@ -39,6 +40,10 @@ public class Itinerary implements Serializable {
     @Basic(optional = false)
     @Column(name = "idItinerary")
     private Integer idItinerary;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "idUser")
+    private int idUser;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -61,8 +66,9 @@ public class Itinerary implements Serializable {
         this.idItinerary = idItinerary;
     }
 
-    public Itinerary(Integer idItinerary, String name, int status, String keyString) {
+    public Itinerary(Integer idItinerary, int idUser, String name, int status, String keyString) {
         this.idItinerary = idItinerary;
+        this.idUser = idUser;
         this.name = name;
         this.status = status;
         this.keyString = keyString;
@@ -74,6 +80,14 @@ public class Itinerary implements Serializable {
 
     public void setIdItinerary(Integer idItinerary) {
         this.idItinerary = idItinerary;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public String getName() {
