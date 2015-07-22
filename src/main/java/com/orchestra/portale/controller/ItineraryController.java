@@ -39,12 +39,8 @@ public class ItineraryController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
-        
-        ItineraryManager im = new ItineraryManager();
-        
-        
-            
-       im.createItinerary(pm, id_user);
+             
+        ItineraryManager.createItinerary(pm, id_user);
 
             return "ok";
     }

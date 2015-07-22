@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ItineraryManager{ 
     
     
-    public void createItinerary(PersistenceManager pm, String id_user ){
+    public static void createItinerary(PersistenceManager pm, String id_user ){
         //istanziazione itinerario e salvataggio in persistenza
         
         
