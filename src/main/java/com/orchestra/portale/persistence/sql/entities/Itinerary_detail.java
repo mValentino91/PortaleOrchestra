@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Itinerary_detail.findAll", query = "SELECT i FROM Itinerary_detail i"),
     @NamedQuery(name = "Itinerary_detail.findByIdItinerarydetail", query = "SELECT i FROM Itinerary_detail i WHERE i.idItinerarydetail = :idItinerarydetail"),
     @NamedQuery(name = "Itinerary_detail.findByIdPoi", query = "SELECT i FROM Itinerary_detail i WHERE i.idPoi = :idPoi"),
-    @NamedQuery(name = "Itinerary_detail.findByIdOffer", query = "SELECT i FROM Itinerary_detail i WHERE i.idOffer = :idOffer"),
+    @NamedQuery(name = "Itinerary_detail.findByIdItinerary", query = "SELECT i FROM Itinerary_detail i WHERE i.idItinerary = :idItinerary"),
     @NamedQuery(name = "Itinerary_detail.findByIdOfferChoice", query = "SELECT i FROM Itinerary_detail i WHERE i.idOfferChoice = :idOfferChoice")})
 public class Itinerary_detail implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -46,8 +46,8 @@ public class Itinerary_detail implements Serializable {
     private String idPoi;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idOffer")
-    private int idOffer;
+    @Column(name = "idItinerary")
+    private int idItinerary;
     @Basic(optional = false)
     @NotNull
     @Column(name = "idOfferChoice")
@@ -60,10 +60,10 @@ public class Itinerary_detail implements Serializable {
         this.idItinerarydetail = idItinerarydetail;
     }
 
-    public Itinerary_detail(Integer idItinerarydetail, String idPoi, int idOffer, int idOfferChoice) {
+    public Itinerary_detail(Integer idItinerarydetail, String idPoi, int idItinerary, int idOfferChoice) {
         this.idItinerarydetail = idItinerarydetail;
         this.idPoi = idPoi;
-        this.idOffer = idOffer;
+        this.idItinerary = idItinerary;
         this.idOfferChoice = idOfferChoice;
     }
 
@@ -83,12 +83,12 @@ public class Itinerary_detail implements Serializable {
         this.idPoi = idPoi;
     }
 
-    public int getIdOffer() {
-        return idOffer;
+    public int getIdItinerary() {
+        return idItinerary;
     }
 
-    public void setIdOffer(int idOffer) {
-        this.idOffer = idOffer;
+    public void setIdItinerary(int idItinerary) {
+        this.idItinerary = idItinerary;
     }
 
     public int getIdOfferChoice() {

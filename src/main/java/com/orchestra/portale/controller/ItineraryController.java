@@ -42,6 +42,31 @@ public class ItineraryController {
              
         ItineraryManager.createItinerary(pm, id_user);
 
-            return "ok";
+        return "ok";
     }
+    
+    @RequestMapping(value = "/addPoiItinerary", method = RequestMethod.GET)
+    public @ResponseBody
+    String addPoiNewItinerary(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        String id_user = user.getId().toString();
+        ItineraryManager.addPoi(pm, 22, id_user);
+        return "ok";
+    }
+    
+    @RequestMapping(value = "/addOfferItinerary", method = RequestMethod.GET)
+    public @ResponseBody
+    String addOfferItinerary(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        String id_user = user.getId().toString();
+        
+        ItineraryManager.addOffer(pm, 22, id_user, 22, 5, 100);
+        
+        
+        return "ok";
+    }
+    
+    
 }

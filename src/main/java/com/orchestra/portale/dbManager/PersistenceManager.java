@@ -21,11 +21,13 @@ import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
+import com.orchestra.portale.persistence.sql.entities.Itinerary_detail;
 import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserItinerary;
+import com.orchestra.portale.persistence.sql.entities.UserOffer_choice;
 import com.orchestra.portale.utils.CoupleString;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,5 +106,7 @@ public interface PersistenceManager {
     public void saveOwnership(Ownership o);
     public void saveItinerary(Itinerary it);
     public void saveUserItinerary(UserItinerary uit);
+    public void savePoiItinerary(Itinerary_detail id);
+    public void saveUserChoice(UserOffer_choice uc);
     
 }

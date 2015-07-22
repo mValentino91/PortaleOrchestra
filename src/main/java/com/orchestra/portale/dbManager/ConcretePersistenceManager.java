@@ -26,11 +26,13 @@ import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
+import com.orchestra.portale.persistence.sql.entities.Itinerary_detail;
 import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserItinerary;
+import com.orchestra.portale.persistence.sql.entities.UserOffer_choice;
 import com.orchestra.portale.persistence.sql.repositories.CardItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CardRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartItinerarydetailRepository;
@@ -42,11 +44,13 @@ import com.orchestra.portale.persistence.sql.repositories.CompPoiCategoryReposit
 import com.orchestra.portale.persistence.sql.repositories.ComponentRepository;
 import com.orchestra.portale.persistence.sql.repositories.DealerOfferRepository;
 import com.orchestra.portale.persistence.sql.repositories.FavoriteRepository;
+import com.orchestra.portale.persistence.sql.repositories.ItineraryDetailRepository;
 import com.orchestra.portale.persistence.sql.repositories.ItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.OwnershipRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
 import com.orchestra.portale.persistence.sql.repositories.UserItineraryRepository;
+import com.orchestra.portale.persistence.sql.repositories.UserOfferChoiceRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
@@ -141,6 +145,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private UserItineraryRepository uitRepo;
+    
+    @Autowired
+    private ItineraryDetailRepository itdRepo;
+    
+    @Autowired
+    private UserOfferChoiceRepository ucRepo;
     
     @Override
     public void setLang(String lang) {
@@ -631,5 +641,17 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void saveUserItinerary(UserItinerary uit) {
         uitRepo.save(uit);
     }
+
+    @Override
+    public void savePoiItinerary(Itinerary_detail id) {
+        itdRepo.save(id);
+    }
+
+    @Override
+    public void saveUserChoice(UserOffer_choice uc) {
+        ucRepo.save(uc);
+    }
+    
+    
     
 }

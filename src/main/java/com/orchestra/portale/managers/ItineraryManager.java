@@ -2,7 +2,9 @@ package com.orchestra.portale.managers;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
+import com.orchestra.portale.persistence.sql.entities.Itinerary_detail;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.persistence.sql.entities.UserOffer_choice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -21,11 +23,6 @@ public class ItineraryManager{
     
     
     public static void createItinerary(PersistenceManager pm, String id_user ){
-        //istanziazione itinerario e salvataggio in persistenza
-        
-        
-            
-           
         
         Itinerary it = new Itinerary();
         //passare il nome dell'itinerario nel set parametri
@@ -34,15 +31,42 @@ public class ItineraryManager{
         it.setKeyString("blabla");
         it.setName("cacca");
         //pm.saveItinerary(it);
-        pm.saveItinerary(it);
+        pm.saveItinerary(it);   
+    }
+    
+    public static void addPoi(PersistenceManager pm, int it, String idPoi){
+        Itinerary_detail id = new Itinerary_detail();
+        id.setIdPoi(idPoi);
+        id.setIdItinerary(it);
+        pm.savePoiItinerary(id);
+         
+    }
+    
+    public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi, int idOffer, int qta, int sum){
+        //calcolare la somma qui dentro
+        UserOffer_choice uc = new UserOffer_choice();
+        Itinerary_detail id = new Itinerary_detail();
+        
+        id.setIdItinerary(idItinerary);
+        id.setIdPoi(idPoi);
+        pm.savePoiItinerary(id);
+        
+        //inserimento dell'offerta scelta nella tabella
+        uc.setIdItinerarydetail(idItinerary);
+        uc.setIdOffer(idOffer);
+        uc.setQta(qta);
+        uc.setSum(qta);
+        uc.setSum(sum);
+        uc.setStatus(0);
+        pm.saveUserChoice(uc);
         
         
     }
     
+    
+    
     /*
     
-    public String addPoi(int id_user,idItineraryDetail)
-    public String addOffer(int id_user, int idItinerary, int idItineraryDetail, String idPoi, int idOffer, int qta)
     public String removeOffer(int id_user, int idItinerary, int idItineraryDetail, String idPoi, int idOffer)
     public String removeItinerary(int id_user, int idItinerary)
     public String completeItinerary(int id_user, int idItinerary)
