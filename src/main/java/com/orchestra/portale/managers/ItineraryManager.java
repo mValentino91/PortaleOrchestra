@@ -2,9 +2,9 @@ package com.orchestra.portale.managers;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
-import com.orchestra.portale.persistence.sql.entities.Itinerary_detail;
+import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
 import com.orchestra.portale.persistence.sql.entities.User;
-import com.orchestra.portale.persistence.sql.entities.UserOffer_choice;
+import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
@@ -35,7 +35,7 @@ public class ItineraryManager{
     }
     
     public static void addPoi(PersistenceManager pm, int it, String idPoi){
-        Itinerary_detail id = new Itinerary_detail();
+        ItineraryDetail id = new ItineraryDetail();
         id.setIdPoi(idPoi);
         id.setIdItinerary(it);
         pm.savePoiItinerary(id);
@@ -44,23 +44,35 @@ public class ItineraryManager{
     
     public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi, int idOffer, int qta, int sum){
         //calcolare la somma qui dentro
-        UserOffer_choice uc = new UserOffer_choice();
-        Itinerary_detail id = new Itinerary_detail();
+        UserOfferChoice uc = new UserOfferChoice();
+        //Itinerary_detail id = new Itinerary_detail();
         
+        //il poi ke agg l'offerta è gia esistente.. lo devo recuperare ed aggiornare il campo user choice
+        
+        /*
         id.setIdItinerary(idItinerary);
         id.setIdPoi(idPoi);
         pm.savePoiItinerary(id);
+        */
+        
+        //select idItinerary_detail where idPoi and iditinerary
+       
+        
+        Integer iddetail = pm.findItDetail(idItinerary);
+        System.out.println(iddetail);
         
         //inserimento dell'offerta scelta nella tabella
-        uc.setIdItinerarydetail(idItinerary);
+        uc.setIdItineraryDetail(iddetail);
         uc.setIdOffer(idOffer);
         uc.setQta(qta);
-        uc.setSum(qta);
         uc.setSum(sum);
         uc.setStatus(0);
-        pm.saveUserChoice(uc);
+        pm.saveUserChoice(uc);   
+    }
+    
+    public static void removeOffer(PersistenceManager pm, int idOffer, int idItineraryDetail){
         
-        
+       pm.deleteOfferIt(idOffer, idItineraryDetail);
     }
     
     

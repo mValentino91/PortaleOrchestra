@@ -27,15 +27,18 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "userOffer_choice")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "UserOffer_choice.findAll", query = "SELECT u FROM UserOffer_choice u"),
-    @NamedQuery(name = "UserOffer_choice.findByIdUserOfferChoice", query = "SELECT u FROM UserOffer_choice u WHERE u.idUserOfferChoice = :idUserOfferChoice"),
-    @NamedQuery(name = "UserOffer_choice.findByIdItinerarydetail", query = "SELECT u FROM UserOffer_choice u WHERE u.idItinerarydetail = :idItinerarydetail"),
-    @NamedQuery(name = "UserOffer_choice.findByQta", query = "SELECT u FROM UserOffer_choice u WHERE u.qta = :qta"),
-    @NamedQuery(name = "UserOffer_choice.findByStatus", query = "SELECT u FROM UserOffer_choice u WHERE u.status = :status"),
-    @NamedQuery(name = "UserOffer_choice.findBySum", query = "SELECT u FROM UserOffer_choice u WHERE u.sum = :sum"),
-    @NamedQuery(name = "UserOffer_choice.findByIdOffer", query = "SELECT u FROM UserOffer_choice u WHERE u.idOffer = :idOffer"),
-    @NamedQuery(name = "UserOffer_choice.findByStockType", query = "SELECT u FROM UserOffer_choice u WHERE u.stockType = :stockType")})
-public class UserOffer_choice implements Serializable {
+    @NamedQuery(name = "UserOfferChoice.findAll", query = "SELECT u FROM UserOfferChoice u"),
+    @NamedQuery(name = "UserOfferChoice.findByIdUserOfferChoice", query = "SELECT u FROM UserOfferChoice u WHERE u.idUserOfferChoice = :idUserOfferChoice"),
+    @NamedQuery(name = "UserOfferChoice.findByIdItineraryDetail", query = "SELECT u FROM UserOfferChoice u WHERE u.idItineraryDetail = :idItineraryDetail"),
+    @NamedQuery(name = "UserOfferChoice.findByQta", query = "SELECT u FROM UserOfferChoice u WHERE u.qta = :qta"),
+    @NamedQuery(name = "UserOfferChoice.findByStatus", query = "SELECT u FROM UserOfferChoice u WHERE u.status = :status"),
+    @NamedQuery(name = "UserOfferChoice.findBySum", query = "SELECT u FROM UserOfferChoice u WHERE u.sum = :sum"),
+    @NamedQuery(name = "UserOfferChoice.findByIdOffer", query = "SELECT u FROM UserOfferChoice u WHERE u.idOffer = :idOffer"),
+    @NamedQuery(name = "UserOfferChoice.findByStockType", query = "SELECT u FROM UserOfferChoice u WHERE u.stockType = :stockType"),
+    @NamedQuery(name = "UserOfferChoice.findByType", query = "SELECT u FROM UserOfferChoice u WHERE u.type = :type"),
+    @NamedQuery(name = "UserOfferChoice.findByDescription", query = "SELECT u FROM UserOfferChoice u WHERE u.description = :description"),
+    @NamedQuery(name = "UserOfferChoice.findByPrice", query = "SELECT u FROM UserOfferChoice u WHERE u.price = :price")})
+public class UserOfferChoice implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,8 +47,8 @@ public class UserOffer_choice implements Serializable {
     private Integer idUserOfferChoice;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "idItinerary_detail")
-    private int idItinerarydetail;
+    @Column(name = "idItineraryDetail")
+    private int idItineraryDetail;
     @Basic(optional = false)
     @NotNull
     @Column(name = "qta")
@@ -63,17 +66,26 @@ public class UserOffer_choice implements Serializable {
     @Size(max = 200)
     @Column(name = "StockType")
     private String stockType;
+    @Size(max = 100)
+    @Column(name = "type")
+    private String type;
+    @Size(max = 100)
+    @Column(name = "description")
+    private String description;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "price")
+    private Float price;
 
-    public UserOffer_choice() {
+    public UserOfferChoice() {
     }
 
-    public UserOffer_choice(Integer idUserOfferChoice) {
+    public UserOfferChoice(Integer idUserOfferChoice) {
         this.idUserOfferChoice = idUserOfferChoice;
     }
 
-    public UserOffer_choice(Integer idUserOfferChoice, int idItinerarydetail, int qta, int status, float sum) {
+    public UserOfferChoice(Integer idUserOfferChoice, int idItineraryDetail, int qta, int status, float sum) {
         this.idUserOfferChoice = idUserOfferChoice;
-        this.idItinerarydetail = idItinerarydetail;
+        this.idItineraryDetail = idItineraryDetail;
         this.qta = qta;
         this.status = status;
         this.sum = sum;
@@ -87,12 +99,12 @@ public class UserOffer_choice implements Serializable {
         this.idUserOfferChoice = idUserOfferChoice;
     }
 
-    public int getIdItinerarydetail() {
-        return idItinerarydetail;
+    public int getIdItineraryDetail() {
+        return idItineraryDetail;
     }
 
-    public void setIdItinerarydetail(int idItinerarydetail) {
-        this.idItinerarydetail = idItinerarydetail;
+    public void setIdItineraryDetail(int idItineraryDetail) {
+        this.idItineraryDetail = idItineraryDetail;
     }
 
     public int getQta() {
@@ -135,6 +147,30 @@ public class UserOffer_choice implements Serializable {
         this.stockType = stockType;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -145,10 +181,10 @@ public class UserOffer_choice implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserOffer_choice)) {
+        if (!(object instanceof UserOfferChoice)) {
             return false;
         }
-        UserOffer_choice other = (UserOffer_choice) object;
+        UserOfferChoice other = (UserOfferChoice) object;
         if ((this.idUserOfferChoice == null && other.idUserOfferChoice != null) || (this.idUserOfferChoice != null && !this.idUserOfferChoice.equals(other.idUserOfferChoice))) {
             return false;
         }
@@ -157,7 +193,7 @@ public class UserOffer_choice implements Serializable {
 
     @Override
     public String toString() {
-        return "com.orchestra.portale.persistence.sql.entities.UserOffer_choice[ idUserOfferChoice=" + idUserOfferChoice + " ]";
+        return "com.orchestra.portale.persistence.sql.entities.UserOfferChoice[ idUserOfferChoice=" + idUserOfferChoice + " ]";
     }
     
 }

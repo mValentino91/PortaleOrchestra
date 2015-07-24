@@ -26,13 +26,13 @@ import com.orchestra.portale.persistence.sql.entities.CartItinerarydetail;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
-import com.orchestra.portale.persistence.sql.entities.Itinerary_detail;
+import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
 import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserItinerary;
-import com.orchestra.portale.persistence.sql.entities.UserOffer_choice;
+import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
 import com.orchestra.portale.persistence.sql.repositories.CardItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CardRepository;
 import com.orchestra.portale.persistence.sql.repositories.CartItinerarydetailRepository;
@@ -643,14 +643,40 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public void savePoiItinerary(Itinerary_detail id) {
+    public void savePoiItinerary(ItineraryDetail id) {
         itdRepo.save(id);
     }
 
     @Override
-    public void saveUserChoice(UserOffer_choice uc) {
+    public void saveUserChoice(UserOfferChoice uc) {
         ucRepo.save(uc);
     }
+
+    @Override
+    public Integer findItDetail(int idItinerary) {
+        return itdRepo.findItDetailByIdItineraryAndIdPoi(idItinerary);
+    }
+
+    @Override
+    public void deleteOfferIt(Integer idOffer, Integer idItineraryDetail) {
+        ucRepo.deleteOfferItinerary(idOffer, idItineraryDetail);
+    }
+
+    @Override
+    public Integer findIdDetailByidOffer(Integer idOffer) {
+       return ucRepo.findIdDetailByidOffer(idOffer);
+    }
+
+    @Override
+    public Integer findItineraryByIdItineraryDetail(int idItineraryDetail) {
+      return itdRepo.findItineraryByIdItineraryDetail(idItineraryDetail);
+    }
+
+    @Override
+    public Long findUserByIdItinerary(Integer idItinerary) {
+       return itRepo.findUserByIdItinerary(idItinerary);
+    }
+    
     
     
     
