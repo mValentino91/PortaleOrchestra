@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andzaccaro
+ * @author andrea
  */
 @Entity
 @Table(name = "itinerary")
@@ -31,8 +31,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Itinerary.findByIdItinerary", query = "SELECT i FROM Itinerary i WHERE i.idItinerary = :idItinerary"),
     @NamedQuery(name = "Itinerary.findByIdUser", query = "SELECT i FROM Itinerary i WHERE i.idUser = :idUser"),
     @NamedQuery(name = "Itinerary.findByName", query = "SELECT i FROM Itinerary i WHERE i.name = :name"),
-    @NamedQuery(name = "Itinerary.findByStatus", query = "SELECT i FROM Itinerary i WHERE i.status = :status"),
-    @NamedQuery(name = "Itinerary.findByKeyString", query = "SELECT i FROM Itinerary i WHERE i.keyString = :keyString")})
+    @NamedQuery(name = "Itinerary.findByStaus", query = "SELECT i FROM Itinerary i WHERE i.staus = :staus"),
+    @NamedQuery(name = "Itinerary.findByKeyString", query = "SELECT i FROM Itinerary i WHERE i.keyString = :keyString"),
+    @NamedQuery(name = "Itinerary.findByStatus", query = "SELECT i FROM Itinerary i WHERE i.status = :status")})
 public class Itinerary implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,13 +52,17 @@ public class Itinerary implements Serializable {
     private String name;
     @Basic(optional = false)
     @NotNull
-    @Column(name = "status")
-    private int status;
+    @Column(name = "staus")
+    private int staus;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
     @Column(name = "keyString")
     private String keyString;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "status")
+    private int status;
 
     public Itinerary() {
     }
@@ -66,12 +71,13 @@ public class Itinerary implements Serializable {
         this.idItinerary = idItinerary;
     }
 
-    public Itinerary(Integer idItinerary, int idUser, String name, int status, String keyString) {
+    public Itinerary(Integer idItinerary, int idUser, String name, int staus, String keyString, int status) {
         this.idItinerary = idItinerary;
         this.idUser = idUser;
         this.name = name;
-        this.status = status;
+        this.staus = staus;
         this.keyString = keyString;
+        this.status = status;
     }
 
     public Integer getIdItinerary() {
@@ -98,12 +104,12 @@ public class Itinerary implements Serializable {
         this.name = name;
     }
 
-    public int getStatus() {
-        return status;
+    public int getStaus() {
+        return staus;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setStaus(int staus) {
+        this.staus = staus;
     }
 
     public String getKeyString() {
@@ -112,6 +118,14 @@ public class Itinerary implements Serializable {
 
     public void setKeyString(String keyString) {
         this.keyString = keyString;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     @Override

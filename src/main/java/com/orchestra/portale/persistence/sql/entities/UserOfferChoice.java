@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andzaccaro
+ * @author andrea
  */
 @Entity
 @Table(name = "userOffer_choice")
@@ -61,10 +61,12 @@ public class UserOfferChoice implements Serializable {
     @NotNull
     @Column(name = "sum")
     private float sum;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "idOffer")
-    private Integer idOffer;
-    @Size(max = 200)
-    @Column(name = "StockType")
+    private int idOffer;
+    @Size(max = 100)
+    @Column(name = "stockType")
     private String stockType;
     @Size(max = 100)
     @Column(name = "type")
@@ -83,12 +85,13 @@ public class UserOfferChoice implements Serializable {
         this.idUserOfferChoice = idUserOfferChoice;
     }
 
-    public UserOfferChoice(Integer idUserOfferChoice, int idItineraryDetail, int qta, int status, float sum) {
+    public UserOfferChoice(Integer idUserOfferChoice, int idItineraryDetail, int qta, int status, float sum, int idOffer) {
         this.idUserOfferChoice = idUserOfferChoice;
         this.idItineraryDetail = idItineraryDetail;
         this.qta = qta;
         this.status = status;
         this.sum = sum;
+        this.idOffer = idOffer;
     }
 
     public Integer getIdUserOfferChoice() {
@@ -131,11 +134,11 @@ public class UserOfferChoice implements Serializable {
         this.sum = sum;
     }
 
-    public Integer getIdOffer() {
+    public int getIdOffer() {
         return idOffer;
     }
 
-    public void setIdOffer(Integer idOffer) {
+    public void setIdOffer(int idOffer) {
         this.idOffer = idOffer;
     }
 

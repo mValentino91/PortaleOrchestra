@@ -20,7 +20,7 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
 
     @Modifying
     @Transactional(readOnly=false)
-    @Query("delete from UserOfferChoice u where u.idItineraryDetail =?1 AND u.idOffer =?2")
+    @Query("delete from UserOfferChoice u where u.idOffer =?1 AND u.idItineraryDetail =?2")
     void deleteOfferItinerary(Integer idOffer, Integer idItineraryDetail);
     
     @Query("select u.idItineraryDetail from UserOfferChoice u where u.idOffer=?1")

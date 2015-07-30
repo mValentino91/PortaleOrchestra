@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andzaccaro
+ * @author andrea
  */
 @Entity
 @Table(name = "itinerary_detail")
@@ -48,8 +48,10 @@ public class ItineraryDetail implements Serializable {
     @NotNull
     @Column(name = "idItinerary")
     private int idItinerary;
+    @Basic(optional = false)
+    @NotNull
     @Column(name = "idOfferChoice")
-    private Integer idOfferChoice;
+    private int idOfferChoice;
 
     public ItineraryDetail() {
     }
@@ -58,10 +60,11 @@ public class ItineraryDetail implements Serializable {
         this.idItineraryDetail = idItineraryDetail;
     }
 
-    public ItineraryDetail(Integer idItineraryDetail, String idPoi, int idItinerary) {
+    public ItineraryDetail(Integer idItineraryDetail, String idPoi, int idItinerary, int idOfferChoice) {
         this.idItineraryDetail = idItineraryDetail;
         this.idPoi = idPoi;
         this.idItinerary = idItinerary;
+        this.idOfferChoice = idOfferChoice;
     }
 
     public Integer getIdItineraryDetail() {
@@ -88,11 +91,11 @@ public class ItineraryDetail implements Serializable {
         this.idItinerary = idItinerary;
     }
 
-    public Integer getIdOfferChoice() {
+    public int getIdOfferChoice() {
         return idOfferChoice;
     }
 
-    public void setIdOfferChoice(Integer idOfferChoice) {
+    public void setIdOfferChoice(int idOfferChoice) {
         this.idOfferChoice = idOfferChoice;
     }
 

@@ -63,36 +63,32 @@ public class ItineraryController {
         String id_user = user.getId().toString();
         
         //aggiungere parametri input funzione string
-        ItineraryManager.addOffer(pm, 22, "aaa", 22, 5, 100);
+        ItineraryManager.addOffer(pm, 22, "aaa", 26, 5, 100);
         
         
         return "ok";
     }
-    /*
+   
     @RequestMapping(value = "/removeOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
     String removeOfferItinerary(){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
-        String id_user = user.getId().toString();
+        Long id_user = user.getId();
+        
+        
         
         //recupero itinerario selezionato dall'utente ottenendo la key it detail 
         Integer idDetail = pm.findIdDetailByidOffer(26);
         Integer idItinerary = pm.findItineraryByIdItineraryDetail(idDetail);
         Long idUser = pm.findUserByIdItinerary(idItinerary);
         
-        if(idUser == user.getId()){
+        if(id_user.longValue() ==idUser.longValue()){
             //utente leggittimato a fare l'operazione
             //signature removeOffer(persistence, id itinerary detail)
-            ItineraryManager.removeOffer(pm, 22, idItinerary);
+            ItineraryManager.removeOffer(pm, 26, idDetail);
             return "ok";    
         }
-        
-        
         return "no";
-        
-        
     }
-    */
-    
 }
