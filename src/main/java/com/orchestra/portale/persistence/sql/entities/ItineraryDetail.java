@@ -41,17 +41,15 @@ public class ItineraryDetail implements Serializable {
     private Integer idItineraryDetail;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 150)
+    @Size(min = 1, max = 100)
     @Column(name = "idPoi")
     private String idPoi;
     @Basic(optional = false)
     @NotNull
     @Column(name = "idItinerary")
     private int idItinerary;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "idOfferChoice")
-    private int idOfferChoice;
+    private Integer idOfferChoice;
 
     public ItineraryDetail() {
     }
@@ -60,11 +58,10 @@ public class ItineraryDetail implements Serializable {
         this.idItineraryDetail = idItineraryDetail;
     }
 
-    public ItineraryDetail(Integer idItineraryDetail, String idPoi, int idItinerary, int idOfferChoice) {
+    public ItineraryDetail(Integer idItineraryDetail, String idPoi, int idItinerary) {
         this.idItineraryDetail = idItineraryDetail;
         this.idPoi = idPoi;
         this.idItinerary = idItinerary;
-        this.idOfferChoice = idOfferChoice;
     }
 
     public Integer getIdItineraryDetail() {
@@ -91,11 +88,11 @@ public class ItineraryDetail implements Serializable {
         this.idItinerary = idItinerary;
     }
 
-    public int getIdOfferChoice() {
+    public Integer getIdOfferChoice() {
         return idOfferChoice;
     }
 
-    public void setIdOfferChoice(int idOfferChoice) {
+    public void setIdOfferChoice(Integer idOfferChoice) {
         this.idOfferChoice = idOfferChoice;
     }
 

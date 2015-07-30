@@ -51,7 +51,7 @@ public class ItineraryController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
-        ItineraryManager.addPoi(pm, 22, id_user);
+        ItineraryManager.addPoi(pm, 22, "5496cfecdf6ef624f2d63de7");
         return "ok";
     }
     
@@ -63,8 +63,8 @@ public class ItineraryController {
         String id_user = user.getId().toString();
         
         //aggiungere parametri input funzione string
-        ItineraryManager.addOffer(pm, 22, "aaa", 26, 5, 100);
-        
+        ItineraryManager.addOffer(pm, 22, "aaa", 16, 5, 100);
+        //aggiornare il valore di id offer choice all'itinerary detail
         
         return "ok";
     }
@@ -74,19 +74,16 @@ public class ItineraryController {
     String removeOfferItinerary(){
          Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
-        Long id_user = user.getId();
-        
-        
         
         //recupero itinerario selezionato dall'utente ottenendo la key it detail 
-        Integer idDetail = pm.findIdDetailByidOffer(26);
+        Integer idDetail = pm.findIdDetailByidOffer(16);
         Integer idItinerary = pm.findItineraryByIdItineraryDetail(idDetail);
         Long idUser = pm.findUserByIdItinerary(idItinerary);
         
-        if(id_user.longValue() ==idUser.longValue()){
+        if(user.getId().longValue() == idUser.longValue()){
             //utente leggittimato a fare l'operazione
             //signature removeOffer(persistence, id itinerary detail)
-            ItineraryManager.removeOffer(pm, 26, idDetail);
+            ItineraryManager.removeOffer(pm, 16, idDetail);
             return "ok";    
         }
         return "no";
