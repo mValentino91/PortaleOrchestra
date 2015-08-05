@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
@@ -32,16 +33,31 @@ public class ItineraryController {
     
     
     @Autowired PersistenceManager pm ;
-
-    @RequestMapping(value = "/newItinerary", method = RequestMethod.GET)
-    public @ResponseBody
-    String createItinerary(){
+    
+    @RequestMapping(value = "/myItinerary", method = RequestMethod.GET)
+    public ModelAndView viewMyItinerary(){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
-             
-        ItineraryManager.createItinerary(pm, id_user);
+        ModelAndView model = new ModelAndView("myItinerary");
+        
+        Iterable<Itinerary> i = ItineraryManager.retreiveItinerary(pm, Integer.parseInt(id_user));
+        model.addObject("itinerary",i);
+        
+        return model;
+        
+                
+    }
+    
 
+    @RequestMapping(value = "/newItinerary", method = RequestMethod.GET)
+    public @ResponseBody
+    String createItinerary(@RequestParam String name){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        String id_user = user.getId().toString();
+        System.out.println("caccapupu");
+        ItineraryManager.createItinerary(pm, id_user,name);
         return "ok";
     }
     

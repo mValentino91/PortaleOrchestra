@@ -17,4 +17,7 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Integer> {
     @Query("select i.idUser from Itinerary i where i.idItinerary =?1")
     Long findUserByIdItinerary(Integer idItinerary);
     
+    //@Query("select * from Itinerary i where i.idUser =?1 ORDER BY i.idItinerary desc")
+    Iterable<Itinerary> findByIdUser(int idUser);
+    
 }

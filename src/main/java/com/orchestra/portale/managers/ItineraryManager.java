@@ -22,14 +22,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ItineraryManager{ 
     
     
-    public static void createItinerary(PersistenceManager pm, String id_user ){
+    public static void createItinerary(PersistenceManager pm, String id_user, String name ){
         
         Itinerary it = new Itinerary();
         //passare il nome dell'itinerario nel set parametri
         it.setIdUser(Integer.parseInt(id_user));
         it.setStatus(0);
         it.setKeyString("blabla");
-        it.setName("cacca");
+        it.setName(name);
         //pm.saveItinerary(it);
         pm.saveItinerary(it);   
     }
@@ -73,6 +73,10 @@ public class ItineraryManager{
     public static void removeOffer(PersistenceManager pm, int idOffer, int idItineraryDetail){
         
        pm.deleteOfferIt(idOffer, idItineraryDetail);
+    }
+    
+    public static Iterable<Itinerary> retreiveItinerary(PersistenceManager pm,int idUser){
+        return pm.findItinerariesByIdUser(idUser);
     }
     
     
