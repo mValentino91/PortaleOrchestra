@@ -1,0 +1,32 @@
+<%-- 
+    Document   : carrelloPreview
+    Created on : 7-ago-2015, 10.46.01
+    Author     : andrea
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+        <head>
+        
+    </head>
+    <body>
+        
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Modal title</h4>
+
+        </div>
+        <div class="modal-body">
+            <p>helloooo</p>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+                
+    </body>
+</html>

@@ -113,7 +113,7 @@
       
             <div class="col-md-4">
                 <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog">
+                <div id="myModal" class="modal fade" role="dialog" data-remote="./myItinerary">
                   <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -123,6 +123,8 @@
                         <h4 class="modal-title">Crea un nuovo itinerario</h4>
                       </div>
                       <div class="modal-body">
+                        
+                          
                           <input id="it_name" style="border:0px; width: 300px;" type="text" placeholder="Assegna un nome dell'itinerario.."/>
                       </div>
                       <div class="modal-footer">
@@ -146,6 +148,8 @@
                             data: "name="+content
                         });        
                     });
+                    
+                   
                 </script>
                 
                 <div id="nuovo_it" class="new_it_button" data-toggle="modal" data-target="#myModal">Crea un nuovo itinerario</div>
