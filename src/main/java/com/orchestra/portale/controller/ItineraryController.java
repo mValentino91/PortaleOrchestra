@@ -7,9 +7,11 @@ package com.orchestra.portale.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.managers.ItineraryManager;
+import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserItinerary;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.access.annotation.Secured;
@@ -56,7 +58,6 @@ public class ItineraryController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
-        System.out.println("caccapupu");
         ItineraryManager.createItinerary(pm, id_user,name);
         return "ok";
     }
@@ -88,7 +89,7 @@ public class ItineraryController {
     @RequestMapping(value = "/removeOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
     String removeOfferItinerary(){
-         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         
         //recupero itinerario selezionato dall'utente ottenendo la key it detail 
@@ -103,5 +104,29 @@ public class ItineraryController {
             return "ok";    
         }
         return "no";
+    }
+    
+    @RequestMapping(value = "/myItineraryDetail", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelAndView viewItineraryDetail(@RequestParam int id){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        ModelAndView model = new ModelAndView("ItineraryDetail");
+        
+        List<DealerOffer> offers=null;
+        Iterable<String> pois = ItineraryManager.findPoiByItinerary(pm,id);
+        model.addObject("pois", pois);
+        
+        //x ogni id poi devo visualizzare le off stock e le off card
+        for(String poi : pois){
+           offers = pm.findOfferByIdPoi(poi);
+        }
+
+        model.addObject("offers",offers);
+        
+        
+        
+        
+        return model;
     }
 }

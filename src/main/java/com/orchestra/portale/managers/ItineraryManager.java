@@ -94,5 +94,9 @@ public class ItineraryManager{
    
     
     */
+
+    public static Iterable<String> findPoiByItinerary(PersistenceManager pm, int id) {
+        return pm.findPoisByItinerary(id);
+    }
     
 }

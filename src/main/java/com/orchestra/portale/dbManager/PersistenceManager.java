@@ -114,4 +114,5 @@ public interface PersistenceManager {
     public Integer findItineraryByIdItineraryDetail(int idItineraryDetail);
     public Long findUserByIdItinerary(Integer idItinerary);
     public Iterable<Itinerary> findItinerariesByIdUser(int idUser);
+    public Iterable<String>findPoisByItinerary(int idItinerary);
 }

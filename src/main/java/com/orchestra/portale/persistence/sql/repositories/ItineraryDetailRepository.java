@@ -19,5 +19,8 @@ public interface ItineraryDetailRepository extends JpaRepository<ItineraryDetail
     
    @Query("select i.idItinerary from ItineraryDetail i where i.idItineraryDetail=?1")
    Integer findItineraryByIdItineraryDetail(int idItineraryDetail);
+   
+   @Query("select i.idPoi from ItineraryDetail i where i.idItinerary=?1")
+   Iterable<String>findPoiByIdItinerary(int idItinerary);
     
 }

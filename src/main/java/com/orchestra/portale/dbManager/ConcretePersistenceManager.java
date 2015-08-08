@@ -682,5 +682,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
         Iterable<Itinerary> itineraries = itRepo.findByIdUser(idUser);
         return itineraries;
     }
+
+    @Override
+    public Iterable<String>findPoisByItinerary(int idItinerary) {
+        return itdRepo.findPoiByIdItinerary(idItinerary);
+    }
     
 }

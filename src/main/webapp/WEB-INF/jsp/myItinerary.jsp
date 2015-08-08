@@ -113,7 +113,7 @@
       
             <div class="col-md-4">
                 <!-- Modal -->
-                <div id="myModal" class="modal fade" role="dialog" data-remote="./myItinerary">
+                <div id="myModal" class="modal fade" role="dialog">
                   <div class="modal-dialog">
 
                     <!-- Modal content-->
@@ -128,7 +128,7 @@
                           <input id="it_name" style="border:0px; width: 300px;" type="text" placeholder="Assegna un nome dell'itinerario.."/>
                       </div>
                       <div class="modal-footer">
-                        <button href="http://www.google.it " id="btn_new_it" type="button" class="btn btn-primary" data-dismiss="modal">Crea</button>  
+                        <button id="btn_new_it" type="button" class="btn btn-primary" data-dismiss="modal">Crea</button>  
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Annulla</button>
                       </div>
                     </div>
@@ -170,8 +170,9 @@
 
                                                 <div class="poi_it_name_container">
                                                     <div class="poi_it_name">
-                                                        ${it.name}                                       
+                                                        <a href="./myItineraryDetail?id=${it.idItinerary}">${it.name}</a>                                       
                                                     </div>
+                                                   
                                                     <c:choose>
                                                         <c:when test="${it.status == 0}">
                                                             <div class="poi_it_status">ATTIVO</div>
@@ -185,7 +186,6 @@
                                                             <div class="poi_it_status">SCADUTO</div>
                                                         </c:when>                                                        
                                                     </c:choose>
-
                                                 </div>
                                             </div>
                                         </c:forEach>
