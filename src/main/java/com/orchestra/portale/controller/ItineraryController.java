@@ -7,11 +7,20 @@ package com.orchestra.portale.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.managers.ItineraryManager;
+import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
+import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.PricesComponent;
+import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserItinerary;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.access.annotation.Secured;
@@ -27,106 +36,172 @@ import org.springframework.web.servlet.ModelAndView;
 /**
  *
  * @author andzaccaro
-*/
-
+ */
 @Controller
 @Secured("ROLE_USER")
 public class ItineraryController {
-    
-    
-    @Autowired PersistenceManager pm ;
-    
+
+    @Autowired
+    PersistenceManager pm;
+
     @RequestMapping(value = "/myItinerary", method = RequestMethod.GET)
-    public ModelAndView viewMyItinerary(){
+    public ModelAndView viewMyItinerary() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user= pm.findUserByUsername(auth.getName());
+        User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
         ModelAndView model = new ModelAndView("myItinerary");
-        
+
         Iterable<Itinerary> i = ItineraryManager.retreiveItinerary(pm, Integer.parseInt(id_user));
-        model.addObject("itinerary",i);
-        
+        model.addObject("itinerary", i);
+
         return model;
-        
-                
+
     }
-    
 
     @RequestMapping(value = "/newItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    String createItinerary(@RequestParam String name){
+    String createItinerary(@RequestParam String name) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user= pm.findUserByUsername(auth.getName());
+        User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
-        ItineraryManager.createItinerary(pm, id_user,name);
+        ItineraryManager.createItinerary(pm, id_user, name);
         return "ok";
     }
-    
+
     @RequestMapping(value = "/addPoiItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    String addPoiNewItinerary(){
+    String addPoiNewItinerary() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user= pm.findUserByUsername(auth.getName());
+        User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
         ItineraryManager.addPoi(pm, 22, "5496cfecdf6ef624f2d63de7");
         return "ok";
     }
-    
+
     @RequestMapping(value = "/addOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    String addOfferItinerary(){
+    void addOfferItinerary(@RequestParam int id_offer, @RequestParam int id_poi, @RequestParam int qta, @RequestParam float sum, @RequestParam String type, @RequestParam String idItinerary) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user= pm.findUserByUsername(auth.getName());
+        User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
+
+        
+        System.out.println(id_poi);
+        System.out.println(id_offer);
+        System.out.println(qta);
+        System.out.println(sum);
+        System.out.println(type);
+        System.out.println(idItinerary);
+        
+        
+        
+        
         
         //aggiungere parametri input funzione string
-        ItineraryManager.addOffer(pm, 22, "aaa", 16, 5, 100);
+        //ItineraryManager.addOffer(pm, 22, "aaa", 16, 5, 100);
         //aggiornare il valore di id offer choice all'itinerary detail
-        
-        return "ok";
+
     }
-   
+
     @RequestMapping(value = "/removeOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    String removeOfferItinerary(){
+    String removeOfferItinerary() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user= pm.findUserByUsername(auth.getName());
-        
+        User user = pm.findUserByUsername(auth.getName());
+
         //recupero itinerario selezionato dall'utente ottenendo la key it detail 
         Integer idDetail = pm.findIdDetailByidOffer(16);
         Integer idItinerary = pm.findItineraryByIdItineraryDetail(idDetail);
         Long idUser = pm.findUserByIdItinerary(idItinerary);
-        
-        if(user.getId().longValue() == idUser.longValue()){
+
+        if (user.getId().longValue() == idUser.longValue()) {
             //utente leggittimato a fare l'operazione
             //signature removeOffer(persistence, id itinerary detail)
             ItineraryManager.removeOffer(pm, 16, idDetail);
-            return "ok";    
+            return "ok";
         }
         return "no";
     }
-    
+
     @RequestMapping(value = "/myItineraryDetail", method = RequestMethod.GET)
     public @ResponseBody
-    ModelAndView viewItineraryDetail(@RequestParam int id){
+    ModelAndView viewItineraryDetail(@RequestParam int id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user= pm.findUserByUsername(auth.getName());
-        ModelAndView model = new ModelAndView("ItineraryDetail");
-        
-        List<DealerOffer> offers=null;
-        Iterable<String> pois = ItineraryManager.findPoiByItinerary(pm,id);
-        model.addObject("pois", pois);
-        
-        //x ogni id poi devo visualizzare le off stock e le off card
-        for(String poi : pois){
-           offers = pm.findOfferByIdPoi(poi);
-        }
+        User user = pm.findUserByUsername(auth.getName());
+        ModelAndView model = new ModelAndView("itineraryDetail");
 
-        model.addObject("offers",offers);
+        List<DealerOffer> offers = null;
+        Iterable<String> pois_id = ItineraryManager.findPoiByItinerary(pm, id);
+        Iterable<? extends CompletePOI> pois = pm.getCompletePoisById(pois_id);
+        //x ogni id poi devo visualizzare le off stock e le off card
+
+        for (String poi_id : pois_id) {
+            offers = pm.findOfferByIdPoi(poi_id);
+        }
+        model.addObject("id",id);
+        model.addObject("pois", pois);
+        model.addObject("offers", offers);
+
+        return model;
+    }
+
+    @RequestMapping(value = "/viewOfferPoi", method = RequestMethod.GET)
+    public @ResponseBody
+    ModelAndView viewItineraryDetail(@RequestParam String idPoi, @RequestParam String idItinerary) {
+        ModelAndView model = new ModelAndView("viewOffers");
+
+        List<List<Map<String,String>>> poiPriceDetails = new ArrayList<List<Map<String,String>>>();
+        List<Map<String,String>> price_comp = new ArrayList<Map<String, String>>();
         
         
         
+        CompletePOI poi = pm.getCompletePoiById(idPoi);
+        String poi_name = poi.getName();
+
+        //off card
+        List<DealerOffer> offers = pm.findOfferByIdPoi(idPoi);
+        model.addObject("offers", offers);
+        model.addObject("poi_name", poi_name);
+        model.addObject("idPoi",idPoi);
+        model.addObject("idItinerary",idItinerary);
+
+        //off stock
         
+
+        PricesComponent tp = null;
+        for (AbstractPoiComponent comp : poi.getComponents()) {
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            Class c;
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("prices")) {
+                try {
+                    c = Class.forName(slug);
+                    tp = (PricesComponent) comp;
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        if (tp != null) {
+            for (TicketPrice p : tp.getPrices()) {
+                    Map<String, String> mo = new HashMap<String, String>();
+                    mo.put("type", p.getType());
+                    mo.put("desc", p.getType_description());
+                    Double pr = p.getPrice();
+                    mo.put("price", pr.toString());
+
+                    price_comp.add(mo);
+                    
+                    
+                }
+            
+            }
+            model.addObject("price_comp",price_comp);
+
+                            
+
         return model;
     }
 }

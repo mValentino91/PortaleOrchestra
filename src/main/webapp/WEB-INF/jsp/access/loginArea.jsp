@@ -62,7 +62,11 @@ function reload_access_area(event){
             </sec:authorize>            
                  
             <li><a href="./favorites"><i class="fa fa-heart"></i> <spring:message code="label.favoritespoi"></spring:message></a></li>
-               <li class="divider"></li>     
+            <li class="divider"></li>  
+            
+            <li><a href="./myItinerary"><i class="fa fa-map-marker"></i> <spring:message code="label.myitineraries"></spring:message></a></li>
+            <li class="divider"></li>  
+             
             <li><a href="#" onclick="doLogout();"><i class="fa fa-sign-out"></i> <spring:message code="label.logout"></spring:message></a></li>
             <a id="logout_url" href="${logoutUrl}" style="display: none"></a>
             <li class="divider"></li>

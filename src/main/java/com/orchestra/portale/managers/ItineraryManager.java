@@ -42,7 +42,7 @@ public class ItineraryManager{
          
     }
     
-    public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi, int idOffer, int qta, int sum){
+    public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi, int idOffer, int qta, float sum){
         //calcolare la somma qui dentro
         UserOfferChoice uc = new UserOfferChoice();
         //Itinerary_detail id = new Itinerary_detail();

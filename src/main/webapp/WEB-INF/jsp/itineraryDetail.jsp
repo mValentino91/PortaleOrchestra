@@ -1,8 +1,9 @@
 <%-- 
-    Document   : infopoi
-    Created on : 2-dic-2014, 12.10.28
-    Author     : Alex
+    Document   : ItineraryDetail
+    Created on : 8-ago-2015, 11.28.06
+    Author     : andrea
 --%>
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -98,10 +99,6 @@
                     font-weight: bold;
                 }
 
-                .modal-dialog {
-                    width: 90%;
-                }
-                
 
             </style>
 
@@ -111,25 +108,24 @@
         <div class="container-fixed">
 
             <div class="col-md-12">
-                <jsp:include page="components/CoverComponentFavorites.jsp"/>
+                <div class="cover_favorite_img" style="background-color: #285E8E;"></div>
             </div>
 
 
             <div class="col-md-4">
                 <!-- Modal -->
-                <div id="myModal" class="modal fade modal-lg" role="dialog">
-                    <div class="modal-dialog modal-lg">
+                <div id="modalOffer" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
 
                         <!-- Modal content-->
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Crea un nuovo itinerario</h4>
+                                <h4 class="modal-title"></h4>
                             </div>
                             <div class="modal-body">
 
 
-                                <input id="it_name" style="border:0px; width: 300px;" type="text" placeholder="Assegna un nome dell'itinerario.."/>
                             </div>
                             <div class="modal-footer">
                                 <button id="btn_new_it" type="button" class="btn btn-primary" data-dismiss="modal">Crea</button>  
@@ -140,65 +136,31 @@
                     </div>
                 </div>
 
-                <script>
-
-                    $("#btn_new_it").click(function () {
-                        var content = $("#it_name").val();
-                        alert(content);
-
-                        $.ajax({
-                            type: "GET",
-                            url: "./newItinerary",
-                            data: "name=" + content
-                        });
-                    });
-
-
-                </script>
-
-                <div id="nuovo_it" class="new_it_button" data-toggle="modal" data-target="#myModal">Crea un nuovo itinerario</div>
-
                 <article class="component component-text">
                     <div class="details">
                         <div class="paragrafo">
-
-                            <b>I tuoi itinerari</b>
                             <div class="itinerary-container">
-                                <c:choose>
-                                    <c:when test="${not empty itinerary}">
-                                        <c:forEach var="it" items="${itinerary}">
-                                            <div class="poi_it_container">
-                                                <div class="poi_it_img">
-                                                    <img src="./dist/poi/img/${poiR.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
-                                                </div>
 
-                                                <div class="poi_it_name_container">
-                                                    <div class="poi_it_name">
-                                                        <a href="./myItineraryDetail?id=${it.idItinerary}">${it.name}</a>                                       
-                                                    </div>
 
-                                                    <c:choose>
-                                                        <c:when test="${it.status == 0}">
-                                                            <div class="poi_it_status">ATTIVO</div>
-                                                        </c:when>
+                                <c:forEach var="poi" items="${pois}">
+                                    <div class="poi_it_container">
+                                        <div class="poi_it_img">
+                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                                        </div>
 
-                                                        <c:when test="${it.status == 1}">
-                                                            <div class="poi_it_status">COMPLETO</div>
-                                                        </c:when>    
-
-                                                        <c:when test="${it.status == 2}">
-                                                            <div class="poi_it_status">SCADUTO</div>
-                                                        </c:when>                                                        
-                                                    </c:choose>
-                                                </div>
+                                        <div class="poi_it_name_container">
+                                            <div class="poi_it_name">
+                                                ${poi.name}       
+                                                <div style="display:inline-block" data-toggle="modal" data-target="#modalOffer" href="./viewOfferPoi?idPoi=${poi.id}&idItinerary=${id}">Offerte</div>
                                             </div>
-                                        </c:forEach>
-                                    </c:when>    
 
-                                    <c:otherwise>
-                                        Nessun itinerario
-                                    </c:otherwise>
-                                </c:choose>
+
+                                        </div>
+                                    </div>
+                                </c:forEach>
+
+
+
                                 <div class="clear"></div>    
                             </div>
                         </div>    
@@ -243,4 +205,24 @@
 
         </script>
     </body>
+</html>
+
+
+
+
+<%--
+<c:forEach var="poi" items="${pois}">
+    ${poi}
+    
+    <c:forEach var="offer" items="${offers}">
+        <br>
+        ${offer.desc}
+    </c:forEach>
+        
+    
+    
+    
+</c:forEach>
+--%>
+</body>
 </html>
