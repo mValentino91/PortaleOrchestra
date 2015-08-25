@@ -61,10 +61,8 @@ public class UserOfferChoice implements Serializable {
     @NotNull
     @Column(name = "sum")
     private float sum;
-    @Basic(optional = false)
-    @NotNull
     @Column(name = "idOffer")
-    private int idOffer;
+    private Integer idOffer;
     @Size(max = 100)
     @Column(name = "stockType")
     private String stockType;
@@ -85,13 +83,12 @@ public class UserOfferChoice implements Serializable {
         this.idUserOfferChoice = idUserOfferChoice;
     }
 
-    public UserOfferChoice(Integer idUserOfferChoice, int idItineraryDetail, int qta, int status, float sum, int idOffer) {
+    public UserOfferChoice(Integer idUserOfferChoice, int idItineraryDetail, int qta, int status, float sum) {
         this.idUserOfferChoice = idUserOfferChoice;
         this.idItineraryDetail = idItineraryDetail;
         this.qta = qta;
         this.status = status;
         this.sum = sum;
-        this.idOffer = idOffer;
     }
 
     public Integer getIdUserOfferChoice() {
@@ -134,11 +131,11 @@ public class UserOfferChoice implements Serializable {
         this.sum = sum;
     }
 
-    public int getIdOffer() {
+    public Integer getIdOffer() {
         return idOffer;
     }
 
-    public void setIdOffer(int idOffer) {
+    public void setIdOffer(Integer idOffer) {
         this.idOffer = idOffer;
     }
 

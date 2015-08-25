@@ -31,7 +31,6 @@ import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
-import com.orchestra.portale.persistence.sql.entities.UserItinerary;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
 import com.orchestra.portale.persistence.sql.repositories.CardItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.CardRepository;
@@ -49,7 +48,7 @@ import com.orchestra.portale.persistence.sql.repositories.ItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.OwnershipRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
 import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
-import com.orchestra.portale.persistence.sql.repositories.UserItineraryRepository;
+//import com.orchestra.portale.persistence.sql.repositories.UserItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserOfferChoiceRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.util.ArrayList;
@@ -143,9 +142,10 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Autowired
     private ItineraryRepository itRepo;
     
+    /*
     @Autowired
     private UserItineraryRepository uitRepo;
-    
+    */
     @Autowired
     private ItineraryDetailRepository itdRepo;
     
@@ -594,12 +594,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void saveCard(Card c){
         cardRepo.save(c);
     }    
-
+/*
     @Override
     public void deleteOfferCard(Integer id_offer, Integer id_user) {
         cartdetailRepo.deleteOfferCard(id_offer, id_user);
     }
-
+*/
     @Override
     public void deleteOfferStock(Integer id_user, String idPoi, String type) {
         cartdetailRepo.deleteOfferStock(id_user, idPoi, type);
@@ -636,11 +636,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public void saveItinerary(Itinerary it) {
         itRepo.save(it);
     }
-
+/*
     @Override
     public void saveUserItinerary(UserItinerary uit) {
         uitRepo.save(uit);
     }
+    */
 
     @Override
     public void savePoiItinerary(ItineraryDetail id) {
@@ -658,8 +659,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public void deleteOfferIt(Integer idOffer, Integer idItineraryDetail) {
-        ucRepo.deleteOfferItinerary(idOffer, idItineraryDetail);
+    public void deleteOfferCard(Integer idOffer, Integer idItineraryDetail) {
+        ucRepo.deleteOfferCard(idOffer, idItineraryDetail);
     }
 
     @Override
@@ -686,6 +687,31 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public Iterable<String>findPoisByItinerary(int idItinerary) {
         return itdRepo.findPoiByIdItinerary(idItinerary);
+    }
+
+    @Override
+    public Integer retreiveUserChoiceCard(int idOffer, int idItinerary) {
+        return ucRepo.retreiveUserChoiceCard(idOffer,idItinerary);
+    }
+
+    @Override
+    public void updateUserChoiceCard(int qta, float tot, int idOffer) {
+        ucRepo.updateUserChoiceCard(qta,tot,idOffer);
+    }
+
+    @Override
+    public Integer retreiveUserChoiceStock(String type, int idItinerary) {
+        return ucRepo.retreiveUserChoiceStock(type, idItinerary);
+    }
+
+    @Override
+    public void updateUserChoiceStock(int qta, float tot, String type) {
+        ucRepo.updateUserChoiceStock(qta,tot,type);
+    }
+
+    @Override
+    public void deleteOfferStock(String name, Integer idItineraryDetail) {
+        ucRepo.deleteOfferStock(name,idItineraryDetail);
     }
     
 }

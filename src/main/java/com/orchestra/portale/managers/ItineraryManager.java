@@ -42,37 +42,67 @@ public class ItineraryManager{
          
     }
     
-    public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi, int idOffer, int qta, float sum){
-        //calcolare la somma qui dentro
-        UserOfferChoice uc = new UserOfferChoice();
-        //Itinerary_detail id = new Itinerary_detail();
+    public static void addOffer(PersistenceManager pm, int idItinerary, Integer idOffer, int qta, float sum, String type, String name, String desc){
         
-        //il poi ke agg l'offerta è gia esistente.. lo devo recuperare ed aggiornare il campo user choice
-        
-        /*
-        id.setIdItinerary(idItinerary);
-        id.setIdPoi(idPoi);
-        pm.savePoiItinerary(id);
-        */
-        
-        //select idItinerary_detail where idPoi and iditinerary
-       
-        
+        float tot = sum*qta;
         Integer iddetail = pm.findItDetail(idItinerary);
-        System.out.println(iddetail);
+        Integer uc_id=null;
         
-        //inserimento dell'offerta scelta nella tabella
-        uc.setIdItineraryDetail(iddetail);
-        uc.setIdOffer(idOffer);
-        uc.setQta(qta);
-        uc.setSum(sum);
-        uc.setStatus(0);
-        pm.saveUserChoice(uc);   
+        
+        switch (type) {
+            case "STOCK":
+                uc_id = pm.retreiveUserChoiceStock(name,iddetail);
+                if(uc_id != null){
+                    pm.updateUserChoiceStock(qta,tot,name);
+                }
+                else{
+                    //insert
+                    UserOfferChoice uc = new UserOfferChoice();
+                    uc.setIdItineraryDetail(iddetail);
+                    uc.setQta(qta);
+                    uc.setStatus(0);
+                    uc.setType(type);
+                    uc.setStockType(name);
+                    uc.setSum(tot);
+                    uc.setDescription(desc);
+                    uc.setPrice(sum);
+                    pm.saveUserChoice(uc);
+                    
+                }   break;
+            case "CARD":
+                uc_id = pm.retreiveUserChoiceCard(idOffer,iddetail);
+                if(uc_id != null){
+                    pm.updateUserChoiceCard(qta,tot,idOffer);
+                }
+                else{
+                    UserOfferChoice uc = new UserOfferChoice();
+                    uc.setIdItineraryDetail(iddetail);
+                    uc.setQta(qta);
+                    uc.setSum(tot);
+                    uc.setStatus(0);
+                    uc.setType(type);
+                    uc.setIdOffer(idOffer);
+                pm.saveUserChoice(uc);  
+            }   break;
+        }
+         
     }
     
-    public static void removeOffer(PersistenceManager pm, int idOffer, int idItineraryDetail){
+    public static void removeOffer(PersistenceManager pm, int idOffer, int idItinerary, String name, String type){
+       
+        Integer iddetail = pm.findItDetail(idItinerary);
         
-       pm.deleteOfferIt(idOffer, idItineraryDetail);
+        switch (type) {
+            case "CARD":
+                //rimozione offerta card
+                pm.deleteOfferCard(idOffer, iddetail);
+                break;
+            case "STOCK":
+                pm.deleteOfferStock(name,iddetail);
+                break;
+        }
+        
+        
     }
     
     public static Iterable<Itinerary> retreiveItinerary(PersistenceManager pm,int idUser){

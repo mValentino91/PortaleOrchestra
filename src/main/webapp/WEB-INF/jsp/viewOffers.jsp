@@ -139,40 +139,86 @@
                 });
             });
             
+            
+            $(".del").each(function (index) {
+                var sel = $(this);
+                $(this).on("click", function () {
+                    var sel_name = sel;
+                    var add = sel.siblings(".add");
+                    var idItinerary = sel.parent().attr("idItinerary");
+                    var idOffer = -1;
+                    var name = null;
+                    var type = sel.parent().attr("type");
+                    
+                    if (type == "CARD") {
+                        idOffer = sel.parent().attr("idOffer");
+                    }
+                    else{
+                        name = sel.siblings(".name").text();
+                    }
+                    
+
+                    $.ajax({
+                        
+                        type: "GET",
+                        url: "./removeOfferItinerary",
+                        data: "id_offer=" + idOffer + "&idItinerary="+ idItinerary + "&name="+ name + "&type="+type,
+                        
+                        success: function(){
+                            add.text("+");
+                            sel.hide();
+                        }
+                    });
+
+                });
+            });
+            
+            
+            
             $(".add").each(function (index) {
                 var sel = $(this);
                 $(this).on("click", function () {
-                    var qta = sel.parent().parent().find(".qta");
-                    var type = sel.parent().attr("type");
-                    var fullPrice = sel.parent().attr("fullPrice");
-                    var discPrice = sel.parent().attr("discountedPrice");
-
-                    var idPoi = sel.parent().attr("idPoi");
-                    var idOffer = sel.parent().attr("idOffer");
-                    var rateOffer = sel.parent().find(".rateOffer").text();
+                    var sum=0;
+                    var discPrice=null;
+                    var idOffer = -1;
+                    var rateOffer = null;
+                    var name = null;
+                    var desc = null;
+                    var sel_name = sel;
+                    
+                    var del = sel.siblings(".del");
                     var idItinerary = sel.parent().attr("idItinerary");
-                    var sum;
+                    var idPoi = sel.parent().attr("idPoi");
+                    var fullPrice = sel.parent().attr("fullPrice");
+                    var qta = sel.siblings(".off-ctr").find(".qta");
+                    var type = sel.parent().attr("type");
+                    
                     if (type == "CARD") {
+                        
+                        discPrice = sel.parent().attr("discountedPrice");
+                        idOffer = sel.parent().attr("idOffer");
+                        rateOffer = sel.parent().find(".rateOffer").text();
                         sum = discPrice;
                     }
                     else {
+                        name = sel.siblings(".name").text();
+                        desc = sel.siblings(".desc").text();
                         sum = fullPrice;
                     }
                     
                     $.ajax({
+                        
                         type: "GET",
                         url: "./addOfferItinerary",
-                        data: "id_offer=" + idOffer + "&id_poi=" + idPoi + "&qta=" + qta.val() + "&sum=" + sum + "&type=" + type + "&idItinerary="+ idItinerary,
-                        success: function(data){
+                        data: "qta=" + qta.val() + "&id_offer=" + idOffer +"&sum=" + sum + "&type=" + type + "&idItinerary="+ idItinerary + "&name="+ name + "&desc=" + desc,
                         
+                        success: function(){
+                            sel_name.text("V");
+                            del.show();
                         }
                     });
                 });
-                
-
-    
             });
-            
         });    
         
         function modify_qty(qta, val) {
@@ -208,10 +254,11 @@
 
             <c:forEach var="off" items="${offers}">
                 <div type="CARD" idItinerary="${idItinerary}" idOffer="${off.idOffer}" idPoi="${idPoi}" fullPrice="${off.fullPrice}" discountedPrice="${off.discountedPrice}" rateOffer="${off.rateDiscount}">
-                    <span id="select"class="off add" style="float: left; width:10%; border: 1px solid">Aggiungi</span>
-                    <span class="off" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
-                    <span class="off" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
-                    <span style="float:left; width: 10%; border:1px solid;">
+                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
+                    <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                    <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
+                    <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
+                    <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
                         <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                         <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
                         <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
@@ -226,17 +273,18 @@
             Offerte non associate alla Orchestra Card
             <c:forEach var="stock" items="${price_comp}">
                 <div type="STOCK" idItinerary="${idItinerary}" idPoi="${idPoi}" fullPrice="${stock.get("price")}">
-                    <span id="add"class="off" style="float: left; width:10%; border: 1px solid" data-offId="${stock.get("type")}">Aggiungi</span>
-                    <span class="off" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
-                    <span class="off" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
+                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
+                    <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                    <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
+                    <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
 
-                    <span style="float:left; width: 10%; border:1px solid;">
+                    <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
                         <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                         <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
                         <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
                     </span>                        
 
-                    <span class="off" style="text-align: center; float:left; width: 5%; border:1px solid;">${stock.get("price")}</span>
+                    <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${stock.get("price")}</span>
                     <div style="clear: both"></div>
                 </div>        
 
