@@ -251,25 +251,43 @@
             <div id="add-off" class="col-md-12 add-success" style="display:none;">Offerta aggiunta correttamente</div>
             <div id="rem-off" class="col-md-12 remove-success" style="display:none;">Offerta rimossa correttamente</div>
 
-
-            <c:forEach var="off" items="${offers}">
-                <div type="CARD" idItinerary="${idItinerary}" idOffer="${off.idOffer}" idPoi="${idPoi}" fullPrice="${off.fullPrice}" discountedPrice="${off.discountedPrice}" rateOffer="${off.rateDiscount}">
-                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
-                    <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
-                    <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
-                    <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
-                    <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                        <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
-                        <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
-                    </span> 
-                    <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
-                    <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
-                    <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
-                    <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
-                    <div style="clear: both"></div>
-                </div>                   
+            
+            
+               
+                <c:forEach var="off" items="${offers}">
+                    
+                    
+                        <div type="CARD" idItinerary="${idItinerary}" idOffer="${off.idOffer}" idPoi="${idPoi}" fullPrice="${off.fullPrice}" discountedPrice="${off.discountedPrice}" rateOffer="${off.rateDiscount}">
+                            
+                            <c:forEach var="idc" items="${idOffer_choice}">
+                                <c:set var="ex" value="${idc}"/>
+                                <c:if test="${ex == offer.idOffer}">
+                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
+                                     <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                    
+                                </c:if>
+                            </c:forEach>
+                            
+                            
+                            
+                        <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
+                        <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
+                        <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
+                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
+                            <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
+                            <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
+                        </span> 
+                        <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
+                        <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
+                        <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
+                        <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
+                        <div style="clear: both"></div>
+                    </div>                   
+                
+             
             </c:forEach>
+            
+            
             Offerte non associate alla Orchestra Card
             <c:forEach var="stock" items="${price_comp}">
                 <div type="STOCK" idItinerary="${idItinerary}" idPoi="${idPoi}" fullPrice="${stock.get("price")}">

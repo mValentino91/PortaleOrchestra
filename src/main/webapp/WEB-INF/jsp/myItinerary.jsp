@@ -97,6 +97,17 @@
                     color: green;
                     font-weight: bold;
                 }
+                
+                
+                .delit{
+                    display: table-cell;
+                    overflow: hidden;
+                    vertical-align: middle;
+                    border: 0px solid red;
+                    color: red;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
 
                 .modal-dialog {
                     width: 90%;
@@ -104,6 +115,31 @@
                 
 
             </style>
+            
+            <script>
+                $(document).ready(function () {
+                    $(".delit").each(function (index) {
+                        var sel = $(this);
+                        $(this).on("click", function () {
+                            var idItinerary = sel.parent().attr("idItinerary");
+                             $.ajax({
+                        
+                                type: "GET",
+                                url: "./removeItinerary",
+                                data: "idItinerary="+ idItinerary,
+
+                                success: function(){
+                                    alert("itinerario cancellato!");
+                                }
+                            });
+                            
+                        });
+                    });
+                });
+                
+                
+                
+            </script>
 
         </head>
         <body>
@@ -172,7 +208,7 @@
                                                     <img src="./dist/poi/img/${poiR.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
                                                 </div>
 
-                                                <div class="poi_it_name_container">
+                                                <div class="poi_it_name_container" idItinerary="${it.idItinerary}">
                                                     <div class="poi_it_name">
                                                         <a href="./myItineraryDetail?id=${it.idItinerary}">${it.name}</a>                                       
                                                     </div>
@@ -190,6 +226,7 @@
                                                             <div class="poi_it_status">SCADUTO</div>
                                                         </c:when>                                                        
                                                     </c:choose>
+                                                    <div class="delit">X</div>        
                                                 </div>
                                             </div>
                                         </c:forEach>
@@ -210,7 +247,7 @@
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
                 <article class="component component-text">
                     <div class="details">
-                        ggg
+                        <jsp:include page="components/mapPageComponent.jsp"/>
                     </div>
                 </article>
 
@@ -224,23 +261,8 @@
 
         </div>
 
-
         <jsp:include page="access/loginModal.jsp" />
-        <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
+        
 
-        <script>
-
-            $(document).ready(function () {
-                enableRatingBar();
-                $(".poi_preview_box").each(function (index) {
-                    updateRatingBar($(this));
-                    enableDeleteButton($(this));
-
-
-                });
-
-            });
-
-        </script>
     </body>
 </html>

@@ -3,16 +3,7 @@ package com.orchestra.portale.managers;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
-import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  *
@@ -127,6 +118,14 @@ public class ItineraryManager{
 
     public static Iterable<String> findPoiByItinerary(PersistenceManager pm, int id) {
         return pm.findPoisByItinerary(id);
+    }
+
+    public static void showItDetail(PersistenceManager pm, String idPoi, String idItinerary) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public static void removeItinerary(PersistenceManager pm, Integer idItinerary, int idUser) {
+        pm.deleteItinerary(idItinerary,idUser);
     }
     
 }

@@ -7,6 +7,7 @@ package com.orchestra.portale.persistence.sql.repositories;
 
 import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -32,20 +33,26 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
     Integer findIdDetailByidOffer(Integer idOffer);
     
     @Query("select u.idUserOfferChoice  from UserOfferChoice u where u.idOffer=?1 AND u.idItineraryDetail=?2")
-    public Integer retreiveUserChoiceCard(int idOffer, int idItinerary);
+    Integer retreiveUserChoiceCard(int idOffer, int idItinerary);
 
     @Query("select u.idUserOfferChoice  from UserOfferChoice u where u.stockType=?1 AND u.idItineraryDetail=?2")
-    public Integer retreiveUserChoiceStock(String type, int idItinerary);
+    Integer retreiveUserChoiceStock(String type, int idItinerary);
     
     @Modifying
     @Transactional(readOnly=false)
     @Query("update UserOfferChoice u set u.qta=?1, u.sum=?2 where u.idOffer=?3")
-    public void updateUserChoiceCard(int qta, float tot, int idOffer);
+    void updateUserChoiceCard(int qta, float tot, int idOffer);
     
     @Modifying
     @Transactional(readOnly=false)
     @Query("update UserOfferChoice u set u.qta=?1, u.sum=?2 where u.stockType=?3")
-    public void updateUserChoiceStock(int qta, float tot, String type);
+    void updateUserChoiceStock(int qta, float tot, String type);
+
+    @Query("select u.idOffer from UserOfferChoice u where u.idItineraryDetail=?1")
+    List<Integer> findIdOfferByIdItineraryDetail(Integer iddetail);
+
+    @Query("select u.stockType from UserOfferChoice u where u.idItineraryDetail=?1")
+    List<String> findTypeStockByIdItineraryDetail(Integer iddetail);
 
     
     

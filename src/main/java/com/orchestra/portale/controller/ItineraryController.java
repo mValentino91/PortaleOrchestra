@@ -14,6 +14,7 @@ import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.User;
+import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -159,27 +160,26 @@ public class ItineraryController {
         User user = pm.findUserByUsername(auth.getName());
         ModelAndView model = new ModelAndView("itineraryDetail");
 
-        List<DealerOffer> offers = null;
         Iterable<String> pois_id = ItineraryManager.findPoiByItinerary(pm, id);
         Iterable<? extends CompletePOI> pois = pm.getCompletePoisById(pois_id);
         //x ogni id poi devo visualizzare le off stock e le off card
 
-        for (String poi_id : pois_id) {
-            offers = pm.findOfferByIdPoi(poi_id);
-        }
         model.addObject("id",id);
         model.addObject("pois", pois);
-        model.addObject("offers", offers);
 
         return model;
     }
 
     @RequestMapping(value = "/viewOfferPoi", method = RequestMethod.GET)
     public @ResponseBody
-    ModelAndView viewItineraryDetail(@RequestParam String idPoi, @RequestParam String idItinerary) {
+    ModelAndView viewItineraryDetail(@RequestParam String idPoi, @RequestParam int idItinerary) {
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = pm.findUserByUsername(auth.getName());
         ModelAndView model = new ModelAndView("viewOffers");
 
-        List<List<Map<String,String>>> poiPriceDetails = new ArrayList<List<Map<String,String>>>();
+        
+        
         List<Map<String,String>> price_comp = new ArrayList<Map<String, String>>();
         
         
@@ -189,10 +189,20 @@ public class ItineraryController {
 
         //off card
         List<DealerOffer> offers = pm.findOfferByIdPoi(idPoi);
+        
+        Integer iddetail = pm.findItDetail(idItinerary);
+        
+        
+        
+        List<Integer>idOffer_choice = pm.findChoiceCardByUser(iddetail);
+        List<String>typeStock_choice = pm.findChoiceStockByUser(iddetail); 
+        
         model.addObject("offers", offers);
         model.addObject("poi_name", poi_name);
         model.addObject("idPoi",idPoi);
         model.addObject("idItinerary",idItinerary);
+        model.addObject("idOffer_choice",idOffer_choice);
+        model.addObject("typeStock_choice",typeStock_choice);
 
         //off stock
         
@@ -233,6 +243,19 @@ public class ItineraryController {
 
         return model;
     }
+    
+    
+    
+    @RequestMapping(value = "/removeItinerary", method = RequestMethod.GET)
+    public @ResponseBody
+    void removeItinerary(@RequestParam Integer idItinerary) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = pm.findUserByUsername(auth.getName());
+        
+        int idUser = user.getId().intValue();
+        ItineraryManager.removeItinerary(pm,idItinerary,idUser);
+    }
+        
     
      @RequestMapping(value = "/empty", method = RequestMethod.GET)
      public @ResponseBody

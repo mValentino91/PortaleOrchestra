@@ -190,39 +190,11 @@
         <jsp:include page="access/loginModal.jsp" />
         <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
 
-        <script>
 
-            $(document).ready(function () {
-                enableRatingBar();
-                $(".poi_preview_box").each(function (index) {
-                    updateRatingBar($(this));
-                    enableDeleteButton($(this));
-
-
-                });
-
-            });
-
-        </script>
     </body>
 </html>
 
 
 
-
-<%--
-<c:forEach var="poi" items="${pois}">
-    ${poi}
-    
-    <c:forEach var="offer" items="${offers}">
-        <br>
-        ${offer.desc}
-    </c:forEach>
-        
-    
-    
-    
-</c:forEach>
---%>
 </body>
 </html>
