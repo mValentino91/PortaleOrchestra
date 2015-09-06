@@ -123,5 +123,10 @@ public interface PersistenceManager {
     public List<String> findChoiceStockByUser(Integer iddetail);
     
     public void deleteItinerary(Integer idItinerary,int idUser);
+    public int countOfferCard(String idPoi);
+    public void completeItinerary(Integer idItinerary, int idUser);
+    public int findStatusByIdItinerary(int idItinerary, int idUser);
+
+    
 
 }

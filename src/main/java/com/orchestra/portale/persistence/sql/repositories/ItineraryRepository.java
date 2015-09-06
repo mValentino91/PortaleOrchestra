@@ -27,4 +27,12 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Integer> {
     @Query("delete from Itinerary i where i.idItinerary =?1 AND i.idUser=?2")
     void deleteItinerary(int idItinerary,int idUser);
     
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("update Itinerary i set i.status=1 where i.idItinerary=?1 AND i.idUser=?2")
+    void completeItinerary(int idItinerary, int idUser);
+
+    @Query("select i.status from Itinerary i where i.idItinerary=?1 AND i.idUser=?2")
+    int findStatusByIdItinerary(int idItinerary, int idUser);
+    
 }

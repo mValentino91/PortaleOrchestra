@@ -112,6 +112,8 @@ public class FavoriteController {
         ArrayList<String> idlist = new ArrayList<String>();        
         Iterable<CompletePOI_It> poilist = new ArrayList<CompletePOI_It>();
         Map<String,String>cat_slug_ita = new HashMap<String,String>();
+        Map<String,Integer>poi_offc = new HashMap<String,Integer>();
+        
         
         cat_slug_ita.put("culture","Cultura");
         cat_slug_ita.put("accomodation","Pernottamento");
@@ -127,9 +129,13 @@ public class FavoriteController {
         
         MapPoiCat map_cat = new MapPoiCat();
         
+
         
         for (Favorite f : favorites ) {
             idlist.add(f.getIdPoi());
+            int off_card = pm.countOfferCard(f.getIdPoi());
+            poi_offc.put(f.getIdPoi(), off_card);
+            System.out.println(off_card);
             map_cat.insertRate(f.getIdPoi(), f.getRating());
         }
         
@@ -161,6 +167,7 @@ public class FavoriteController {
         
         model.addObject("map_slug",cat_slug_ita);
         model.addObject("map_cat", map_cat);
+        model.addObject("poi_offc", poi_offc);
         
          List<String> listid;
         /*FACEBOOK USER*/

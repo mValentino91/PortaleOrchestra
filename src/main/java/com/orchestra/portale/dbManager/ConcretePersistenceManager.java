@@ -71,7 +71,6 @@ import org.springframework.data.mongodb.core.query.Query;
  */
 public class ConcretePersistenceManager implements PersistenceManager {
     
-
     private String lang = "it";
 
     @Autowired
@@ -728,6 +727,21 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public void deleteItinerary(Integer idItinerary,int idUser) {
         itRepo.deleteItinerary(idItinerary,idUser);
+    }
+
+    @Override
+    public int countOfferCard(String idPoi) {
+        return dealerRepo.countOfferByIdPoi(idPoi);
+    }
+
+    @Override
+    public void completeItinerary(Integer idItinerary, int idUser) {
+        itRepo.completeItinerary(idItinerary,idUser);
+    }
+
+    @Override
+    public int findStatusByIdItinerary(int idItinerary, int idUser) {
+        return itRepo.findStatusByIdItinerary(idItinerary,idUser);
     }
     
 }

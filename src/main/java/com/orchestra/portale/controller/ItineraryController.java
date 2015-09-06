@@ -106,145 +106,38 @@ public class ItineraryController {
         
     }
     
-    /*
-    @RequestMapping(value = "/addOfferItinerary", method = RequestMethod.GET)
-    public @ResponseBody
-    void addOfferItinerary(@RequestParam int id_offer, @RequestParam int id_poi, @RequestParam int qta, @RequestParam float sum, @RequestParam String type, @RequestParam String idItinerary) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = pm.findUserByUsername(auth.getName());
-        String id_user = user.getId().toString();
-
-        
-        System.out.println(id_poi);
-        System.out.println(id_offer);
-        System.out.println(qta);
-        System.out.println(sum);
-        System.out.println(type);
-        System.out.println(idItinerary);
-        
-        
-        
-        
-        
-        //aggiungere parametri input funzione string
-        //ItineraryManager.addOffer(pm, 22, "aaa", 16, 5, 100);
-        //aggiornare il valore di id offer choice all'itinerary detail
-
-    }
-
-    @RequestMapping(value = "/removeOfferItinerary", method = RequestMethod.GET)
-    public @ResponseBody
-    String removeOfferItinerary() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        User user = pm.findUserByUsername(auth.getName());
-
-        //recupero itinerario selezionato dall'utente ottenendo la key it detail 
-        Integer idDetail = pm.findIdDetailByidOffer(16);
-        Integer idItinerary = pm.findItineraryByIdItineraryDetail(idDetail);
-        Long idUser = pm.findUserByIdItinerary(idItinerary);
-
-        if (user.getId().longValue() == idUser.longValue()) {
-            //utente leggittimato a fare l'operazione
-            //signature removeOffer(persistence, id itinerary detail)
-            ItineraryManager.removeOffer(pm, 16, idDetail);
-            return "ok";
-        }
-        return "no";
-    }
-    */
 
     @RequestMapping(value = "/myItineraryDetail", method = RequestMethod.GET)
     public @ResponseBody
-    ModelAndView viewItineraryDetail(@RequestParam int id) {
+    ModelAndView viewItineraryDetail(@RequestParam int idItinerary) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
-        ModelAndView model = new ModelAndView("itineraryDetail");
-
-        Iterable<String> pois_id = ItineraryManager.findPoiByItinerary(pm, id);
-        Iterable<? extends CompletePOI> pois = pm.getCompletePoisById(pois_id);
-        //x ogni id poi devo visualizzare le off stock e le off card
-
-        model.addObject("id",id);
-        model.addObject("pois", pois);
-
+        int idUser = user.getId().intValue();
+        ModelAndView model = null;
+        
+        int status = ItineraryManager.findStatusByIdItinerary(pm,idItinerary,idUser);
+        System.out.println("status="+status);
+        if (status == 0){
+            model = ItineraryManager.viewItineraryDetail(pm, idItinerary);
+        }
+        else{
+            if(status == 1){
+                //dettaglio it completato
+                model = ItineraryManager.viewCompleteItineraryDetail(pm, idItinerary);
+            }
+        }
         return model;
     }
 
     @RequestMapping(value = "/viewOfferPoi", method = RequestMethod.GET)
     public @ResponseBody
-    ModelAndView viewItineraryDetail(@RequestParam String idPoi, @RequestParam int idItinerary) {
+    ModelAndView viewOfferPoi(@RequestParam String idPoi, @RequestParam int idItinerary) {
         
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
-        ModelAndView model = new ModelAndView("viewOffers");
-
-        
-        
-        List<Map<String,String>> price_comp = new ArrayList<Map<String, String>>();
-        
-        
-        
-        CompletePOI poi = pm.getCompletePoiById(idPoi);
-        String poi_name = poi.getName();
-
-        //off card
-        List<DealerOffer> offers = pm.findOfferByIdPoi(idPoi);
-        
-        Integer iddetail = pm.findItDetail(idItinerary);
-        
-        
-        
-        List<Integer>idOffer_choice = pm.findChoiceCardByUser(iddetail);
-        List<String>typeStock_choice = pm.findChoiceStockByUser(iddetail); 
-        
-        model.addObject("offers", offers);
-        model.addObject("poi_name", poi_name);
-        model.addObject("idPoi",idPoi);
-        model.addObject("idItinerary",idItinerary);
-        model.addObject("idOffer_choice",idOffer_choice);
-        model.addObject("typeStock_choice",typeStock_choice);
-
-        //off stock
-        
-
-        PricesComponent tp = null;
-        for (AbstractPoiComponent comp : poi.getComponents()) {
-            String slug = comp.slug();
-            int index = slug.lastIndexOf(".");
-            Class c;
-            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
-            if (cname.equals("prices")) {
-                try {
-                    c = Class.forName(slug);
-                    tp = (PricesComponent) comp;
-
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        if (tp != null) {
-            for (TicketPrice p : tp.getPrices()) {
-                    Map<String, String> mo = new HashMap<String, String>();
-                    mo.put("type", p.getType());
-                    mo.put("desc", p.getType_description());
-                    Double pr = p.getPrice();
-                    mo.put("price", pr.toString());
-
-                    price_comp.add(mo);
-                    
-                    
-                }
-            
-            }
-            model.addObject("price_comp",price_comp);
-
-                            
-
+        ModelAndView model = ItineraryManager.viewOfferPoi(pm, idItinerary, idPoi);
         return model;
     }
-    
-    
     
     @RequestMapping(value = "/removeItinerary", method = RequestMethod.GET)
     public @ResponseBody
@@ -255,14 +148,17 @@ public class ItineraryController {
         int idUser = user.getId().intValue();
         ItineraryManager.removeItinerary(pm,idItinerary,idUser);
     }
-        
     
-     @RequestMapping(value = "/empty", method = RequestMethod.GET)
-     public @ResponseBody
-    ModelAndView emptyPage(){
-        ModelAndView model = new ModelAndView("empty");
-        return model;
+    @RequestMapping(value = "/completeItinerary", method = RequestMethod.GET)
+    public @ResponseBody
+    void completeItinerary(@RequestParam Integer idItinerary) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = pm.findUserByUsername(auth.getName());
+        int idUser = user.getId().intValue();
+        ItineraryManager.completeItinerary(pm,idItinerary,idUser);
+        
         
     }
-     
+    
+    
 }

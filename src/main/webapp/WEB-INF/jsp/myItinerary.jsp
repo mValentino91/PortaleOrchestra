@@ -108,6 +108,16 @@
                     font-weight: bold;
                     cursor: pointer;
                 }
+                
+                .complit{
+                    display: table-cell;
+                    overflow: hidden;
+                    vertical-align: middle;
+                    border: 0px solid red;
+                    color: green;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
 
                 .modal-dialog {
                     width: 90%;
@@ -133,6 +143,35 @@
                                 }
                             });
                             
+                        });
+                    });
+                    
+                    $(".complit").each(function (index) {
+                        var sel = $(this);
+                        $(this).on("click", function () {
+                            var idItinerary = sel.parent().attr("idItinerary");
+                             $.ajax({
+                        
+                                type: "GET",
+                                url: "./completeItinerary",
+                                data: "idItinerary="+ idItinerary,
+
+                                success: function(){
+                                    alert("itinerario completato!");
+                                }
+                            });
+                            
+                        });
+                    });
+                    
+                    $("#btn_new_it").click(function () {
+                        var content = $("#it_name").val();
+                        alert(content);
+
+                        $.ajax({
+                            type: "GET",
+                            url: "./newItinerary",
+                            data: "name=" + content
                         });
                     });
                 });
@@ -176,22 +215,6 @@
                     </div>
                 </div>
 
-                <script>
-
-                    $("#btn_new_it").click(function () {
-                        var content = $("#it_name").val();
-                        alert(content);
-
-                        $.ajax({
-                            type: "GET",
-                            url: "./newItinerary",
-                            data: "name=" + content
-                        });
-                    });
-
-
-                </script>
-
                 <div id="nuovo_it" class="new_it_button" data-toggle="modal" data-target="#myModal">Crea un nuovo itinerario</div>
 
                 <article class="component component-text">
@@ -210,23 +233,27 @@
 
                                                 <div class="poi_it_name_container" idItinerary="${it.idItinerary}">
                                                     <div class="poi_it_name">
-                                                        <a href="./myItineraryDetail?id=${it.idItinerary}">${it.name}</a>                                       
+                                                        <a href="./myItineraryDetail?idItinerary=${it.idItinerary}">${it.name}</a>                                       
                                                     </div>
 
                                                     <c:choose>
                                                         <c:when test="${it.status == 0}">
                                                             <div class="poi_it_status">ATTIVO</div>
+                                                            <div class="complit">V</div>
+                                                            <div class="delit">X</div>     
                                                         </c:when>
 
                                                         <c:when test="${it.status == 1}">
                                                             <div class="poi_it_status">COMPLETO</div>
+                                                            <div class="delit">X</div>     
                                                         </c:when>    
 
                                                         <c:when test="${it.status == 2}">
                                                             <div class="poi_it_status">SCADUTO</div>
                                                         </c:when>                                                        
                                                     </c:choose>
-                                                    <div class="delit">X</div>        
+
+                                                    
                                                 </div>
                                             </div>
                                         </c:forEach>
@@ -244,13 +271,11 @@
             </div>
 
             <div class="col-md-8">
-                <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
                 <article class="component component-text">
                     <div class="details">
-                        <jsp:include page="components/mapPageComponent.jsp"/>
+                        infografica
                     </div>
                 </article>
-
             </div>
 
             <div class="col-xs-12" id="footer">

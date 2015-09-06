@@ -47,9 +47,14 @@
                                     <div class="poi_preview_content">
 
                                         <div class="poi_preview_text">
+                                            <c:set var="pid" scope="session" value="${p.id}"/>
+
+                                            <c:set var="noff" scope="session" value="${poi_offc.get(pid)}"/>
                                             <a href="./getPoi?id=${p.id}" target="_blank"><i class="fa fa-info-circle info" style="cursor:pointer; color: #2980B9; font-size:16px;" data-toggle="tooltip" data-original-title="Maggiori informazioni"></i></a>
-                                            <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
-                                            <!--<input type="checkbox" name="checkboxG4" id="checkbox" class="sel css-checkbox" style="font-size: 11px;"/><label for="checkboxG4" class="css-label">Seleziona</label>-->
+                                            <c:if test="${noff > 0}">
+                                                <i class="fa fa-credit-card" style="font-size:16px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
+                                            </c:if>
+                                                <!--<input type="checkbox" name="checkboxG4" id="checkbox" class="sel css-checkbox" style="font-size: 11px;"/><label for="checkboxG4" class="css-label">Seleziona</label>-->
                                             <!--<input type="checkbox" class="sel"/>--->
                                         </div>
                                         <div class="poi_preview_title">

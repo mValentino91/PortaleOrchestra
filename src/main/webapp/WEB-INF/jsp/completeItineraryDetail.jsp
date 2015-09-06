@@ -113,29 +113,7 @@
 
 
             <div class="col-md-4">
-                <!-- Modal -->
-                <div id="modalOffer" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"></h4>
-                            </div>
-                            <div class="modal-body">
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button id="btn_new_it" type="button" class="btn btn-primary" data-dismiss="modal">Crea</button>  
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Annulla</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
+                
                 <article class="component component-text">
                     <div class="details">
                         <div class="paragrafo">
@@ -150,8 +128,7 @@
 
                                         <div class="poi_it_name_container">
                                             <div class="poi_it_name">
-                                                ${poi.name}       
-                                                <div style="display:inline-block" data-toggle="modal" data-target="#modalOffer" href="./viewOfferPoi?idPoi=${poi.id}&idItinerary=${id}">Offerte</div>
+                                                ${poi.name}                                                      
                                             </div>
 
 

@@ -8,6 +8,7 @@ package com.orchestra.portale.persistence.sql.repositories;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 /**
  *
@@ -17,6 +18,8 @@ public interface DealerOfferRepository extends JpaRepository<DealerOffer, Intege
     List<DealerOffer> findOfferByIdPoi(String idPoi);
     DealerOffer findOfferByIdOffer(int idOffer);
     List<DealerOffer> findOfferByIdDealer(String idDealer);
-    
-    
+
+    @Query("SELECT count(*) FROM DealerOffer d WHERE d.idDealer =?1")
+    int countOfferByIdPoi(String idPoi);
+
 }
