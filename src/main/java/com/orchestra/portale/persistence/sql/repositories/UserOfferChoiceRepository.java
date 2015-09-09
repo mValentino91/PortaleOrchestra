@@ -48,6 +48,7 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
     @Query("update UserOfferChoice u set u.qta=?1, u.sum=?2 where u.stockType=?3")
     void updateUserChoiceStock(int qta, float tot, String type);
 
+    //@Query("select * from UserOfferChoice u where u.idItineraryDetail=?1")
     @Query("select u.idOffer from UserOfferChoice u where u.idItineraryDetail=?1")
     List<Integer> findIdOfferByIdItineraryDetail(Integer iddetail);
 

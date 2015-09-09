@@ -167,6 +167,7 @@ public class ItineraryManager{
     
     
     public static ModelAndView viewOfferPoi(PersistenceManager pm, int idItinerary, String idPoi){
+       
         ModelAndView model = new ModelAndView("viewOffers");
         
         
@@ -179,13 +180,16 @@ public class ItineraryManager{
         List<DealerOffer> offers = pm.findOfferByIdPoi(idPoi);
         
         Integer iddetail = pm.findItDetail(idItinerary);
+        //List<Integer>idOffer_choice = pm.findChoiceCardByUser(iddetail);
         List<Integer>idOffer_choice = pm.findChoiceCardByUser(iddetail);
+        
         List<String>typeStock_choice = pm.findChoiceStockByUser(iddetail); 
         
         model.addObject("offers", offers);
         model.addObject("poi_name", poi_name);
         model.addObject("idPoi",idPoi);
         model.addObject("idItinerary",idItinerary);
+        //model.addObject("user_cardChoices",user_cardChoices);
         model.addObject("idOffer_choice",idOffer_choice);
         model.addObject("typeStock_choice",typeStock_choice);
 

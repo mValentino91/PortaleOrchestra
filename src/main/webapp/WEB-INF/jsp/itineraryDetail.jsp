@@ -124,7 +124,7 @@
                                 <h4 class="modal-title"></h4>
                             </div>
                             <div class="modal-body">
-
+                                pippoo
 
                             </div>
                             <div class="modal-footer">
