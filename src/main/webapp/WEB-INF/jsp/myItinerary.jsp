@@ -239,7 +239,6 @@
                                                     <c:choose>
                                                         <c:when test="${it.status == 0}">
                                                             <div class="poi_it_status">ATTIVO</div>
-                                                            <div class="complit">V</div>
                                                             <div class="delit">X</div>     
                                                         </c:when>
 

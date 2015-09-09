@@ -108,7 +108,13 @@
         <div class="container-fixed">
 
             <div class="col-md-12">
-                <div class="cover_favorite_img" style="background-color: #285E8E;"></div>
+                <div class="cover_favorite_img" style="background-color: #285E8E;">
+                    <div class="poi_it_img" style="line-height: 200px; margin-left: 100px;">
+                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                                        </div>
+                    <span style="line-height: 200px; margin-right: 500px; color:#fff; border: 1px solid #fff;">Nome itinerario</span>
+                    <span style="color:#fff; border: 1px solid #fff;">Paga 50€</span>
+                </div>
             </div>
 
 
@@ -163,7 +169,7 @@
 
                                 <div class="clear"></div>    
                             </div>
-                            <div>Completa itinerario</div>
+                            <div id="complit">Completa itinerario</div>
                         </div>    
                     </div>
                 </article>
@@ -191,12 +197,25 @@
 
         <jsp:include page="access/loginModal.jsp" />
         <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
+        
+        <script>
+            $("#complit").click(function () {
+                $.ajax({
+                        
+                    type: "GET",
+                    url: "./completeItinerary",
+                    data: "idItinerary="+ ${id},
 
+                    success: function(){
+                        alert("itinerario completato!");
+                    }
+                });
+                
+            });
+            
+            
+            
+        </script>
 
     </body>
-</html>
-
-
-
-</body>
 </html>
