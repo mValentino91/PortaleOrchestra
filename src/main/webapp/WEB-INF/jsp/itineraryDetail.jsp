@@ -163,6 +163,7 @@
 
                                 <div class="clear"></div>    
                             </div>
+                            <div>Completa itinerario</div>
                         </div>    
                     </div>
                 </article>
