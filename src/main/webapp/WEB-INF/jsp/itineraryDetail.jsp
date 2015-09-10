@@ -177,12 +177,7 @@
 
             <div class="col-md-8">
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
-                <article class="component component-text">
-                    <div class="details">
-                                <jsp:include page="components/mapPageComponent.jsp"/>
-                           
-                    </div>
-                </article>
+                <jsp:include page="components/mapPageComponent.jsp"/>
 
             </div>
 
