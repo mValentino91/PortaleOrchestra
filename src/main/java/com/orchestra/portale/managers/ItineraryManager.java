@@ -46,10 +46,10 @@ public class ItineraryManager{
          
     }
     
-    public static void addOffer(PersistenceManager pm, int idItinerary, Integer idOffer, int qta, float sum, String type, String name, String desc){
+    public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi,Integer idOffer, int qta, float sum, String type, String name, String desc){
         
         float tot = sum*qta;
-        Integer iddetail = pm.findItDetail(idItinerary);
+        Integer iddetail = pm.findItDetail(idItinerary, idPoi);
         Integer uc_id=null;
         
         
@@ -92,9 +92,9 @@ public class ItineraryManager{
          
     }
     
-    public static void removeOffer(PersistenceManager pm, int idOffer, int idItinerary, String name, String type){
+    public static void removeOffer(PersistenceManager pm, int idOffer, String idPoi, int idItinerary, String name, String type){
        
-        Integer iddetail = pm.findItDetail(idItinerary);
+        Integer iddetail = pm.findItDetail(idItinerary,idPoi);
         
         switch (type) {
             case "CARD":
@@ -179,20 +179,22 @@ public class ItineraryManager{
         //off card
         List<DealerOffer> offers = pm.findOfferByIdPoi(idPoi);
         
-        Integer iddetail = pm.findItDetail(idItinerary);
+        Integer iddetail = pm.findItDetail(idItinerary,idPoi);
         //List<Integer>idOffer_choice = pm.findChoiceCardByUser(iddetail);
         //List<Integer>idOffer_choice = pm.findChoiceCardByUser(iddetail);
         List<UserOfferChoice>user_cardChoices = pm.findChoiceCardByUser(iddetail);
+        List<UserOfferChoice>user_stockChoices = pm.findChoiceStockByUser(iddetail);
         
-        List<String>typeStock_choice = pm.findChoiceStockByUser(iddetail); 
+        
         
         model.addObject("offers", offers);
         model.addObject("poi_name", poi_name);
         model.addObject("idPoi",idPoi);
         model.addObject("idItinerary",idItinerary);
         model.addObject("user_cardChoices",user_cardChoices);
+        model.addObject("user_stockChoices",user_stockChoices);
         //model.addObject("idOffer_choice",idOffer_choice);
-        model.addObject("typeStock_choice",typeStock_choice);
+        //model.addObject("typeStock_choice",typeStock_choice);
 
         //off stock
         

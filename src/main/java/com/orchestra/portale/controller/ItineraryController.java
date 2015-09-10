@@ -80,13 +80,13 @@ public class ItineraryController {
 
     @RequestMapping(value = "/addOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    void addOfferItinerary(@RequestParam int qta, @RequestParam Integer id_offer, @RequestParam float sum, @RequestParam String type, @RequestParam Integer idItinerary, @RequestParam String name, @RequestParam String desc) {
+    void addOfferItinerary(@RequestParam int qta, @RequestParam String idPoi,@RequestParam Integer id_offer, @RequestParam float sum, @RequestParam String type, @RequestParam Integer idItinerary, @RequestParam String name, @RequestParam String desc) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
         
         if(idItinerary != null){
-            ItineraryManager.addOffer(pm, idItinerary, id_offer, qta, sum, type, name, desc);
+            ItineraryManager.addOffer(pm, idItinerary,idPoi,id_offer, qta, sum, type, name, desc);
             //se l'offerta ke inserisco e gia presente aggiorno solo qta e prezzo
         }
         
@@ -95,13 +95,13 @@ public class ItineraryController {
     
     @RequestMapping(value = "/removeOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    void removeOfferItinerary(@RequestParam Integer id_offer, @RequestParam Integer idItinerary, @RequestParam String name, @RequestParam String type) {
+    void removeOfferItinerary(@RequestParam Integer id_offer, @RequestParam Integer idItinerary, @RequestParam String idPoi, @RequestParam String name, @RequestParam String type) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
         
         if(idItinerary != null){
-            ItineraryManager.removeOffer(pm, id_offer,idItinerary, name,type);
+            ItineraryManager.removeOffer(pm, id_offer,idPoi,idItinerary, name,type);
         }
         
     }

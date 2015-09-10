@@ -52,10 +52,12 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
     @Query("select u.idOffer from UserOfferChoice u where u.idItineraryDetail=?1")
     List<Integer> findIdOfferByIdItineraryDetail(Integer iddetail);
 
-    @Query("select u.stockType from UserOfferChoice u where u.idItineraryDetail=?1")
-    List<String> findTypeStockByIdItineraryDetail(Integer iddetail);
+    @Query("SELECT u FROM UserOfferChoice u WHERE u.idItineraryDetail=?1 AND u.type = 'STOCK'")
+    List<UserOfferChoice> findTypeStockByIdItineraryDetail(Integer iddetail);
 
-    List<UserOfferChoice> findByIdItineraryDetail(Integer iddetail);
+    
+    @Query("SELECT u FROM UserOfferChoice u WHERE u.idItineraryDetail=?1 AND u.type = 'CARD'")
+    List<UserOfferChoice> findChoiceCardByIdItineraryDetail(Integer iddetail);
 
     
     

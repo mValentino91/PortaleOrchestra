@@ -111,16 +111,18 @@
                         <div style="clear: both"></div>
                     </c:when>
                     <c:otherwise>
+                        
+                                    
                         <c:forEach var="idc" items="${user_cardChoices}">
                             <c:choose>
                                 <c:when test="${idc.idOffer == off.idOffer}">
-                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
+                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">V</span>
                                     <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                                     <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
                                     <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
                                     <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
                                         <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
+                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${idc.qta}"/>
                                         <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
                                     </span> 
                                     <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
@@ -130,7 +132,7 @@
                                     <div style="clear: both"></div>
                                 </c:when>
                                 <c:otherwise>
-                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>    
+                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>                        
                                     <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                                     <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
                                     <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
@@ -143,14 +145,14 @@
                                     <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
                                     <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
                                     <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
-                                    <div style="clear: both"></div
+                                    <div style="clear: both"></div>
                                 </c:otherwise>  
 
                             </c:choose>
                         </c:forEach>
+                                    
                     </c:otherwise>
                 </c:choose>
-
             </div>                   
         </c:forEach>
 
@@ -159,7 +161,7 @@
         <c:forEach var="stock" items="${price_comp}">
             <div type="STOCK" idItinerary="${idItinerary}" idPoi="${idPoi}" fullPrice="${stock.get("price")}">
                 <c:choose>
-                    <c:when test="${empty user_cardChoices}">
+                    <c:when test="${empty user_stockChoices}">
                         <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
                         <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
@@ -175,17 +177,18 @@
                         <div style="clear: both"></div>
                     </c:when>
                     <c:otherwise>
-                        <c:forEach var="idc" items="${user_cardChoices}">
+                                          
+                        <c:forEach var="idcs" items="${user_stockChoices}">
                             <c:choose>
-                                <c:when test="${idc.stockType == stock.get('type')}">
-                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
+                                <c:when test="${idcs.stockType == stock.get('type')}">
+                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">V</span>
                                     <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                                     <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
                                     <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
 
                                     <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
                                         <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
+                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${idcs.qta}"/>
                                         <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
                                     </span>                        
 
@@ -205,11 +208,11 @@
                                     </span>                        
 
                                     <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${stock.get("price")}</span>
-                                    <div style="clear: both"></div>
-                                
+                                    <div style="clear: both"></div>              
                                 </c:otherwise>
                             </c:choose>
                         </c:forEach>
+                       
                     </c:otherwise>    
                 </c:choose>        
             </div>            
@@ -273,6 +276,7 @@
                     var sel_name = sel;
                     var add = sel.siblings(".add");
                     var idItinerary = sel.parent().attr("idItinerary");
+                    var idPoi = sel.parent().attr("idPoi");
                     var idOffer = -1;
                     var name = null;
                     var type = sel.parent().attr("type");
@@ -288,7 +292,7 @@
                     $.ajax({
                         type: "GET",
                         url: "./removeOfferItinerary",
-                        data: "id_offer=" + idOffer + "&idItinerary=" + idItinerary + "&name=" + name + "&type=" + type,
+                        data: "id_offer=" + idOffer + "&idItinerary=" + idItinerary + "&idPoi=" + idPoi + "&name=" + name + "&type=" + type,
                         success: function () {
                             add.text("+");
                             sel.hide();
@@ -334,7 +338,7 @@
                     $.ajax({
                         type: "GET",
                         url: "./addOfferItinerary",
-                        data: "qta=" + qta.val() + "&id_offer=" + idOffer + "&sum=" + sum + "&type=" + type + "&idItinerary=" + idItinerary + "&name=" + name + "&desc=" + desc,
+                        data: "qta=" + qta.val() + "&idPoi=" + idPoi +"&id_offer=" + idOffer + "&sum=" + sum + "&type=" + type + "&idItinerary=" + idItinerary + "&name=" + name + "&desc=" + desc,
                         success: function () {
                             sel_name.text("V");
                             del.show();

@@ -654,8 +654,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public Integer findItDetail(int idItinerary) {
-        return itdRepo.findItDetailByIdItineraryAndIdPoi(idItinerary);
+    public Integer findItDetail(int idItinerary, String idPoi) {
+        return itdRepo.findItDetailByIdItineraryAndIdPoi(idItinerary,idPoi);
     }
 
     @Override
@@ -716,11 +716,11 @@ public class ConcretePersistenceManager implements PersistenceManager {
 
     @Override
     public List<UserOfferChoice> findChoiceCardByUser(Integer iddetail) {
-        return ucRepo.findByIdItineraryDetail(iddetail);
+        return ucRepo.findChoiceCardByIdItineraryDetail(iddetail);
     }
-
+    
     @Override
-    public List<String> findChoiceStockByUser(Integer iddetail) {
+    public List<UserOfferChoice> findChoiceStockByUser(Integer iddetail) {
         return ucRepo.findTypeStockByIdItineraryDetail(iddetail);
     }
 

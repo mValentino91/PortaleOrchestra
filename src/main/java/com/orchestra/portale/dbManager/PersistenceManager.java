@@ -107,7 +107,7 @@ public interface PersistenceManager {
     //public void saveUserItinerary(UserItinerary uit);
     public void savePoiItinerary(ItineraryDetail id);
     public void saveUserChoice(UserOfferChoice uc);
-    public Integer findItDetail(int idItinerary);
+    public Integer findItDetail(int idItinerary,String idPoi);
     public void deleteOfferCard(Integer idOffer, Integer idItineraryDetail);
     public Integer findIdDetailByidOffer(Integer idOffer);
     public Integer findItineraryByIdItineraryDetail(int idItineraryDetail);
@@ -120,7 +120,7 @@ public interface PersistenceManager {
     public void updateUserChoiceStock(int qta, float tot, String type);
     public void deleteOfferStock(String name, Integer idItineraryDetail);
     public List<UserOfferChoice> findChoiceCardByUser(Integer iddetail);
-    public List<String> findChoiceStockByUser(Integer iddetail);
+    public List<UserOfferChoice> findChoiceStockByUser(Integer iddetail);
     
     public void deleteItinerary(Integer idItinerary,int idUser);
     public int countOfferCard(String idPoi);

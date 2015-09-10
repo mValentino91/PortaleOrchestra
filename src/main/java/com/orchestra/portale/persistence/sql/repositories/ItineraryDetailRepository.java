@@ -14,8 +14,8 @@ import org.springframework.data.jpa.repository.Query;
  * @author andzaccaro
  */
 public interface ItineraryDetailRepository extends JpaRepository<ItineraryDetail, Integer> {
-    @Query("select i.idItineraryDetail from ItineraryDetail i where i.idItinerary=?1")
-    Integer findItDetailByIdItineraryAndIdPoi(int idItinerary);
+    @Query("select i.idItineraryDetail from ItineraryDetail i where i.idItinerary=?1 AND i.idPoi=?2")
+    Integer findItDetailByIdItineraryAndIdPoi(int idItinerary,String idPoi);
     
    @Query("select i.idItinerary from ItineraryDetail i where i.idItineraryDetail=?1")
    Integer findItineraryByIdItineraryDetail(int idItineraryDetail);
