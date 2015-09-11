@@ -143,14 +143,95 @@ public class ItineraryManager{
     
     public static ModelAndView viewCompleteItineraryDetail(PersistenceManager pm, int idItinerary){
         ModelAndView model = new ModelAndView("completeItineraryDetail");
+        
+        Map<String,CompletePOI>map_poi = new HashMap<String,CompletePOI>();
+        Map<Integer,DealerOffer>map_dealerOffer = new HashMap<Integer,DealerOffer>();
+        Map<String,List<UserOfferChoice>>map_stockChoice = new HashMap<String,List<UserOfferChoice>>();
+        Map<String,List<UserOfferChoice>>map_cardChoice = new HashMap<String,List<UserOfferChoice>>();
+        
+        Iterable<String> pois_id = pm.findPoisByItinerary(idItinerary);
+        Iterable<Integer> details = pm.findIdDetailByIdItinerary(idItinerary);
+        Iterable<Integer>dealerChoice = null;
+        //carico poi dell'itinerario
+        for(String pid: pois_id){
+            CompletePOI poi = pm.getCompletePoiById(pid);
+            map_poi.put(pid, poi);
+            
+            //recupero detail dato idpoi ed iditinerary
+            int idd = pm.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary,pid);
+            List<UserOfferChoice>stockChoice = pm.findChoiceStockByUser(idd);
+            List<UserOfferChoice>cardChoice = pm.findChoiceCardByUser(idd);
+            map_stockChoice.put(pid, stockChoice);
+            map_cardChoice.put(pid, cardChoice);
+            dealerChoice = pm.findIdOfferByIdItineraryDetail(idd);
+            
+            for(Integer idOffer: dealerChoice){
+                DealerOffer off = pm.findDealerOfferByidOffer(idOffer);
+                map_dealerOffer.put(idOffer, off);
+                
+            }
+        
+            //
+            
+            /*
+            for(Integer idd: details){
+                List<UserOfferChoice>stockChoice = pm.findChoiceStockByUser(idd);
+                System.out.println("numero="+stockChoice.size());
+                List<UserOfferChoice>cardChoice = pm.findChoiceCardByUser(idd);
+                dealerChoice = pm.findIdOfferByIdItineraryDetail(idd);
+                map_stockChoice.put(pid, stockChoice);
+                map_cardChoice.put(pid, cardChoice);
+            }
+            
+            for(Integer idOffer: dealerChoice){
+                DealerOffer off = pm.findDealerOfferByidOffer(idOffer);
+                map_dealerOffer.put(idOffer, off);
+                
+            }
+                    */
+        }
+
+        model.addObject("map_poi",map_poi);
+        model.addObject("map_dealerOffer",map_dealerOffer);
+        model.addObject("map_stockChoice",map_stockChoice);
+        model.addObject("map_cardChoice",map_cardChoice);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        /*
         Iterable<String> pois_id = pm.findPoisByItinerary(idItinerary);
         Iterable<? extends CompletePOI> pois = pm.getCompletePoisById(pois_id);
+        Map<CompletePOI, List<UserOfferChoice>> map_choices = new HashMap<CompletePOI,List<UserOfferChoice>>();
         //x ogni id poi devo visualizzare le off stock e le off card
-
+        List<UserOfferChoice>user_offers;
+        String idPoi;
+        Iterable<Integer> details = pm.findIdDetailByIdItinerary(idItinerary);
+        //user_offers=pm.findByIdItineraryDetail(4);
+        Map<String,CompletePOI>map_poi = new HashMap<String,CompletePOI>();
+        //Map<String,List
+        
+        
+        for(Integer idd: details){
+            user_offers=pm.findByIdItineraryDetail(idd);
+            idPoi = pm.findIdPoiByIdItineraryDetail(idd);
+            CompletePOI poi = pm.getCompletePoiById(idPoi);
+            map_choices.put(poi, user_offers);
+        }
+        
+        
+        
         model.addObject("id",idItinerary);
-        model.addObject("pois", pois);
+        model.addObject("map_choices",map_choices);
+                */
         return model;
     }
+        
     
     public static ModelAndView viewItineraryDetail(PersistenceManager pm, int idItinerary){
         ModelAndView model = new ModelAndView("itineraryDetail");
@@ -161,6 +242,9 @@ public class ItineraryManager{
 
         model.addObject("id",idItinerary);
         model.addObject("pois", pois);
+        
+        
+               
         return model;
     }
     
@@ -238,6 +322,10 @@ public class ItineraryManager{
 
     public static int findStatusByIdItinerary(PersistenceManager pm, int idItinerary,int idUser) {
         return pm.findStatusByIdItinerary(idItinerary,idUser);
+    }
+
+    private static void findIdDetailByIdItinerary(int idItinerary) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

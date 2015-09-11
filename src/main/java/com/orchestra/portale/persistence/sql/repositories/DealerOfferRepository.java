@@ -22,4 +22,6 @@ public interface DealerOfferRepository extends JpaRepository<DealerOffer, Intege
     @Query("SELECT count(*) FROM DealerOffer d WHERE d.idDealer =?1")
     int countOfferByIdPoi(String idPoi);
 
+    DealerOffer findByidOffer(Integer idOffer);
+
 }

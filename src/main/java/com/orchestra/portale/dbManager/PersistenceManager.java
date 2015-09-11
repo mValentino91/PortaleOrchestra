@@ -127,6 +127,16 @@ public interface PersistenceManager {
     public void completeItinerary(Integer idItinerary, int idUser);
     public int findStatusByIdItinerary(int idItinerary, int idUser);
 
+    public Iterable<Integer> findIdDetailByIdItinerary(int idItinerary);
+
+    public List<UserOfferChoice> findByIdItineraryDetail(Integer idItineraryDetail);
+
+
+    public Iterable<Integer> findIdOfferByIdItineraryDetail(Integer idItineraryDetail);
+
+    public DealerOffer findDealerOfferByidOffer(Integer idOffer);
+
+    public int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
     
 
 }

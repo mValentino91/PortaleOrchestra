@@ -124,9 +124,69 @@
                     <div class="details">
                         <div class="paragrafo">
                             <div class="itinerary-container">
+                                
+                                
+                                
+                                <c:forEach var="poi" items="${map_poi.keySet()}">
+                                    <div class="poi_it_container">
+                                        
+                                        <div class="poi_it_img">
+                                            <img src="./dist/poi/img/${map_poi.get(poi).id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                                        </div>
 
+                                        <div class="poi_it_name_container">
+                                            <div class="poi_it_name">
+                                                ${map_poi.get(poi).name}                                                     
+                                            </div>
+                                        </div>
+                                        <div class="poi_off_stock">
+                                            <c:forEach var="stock" items="${map_stockChoice.get(poi)}">
+                                                    <div style="border:1px solid red;">${stock.description}
+                                                    ${stock.qta}
+                                                    </div>
+                                                
+                                                
+                                            </c:forEach>
+                                        </div>
+                                        
+                                        <div class="poi_off_card">
+                                            <c:forEach var="card" items="${map_cardChoice.get(poi)}">
+                                                <div style="border:1px solid red;">${stock.description}
+                                                    <c:set var="x" value="${card.idOffer}"/>
+                                                    ${map_dealerOffer.get(x).nome}
+                                                </div>
+                                            </c:forEach>
+                                        </div>    
+                                            
+                                    </div>
+                                    
+                                </c:forEach>
+                                
+                                
+                                <%--
+                                <c:forEach var="poi" items="${map_poi.keySet()}">
+                                    <div class="poi_it_container">
+                                        <div class="poi_it_img">
+                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                                        </div>
 
-                                <c:forEach var="poi" items="${pois}">
+                                        <div class="poi_it_name_container">
+                                            <div class="poi_it_name">
+                                                ${poi.name}                                                      
+                                            </div>
+                                        </div>
+                                        
+                                        <c:forEach var="off" items="${map_choices.get(poi)}">
+                                           <li>${off.description}</li>
+                                        </c:forEach>
+                                    </div>
+                                    
+                                    
+                                </c:forEach>
+                                    --%>
+                                    
+                                    <%--
+                                    
                                     <div class="poi_it_container">
                                         <div class="poi_it_img">
                                             <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
@@ -140,7 +200,8 @@
 
                                         </div>
                                     </div>
-                                </c:forEach>
+                                    --%>
+                                
 
 
 

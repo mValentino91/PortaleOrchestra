@@ -743,5 +743,31 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public int findStatusByIdItinerary(int idItinerary, int idUser) {
         return itRepo.findStatusByIdItinerary(idItinerary,idUser);
     }
-    
+
+    @Override
+    public Iterable<Integer> findIdDetailByIdItinerary(int idItinerary) {
+        return itdRepo.findIdItineraryDetailByIdItinerary(idItinerary);
+    }
+
+    @Override
+    public List<UserOfferChoice> findByIdItineraryDetail(Integer idItineraryDetail) {
+        return ucRepo.findByIdItineraryDetail(idItineraryDetail);
+    }
+
+
+    @Override
+    public Iterable<Integer> findIdOfferByIdItineraryDetail(Integer idItineraryDetail) {
+        return ucRepo.findIdOfferByIdItineraryDetail(idItineraryDetail);
+    }
+
+    @Override
+    public DealerOffer findDealerOfferByidOffer(Integer idOffer) {
+        return dealerRepo.findByidOffer(idOffer);
+    }
+
+    @Override
+    public int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi) {
+        return itdRepo.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary,idPoi);
+    }
+
 }

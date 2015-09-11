@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DealerOffer.findAll", query = "SELECT d FROM DealerOffer d"),
-    @NamedQuery(name = "DealerOffer.findByIdOffer", query = "SELECT d FROM DealerOffer d WHERE d.idOffer = :idOffer"),
+    //@NamedQuery(name = "DealerOffer.findByIdOffer", query = "SELECT d FROM DealerOffer d WHERE d.idOffer = :idOffer"),
     @NamedQuery(name = "DealerOffer.findByIdDealer", query = "SELECT d FROM DealerOffer d WHERE d.idDealer = :idDealer"),
     @NamedQuery(name = "DealerOffer.findByIdPoi", query = "SELECT d FROM DealerOffer d WHERE d.idPoi = :idPoi"),
     @NamedQuery(name = "DealerOffer.findByNome", query = "SELECT d FROM DealerOffer d WHERE d.nome = :nome"),
