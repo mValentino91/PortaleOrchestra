@@ -119,10 +119,7 @@
                     cursor: pointer;
                 }
 
-                .modal-dialog {
-                    width: 90%;
-                }
-                
+               
 
             </style>
             
@@ -189,11 +186,12 @@
                 <jsp:include page="components/CoverComponentFavorites.jsp"/>
             </div>
 
+            
 
             <div class="col-md-4">
-                <!-- Modal -->
-                <div id="myModal" class="modal fade modal-lg" role="dialog">
-                    <div class="modal-dialog modal-lg">
+               <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
 
                         <!-- Modal content-->
                         <div class="modal-content">
@@ -214,6 +212,8 @@
 
                     </div>
                 </div>
+                
+                
 
                 <div id="nuovo_it" class="new_it_button" data-toggle="modal" data-target="#myModal">Crea un nuovo itinerario</div>
 
