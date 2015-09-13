@@ -124,19 +124,8 @@
                     <div class="modal-dialog">
 
                         <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title"></h4>
-                            </div>
-                            <div class="modal-body">
-                                pippoo
-
-                            </div>
-                            <div class="modal-footer">
-                                <button id="btn_new_it" type="button" class="btn btn-primary" data-dismiss="modal">Crea</button>  
-                                <button type="button" class="btn btn-primary" data-dismiss="modal">Annulla</button>
-                            </div>
+                        <div id="modalContent" class="modal-content">
+                            
                         </div>
 
                     </div>
@@ -149,7 +138,7 @@
 
 
                                 <c:forEach var="poi" items="${pois}">
-                                    <div class="poi_it_container">
+                                    <div class="poi_it_container" idPoi="${poi.id}" idItinerary="${id}">
                                         <div class="poi_it_img">
                                             <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
                                         </div>
@@ -157,7 +146,7 @@
                                         <div class="poi_it_name_container">
                                             <div class="poi_it_name">
                                                 ${poi.name}       
-                                                <div style="display:inline-block" data-toggle="modal" data-target="#modalOffer" href="./viewOfferPoi?idPoi=${poi.id}&idItinerary=${id}">Offerte</div>
+                                                <div class="selPoiOffer" style="display:inline-block" >Offerte</div>
                                             </div>
 
 
@@ -177,7 +166,7 @@
 
             <div class="col-md-8">
                 <!-- aggiungere controllo che visualizza una scritta se nn ci sono preferiti -->
-                <jsp:include page="components/mapPageComponent.jsp"/>
+                <jsp:include page="components/mapItineraryComponent.jsp"/>
 
             </div>
 
@@ -205,9 +194,27 @@
                         alert("itinerario completato!");
                     }
                 });
-                
             });
             
+            $(".selPoiOffer").each(function (index) {
+                var sel = $(this);
+               
+                $(this).on("click", function () {
+                     var parents = sel.parents();
+                     var idPoi = sel.parent().parent().parent().attr("idPoi");
+                     var idItinerary = sel.parent().parent().parent().attr("idItinerary");
+                     
+                     $.ajax({
+                        type: "GET",
+                        url: "./viewOfferPoi",
+                        data: "idPoi=" + idPoi + "&idItinerary=" + idItinerary,
+                        success: function (data) {
+                             $("#modalContent").html(data);
+                             $("#modalOffer").modal('show');
+                        }
+                    });
+                });
+            });
             
             
         </script>

@@ -190,11 +190,12 @@ public class ItineraryManager{
             }
                     */
         }
-
+        String prova = "ddd";
         model.addObject("map_poi",map_poi);
         model.addObject("map_dealerOffer",map_dealerOffer);
         model.addObject("map_stockChoice",map_stockChoice);
         model.addObject("map_cardChoice",map_cardChoice);
+        model.addObject("prova",prova);
         
         
         
