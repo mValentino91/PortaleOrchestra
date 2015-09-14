@@ -715,12 +715,12 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public List<UserOfferChoice> findChoiceCardByUser(Integer iddetail) {
+    public Iterable<UserOfferChoice> findChoiceCardByUser(Integer iddetail) {
         return ucRepo.findChoiceCardByIdItineraryDetail(iddetail);
     }
     
     @Override
-    public List<UserOfferChoice> findChoiceStockByUser(Integer iddetail) {
+    public Iterable<UserOfferChoice> findChoiceStockByUser(Integer iddetail) {
         return ucRepo.findTypeStockByIdItineraryDetail(iddetail);
     }
 

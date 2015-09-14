@@ -119,8 +119,8 @@ public interface PersistenceManager {
     public Integer retreiveUserChoiceStock(String type, int idItinerary);
     public void updateUserChoiceStock(int qta, float tot, String type);
     public void deleteOfferStock(String name, Integer idItineraryDetail);
-    public List<UserOfferChoice> findChoiceCardByUser(Integer iddetail);
-    public List<UserOfferChoice> findChoiceStockByUser(Integer iddetail);
+    public Iterable<UserOfferChoice> findChoiceCardByUser(Integer iddetail);
+    public Iterable<UserOfferChoice> findChoiceStockByUser(Integer iddetail);
     
     public void deleteItinerary(Integer idItinerary,int idUser);
     public int countOfferCard(String idPoi);

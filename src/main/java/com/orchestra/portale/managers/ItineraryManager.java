@@ -146,8 +146,8 @@ public class ItineraryManager{
         
         Map<String,CompletePOI>map_poi = new HashMap<String,CompletePOI>();
         Map<Integer,DealerOffer>map_dealerOffer = new HashMap<Integer,DealerOffer>();
-        Map<String,List<UserOfferChoice>>map_stockChoice = new HashMap<String,List<UserOfferChoice>>();
-        Map<String,List<UserOfferChoice>>map_cardChoice = new HashMap<String,List<UserOfferChoice>>();
+        Map<String,Iterable<UserOfferChoice>>map_stockChoice = new HashMap<String,Iterable<UserOfferChoice>>();
+        Map<String,Iterable<UserOfferChoice>>map_cardChoice = new HashMap<String,Iterable<UserOfferChoice>>();
         
         Iterable<String> pois_id = pm.findPoisByItinerary(idItinerary);
         Iterable<Integer> details = pm.findIdDetailByIdItinerary(idItinerary);
@@ -159,8 +159,8 @@ public class ItineraryManager{
             
             //recupero detail dato idpoi ed iditinerary
             int idd = pm.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary,pid);
-            List<UserOfferChoice>stockChoice = pm.findChoiceStockByUser(idd);
-            List<UserOfferChoice>cardChoice = pm.findChoiceCardByUser(idd);
+            Iterable<UserOfferChoice>stockChoice = pm.findChoiceStockByUser(idd);
+            Iterable<UserOfferChoice>cardChoice = pm.findChoiceCardByUser(idd);
             map_stockChoice.put(pid, stockChoice);
             map_cardChoice.put(pid, cardChoice);
             dealerChoice = pm.findIdOfferByIdItineraryDetail(idd);
@@ -254,9 +254,74 @@ public class ItineraryManager{
     public static ModelAndView viewOfferPoi(PersistenceManager pm, int idItinerary, String idPoi){
        
         ModelAndView model = new ModelAndView("viewOffers");
-        
+        CompletePOI poi = pm.getCompletePoiById(idPoi);
+        String poi_name = poi.getName();
+        Integer iddetail = pm.findItDetail(idItinerary,idPoi);
         
         List<Map<String,String>> price_comp = new ArrayList<Map<String, String>>();
+        List<DealerOffer> offers = pm.findOfferByIdPoi(idPoi);
+        
+        Map<String,UserOfferChoice>map_userChoice_stock = new HashMap<String,UserOfferChoice>();
+        Map<Integer,UserOfferChoice>map_userChoice_card = new HashMap<Integer,UserOfferChoice>();
+        
+        
+        //off stock
+        PricesComponent tp = null;
+        for (AbstractPoiComponent comp : poi.getComponents()) {
+            String slug = comp.slug();
+            int index = slug.lastIndexOf(".");
+            Class c;
+            String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+            if (cname.equals("prices")) {
+                try {
+                    c = Class.forName(slug);
+                    tp = (PricesComponent) comp;
+
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+        if (tp != null) {
+            for (TicketPrice p : tp.getPrices()) {
+                    Map<String, String> mo = new HashMap<String, String>();
+                    mo.put("type", p.getType());
+                    mo.put("desc", p.getType_description());
+                    Double pr = p.getPrice();
+                    mo.put("price", pr.toString());
+
+                    price_comp.add(mo);
+                    
+                }
+            }
+        
+        Iterable<UserOfferChoice>cardChoices = pm.findChoiceCardByUser(iddetail);
+        Iterable<UserOfferChoice>stockChoices = pm.findChoiceStockByUser(iddetail);
+        
+        for(UserOfferChoice uc: cardChoices){
+            map_userChoice_card.put(uc.getIdOffer(), uc);
+        }
+        
+        for(UserOfferChoice uc: stockChoices){
+            map_userChoice_stock.put(uc.getStockType(), uc);
+        }
+        
+        model.addObject("poi", poi);
+        model.addObject("price_comp",price_comp);
+        model.addObject("offers",offers);
+        model.addObject("map_userChoice_stock",map_userChoice_stock);
+        model.addObject("map_userChoice_card",map_userChoice_card);
+        model.addObject("idItinerary",idItinerary);
+        return model;
+        
+        /*
+        List<Map<String,String>> price_comp = new ArrayList<Map<String, String>>();
+        Map<String,String> map_off_stock = new HashMap<String,String>();
+        Map<String,Integer>map_off_card = new HashMap<String,Integer>();
+        Map<String,String>map_userChoice_stock = new HashMap<String,String>();
+        
+        Map<String,List<DealerOffer>>map_userChoice_card = new HashMap<String,List<DealerOffer>>();
+        
         
         CompletePOI poi = pm.getCompletePoiById(idPoi);
         String poi_name = poi.getName();
@@ -269,6 +334,7 @@ public class ItineraryManager{
         //List<Integer>idOffer_choice = pm.findChoiceCardByUser(iddetail);
         List<UserOfferChoice>user_cardChoices = pm.findChoiceCardByUser(iddetail);
         List<UserOfferChoice>user_stockChoices = pm.findChoiceStockByUser(iddetail);
+        
         
         
         
@@ -313,8 +379,9 @@ public class ItineraryManager{
                 }
             }
             model.addObject("price_comp",price_comp);
-
         return model;
+        */
+        
     }
 
     public static void completeItinerary(PersistenceManager pm, Integer idItinerary, int idUser) {

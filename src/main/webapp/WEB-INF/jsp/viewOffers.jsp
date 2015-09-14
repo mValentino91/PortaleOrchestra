@@ -87,14 +87,33 @@
 
     </div>
     <div class="modal-body">
-
-        <div id="add-off" class="col-md-12 add-success" style="display:none;">Offerta aggiunta correttamente</div>
-        <div id="rem-off" class="col-md-12 remove-success" style="display:none;">Offerta rimossa correttamente</div>
-
-        <c:forEach var="off" items="${offers}">
-            <div type="CARD" idItinerary="${idItinerary}" idOffer="${off.idOffer}" idPoi="${idPoi}" fullPrice="${off.fullPrice}" discountedPrice="${off.discountedPrice}" rateOffer="${off.rateDiscount}">
+        
+        <%-- OFFERTE CARD --%>
+        Offerte OrchestraCard blabla
+        <c:forEach var="off" items="${offers}"> 
+            <div type="CARD" idItinerary="${idItinerary}" idOffer="${off.idOffer}" idPoi="${poi.id}" fullPrice="${off.fullPrice}" discountedPrice="${off.discountedPrice}" rateOffer="${off.rateDiscount}">
                 <c:choose>
-                    <c:when test="${empty user_cardChoices}">
+                    <c:when test="${not empty map_userChoice_card.get(off.idOffer)}">
+                        <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">V</span>    
+                        <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                        <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
+                        <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
+                        <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
+                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
+                            <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${map_userChoice_card.get(off.idOffer).qta}"/>
+                            <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
+                        </span> 
+                        <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">
+                            <c:set var="fullPrice" value="${off.fullPrice * map_userChoice_card.get(off.idOffer).qta}"/>
+                            ${fullPrice}
+                        </span>
+                        <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${map_userChoice_card.get(off.idOffer).sum}</span>
+                        <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
+                        <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
+                        <div style="clear: both"></div>
+                        
+                    </c:when>
+                    <c:otherwise>
                         <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>    
                         <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
@@ -109,85 +128,35 @@
                         <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
                         <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
                         <div style="clear: both"></div>
-                    </c:when>
-                    <c:otherwise>
-                        
-                        <c:forEach var="idc" items="${user_cardChoices}">
-                            <c:choose>
-                            <c:when test="${idc.idOffer == off.idOffer}">
-                                <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">Z</span>
-                                <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
-                            </c:when>
-                            <c:otherwise>
-                                <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>                        
-                                <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
-                            </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                        
-                        <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
-                        <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
-                        <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                            <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
-                            <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
-                        </span> 
-                        <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
-                        <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
-                        <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
-                        <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
-                        <div style="clear: both"></div>
-                        <%--
-                                    
-                        <c:forEach var="idc" items="${user_cardChoices}">
-                            <c:choose>
-                                <c:when test="${idc.idOffer == off.idOffer}">
-                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">V</span>
-                                    <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
-                                    <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
-                                    <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
-                                    <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                                        <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${idc.qta}"/>
-                                        <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
-                                    </span> 
-                                    <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
-                                    <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
-                                    <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
-                                    <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
-                                    <div style="clear: both"></div>
-                                </c:when>
-                                <c:otherwise>
-                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>                        
-                                    <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
-                                    <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
-                                    <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
-                                    <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                                        <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
-                                        <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
-                                    </span> 
-                                    <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
-                                    <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
-                                    <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
-                                    <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
-                                    <div style="clear: both"></div>
-                                </c:otherwise>  
-
-                            </c:choose>
-                        </c:forEach>
-                                    --%>
                     </c:otherwise>
                 </c:choose>
-            </div>                   
+            </div> 
         </c:forEach>
-
-
-        Offerte non associate alla Orchestra Card
+        
+        OFFERTE STOCK
+        <%-- OFFERTE STOCK --%>
         <c:forEach var="stock" items="${price_comp}">
-            <div type="STOCK" idItinerary="${idItinerary}" idPoi="${idPoi}" fullPrice="${stock.get("price")}">
+            <div type="STOCK" idItinerary="${idItinerary}" idPoi="${poi.id}" fullPrice="${stock.get("price")}">
                 <c:choose>
-                    <c:when test="${empty user_stockChoices}">
+                    <c:when test="${not empty map_userChoice_stock.get(stock.get('type'))}">
+                        <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
+                        <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                        <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
+                        <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
+
+                        <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
+                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
+                            <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${map_userChoice_stock.get(stock.get('type')).qta}"/>
+                            <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
+                        </span>                        
+
+                        <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">
+                            <c:set var="fullPrice" value="${stock.get('price') * map_userChoice_stock.get(stock.get('type')).qta}"/>
+                            ${fullPrice}
+                        </span>
+                        <div style="clear: both"></div>
+                    </c:when>
+                    <c:otherwise>
                         <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
                         <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
@@ -201,191 +170,176 @@
 
                         <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${stock.get("price")}</span>
                         <div style="clear: both"></div>
-                    </c:when>
-                    <c:otherwise>
-                                          
-                        <c:forEach var="idcs" items="${user_stockChoices}">
-                            <c:choose>
-                                <c:when test="${idcs.stockType == stock.get('type')}">
-                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">V</span>
-                                    <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
-                                    <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
-                                    <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
+                    </c:otherwise>
+                </c:choose>
+            </div>
+        </c:forEach>
+         
+        
+    </div>   
+        
+        
+        <%--
+        <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>    
+        <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+        <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
+        <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
+        <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
+            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
+            <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
+            <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
+        </span> 
+        <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
+        <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
+        <span class="off" style="padding-left: 2px; float:left; width: 5%; border:1px solid;">-${off.rateDiscount}%</span>
+        <span class="off" style="float:left; width: 10%; border:1px solid;">11/11/2001</span>
+        <div style="clear: both"></div>
+        --%>
+        
+    <script>
 
-                                    <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                                        <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${idcs.qta}"/>
-                                        <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
-                                    </span>                        
-
-                                    <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${stock.get("price")}</span>
-                                    <div style="clear: both"></div>
-                                </c:when>    
-                                <c:otherwise>
-                                    <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
-                                    <span class="off del" style="display:none;float: left; width: 5%; text-align: center; border: 1px solid">x</span>
-                                    <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
-                                    <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
-
-                                    <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                                        <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
-                                        <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
-                                        <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
-                                    </span>                        
-
-                                    <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${stock.get("price")}</span>
-                                    <div style="clear: both"></div>              
-                                </c:otherwise>
-                            </c:choose>
-                        </c:forEach>
-                       
-                    </c:otherwise>    
-                </c:choose>        
-            </div>            
-        </c:forEach>               
-        <script>
-
-            $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip();
 
 
-            <%-- per attivare il box verde di successo aggiunta...
-            $("#add-off").toggle();
-            --%>
+        <%-- per attivare il box verde di successo aggiunta...
+        $("#add-off").toggle();
+        --%>
 
-            $(".control").each(function (index) {
-                var sel = $(this);
-                var operator = sel.prop("id");
-                var ret;
+        $(".control").each(function (index) {
+            var sel = $(this);
+            var operator = sel.prop("id");
+            var ret;
 
-                $(this).on("click", function () {
+            $(this).on("click", function () {
 
-                    var qta = sel.siblings(".qta");
-                    var type = sel.parent().parent().attr("type");
-                    var fullPrice = sel.parent().parent().attr("fullPrice");
-                    var discountedPrice = sel.parent().parent().attr("discountedPrice");
+                var qta = sel.siblings(".qta");
+                var type = sel.parent().parent().attr("type");
+                var fullPrice = sel.parent().parent().attr("fullPrice");
+                var discountedPrice = sel.parent().parent().attr("discountedPrice");
 
-                    var fullPrice_box = sel.parent().parent().find(".fullPrice");
-                    var discPrice_box = sel.parent().parent().find(".discPrice");
+                var fullPrice_box = sel.parent().parent().find(".fullPrice");
+                var discPrice_box = sel.parent().parent().find(".discPrice");
 
-                    // alert(type);
+                // alert(type);
 
 
 
-                    if (operator == "up") {
-                        //fare controllo se l'offerta è un tipo stock 
-                        ret = modify_qty(qta, +1);
-                        qta.val(ret);
+                if (operator == "up") {
+                    //fare controllo se l'offerta è un tipo stock 
+                    ret = modify_qty(qta, +1);
+                    qta.val(ret);
 
-                    }
-                    else {
-                        ret = modify_qty(qta, -1);
-                        qta.val(ret);
-                    }
-                    if (type == "CARD") {
-                        var sommaFull = parseInt(fullPrice) * parseInt(ret);
-                        var sommaDisc = parseFloat(discountedPrice) * parseInt(ret);
-                        fullPrice_box.html(sommaFull);
-                        discPrice_box.html(sommaDisc);
-                    }
-                    else {
-                        var sommaFull = parseInt(fullPrice) * parseInt(ret);
-                        fullPrice_box.html(sommaFull);
-                    }
-
-                });
-            });
-
-
-            $(".del").each(function (index) {
-                var sel = $(this);
-                $(this).on("click", function () {
-                    var sel_name = sel;
-                    var add = sel.siblings(".add");
-                    var idItinerary = sel.parent().attr("idItinerary");
-                    var idPoi = sel.parent().attr("idPoi");
-                    var idOffer = -1;
-                    var name = null;
-                    var type = sel.parent().attr("type");
-
-                    if (type == "CARD") {
-                        idOffer = sel.parent().attr("idOffer");
-                    }
-                    else {
-                        name = sel.siblings(".name").text();
-                    }
-
-
-                    $.ajax({
-                        type: "GET",
-                        url: "./removeOfferItinerary",
-                        data: "id_offer=" + idOffer + "&idItinerary=" + idItinerary + "&idPoi=" + idPoi + "&name=" + name + "&type=" + type,
-                        success: function () {
-                            add.text("+");
-                            sel.hide();
-                        }
-                    });
-
-                });
-            });
-
-
-
-            $(".add").each(function (index) {
-                var sel = $(this);
-                $(this).on("click", function () {
-                    var sum = 0;
-                    var discPrice = null;
-                    var idOffer = -1;
-                    var rateOffer = null;
-                    var name = null;
-                    var desc = null;
-                    var sel_name = sel;
-
-                    var del = sel.siblings(".del");
-                    var idItinerary = sel.parent().attr("idItinerary");
-                    var idPoi = sel.parent().attr("idPoi");
-                    var fullPrice = sel.parent().attr("fullPrice");
-                    var qta = sel.siblings(".off-ctr").find(".qta");
-                    var type = sel.parent().attr("type");
-
-                    if (type == "CARD") {
-
-                        discPrice = sel.parent().attr("discountedPrice");
-                        idOffer = sel.parent().attr("idOffer");
-                        rateOffer = sel.parent().find(".rateOffer").text();
-                        sum = discPrice;
-                    }
-                    else {
-                        name = sel.siblings(".name").text();
-                        desc = sel.siblings(".desc").text();
-                        sum = fullPrice;
-                    }
-
-                    $.ajax({
-                        type: "GET",
-                        url: "./addOfferItinerary",
-                        data: "qta=" + qta.val() + "&idPoi=" + idPoi +"&id_offer=" + idOffer + "&sum=" + sum + "&type=" + type + "&idItinerary=" + idItinerary + "&name=" + name + "&desc=" + desc,
-                        success: function () {
-                            sel_name.text("V");
-                            del.show();
-                        }
-                    });
-                });
-            });
-
-
-            function modify_qty(qta, val) {
-                var qtaval = qta.val();
-                var new_qty = parseInt(qtaval, 10) + val;
-                //alert(new_qty);
-
-
-
-                if (new_qty < 0) {
-                    new_qty = 0;
+                }
+                else {
+                    ret = modify_qty(qta, -1);
+                    qta.val(ret);
+                }
+                if (type == "CARD") {
+                    var sommaFull = parseInt(fullPrice) * parseInt(ret);
+                    var sommaDisc = parseFloat(discountedPrice) * parseInt(ret);
+                    fullPrice_box.html(sommaFull);
+                    discPrice_box.html(sommaDisc);
+                }
+                else {
+                    var sommaFull = parseInt(fullPrice) * parseInt(ret);
+                    fullPrice_box.html(sommaFull);
                 }
 
-                return new_qty;
+            });
+        });
+
+
+        $(".del").each(function (index) {
+            var sel = $(this);
+            $(this).on("click", function () {
+                var sel_name = sel;
+                var add = sel.siblings(".add");
+                var idItinerary = sel.parent().attr("idItinerary");
+                var idPoi = sel.parent().attr("idPoi");
+                var idOffer = -1;
+                var name = null;
+                var type = sel.parent().attr("type");
+
+                if (type == "CARD") {
+                    idOffer = sel.parent().attr("idOffer");
+                }
+                else {
+                    name = sel.siblings(".name").text();
+                }
+
+
+                $.ajax({
+                    type: "GET",
+                    url: "./removeOfferItinerary",
+                    data: "id_offer=" + idOffer + "&idItinerary=" + idItinerary + "&idPoi=" + idPoi + "&name=" + name + "&type=" + type,
+                    success: function () {
+                        add.text("+");
+                        sel.hide();
+                    }
+                });
+
+            });
+        });
+
+
+
+        $(".add").each(function (index) {
+            var sel = $(this);
+            $(this).on("click", function () {
+                var sum = 0;
+                var discPrice = null;
+                var idOffer = -1;
+                var rateOffer = null;
+                var name = null;
+                var desc = null;
+                var sel_name = sel;
+
+                var del = sel.siblings(".del");
+                var idItinerary = sel.parent().attr("idItinerary");
+                var idPoi = sel.parent().attr("idPoi");
+                var fullPrice = sel.parent().attr("fullPrice");
+                var qta = sel.siblings(".off-ctr").find(".qta");
+                var type = sel.parent().attr("type");
+
+                if (type == "CARD") {
+
+                    discPrice = sel.parent().attr("discountedPrice");
+                    idOffer = sel.parent().attr("idOffer");
+                    rateOffer = sel.parent().find(".rateOffer").text();
+                    sum = discPrice;
+                }
+                else {
+                    name = sel.siblings(".name").text();
+                    desc = sel.siblings(".desc").text();
+                    sum = fullPrice;
+                }
+
+                $.ajax({
+                    type: "GET",
+                    url: "./addOfferItinerary",
+                    data: "qta=" + qta.val() + "&idPoi=" + idPoi +"&id_offer=" + idOffer + "&sum=" + sum + "&type=" + type + "&idItinerary=" + idItinerary + "&name=" + name + "&desc=" + desc,
+                    success: function () {
+                        sel_name.text("V");
+                        del.show();
+                    }
+                });
+            });
+        });
+
+
+        function modify_qty(qta, val) {
+            var qtaval = qta.val();
+            var new_qty = parseInt(qtaval, 10) + val;
+            //alert(new_qty);
+
+
+
+            if (new_qty < 0) {
+                new_qty = 0;
             }
 
-        </script>
+            return new_qty;
+        }
+
+    </script>
+    
