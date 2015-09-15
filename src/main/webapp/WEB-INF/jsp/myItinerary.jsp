@@ -8,6 +8,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -242,7 +243,10 @@
                                         <c:forEach var="it" items="${itinerary}">
                                             <div class="poi_it_container">
                                                 <div class="poi_it_img" style="background-color:${it.color}; width:30px; height:30px; border-radius: 50%; margin-top:5px; margin-right:5px;">
-                                                    
+                                                    <c:set var="itn" value="${it.name}"/>
+                                                    <c:set var="it_name" value="${fn:substring(itn, 0, 2)}" />
+                                                    <c:set var="tx" value="${fn:toUpperCase(it_name)}" />
+                                                    ${tx}
                                                 </div>
 
                                                 <div class="poi_it_name_container" idItinerary="${it.idItinerary}">
