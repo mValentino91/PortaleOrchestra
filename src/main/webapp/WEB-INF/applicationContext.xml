@@ -1,6 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!-- was: <?xml version="1.0" encoding="UTF-8"?> -->
-<beans xmlns="http://www.springframework.org/schema/beans"
+<beans 
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
@@ -25,7 +27,9 @@
         http://www.springframework.org/schema/jdbc
         http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+        http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        http://www.springframework.org/schema/security 
+	http://www.springframework.org/schema/security/spring-security-3.2.xsd">
     
    
     <!-- Database -->
@@ -88,4 +92,23 @@
     <context:annotation-config />
     <context:component-scan base-package="com.orchestra.portale.services" />
     
+    
+    <!-- REST Authentication -->
+    <security:http pattern="/rest/**" entry-point-ref="restAuthenticationEntryPoint" use-expressions="true" auto-config="false" create-session="stateless" >  
+        <security:custom-filter ref="authenticationTokenProcessingFilter" position="FORM_LOGIN_FILTER"   />  
+        <security:intercept-url pattern="/rest/**" access="isAuthenticated()" />  
+        <security:logout />  
+    </security:http>  
+
+    <bean id="restAuthenticationEntryPoint" class="com.orchestra.portale.rest.auth.RestAuthenticationEntryPoint" />              
+
+    <bean class="com.orchestra.portale.rest.auth.TokenAuthenticationFilter" id="authenticationTokenProcessingFilter">  
+        <constructor-arg type="java.lang.String"><value>/rest/**</value></constructor-arg>  
+    </bean>     
+    <!-- //REST Authentication -->  
+
+    <!--Per lo scan del manager per la persistenza-->
+    <bean id="concretePersistence" class="com.orchestra.portale.dbManager.ConcretePersistenceManager"/>
+    <context:component-scan base-package="com.orchestra.portale.dbManager" />    
+            
 </beans>
