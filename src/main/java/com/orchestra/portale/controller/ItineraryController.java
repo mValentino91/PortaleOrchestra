@@ -52,6 +52,7 @@ public class ItineraryController {
         ModelAndView model = new ModelAndView("myItinerary");
 
         Iterable<Itinerary> i = ItineraryManager.retreiveItinerary(pm, Integer.parseInt(id_user));
+        
         model.addObject("itinerary", i);
 
         return model;
@@ -76,6 +77,15 @@ public class ItineraryController {
         String id_user = user.getId().toString();
         ItineraryManager.addPoi(pm, 22, "5496cfecdf6ef624f2d63de7");
         return "ok";
+    }
+    
+    @RequestMapping(value = "/removePoiItinerary", method = RequestMethod.GET)
+    public @ResponseBody
+    void removePoiNewItinerary(@RequestParam int idItinerary, @RequestParam String idPoi) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = pm.findUserByUsername(auth.getName());
+        String id_user = user.getId().toString();
+        ItineraryManager.removePoi(pm, idItinerary, idPoi);
     }
 
     @RequestMapping(value = "/addOfferItinerary", method = RequestMethod.GET)
@@ -148,6 +158,9 @@ public class ItineraryController {
         int idUser = user.getId().intValue();
         ItineraryManager.removeItinerary(pm,idItinerary,idUser);
     }
+    
+    
+    
     
     @RequestMapping(value = "/completeItinerary", method = RequestMethod.GET)
     public @ResponseBody

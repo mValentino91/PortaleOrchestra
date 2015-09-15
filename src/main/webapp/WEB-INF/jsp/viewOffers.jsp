@@ -83,7 +83,7 @@
 
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Offerte disponibili per ${poi_name}</h4>
+        <h4 class="modal-title">Offerte disponibili per ${poi.name}</h4>
 
     </div>
     <div class="modal-body">

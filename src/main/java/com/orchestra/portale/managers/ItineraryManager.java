@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,8 @@ public class ItineraryManager{
     
     
     public static void createItinerary(PersistenceManager pm, String id_user, String name ){
+        String[] colors = {"#81CFE0","#F4D03E","#BF90D4","#87D37C","#F2784B","#ED5565"};
+        String col_value = (colors[new Random().nextInt(colors.length)]);
         
         Itinerary it = new Itinerary();
         //passare il nome dell'itinerario nel set parametri
@@ -34,6 +37,7 @@ public class ItineraryManager{
         it.setStatus(0);
         it.setKeyString("blabla");
         it.setName(name);
+        it.setColor(col_value);
         //pm.saveItinerary(it);
         pm.saveItinerary(it);   
     }
@@ -91,6 +95,15 @@ public class ItineraryManager{
         }
          
     }
+    
+    
+    public static void removePoi(PersistenceManager pm, int idItinerary, String idPoi) {
+        Integer iddetail = pm.findItDetail(idItinerary, idPoi);
+        pm.deletePoiItinerary(idPoi,idItinerary);
+        pm.deleteOffersPoi(iddetail);
+        
+    }
+
     
     public static void removeOffer(PersistenceManager pm, int idOffer, String idPoi, int idItinerary, String name, String type){
        
@@ -390,11 +403,6 @@ public class ItineraryManager{
 
     public static int findStatusByIdItinerary(PersistenceManager pm, int idItinerary,int idUser) {
         return pm.findStatusByIdItinerary(idItinerary,idUser);
-    }
-
-    private static void findIdDetailByIdItinerary(int idItinerary) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
+    }    
     
 }

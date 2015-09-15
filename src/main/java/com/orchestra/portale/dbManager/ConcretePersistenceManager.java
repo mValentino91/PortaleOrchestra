@@ -770,4 +770,14 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return itdRepo.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary,idPoi);
     }
 
+    @Override
+    public void deletePoiItinerary(String idPoi, int idItinerary) {
+        itdRepo.detetePoi(idPoi,idItinerary);
+    }
+
+    @Override
+    public void deleteOffersPoi(Integer idItineraryDetail) {
+        ucRepo.deleteOffersPoi(idItineraryDetail);
+    }
+
 }

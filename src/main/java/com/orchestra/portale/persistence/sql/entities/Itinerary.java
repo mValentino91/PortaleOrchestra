@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -21,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author andrea
+ * @author andzaccaro
  */
 @Entity
 @Table(name = "itinerary")
@@ -56,6 +57,10 @@ public class Itinerary implements Serializable {
     @Size(max = 100)
     @Column(name = "keyString")
     private String keyString;
+    @Lob
+    @Size(max = 65535)
+    @Column(name = "color")
+    private String color;
 
     public Itinerary() {
     }
@@ -109,6 +114,14 @@ public class Itinerary implements Serializable {
 
     public void setKeyString(String keyString) {
         this.keyString = keyString;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     @Override

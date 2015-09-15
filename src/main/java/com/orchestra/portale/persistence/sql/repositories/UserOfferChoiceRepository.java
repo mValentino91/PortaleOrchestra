@@ -60,6 +60,11 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
 
     List<UserOfferChoice> findByIdItineraryDetail(Integer idItineraryDetail);
 
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("delete from UserOfferChoice u where u.idItineraryDetail =?1")
+    public void deleteOffersPoi(Integer idItineraryDetail);
+
     
 
 }

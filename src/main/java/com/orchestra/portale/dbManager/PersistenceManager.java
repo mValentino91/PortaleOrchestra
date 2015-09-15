@@ -137,6 +137,10 @@ public interface PersistenceManager {
     public DealerOffer findDealerOfferByidOffer(Integer idOffer);
 
     public int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
+
+    public void deletePoiItinerary(String idPoi, int idItinerary);
+
+    public void deleteOffersPoi(Integer idItineraryDetail);
     
 
 }

@@ -109,6 +109,17 @@
                     cursor: pointer;
                 }
                 
+                .selOff{
+                    display: table-cell;
+                    overflow: hidden;
+                    vertical-align: middle;
+                    border: 0px solid red;
+                    color: red;
+                    font-weight: bold;
+                    cursor: pointer;
+                }
+                
+                
                 .complit{
                     display: table-cell;
                     overflow: hidden;
@@ -168,7 +179,11 @@
                         $.ajax({
                             type: "GET",
                             url: "./newItinerary",
-                            data: "name=" + content
+                            data: "name=" + content,
+                            success: function(){
+                                alert("itinerario creato!");
+                                window.location="./myItinerary";
+                            }
                         });
                     });
                 });
@@ -188,7 +203,7 @@
 
             
 
-            <div class="col-md-4">
+            <div class="col-md-5">
                <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -221,34 +236,34 @@
                     <div class="details">
                         <div class="paragrafo">
 
-                            <b>I tuoi itinerari</b>
                             <div class="itinerary-container">
                                 <c:choose>
                                     <c:when test="${not empty itinerary}">
                                         <c:forEach var="it" items="${itinerary}">
                                             <div class="poi_it_container">
-                                                <div class="poi_it_img">
-                                                    <img src="./dist/poi/img/${poiR.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                                                <div class="poi_it_img" style="background-color:${it.color}; width:30px; height:30px; border-radius: 50%; margin-top:5px; margin-right:5px;">
+                                                    
                                                 </div>
 
                                                 <div class="poi_it_name_container" idItinerary="${it.idItinerary}">
+                                                    
                                                     <div class="poi_it_name">
                                                         <a href="./myItineraryDetail?idItinerary=${it.idItinerary}">${it.name}</a>                                       
                                                     </div>
 
                                                     <c:choose>
                                                         <c:when test="${it.status == 0}">
-                                                            <div class="poi_it_status">ATTIVO</div>
-                                                            <div class="delit">X</div>     
+                                                            <div class="poi_it_status">attivo</div>
+                                                            <div class="selOff">Dettaglio</div>     
                                                         </c:when>
 
                                                         <c:when test="${it.status == 1}">
-                                                            <div class="poi_it_status">COMPLETO</div>
-                                                            <div class="delit">X</div>     
+                                                            <div class="poi_it_status">completato</div>
+                                                            <div class="selOff">Dettaglio</div>     
                                                         </c:when>    
 
                                                         <c:when test="${it.status == 2}">
-                                                            <div class="poi_it_status">SCADUTO</div>
+                                                            <div class="poi_it_status">scaduto</div>
                                                         </c:when>                                                        
                                                     </c:choose>
 
@@ -269,9 +284,9 @@
                 </article>
             </div>
 
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <article class="component component-text">
-                    <div class="details">
+                    <div class="details" style="height:230px;">
                         infografica
                     </div>
                 </article>

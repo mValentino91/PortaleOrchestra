@@ -98,6 +98,7 @@
                     color: green;
                     font-weight: bold;
                 }
+                
 
 
             </style>
@@ -110,7 +111,7 @@
             <div class="col-md-12">
                 <div class="cover_favorite_img" style="background-color: #285E8E;">
                     <div class="poi_it_img" style="line-height: 200px; margin-left: 100px;">
-                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:30px; height:30px; border-radius: 50%; margin-top:5px;"/> 
                                         </div>
                     <span style="line-height: 200px; margin-right: 500px; color:#fff; border: 1px solid #fff;">Nome itinerario</span>
                     <span style="color:#fff; border: 1px solid #fff;">Paga 50€</span>
@@ -134,19 +135,41 @@
                 <article class="component component-text">
                     <div class="details">
                         <div class="paragrafo">
+                            <div>
+                                <span id="complit"><i class="fa fa-check" style="font-size:14px;"></i> Completa itinerario</span>
+                            </div>
+                            
+                            <div>
+                                <span id="delit"><i class="fa fa-times" style="font-size:14px;"></i> Cancella itinerario</span>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </article>
+                <article class="component component-text">
+                    <div class="details">
+                        <div class="paragrafo">
+                            
                             <div class="itinerary-container">
 
 
                                 <c:forEach var="poi" items="${pois}">
-                                    <div class="poi_it_container" idPoi="${poi.id}" idItinerary="${id}">
+                                    <div class="poi_it_container" idPoi="${poi.id}" idItinerary="${id}" style="border-bottom:1px solid #cdcdcd;">
                                         <div class="poi_it_img">
-                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                                            <%-- src="./dist/poi/img/${poi.id}/cover.jpg" --%>
+                                            <img src="./dist/img/default_avatar.png" style="width:30px; height:30px; border-radius: 50%; margin-top:5px;"/> 
                                         </div>
 
-                                        <div class="poi_it_name_container">
+                                        <div class="poi_it_name_container" >
                                             <div class="poi_it_name">
                                                 ${poi.name}       
-                                                <div class="selPoiOffer" style="display:inline-block" >Offerte</div>
+                                                <div class="poiIcons" style="display:inline-block">
+                                                    <i class="fa fa-info-circle info" style="font-size:14px; color:#2980B9;"></i>
+                                                    <i class="fa fa-heart" style="font-size:14px; color:#ED5565"></i>
+                                                    <i class="fa fa-credit-card" style="font-size:14px;"></i>
+                                                    <i class="fa fa-times delPoi" style="font-size:14px; color:#ED5565;"></i>
+                                                </div>
+                                                <div class="selPoiOffer">Seleziona Offerte</div>
                                             </div>
 
 
@@ -158,7 +181,6 @@
 
                                 <div class="clear"></div>    
                             </div>
-                            <div id="complit">Completa itinerario</div>
                         </div>    
                     </div>
                 </article>
@@ -192,9 +214,42 @@
 
                     success: function(){
                         alert("itinerario completato!");
+                        window.location="./myItinerary";
                     }
                 });
             });
+            
+            $("#delit").click(function () {
+                $.ajax({    
+                    type: "GET",
+                    url: "./removeItinerary",
+                    data: "idItinerary="+ ${id},
+
+                    success: function(){
+                        alert("itinerario cancellato!");
+                        window.location="./myItinerary";
+                    }
+                });
+            });
+            
+            $(".delPoi").each(function (index) {
+                var sel = $(this);
+               
+                $(this).on("click", function () {
+                    var idPoi = sel.parent().parent().parent().parent().attr("idPoi");
+                    
+                    $.ajax({
+                        type: "GET",
+                        url: "./removePoiItinerary",
+                        data: "idItinerary=" + ${id} + "&idPoi=" + idPoi,
+                        success: function () {
+                            alert("Il poi è stato cancellato dall'itinerario");
+                            window.location="./myItineraryDetail?idItinerary=" + ${id};
+                        }
+                   });
+                });
+            });
+            
             
             $(".selPoiOffer").each(function (index) {
                 var sel = $(this);
