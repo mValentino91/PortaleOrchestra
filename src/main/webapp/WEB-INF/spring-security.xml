@@ -30,7 +30,8 @@
                 
         <remember-me key="CE742F98DACE9BD84A9CD3A809602D6F0C1C8E25D8E51C7ECE2AF9399F086CC5" token-validity-seconds="2419200"/>
     </http>
-	
+
+    
     <authentication-manager alias="authenticationManager">
         <authentication-provider user-service-ref="customUserDetailsService">
             <password-encoder hash="md5"/>
