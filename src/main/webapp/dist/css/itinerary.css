@@ -45,6 +45,10 @@
     text-align: center;
 }
 
+.rnd-text{
+    color:#fff;
+    font-weight: bold;
+}
 
 .name_container{
     width:40%;
