@@ -7,9 +7,12 @@ package com.orchestra.portale.rest.auth;
 
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.sql.entities.Role;
 import java.io.IOException;  
 import java.text.MessageFormat;  
 import java.util.ArrayList;  
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;  
 
 import javax.servlet.FilterChain;  
@@ -62,14 +65,23 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
     private AbstractAuthenticationToken authUserByToken(String token) {  
         if(token==null) return null;  
 
-        /* Verifica Token */
+        /* Verifica Esistenza/Validità Token */
         String username = "ciccio"; //logic to extract username from token  
         String role = "ROLE_ADMIN"; //extract role information from token  
 
+        
+        com.orchestra.portale.persistence.sql.entities.User domainUser;
+        //domainUser = pm.
+        domainUser = pm.findUserByUsername("ciccio");
+        
+        User principal = new User(domainUser.getUsername(), "", getAuthorities(domainUser.getRoles()));        
+        
+        /*
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();  
         authorities.add(new SimpleGrantedAuthority(role));  
-
         User principal = new User(username, "", authorities);   
+        */
+        
         AbstractAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());  
 
         return authToken;  
@@ -79,5 +91,38 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
     @Override  
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {  
         super.doFilter(req, res, chain);  
-    }  
+    }
+    
+    
+    /**
+     * Retrieves a collection of {@link GrantedAuthority}
+     */
+    private static Collection<? extends GrantedAuthority> getAuthorities(List<Role> roles_obj) {
+
+        Iterator<Role> roles_iter = roles_obj.iterator();
+
+        List<String> roles = new ArrayList<String>();
+        while (roles_iter.hasNext()) {
+            Role r = roles_iter.next();
+            roles.add(r.getRole());
+        }
+
+        List<GrantedAuthority> authList = getGrantedAuthorities(roles);
+        return authList;
+    }    
+    
+    /**
+     * Wraps {@link String} roles to {@link SimpleGrantedAuthority} objects
+     *
+     * @param roles {@link String} of roles
+     * @return list of granted authorities
+     */
+    private static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+        for (String role : roles) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+        return authorities;
+    }    
+    
 }  
