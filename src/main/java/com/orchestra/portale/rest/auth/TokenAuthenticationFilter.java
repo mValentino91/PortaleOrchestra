@@ -8,10 +8,12 @@ package com.orchestra.portale.rest.auth;
 import com.orchestra.portale.dbManager.ConcretePersistenceManager;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.Role;
+import com.orchestra.portale.persistence.sql.entities.Token;
 import java.io.IOException;  
 import java.text.MessageFormat;  
 import java.util.ArrayList;  
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;  
 
@@ -66,13 +68,20 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
         if(token==null) return null;  
 
         /* Verifica Esistenza/Validità Token */
-        String username = "ciccio"; //logic to extract username from token  
-        String role = "ROLE_ADMIN"; //extract role information from token  
-
+        System.out.println("TOKEN RICEVUTO: " + token);
+        Token tokenObj = pm.getTokenByToken(token);
         
-        com.orchestra.portale.persistence.sql.entities.User domainUser;
-        //domainUser = pm.
-        domainUser = pm.findUserByUsername("ciccio");
+        if(tokenObj==null){ 
+            System.out.println("TOKEN DAL DB é NULL");
+            return null;
+        }
+        
+        if(tokenObj.getValidity().after(new Date())){ 
+            System.out.println("TOKEN SCADUTO");
+            return null;
+        }
+        
+        com.orchestra.portale.persistence.sql.entities.User domainUser = pm.findUserById(tokenObj.getId().longValue());
         
         User principal = new User(domainUser.getUsername(), "", getAuthorities(domainUser.getRoles()));        
         

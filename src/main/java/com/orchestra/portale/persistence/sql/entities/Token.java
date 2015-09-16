@@ -27,15 +27,15 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author antonio
  */
 @Entity
-@Table(name = "tokens")
+@Table(name = "token")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tokens.findAll", query = "SELECT t FROM Tokens t"),
-    @NamedQuery(name = "Tokens.findById", query = "SELECT t FROM Tokens t WHERE t.id = :id"),
-    @NamedQuery(name = "Tokens.findByIdUser", query = "SELECT t FROM Tokens t WHERE t.idUser = :idUser"),
-    @NamedQuery(name = "Tokens.findByToken", query = "SELECT t FROM Tokens t WHERE t.token = :token"),
-    @NamedQuery(name = "Tokens.findByValidity", query = "SELECT t FROM Tokens t WHERE t.validity = :validity")})
-public class Tokens implements Serializable {
+    @NamedQuery(name = "Token.findAll", query = "SELECT t FROM Token t"),
+    @NamedQuery(name = "Token.findById", query = "SELECT t FROM Token t WHERE t.id = :id"),
+    //@NamedQuery(name = "Token.findByIdUser", query = "SELECT t FROM Token t WHERE t.idUser = :idUser"),
+    //@NamedQuery(name = "Token.findByToken", query = "SELECT t FROM Token t WHERE t.token = :token"),
+    @NamedQuery(name = "Token.findByValidity", query = "SELECT t FROM Token t WHERE t.validity = :validity")})
+public class Token implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +48,7 @@ public class Tokens implements Serializable {
     private int idUser;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 32)
+    @Size(min = 1, max = 40)
     @Column(name = "token")
     private String token;
     @Basic(optional = false)
@@ -57,14 +57,14 @@ public class Tokens implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date validity;
 
-    public Tokens() {
+    public Token() {
     }
 
-    public Tokens(Integer id) {
+    public Token(Integer id) {
         this.id = id;
     }
 
-    public Tokens(Integer id, int idUser, String token, Date validity) {
+    public Token(Integer id, int idUser, String token, Date validity) {
         this.id = id;
         this.idUser = idUser;
         this.token = token;
@@ -113,10 +113,10 @@ public class Tokens implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Tokens)) {
+        if (!(object instanceof Token)) {
             return false;
         }
-        Tokens other = (Tokens) object;
+        Token other = (Token) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -125,7 +125,7 @@ public class Tokens implements Serializable {
 
     @Override
     public String toString() {
-        return "com.orchestra.portale.persistence.sql.entities.Tokens[ id=" + id + " ]";
+        return "com.orchestra.portale.persistence.sql.entities.Token[ id=" + id + " ]";
     }
     
 }

@@ -29,6 +29,7 @@ import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
 import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
+import com.orchestra.portale.persistence.sql.entities.Token;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
@@ -47,11 +48,13 @@ import com.orchestra.portale.persistence.sql.repositories.ItineraryDetailReposit
 import com.orchestra.portale.persistence.sql.repositories.ItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.OwnershipRepository;
 import com.orchestra.portale.persistence.sql.repositories.PoiRepository;
+import com.orchestra.portale.persistence.sql.repositories.TokenRepository;
 import com.orchestra.portale.persistence.sql.repositories.Top10Repository;
 //import com.orchestra.portale.persistence.sql.repositories.UserItineraryRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserOfferChoiceRepository;
 import com.orchestra.portale.persistence.sql.repositories.UserRepository;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -151,6 +154,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     
     @Autowired
     private UserOfferChoiceRepository ucRepo;
+    
+    @Autowired
+    private TokenRepository tokenRepo;
     
     @Override
     public void setLang(String lang) {
@@ -783,6 +789,31 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public User findUserByUsernameAndPassword(String username, String password) {
         return userRepository.findByUsernameAndPassword(username,password);
+    }
+
+    @Override
+    public void saveToken(Token t) {
+        tokenRepo.save(t);
+    }
+
+    @Override
+    public Token getTokenByToken(String token) {
+        return tokenRepo.findByToken(token);
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public Token getTokenByIdUser(Integer id_user) {
+        return tokenRepo.findByIdUser(id_user);
+    }
+
+    @Override
+    public void updateToken(Integer id, String token, Date validity) {
+        tokenRepo.updateToken(id, token, validity);
     }
 
 }

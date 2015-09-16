@@ -24,11 +24,13 @@ import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
 import com.orchestra.portale.persistence.sql.entities.Ownership;
 import com.orchestra.portale.persistence.sql.entities.Poi;
+import com.orchestra.portale.persistence.sql.entities.Token;
 import com.orchestra.portale.persistence.sql.entities.Top10;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
 import com.orchestra.portale.utils.CoupleString;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.data.geo.GeoResults;
 
@@ -54,6 +56,7 @@ public interface PersistenceManager {
     public void deleteEnPoi(CompletePOI_En poi);
     public void savePoi(CompletePOI_It poi);
     public void saveEnPoi(CompletePOI_En poi);
+    public User findUserById(Long id);
     public User findUserByUsername(String username);
     public User findUserByFbUser(String fbUser);
     public User findUserByFbEmail(String fbEmail);
@@ -135,5 +138,8 @@ public interface PersistenceManager {
     public void deleteOffersPoi(Integer idItineraryDetail);
     public User findUserByUsernameAndPassword(String username, String password);
     
-
+    public void saveToken(Token t);
+    public Token getTokenByToken(String token);
+    public Token getTokenByIdUser(Integer id_user);
+    public void updateToken(Integer id, String token, Date validity);
 }
