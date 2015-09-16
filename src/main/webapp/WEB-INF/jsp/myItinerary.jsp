@@ -25,7 +25,6 @@
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
         <link href="./dist/css/OrchestraFontIcon.css" rel="stylesheet"> 
-        <link href="./dist/css/composite.css" rel="stylesheet">
         <script src="./dist/js/section.js"></script>
         <script src="./dist/js/composite.js"></script>
         <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
@@ -35,166 +34,68 @@
         <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
-        <link rel="stylesheet" href="./dist/css/favorites.css" />
+        <link href="./dist/css/itinerary.css" rel="stylesheet">
 
         <title><spring:message code="label.favoritespoi"></spring:message></title>   
-            <style>
-                .new_it_button{
-                    user-drag: none; 
-                    -moz-user-select: none;
-                    -webkit-user-drag: none;
-                    background-color:#285E8E;
-                    color:#fff;
-                    height: 50px;
-                    text-align: center;
-                    vertical-align: middle;
-                    line-height: 50px; 
-                    font-weight: bold;
-                    cursor: pointer;
-                    margin-bottom: 20px;
-
-                }
-
-                .poi_it_container{
-                    width: 100%;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;  
-                    clear: both;
-                }
-
-                .poi_it_img{
-                    width: 60px;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;  
-                    float:left;
-                }
-
-                .poi_it_name_container{
-                    display: table;
-                    border:0px solid green;
-                    width: 180px;
-                    height: 60px;
-                    float: left;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;				
-                    border: 0px solid red;
-                }
-
-                .poi_it_name{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                }
-
-                .poi_it_status{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                    color: green;
-                    font-weight: bold;
-                }
-                
-                
-                .delit{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                    color: red;
-                    font-weight: bold;
-                    cursor: pointer;
-                }
-                
-                .selOff{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                    color: red;
-                    font-weight: bold;
-                    cursor: pointer;
-                }
-                
-                
-                .complit{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                    color: green;
-                    font-weight: bold;
-                    cursor: pointer;
-                }
-
-               
-
-            </style>
             
-            <script>
-                $(document).ready(function () {
-                    $(".delit").each(function (index) {
-                        var sel = $(this);
-                        $(this).on("click", function () {
-                            var idItinerary = sel.parent().attr("idItinerary");
-                             $.ajax({
-                        
-                                type: "GET",
-                                url: "./removeItinerary",
-                                data: "idItinerary="+ idItinerary,
+        <script>
+            $(document).ready(function () {
+                $(".delit").each(function (index) {
+                    var sel = $(this);
+                    $(this).on("click", function () {
+                        var idItinerary = sel.parent().attr("idItinerary");
+                         $.ajax({
 
-                                success: function(){
-                                    alert("itinerario cancellato!");
-                                }
-                            });
-                            
-                        });
-                    });
-                    
-                    $(".complit").each(function (index) {
-                        var sel = $(this);
-                        $(this).on("click", function () {
-                            var idItinerary = sel.parent().attr("idItinerary");
-                             $.ajax({
-                        
-                                type: "GET",
-                                url: "./completeItinerary",
-                                data: "idItinerary="+ idItinerary,
-
-                                success: function(){
-                                    alert("itinerario completato!");
-                                }
-                            });
-                            
-                        });
-                    });
-                    
-                    $("#btn_new_it").click(function () {
-                        var content = $("#it_name").val();
-                        alert(content);
-
-                        $.ajax({
                             type: "GET",
-                            url: "./newItinerary",
-                            data: "name=" + content,
+                            url: "./removeItinerary",
+                            data: "idItinerary="+ idItinerary,
+
                             success: function(){
-                                alert("itinerario creato!");
-                                window.location="./myItinerary";
+                                alert("itinerario cancellato!");
                             }
                         });
+
                     });
                 });
-                
-                
-                
-            </script>
 
-        </head>
-        <body>
+                $(".complit").each(function (index) {
+                    var sel = $(this);
+                    $(this).on("click", function () {
+                        var idItinerary = sel.parent().attr("idItinerary");
+                         $.ajax({
+
+                            type: "GET",
+                            url: "./completeItinerary",
+                            data: "idItinerary="+ idItinerary,
+
+                            success: function(){
+                                alert("itinerario completato!");
+                            }
+                        });
+
+                    });
+                });
+
+                $("#btn_new_it").click(function () {
+                    var content = $("#it_name").val();
+                    alert(content);
+
+                    $.ajax({
+                        type: "GET",
+                        url: "./newItinerary",
+                        data: "name=" + content,
+                        success: function(){
+                            alert("itinerario creato!");
+                            window.location="./myItinerary";
+                        }
+                    });
+                });
+            });
+        </script>
+
+    </head>
+        
+    <body>
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
 
@@ -204,7 +105,7 @@
 
             
 
-            <div class="col-md-5">
+            <div class="col-md-5" style="margin-top:5px;">
                <!-- Modal -->
                 <div id="myModal" class="modal fade" role="dialog">
                     <div class="modal-dialog">
@@ -234,46 +135,50 @@
                 <div id="nuovo_it" class="new_it_button" data-toggle="modal" data-target="#myModal">Crea un nuovo itinerario</div>
 
                 <article class="component component-text">
-                    <div class="details">
+                    <div class="details details_itinerary" style="padding-left: 10px; padding-right: 10px;">
                         <div class="paragrafo">
 
-                            <div class="itinerary-container">
+                            <div class="itinerary_container">
                                 <c:choose>
                                     <c:when test="${not empty itinerary}">
                                         <c:forEach var="it" items="${itinerary}">
-                                            <div class="poi_it_container">
-                                                <div class="poi_it_img" style="background-color:${it.color}; width:30px; height:30px; border-radius: 50%; margin-top:5px; margin-right:5px;">
+                                            <div class="itinerary" >
+                                                <div class="img_container">
                                                     <c:set var="itn" value="${it.name}"/>
                                                     <c:set var="it_name" value="${fn:substring(itn, 0, 2)}" />
                                                     <c:set var="tx" value="${fn:toUpperCase(it_name)}" />
-                                                    ${tx}
-                                                </div>
-
-                                                <div class="poi_it_name_container" idItinerary="${it.idItinerary}">
                                                     
-                                                    <div class="poi_it_name">
-                                                        <a href="./myItineraryDetail?idItinerary=${it.idItinerary}">${it.name}</a>                                       
+                                                    <div class="rnd" style="background-color:${it.color};">
+                                                        <span class="rnd-text">${tx}</span>
                                                     </div>
-
+                                                </div>
+                                                <div class="name_container" idItinerary="${it.idItinerary}">${it.name}</div>
+                                                
                                                     <c:choose>
                                                         <c:when test="${it.status == 0}">
-                                                            <div class="poi_it_status">attivo</div>
-                                                            <div class="selOff">Dettaglio</div>     
+                                                            <div class="status_container">attivo</div>
+                                                            <a href="./myItineraryDetail?idItinerary=${it.idItinerary}"><div class="modify_btn">Modifica</div></a>
                                                         </c:when>
 
                                                         <c:when test="${it.status == 1}">
-                                                            <div class="poi_it_status">completato</div>
-                                                            <div class="selOff">Dettaglio</div>     
+                                                            <div class="status_container">completato</div>
+                                                            <div class="modify_btn">Visualizza</div>
                                                         </c:when>    
 
                                                         <c:when test="${it.status == 2}">
-                                                            <div class="poi_it_status">scaduto</div>
+                                                            <div class="status_container">scaduto</div>
+                                                            <div class="modify_btn">Visualizza</div>
                                                         </c:when>                                                        
-                                                    </c:choose>
+                                                    </c:choose> 
+                                                
+                                                
 
-                                                    
-                                                </div>
-                                            </div>
+	                                    </div>
+                                            
+                                            
+                                            
+                                            
+                                            
                                         </c:forEach>
                                     </c:when>    
 
@@ -290,8 +195,22 @@
 
             <div class="col-md-7">
                 <article class="component component-text">
-                    <div class="details" style="height:230px;">
-                        infografica
+                    <div class="details details_infographic" style="margin-top:5px; margin-bottom:30px; margin-bottom:5px; padding-left:0px; padding-right:0px;">
+                    	<div class="inf_row">
+                    		<div class="inf_number">1</div>
+                        	<div class="inf_content">Scopri i poi e crea il tuo itinerario</div>
+                    	</div>
+                        
+                    	<div class="inf_row">
+                    		<div class="inf_number">2</div>
+                        	<div class="inf_content">aaa</div>
+                    	</div>
+                        
+                    	<div class="inf_row">
+                    		<div class="inf_number">3</div>
+                        	<div class="inf_content">aaa</div>
+                    	</div>
+                        
                     </div>
                 </article>
             </div>

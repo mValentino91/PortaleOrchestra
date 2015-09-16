@@ -1,0 +1,118 @@
+.new_it_button{
+    user-drag: none; 
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    background-color:#285E8E;
+    color:#fff;
+    height: 50px;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 50px; 
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+
+}
+
+
+.itinerary_container{
+    /*border:1px solid black;*/
+}
+
+.itinerary{
+    border-bottom: 1px solid #cdcdcd; 
+    height:50px;
+}
+
+.img_container{
+    width:10%; 
+    height:100%; 
+    /*border:1px solid green;*/
+    float: left;
+    line-height: 50px;
+    text-align: center;
+
+}
+
+.rnd{
+    /*float:left; */
+    width:30px; 
+    height:30px; 
+    border-radius: 50%; 
+    margin-top:10px; 
+    margin-right:5px;
+    line-height: 30px;
+    text-align: center;
+}
+
+
+.name_container{
+    width:40%;
+    height: 100%;
+    /*border: 1px solid yellow;*/
+    float: left;
+    line-height: 50px;
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis; 
+}
+
+.status_container{
+    width: 30%;
+    height: 100%;
+    line-height: 50px;
+    float: left;
+    text-align: center;
+    /*border: 1px solid purple;*/
+    font-weight: bold;
+}
+
+.modify_btn{
+    float: left;
+    width: 20%;
+    height: 100%;
+    line-height: 50px;
+    text-align: center;
+    color: #285E8E;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+.details_itinerary{
+    height: 210px;
+    overflow: scroll;
+    overflow-x:hidden;
+}
+
+.details_infographic{
+    height: 280px;
+    margin: 5px 0px 5px 0px;
+}
+
+.inf_row{
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 40px;
+    margin-right: 40px;
+    height: 80px;
+    /*border: 1px solid red;*/
+}
+
+.inf_number{
+    width: 10%;
+    text-align: center;
+    line-height: 80px;
+    font-weight: bold;
+    font-size: 40px;
+    /*border: 1px solid red;*/
+    float: left;
+}
+
+.inf_content{
+    width: 90%;
+    text-align: center;
+    line-height: 80px;
+    /*border: 1px solid red;*/
+    float: left;
+}
