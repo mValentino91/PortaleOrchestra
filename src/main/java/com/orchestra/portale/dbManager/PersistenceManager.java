@@ -126,21 +126,14 @@ public interface PersistenceManager {
     public int countOfferCard(String idPoi);
     public void completeItinerary(Integer idItinerary, int idUser);
     public int findStatusByIdItinerary(int idItinerary, int idUser);
-
     public Iterable<Integer> findIdDetailByIdItinerary(int idItinerary);
-
     public List<UserOfferChoice> findByIdItineraryDetail(Integer idItineraryDetail);
-
-
     public Iterable<Integer> findIdOfferByIdItineraryDetail(Integer idItineraryDetail);
-
     public DealerOffer findDealerOfferByidOffer(Integer idOffer);
-
     public int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
-
     public void deletePoiItinerary(String idPoi, int idItinerary);
-
     public void deleteOffersPoi(Integer idItineraryDetail);
+    public User findUserByUsernameAndPassword(String username, String password);
     
 
 }

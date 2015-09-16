@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
         User findByFbEmail(String fbEmail);
         
         User findByFbEmailOrFbUser(String fbEmail, String fbUser);
+
+        User findByUsernameAndPassword(String username, String password);
 }

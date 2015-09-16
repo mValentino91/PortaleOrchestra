@@ -780,4 +780,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
         ucRepo.deleteOffersPoi(idItineraryDetail);
     }
 
+    @Override
+    public User findUserByUsernameAndPassword(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username,password);
+    }
+
 }

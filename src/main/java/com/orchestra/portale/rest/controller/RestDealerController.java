@@ -5,7 +5,11 @@
  */
 package com.orchestra.portale.rest.controller;
 
+import com.orchestra.portale.dbManager.PersistenceManager;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @Controller
 public class RestDealerController {
+    @Autowired
+    PersistenceManager pm ;
+    
+    
     @RequestMapping(value = "/rest/prova")
     public @ResponseBody
     String restProva(HttpServletRequest request) {    
@@ -25,11 +33,29 @@ public class RestDealerController {
     }   
     
     @Secured("ROLE_DEALER")
-    @RequestMapping(value = "/rest/dealer/test")
+    @RequestMapping(value = "/rest/dealer/login")
     public @ResponseBody
-    String dealertest(HttpServletRequest request) {    
-        String msg = "sono un dealer!";
-        return msg;
+    String dealerLogin(HttpServletRequest request) throws Exception {    
+        
+        String username ="ciccio";
+        String password="pippo";
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes()); 
+        byte bytePassword[] = md.digest();
+        
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < bytePassword.length; i++) {
+         sb.append(Integer.toString((bytePassword[i] & 0xff) + 0x100, 16).substring(1));
+        }
+        
+        String hash_password = sb.toString();
+     
+        //username e password in ingresso + hash password
+        pm.findUserByUsernameAndPassword(username, hash_password);
+        
+        
+        
+        return "hash_password";
     }       
     
     @Secured("ROLE_DEALER")
