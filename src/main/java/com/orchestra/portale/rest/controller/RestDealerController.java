@@ -8,6 +8,7 @@ package com.orchestra.portale.rest.controller;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,5 +51,19 @@ public class RestDealerController {
         ret.put("id", user.getId().toString());
         
         return ret;
-    }           
+    }      
+    
+    
+    @Secured("ROLE_DEALER")
+    @RequestMapping(value = "/rest/dealer/getOwnPoi")
+    List RetrieveOwnPoi(HttpServletRequest request){
+        
+        //Ricavo utente attuale
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        
+        List<String>own_pois = pm.getDealerOwnPoi(user.getId().intValue());
+        return own_pois;
+        
+    }
 }

@@ -79,7 +79,7 @@
 
                     <div class="it_detail_button it_detail_delete">
                             <i class="fa fa-times"></i>
-                            cancella
+                            elimina
                     </div>
 
                 </div>

@@ -142,4 +142,6 @@ public interface PersistenceManager {
     public Token getTokenByToken(String token);
     public Token getTokenByIdUser(Integer id_user);
     public void updateToken(Integer id, String token, Date validity);
+
+    public List<String> getDealerOwnPoi(int idDealer);
 }

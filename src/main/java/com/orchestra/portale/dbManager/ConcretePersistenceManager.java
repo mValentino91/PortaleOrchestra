@@ -816,4 +816,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
         tokenRepo.updateToken(id, token, validity);
     }
 
+    @Override
+    public List<String> getDealerOwnPoi(int idDealer) {
+      return dealerRepo.findByIdDealer(idDealer);  
+    }
+
 }
