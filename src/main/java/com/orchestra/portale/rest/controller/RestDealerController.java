@@ -7,6 +7,8 @@ package com.orchestra.portale.rest.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.sql.entities.User;
+import java.util.HashMap;
+import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
@@ -28,19 +30,25 @@ public class RestDealerController {
     
     @RequestMapping(value = "/rest/prova")
     String restProva(HttpServletRequest request) {    
-        String msg = "fuck!";
+        String msg = "ciao bello!";
         return msg;
     }   
  
     @Secured("ROLE_DEALER")
     @RequestMapping(value = "/rest/dealer/prova")
-    String dealertest2(HttpServletRequest request) {    
+    Map dealertest2(HttpServletRequest request) {    
         
         //Ricavo utente attuale
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         
         String msg = "sono un dealer, il token funziona e sono: " + user.getUsername() + " (" +user.getId() + ")";
-        return msg;
+        
+        Map<String, String> ret = new HashMap<String,String>();
+        
+        ret.put("name", user.getUsername());
+        ret.put("id", user.getId().toString());
+        
+        return ret;
     }           
 }

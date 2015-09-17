@@ -10,30 +10,29 @@ import com.orchestra.portale.persistence.sql.entities.Token;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.security.MessageDigest;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author antonio
  */
-@Controller
+@RestController
 public class RestAuthController {
    
     @Autowired
     PersistenceManager pm ;
    
     @RequestMapping(value = "/restlogin", method = RequestMethod.POST)
-    public @ResponseBody
-    String dealerLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest request) throws Exception {    
+    public Map dealerLogin(@RequestParam String username, @RequestParam String password, HttpServletRequest request) throws Exception {    
         
         //ore di validità del token
         Integer token_h_val = 3;
@@ -65,7 +64,7 @@ public class RestAuthController {
 
         //cerca il vecchio token
         Token tokenOld = pm.getTokenByIdUser(user.getId().intValue());
-
+        
         //se l'user ha già un token
         if(tokenOld!=null){
             //update
@@ -87,9 +86,14 @@ public class RestAuthController {
         System.out.println("CURR: " + new Date().getTime());
         System.out.println("EXP: " + expiration.getTime());
         */
+      
+        //object to return
+        Map<String, String> tokenResp = new HashMap<String,String>();  
+        tokenResp.put("validity", expiration.toString());
+        tokenResp.put("token", token);
+        tokenResp.put("username", username);
         
-        //TO-DO: RITORNARE JSON
-        return "ciao";
+        return tokenResp;
     }       
     
 
