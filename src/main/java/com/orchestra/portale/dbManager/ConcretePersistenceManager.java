@@ -760,7 +760,6 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return ucRepo.findByIdItineraryDetail(idItineraryDetail);
     }
 
-
     @Override
     public Iterable<Integer> findIdOfferByIdItineraryDetail(Integer idItineraryDetail) {
         return ucRepo.findIdOfferByIdItineraryDetail(idItineraryDetail);
@@ -819,6 +818,16 @@ public class ConcretePersistenceManager implements PersistenceManager {
     @Override
     public List<String> getDealerOwnPoi(int idDealer) {
       return dealerRepo.findByIdDealer(idDealer);  
+    }
+
+    @Override
+    public Integer getUserItinerary(String keyString) {
+      return itRepo.findByKeyString(keyString);  
+    }
+
+    @Override
+    public Iterable<Integer> findIdDetailByIdItineraryByDealer(Integer idItinerary) {
+        return 
     }
 
 }

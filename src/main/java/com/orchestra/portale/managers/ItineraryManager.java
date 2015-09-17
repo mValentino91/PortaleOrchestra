@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.web.servlet.ModelAndView;
@@ -35,7 +36,7 @@ public class ItineraryManager{
         //passare il nome dell'itinerario nel set parametri
         it.setIdUser(Integer.parseInt(id_user));
         it.setStatus(0);
-        it.setKeyString("blabla");
+        it.setKeyString(UUID.randomUUID().toString());
         it.setName(name);
         it.setColor(col_value);
         //pm.saveItinerary(it);

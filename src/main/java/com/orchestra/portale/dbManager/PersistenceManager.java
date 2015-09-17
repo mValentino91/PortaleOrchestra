@@ -144,4 +144,6 @@ public interface PersistenceManager {
     public void updateToken(Integer id, String token, Date validity);
 
     public List<String> getDealerOwnPoi(int idDealer);
+
+    public Integer getUserItinerary(String keyString);
 }

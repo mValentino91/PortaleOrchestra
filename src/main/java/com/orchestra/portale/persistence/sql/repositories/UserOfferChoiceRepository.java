@@ -66,5 +66,6 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
     public void deleteOffersPoi(Integer idItineraryDetail);
 
     
+    
 
 }
