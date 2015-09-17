@@ -68,28 +68,21 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
         if(token==null) return null;  
 
         /* Verifica Esistenza/Validità Token */
-        System.out.println("TOKEN RICEVUTO: " + token);
         Token tokenObj = pm.getTokenByToken(token);
-        
+     
+        //se il token non è presente nel DB
         if(tokenObj==null){ 
-            System.out.println("TOKEN DAL DB é NULL");
             return null;
         }
         
-        if(tokenObj.getValidity().after(new Date())){ 
-            System.out.println("TOKEN SCADUTO");
+        //se il token è scaduto
+        if(new Date().after(tokenObj.getValidity())){ 
             return null;
         }
         
         com.orchestra.portale.persistence.sql.entities.User domainUser = pm.findUserById(tokenObj.getId().longValue());
         
         User principal = new User(domainUser.getUsername(), "", getAuthorities(domainUser.getRoles()));        
-        
-        /*
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();  
-        authorities.add(new SimpleGrantedAuthority(role));  
-        User principal = new User(username, "", authorities);   
-        */
         
         AbstractAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());  
 
