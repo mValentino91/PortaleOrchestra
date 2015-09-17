@@ -41,7 +41,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Secured("ROLE_USER")
 public class FavoriteController {
     //Manager della persistenza
-       @Autowired
+    @Autowired
     PersistenceManager pm ;
         
     @Autowired
