@@ -27,6 +27,8 @@ public class User {
 	private String fbUser;
 	private String fbEmail;
         
+        private Integer pin;
+        
 	@OneToMany(mappedBy="user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Role> roles;
 
@@ -111,6 +113,20 @@ public class User {
         public void setFbEmail(String fbEmail) {
             this.fbEmail = fbEmail;
         }
+
+    /**
+     * @return the pin
+     */
+    public Integer getPin() {
+        return pin;
+    }
+
+    /**
+     * @param pin the pin to set
+     */
+    public void setPin(Integer pin) {
+        this.pin = pin;
+    }
 
 
 }
