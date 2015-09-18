@@ -11,6 +11,7 @@ import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class ItineraryManager{
         it.setKeyString(UUID.randomUUID().toString());
         it.setName(name);
         it.setColor(col_value);
+        it.setDateCreation(new Date(new Date().getTime()));
         //pm.saveItinerary(it);
         pm.saveItinerary(it);   
     }
