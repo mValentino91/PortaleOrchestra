@@ -133,7 +133,7 @@ public interface PersistenceManager {
     public List<UserOfferChoice> findByIdItineraryDetail(Integer idItineraryDetail);
     public Iterable<Integer> findIdOfferByIdItineraryDetail(Integer idItineraryDetail);
     public DealerOffer findDealerOfferByidOffer(Integer idOffer);
-    public int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
+    public Integer findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
     public void deletePoiItinerary(String idPoi, int idItinerary);
     public void deleteOffersPoi(Integer idItineraryDetail);
     public User findUserByUsernameAndPassword(String username, String password);

@@ -81,19 +81,25 @@ public class RestDealerController {
         
         //Ricavo poi che gestisco
         List<String>own_pois = pm.getDealerOwnPoi(user.getId().intValue());
-        
+        List<Integer>user_idd= new ArrayList<Integer>();
+                
         //recupero l'itinerario dell'utente recuperato dalla keystring
         Integer idItinerary = pm.getUserItinerary(keyString);
         if(idItinerary!=null){
             
-            //recupero l'id detail
-            Iterable<Integer>details = pm.findIdDetailByIdItinerary(idItinerary);
-            for(Integer iddetail: details){
+            for(String idPoi: own_pois){
+                Integer idd = pm.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary, idPoi);
+                if(idd!=null)
+                    user_idd.add(idd);
+            }
+            
+            for(Integer iddetail: user_idd){
                 Iterable<UserOfferChoice>off = pm.findChoiceCardByUser(iddetail);
                 for(UserOfferChoice uc: off){
                     user_choices.add(uc);
                 }
             }
+            
             return user_choices;
         }
         else{
