@@ -114,19 +114,19 @@ public class User {
             this.fbEmail = fbEmail;
         }
 
-    /**
-     * @return the pin
-     */
-    public Integer getPin() {
-        return pin;
-    }
+        /**
+         * @return the pin
+         */
+        public Integer getPin() {
+            return pin;
+        }
 
-    /**
-     * @param pin the pin to set
-     */
-    public void setPin(Integer pin) {
-        this.pin = pin;
-    }
+        /**
+         * @param pin the pin to set
+         */
+        public void setPin(Integer pin) {
+            this.pin = pin;
+        }
 
 
 }

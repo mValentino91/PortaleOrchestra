@@ -6,6 +6,7 @@
 package com.orchestra.portale.rest.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.sql.entities.Role;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -47,7 +49,14 @@ public class RestDealerController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
         
+        
         String msg = "sono un dealer, il token funziona e sono: " + user.getUsername() + " (" +user.getId() + ")";
+        System.out.println(msg);
+        System.out.println("RUOLI:");
+        for(Role r : user.getRoles()){
+            System.out.println(r.getRole());
+        }
+        
         
         Map<String, String> ret = new HashMap<String,String>();
         

@@ -80,7 +80,11 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
             return null;
         }
         
-        com.orchestra.portale.persistence.sql.entities.User domainUser = pm.findUserById(tokenObj.getId().longValue());
+        com.orchestra.portale.persistence.sql.entities.User domainUser = pm.findUserById(tokenObj.getIdUser().longValue());
+        
+        if(domainUser==null){
+            return null;
+        }
         
         User principal = new User(domainUser.getUsername(), "", getAuthorities(domainUser.getRoles()));        
         
