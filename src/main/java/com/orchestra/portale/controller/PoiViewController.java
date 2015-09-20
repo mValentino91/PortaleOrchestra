@@ -14,11 +14,13 @@ import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI_It;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoi;
 import com.orchestra.portale.persistence.mongo.documents.LinkedPoiComponent;
+import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.User;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -131,19 +133,21 @@ public class PoiViewController {
              
             if(auth.getName()!=null && !auth.getName().equals("anonymousUser") && auth.getName().trim()!=""){
                 
-                User user= pm.findUserByUsername(auth.getName());
+               User user= pm.findUserByUsername(auth.getName());
                String id_user = user.getId().toString();
 
                Integer rating = pm.ifFavorite(Integer.parseInt(id_user), poi.getId());   
-               model.addObject("fav_rating", rating);           
+               model.addObject("fav_rating", rating);     
+               
+               Iterable<Itinerary>userItinerary = pm.findActiveItinerariesByIdUser(Integer.parseInt(id_user));
+               
+               if(userItinerary!=null){
+                   model.addObject("userItinerary", userItinerary);
+               }
+                   
             }
             
-
-            
         }
-        
-        
-        
         
         return model;
     }

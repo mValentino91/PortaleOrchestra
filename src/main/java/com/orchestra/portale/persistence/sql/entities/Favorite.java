@@ -30,7 +30,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Favorite.findAll", query = "SELECT f FROM Favorite f"),
     @NamedQuery(name = "Favorite.findById", query = "SELECT f FROM Favorite f WHERE f.id = :id"),
     //@NamedQuery(name = "Favorite.findByIdUser", query = "SELECT f FROM Favorite f WHERE f.idUser = :idUser"),
-    @NamedQuery(name = "Favorite.findByIdPoi", query = "SELECT f FROM Favorite f WHERE f.idPoi = :idPoi"),
+    //@NamedQuery(name = "Favorite.findByIdPoi", query = "SELECT f FROM Favorite f WHERE f.idPoi = :idPoi"),
     @NamedQuery(name = "Favorite.findByRating", query = "SELECT f FROM Favorite f WHERE f.rating = :rating")})
 public class Favorite implements Serializable {
     private static final long serialVersionUID = 1L;

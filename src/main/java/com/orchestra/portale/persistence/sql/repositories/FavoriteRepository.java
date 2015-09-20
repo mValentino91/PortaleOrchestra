@@ -31,4 +31,7 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
     
     @Query("SELECT count(f) , f.idPoi FROM Favorite f GROUP BY f.idPoi ORDER BY count(f) DESC")
     Iterable<Object[]> getMostFavorites(); 
+
+    @Query("Select f from Favorite f where f.idPoi=?1 AND f.idUser=?2")
+    Favorite findByIdPoiAndIdUser(String idPoi, int idUser);
 }

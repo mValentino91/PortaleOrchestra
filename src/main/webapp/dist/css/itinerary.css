@@ -19,6 +19,9 @@
     color: #fff;
 }
 
+.fa{
+    cursor: pointer;
+}
 
 .it_detail_action{
     height: 50px;
@@ -33,10 +36,11 @@
     color: #fff;
     font-weight: bold;
     text-transform: uppercase;
-    width: 45%;
+    width: 47.5%;
     height: 100%;
     text-align: center;
     line-height: 50px;
+    cursor:pointer;
 }
 
 .it_detail_button_filler{
@@ -63,6 +67,7 @@
 .poi{
     border-bottom: 1px solid #cdcdcd; 
     height:60px;
+    margin-top: 5px;
 }
 
 .img_container{
@@ -78,9 +83,9 @@
     width:10%; 
     height:100%; 
 
-    border:1px solid green;
+    //border:1px solid green;
     float: left;
-    line-height: 50px;
+    //line-height: 50px;
     text-align: center;
 }
 
@@ -142,7 +147,8 @@
     width: 90%;
     height: 100%;
     float: left;
-    padding-left: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .status_container{
@@ -175,6 +181,10 @@
 
 .details_poi_itinerary{
     height: 210px;
+}
+
+.details_poi_offers{
+    
 }
 
 .details_infographic{
@@ -213,8 +223,25 @@
     margin-top: 100px;
 }
 
+.select_off{
+    cursor: pointer;
+}
+
+.icons{
+    float: left;
+}
+
+.sum_off{
+    margin-left: 5px;
+    color: #fff;
+    font-weight: bold;
+    background-color: #ED5565;
+    border: 1px solid #ED5565;
+    
+}
+
 .cover_itinerary_detail{
-    margin-bottom: 20px;    
+    margin-bottom: 30px;    
     height: 200px;                    
     background-repeat: no-repeat!important;
     background-position: center center!important;  
@@ -233,11 +260,11 @@
 }
 
 .cover_itd_sx{
-    width: 30%;
+    width: 35%;
 }
 
 .cover_itd_dx{
-    width: 70%;
+    width: 65%;
 }
 
 .price_detail{
@@ -246,4 +273,101 @@
     font-weight: bold;
     text-align: right;
     color: #fff;
+}
+
+.qr-code-box{
+    //background-color: #fff;
+    height: 210px;
+    width: 100%;
+    //border: 1px solid red;
+    margin-bottom: 30px;
+    text-align: center; 
+    
+}
+
+
+.poi_info_off{
+    margin-top: 5px;
+}
+
+.poi_off{
+    margin-top: 5px;
+    /*border-bottom: 1px solid #cdcdcd;*/
+
+}
+
+.poi_name_container{
+    font-weight: bold;
+}
+
+.cover_favorite_img{
+    margin-bottom: 25px;
+}
+
+.offer_info_detail{
+    margin-bottom: 5px;
+}
+
+.offer_date_end{
+    float: left;
+    width: 45%;
+    min-width: 45%;
+}
+
+.offer_qta{
+    float: left;
+    width: 25%;
+    text-align: right;
+}
+
+.offer_price{
+    float: left;
+    width: 25%;
+    text-align: right;
+}
+
+
+.offer_qta_stock{
+    float: left;
+    width: 25%;
+}
+
+.offer_price_stock{
+    float: left;
+    width: 25%;
+}
+
+.poi_off_container{
+    border-bottom: 1px solid #cdcdcd;
+    margin-bottom: 5px;
+}
+
+.offer_name{
+    font-weight: bold;
+}
+
+.fa-ov{
+    float: left;
+    margin-right: 5px;
+}
+
+.mailContainer {
+    border-left: 1px solid #cdcdcd;
+    margin-left: 2px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+.phoneContainer{
+    border-left: 1px solid #cdcdcd;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+}
+
+.addressContainer{
+    border-left: 1px solid #cdcdcd;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    padding-left: 5px;
 }

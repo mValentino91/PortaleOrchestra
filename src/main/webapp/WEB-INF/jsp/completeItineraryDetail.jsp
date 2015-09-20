@@ -9,212 +9,202 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--SCRIPT-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
+        <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
+        <script src="./dist/js/qrcode.js"></script>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--CSS-->
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
-
-
-        <script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
-        <link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
         <link rel='stylesheet' href='./dist/css/bootstrap.min.css'>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
         <link href="./dist/css/OrchestraFontIcon.css" rel="stylesheet"> 
-        <link href="./dist/css/composite.css" rel="stylesheet">
-        <script src="./dist/js/section.js"></script>
-        <script src="./dist/js/composite.js"></script>
-        <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
-        <script src="./dist/js/readmore.js"></script>
-        <script src="./dist/js/favorite_ajax.js"></script>
-        <script src="./dist/js/favorite.js"></script>
-        <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
-        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
-        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
-        <link rel="stylesheet" href="./dist/css/favorites.css" />
-
-        <title><spring:message code="label.favoritespoi"></spring:message></title>   
-            <style>
-                .new_it_button{
-                    user-drag: none; 
-                    -moz-user-select: none;
-                    -webkit-user-drag: none;
-                    background-color:#285E8E;
-                    color:#fff;
-                    height: 50px;
-                    text-align: center;
-                    vertical-align: middle;
-                    line-height: 50px; 
-                    font-weight: bold;
-                    cursor: pointer;
-                    margin-bottom: 20px;
-
-                }
-
-                .poi_it_container{
-                    width: 100%;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;  
-                    clear: both;
-                }
-
-                .poi_it_img{
-                    width: 60px;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;  
-                    float:left;
-                }
-
-                .poi_it_name_container{
-                    display: table;
-                    border:0px solid green;
-                    width: 180px;
-                    height: 60px;
-                    float: left;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;				
-                    border: 0px solid red;
-                }
-
-                .poi_it_name{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                }
-
-                .poi_it_status{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                    color: green;
-                    font-weight: bold;
-                }
-
-
-            </style>
-
-        </head>
-        <body>
+        <link href="./dist/css/itinerary.css" rel="stylesheet">
+        <link href="./dist/fontawesome/font-awesome.min.css" rel="stylesheet">
+        
+        
+        
+        <title>${Itinerary.name}</title>   
+        
+    </head>
+    
+    <body>
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
 
             <div class="col-md-12">
-                <div class="cover_favorite_img" style="background-color: #285E8E;">
-                    <div class="poi_it_img" style="line-height: 200px; margin-left: 100px;">
-                        <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
+                <div class="cover_itinerary_detail">
+                    <div class="cover_itd cover_itd_sx">
+                        <div class="itinerary_det">
+                            <div class="img_poi_header">
+                                <c:set var="itn" value="${itinerary.name}"/>
+                                <c:set var="it_name" value="${fn:substring(itn, 0, 2)}" />
+                                <c:set var="tx" value="${fn:toUpperCase(it_name)}" />
+                                <div class="rnd" style="background-color:${itinerary.color};">
+                                    <span class="rnd-text">${tx}</span>
+                                </div> 
+                            </div>
+                            <div class="it_det_info">${itinerary.name}</div>
+                            <div class="it_det_info it_det_date">Creato il: <fmt:formatDate value="${itinerary.dateCreation}" pattern="dd/MM/yyyy HH:mm"/></div>
+                        </div>
                     </div>
-                    <span style="line-height: 200px; margin-right: 500px; color:#fff; border: 1px solid #fff;">Nome itinerario</span>
-                    <span style="color:#fff; border: 1px solid #fff;">Paga 50€</span>
+                    
+                    <div class="cover_itd cover_itd_dx">
+                        <div class="price_detail">
+                            
+                        </div>
+                    </div>
+
+
+
+                    
                 </div>
             </div>
 
 
-            <div class="col-md-4">
+            <div class="col-md-7">
+              
                 
                 <article class="component component-text">
-                    <div class="details">
+                    <div class="details details_poi_offers" style="padding-left: 10px; padding-right: 10px;">
+
                         <div class="paragrafo">
-                            <div class="itinerary-container">
-                                
-                                
-                                
-                                <c:forEach var="poi" items="${map_poi.keySet()}">
-                                    <div class="poi_it_container">
+                    
+                            <c:choose>
+                                <c:when test="${not empty map_poi.keySet()}">
+                                    <div class="poi_container">
                                         
-                                        <div class="poi_it_img">
-                                            <img src="./dist/poi/img/${map_poi.get(poi).id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
-                                        </div>
-
-                                        <div class="poi_it_name_container">
-                                            <div class="poi_it_name">
-                                                ${map_poi.get(poi).name}                                                     
-                                            </div>
-                                        </div>
-                                        <div class="poi_off_stock">
-                                            <c:forEach var="stock" items="${map_stockChoice.get(poi)}">
-                                                    <div style="border:1px solid red;">${stock.description}
-                                                    ${stock.qta}
-                                                    </div>
-                                                
-                                                
-                                            </c:forEach>
-                                        </div>
-                                        
-                                        <div class="poi_off_card">
-                                            <c:forEach var="card" items="${map_cardChoice.get(poi)}">
-                                                <div style="border:1px solid red;">${stock.description}
-                                                    <c:set var="x" value="${card.idOffer}"/>
-                                                    ${map_dealerOffer.get(x).nome}
+                                        <c:forEach var="poi" items="${map_poi.keySet()}">
+                                            <div class="poi_off">
+                                                <div class="img_poi">
+                                                    <img class="rnd_it_detail" src="./dist/img/default_avatar.png" /> 
                                                 </div>
-                                            </c:forEach>
-                                        </div>    
-                                            
-                                    </div>
-                                    
-                                </c:forEach>
-                                
-                                
-                                <%--
-                                <c:forEach var="poi" items="${map_poi.keySet()}">
-                                    <div class="poi_it_container">
-                                        <div class="poi_it_img">
-                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
-                                        </div>
+                                                
+                                                
+                                                <div class="info_container" style="margin-bottom:5px; border:1px solid #cdcdcd">
+                                                    <div class="poi_name_container">${map_poi.get(poi).name}</div>
+                                                    <div class="poi_info" style=" margin-top:10px; margin-bottom:10px">
+                                                        
+                                                        
+                                                        <div class="poi_info poi_info_address">
+                                                            <i class="fa-ov fa fa-location-arrow"></i>
+                                                            <div class="addressContainer" style="float: left;">${map_poi.get(poi).address}</div>
+                                                            <div class="clear"></div>
+                                                        </div>
+                                                        
+                                                        <c:if test="${not empty poi_tel.get(poi)}">
+                                                            <div class="poi_info poi_info_tel">
+                                                                <i class="fa-ov fa fa-phone"></i>
+                                                                <div class="phoneContainer" style="float: left;">
+                                                                    <c:forEach var="tel" items="${poi_tel.get(poi)}">
+                                                                        <div>${tel}</div>
+                                                                    </c:forEach>
+                                                                </div>
+                                                                <div class="clear"></div>
+                                                            </div>  
+                                                        </c:if>
+                                                        
+                                                        <c:if test="${not empty poi_mail.get(poi)}">
+                                                            <div class="poi_info poi_info_mail">
+                                                                <i class="fa-ov fa fa-envelope-o"></i>
+                                                                <div class="mailContainer" style="float: left;">
+                                                                    <c:forEach var="mail" items="${poi_mail.get(poi)}">
+                                                                        <div>${mail}</div>
+                                                                    </c:forEach>
+                                                                </div>
+                                                                <div class="clear"></div>
+                                                            </div>
+                                                        </c:if>
+                                                    </div>
+                                                            
+                                                    <c:if test="${not empty map_cardChoice.get(poi) || not empty map_stockChoice.get(poi)}" >       
+                                                        Hai acquistato le seguenti offerte:
+                                                        <div class="poi_info_off">
+                                                            <ul>
+                                                                <c:forEach var="card" items="${map_cardChoice.get(poi)}">
+                                                                    <c:set var="x" value="${card.idOffer}"/>
+                                                                    <li>
+                                                                        <div class="poi_off_container">
+                                                                            <div class="offer_name">${map_dealerOffer.get(x).nome}</div>
+                                                                            <div class="offer_description">${map_dealerOffer.get(x).desc}</div>
 
-                                        <div class="poi_it_name_container">
-                                            <div class="poi_it_name">
-                                                ${poi.name}                                                      
+                                                                            <div class="offer_info_detail">
+                                                                                <div class="offer_date_end">Scedenza: <fmt:formatDate value="${map_dealerOffer.get(x).dateEnd}" pattern="dd/MM/yyyy HH:mm"/></div>
+                                                                                <div class="offer_qta">Numero: ${card.qta}</div>
+                                                                                <div class="offer_price">Totale: €${card.sum}</div>
+                                                                            </div>
+                                                                            <div class="clear"></div>
+                                                                        </div>
+                                                                    </li>
+                                                                </c:forEach>
+                                                                    
+                                                                <c:forEach var="stock" items="${map_stockChoice.get(poi)}">
+                                                                    <li>
+                                                                        <div class="poi_off_container">
+                                                                            <div class="offer_name">${stock.stockType} </div>
+                                                                            <div class="offer_description">${stock.description}</div>
+
+                                                                            <div class="offer_info_detail">
+                                                                                <div class="offer_qta_stock">Numero: ${stock.qta}</div>
+                                                                                <div class="offer_price_stock">Totale: €${stock.price}</div>
+                                                                            </div>
+                                                                            <div class="clear"></div>
+                                                                        </div>
+                                                                    </li>
+                                                                </c:forEach>    
+                                                            </ul>
+                                                        </div>
+                                                    </c:if>
+                                                </div>   
+                                                <div class="clear"></div> 
                                             </div>
-                                        </div>
-                                        
-                                        <c:forEach var="off" items="${map_choices.get(poi)}">
-                                           <li>${off.description}</li>
+
                                         </c:forEach>
+
                                     </div>
-                                    
-                                    
-                                </c:forEach>
-                                    --%>
-                                    
-                                    <%--
-                                    
-                                    <div class="poi_it_container">
-                                        <div class="poi_it_img">
-                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:56px; height:56px; border-radius: 50%; margin-top:5px;"/> 
-                                        </div>
-
-                                        <div class="poi_it_name_container">
-                                            <div class="poi_it_name">
-                                                ${poi.name}                                                      
-                                            </div>
-
-
-                                        </div>
-                                    </div>
-                                    --%>
-                                
-
-
-
-                                <div class="clear"></div>    
-                            </div>
+                                </c:when>
+                                <c:otherwise>
+                                    Non hai aggiunto nessun poi all'itinerario
+                                </c:otherwise>
+                            </c:choose>
+                            
                         </div>    
                     </div>
                 </article>
             </div>
 
-            <div class="col-md-8">
-                <jsp:include page="components/mapCompleteItineraryComponent.jsp"/>
+            <div class="col-md-5">
+                <div class="qr-code-box">
+                    <div class="qr-code">
+                        
+                        <div id="qrcode" style="margin-left: 80px; width:210px; height:210px;"></div>
+                        
+                        <script>
+                            var qrcode = new QRCode(document.getElementById("qrcode"), {
+                                width: 210,
+                                height: 210
+                            });
+                            function makeCode() {
+                                var code ="${itinerary.keyString}";
+                                qrcode.makeCode(code);
+                            }
+                            makeCode();
+
+                        </script>
+                    </div>
+                </div>
                 
+                <jsp:include page="components/mapCompleteItineraryComponent.jsp"/>
+
             </div>
 
             <div class="col-xs-12" id="footer">
@@ -224,16 +214,8 @@
             </div>
 
         </div>
-
-
+        
+        
         <jsp:include page="access/loginModal.jsp" />
-        <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
-
-
     </body>
-</html>
-
-
-
-</body>
 </html>

@@ -43,3 +43,39 @@ and open the template in the editor.
     color:#808080;
     clear: both;
 }
+
+.itinerary_content{
+    height: 80px;
+}
+
+.sel_itinerary{
+    width: 70%;
+    float: left;
+    color: #fff;
+    background: transparent;
+}
+
+.styled-select select {
+   background: transparent;
+   width: 268px;
+   padding: 5px;
+   font-size: 12px;
+   line-height: 1;
+   border: 0;
+   border-radius: 0;
+   height: 30px;
+   -webkit-appearance: none;
+   color: #fff;
+   font-weight: bold;
+   }
+   
+   .styled-select {
+   width: 90%;
+   height: 30px;
+   overflow: hidden;
+   background: url(new_arrow.png) no-repeat right #ED5565;
+   border: 1px solid #ED5565;
+   border-radius: 1px;
+   margin-left: 25px;
+   
+   }

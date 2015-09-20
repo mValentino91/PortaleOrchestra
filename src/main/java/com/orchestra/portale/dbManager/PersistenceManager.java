@@ -146,4 +146,12 @@ public interface PersistenceManager {
     public List<String> getDealerOwnPoi(int idDealer);
 
     public Integer getUserItinerary(String keyString);
+
+    public Itinerary findItineraryByIdItinerary(int idItinerary);
+    
+    public Iterable<Itinerary> findActiveItinerariesByIdUser(int idUser);
+
+    public Favorite getFavoriteByIdPoiAndIdUser(String idPoi, int idUser);
+
+    public Integer findAcceptedOffer(Integer idItineraryDetail);
 }

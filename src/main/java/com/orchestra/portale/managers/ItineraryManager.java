@@ -4,9 +4,13 @@ import com.orchestra.portale.controller.CartController;
 import com.orchestra.portale.dbManager.PersistenceManager;
 import com.orchestra.portale.persistence.mongo.documents.AbstractPoiComponent;
 import com.orchestra.portale.persistence.mongo.documents.CompletePOI;
+import com.orchestra.portale.persistence.mongo.documents.ContactsComponent;
+import com.orchestra.portale.persistence.mongo.documents.EmailContact;
+import com.orchestra.portale.persistence.mongo.documents.PhoneContact;
 import com.orchestra.portale.persistence.mongo.documents.PricesComponent;
 import com.orchestra.portale.persistence.mongo.documents.TicketPrice;
 import com.orchestra.portale.persistence.sql.entities.DealerOffer;
+import com.orchestra.portale.persistence.sql.entities.Favorite;
 import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
@@ -46,11 +50,13 @@ public class ItineraryManager{
     }
     
     public static void addPoi(PersistenceManager pm, int it, String idPoi){
-        ItineraryDetail id = new ItineraryDetail();
-        id.setIdPoi(idPoi);
-        id.setIdItinerary(it);
-        pm.savePoiItinerary(id);
-         
+        Integer det = pm.findItDetail(it, idPoi);
+        if(det == null){
+            ItineraryDetail id = new ItineraryDetail();
+            id.setIdPoi(idPoi);
+            id.setIdItinerary(it);
+            pm.savePoiItinerary(id);
+        }
     }
     
     public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi,Integer idOffer, int qta, float sum, String type, String name, String desc){
@@ -164,7 +170,12 @@ public class ItineraryManager{
         Map<Integer,DealerOffer>map_dealerOffer = new HashMap<Integer,DealerOffer>();
         Map<String,Iterable<UserOfferChoice>>map_stockChoice = new HashMap<String,Iterable<UserOfferChoice>>();
         Map<String,Iterable<UserOfferChoice>>map_cardChoice = new HashMap<String,Iterable<UserOfferChoice>>();
+        Map<String,List<String>>poi_tel = new HashMap<String,List<String>>();
+        Map<String,List<String>>poi_mail = new HashMap<String,List<String>>();
+        List<String>telNumbers = new ArrayList<String>();        
+        List<String>mailList = new ArrayList<String>();
         
+        Itinerary itinerary = pm.findItineraryByIdItinerary(idItinerary);
         Iterable<String> pois_id = pm.findPoisByItinerary(idItinerary);
         Iterable<Integer> details = pm.findIdDetailByIdItinerary(idItinerary);
         Iterable<Integer>dealerChoice = null;
@@ -172,6 +183,37 @@ public class ItineraryManager{
         for(String pid: pois_id){
             CompletePOI poi = pm.getCompletePoiById(pid);
             map_poi.put(pid, poi);
+            
+            
+        
+            ContactsComponent cc = null;
+            for (AbstractPoiComponent comp : poi.getComponents()) {
+                String slug = comp.slug();
+                int index = slug.lastIndexOf(".");
+                Class c;
+                String cname = slug.substring(index + 1).replace("Component", "").toLowerCase();
+                if (cname.equals("contacts")) {
+                    try {
+                        c = Class.forName(slug);
+                        cc = (ContactsComponent) comp;
+
+                    } catch (ClassNotFoundException ex) {
+                        Logger.getLogger(CartController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            if (cc != null) {
+                
+                for (PhoneContact p : cc.getPhoneList()) {
+                    telNumbers.add(p.getNumber());
+                }
+                poi_tel.put(pid, telNumbers);
+                
+                for (EmailContact e : cc.getEmailsList() ) {
+                    mailList.add(e.getEmail());
+                }
+                poi_mail.put(pid, mailList);
+            }
             
             //recupero detail dato idpoi ed iditinerary
             int idd = pm.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary,pid);
@@ -187,38 +229,15 @@ public class ItineraryManager{
                 
             }
         
-            //
-            
-            /*
-            for(Integer idd: details){
-                List<UserOfferChoice>stockChoice = pm.findChoiceStockByUser(idd);
-                System.out.println("numero="+stockChoice.size());
-                List<UserOfferChoice>cardChoice = pm.findChoiceCardByUser(idd);
-                dealerChoice = pm.findIdOfferByIdItineraryDetail(idd);
-                map_stockChoice.put(pid, stockChoice);
-                map_cardChoice.put(pid, cardChoice);
-            }
-            
-            for(Integer idOffer: dealerChoice){
-                DealerOffer off = pm.findDealerOfferByidOffer(idOffer);
-                map_dealerOffer.put(idOffer, off);
-                
-            }
-                    */
+           
         }
-        String prova = "ddd";
+        model.addObject("itinerary",itinerary);
         model.addObject("map_poi",map_poi);
         model.addObject("map_dealerOffer",map_dealerOffer);
         model.addObject("map_stockChoice",map_stockChoice);
         model.addObject("map_cardChoice",map_cardChoice);
-        model.addObject("prova",prova);
-        
-        
-        
-        
-        
-        
-        
+        model.addObject("poi_tel",poi_tel);
+        model.addObject("poi_mail",poi_mail);
         
         
         /*
@@ -248,18 +267,40 @@ public class ItineraryManager{
                 */
         return model;
     }
+    
+    
+   // ----
         
     
     public static ModelAndView viewItineraryDetail(PersistenceManager pm, int idItinerary){
         ModelAndView model = new ModelAndView("itineraryDetail");
-
+        Map<String,Integer>off_card = new HashMap<String,Integer>();
+        Map<String,Integer>fav_poi = new HashMap<String,Integer>();
+        Map<String,Integer>poi_offc = new HashMap<String,Integer>();
+        int id_user=0;
         Iterable<String> pois_id = ItineraryManager.findPoiByItinerary(pm, idItinerary);
         Iterable<? extends CompletePOI> pois = pm.getCompletePoisById(pois_id);
-        //x ogni id poi devo visualizzare le off stock e le off card
-
-        model.addObject("id",idItinerary);
-        model.addObject("pois", pois);
+        Itinerary itinerary = pm.findItineraryByIdItinerary(idItinerary);
         
+        if(itinerary!=null)
+            id_user=itinerary.getIdUser();
+        for(String idPoi: pois_id){
+            int countCard = pm.countOfferCard(idPoi);
+            Favorite fav = pm.getFavoriteByIdPoiAndIdUser(idPoi,id_user);
+            if(fav != null)
+                fav_poi.put(idPoi,fav.getRating());
+            off_card.put(idPoi, countCard);
+            
+            Integer idItineraryDetail = pm.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary, idPoi);
+            Integer noffer = pm.findAcceptedOffer(idItineraryDetail);
+            poi_offc.put(idPoi, noffer);
+        }
+        
+        model.addObject("itinerary",itinerary);
+        model.addObject("off_card",off_card);
+        model.addObject("fav_poi",fav_poi);
+        model.addObject("pois", pois);
+        model.addObject("poi_offc",poi_offc);
         
                
         return model;

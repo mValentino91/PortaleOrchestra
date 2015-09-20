@@ -162,12 +162,12 @@
 
                                                         <c:when test="${it.status == 1}">
                                                             <div class="status_container">completato</div>
-                                                            <div class="modify_btn">Visualizza</div>
+                                                            <a href="./myItineraryDetail?idItinerary=${it.idItinerary}"><div class="modify_btn">Visualizza</div></a>
                                                         </c:when>    
 
                                                         <c:when test="${it.status == 2}">
                                                             <div class="status_container">scaduto</div>
-                                                            <div class="modify_btn">Visualizza</div>
+                                                            <a href="./myItineraryDetail?idItinerary=${it.idItinerary}"><div class="modify_btn">Visualizza</div></a>
                                                         </c:when>                                                        
                                                     </c:choose> 
                                                 

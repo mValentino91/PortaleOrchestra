@@ -36,6 +36,11 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Integer> {
     int findStatusByIdItinerary(int idItinerary, int idUser);
 
     @Query("select i.idItinerary from Itinerary i where i.keyString=?1")
-    public Integer findByKeyString(String keyString);
+    Integer findByKeyString(String keyString);
+
+    Itinerary findByIdItinerary(int idItinerary);
+
+    @Query("select i from Itinerary i where i.idUser=?1 AND i.status=0")
+    Iterable<Itinerary> findActiveByIdItinerary(int idUser);
     
 }

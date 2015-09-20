@@ -830,4 +830,24 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return 
     }
 */
+
+    @Override
+    public Itinerary findItineraryByIdItinerary(int idItinerary) {
+        return itRepo.findByIdItinerary(idItinerary);
+    }
+
+    @Override
+    public Favorite getFavoriteByIdPoiAndIdUser(String idPoi,int idUser) {
+        return favoriteRepo.findByIdPoiAndIdUser(idPoi,idUser);
+    }
+
+    @Override
+    public Iterable<Itinerary> findActiveItinerariesByIdUser(int idUser) {
+        return itRepo.findActiveByIdItinerary(idUser);
+    }
+
+    @Override
+    public Integer findAcceptedOffer(Integer idItineraryDetail) {
+        return ucRepo.countOfferByIdItineraryDetail(idItineraryDetail);
+    }
 }
