@@ -101,4 +101,5 @@ public class RestDealerController {
         String msg = "sono un dealer e funziona il token!";
         return msg;
     }           
+    
 }

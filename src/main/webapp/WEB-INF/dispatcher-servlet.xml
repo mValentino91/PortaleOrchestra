@@ -97,7 +97,6 @@
         <property name="defaultLocale" value="it" />
     </bean>
     
-   
     
 </beans>
  

@@ -45,7 +45,7 @@ public class Token implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id_user")
-    private int idUser;
+    private Integer idUser;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 40)
@@ -64,7 +64,7 @@ public class Token implements Serializable {
         this.id = id;
     }
 
-    public Token(Integer id, int idUser, String token, Date validity) {
+    public Token(Integer id, Integer idUser, String token, Date validity) {
         this.id = id;
         this.idUser = idUser;
         this.token = token;
@@ -79,11 +79,11 @@ public class Token implements Serializable {
         this.id = id;
     }
 
-    public int getIdUser() {
+    public Integer getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(int idUser) {
+    public void setIdUser(Integer idUser) {
         this.idUser = idUser;
     }
 

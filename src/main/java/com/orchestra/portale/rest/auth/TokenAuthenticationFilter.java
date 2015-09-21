@@ -76,12 +76,16 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
             return null;
         }
         
-        if(tokenObj.getValidity().after(new Date())){ 
+        if(new Date().after(tokenObj.getValidity())){ 
             System.out.println("TOKEN SCADUTO");
             return null;
         }
         
-        com.orchestra.portale.persistence.sql.entities.User domainUser = pm.findUserById(tokenObj.getId().longValue());
+        com.orchestra.portale.persistence.sql.entities.User domainUser = pm.findUserById(tokenObj.getIdUser().longValue());
+        
+        if(domainUser==null){
+            return null;
+        }
         
         User principal = new User(domainUser.getUsername(), "", getAuthorities(domainUser.getRoles()));        
         
