@@ -154,4 +154,6 @@ public interface PersistenceManager {
     public Favorite getFavoriteByIdPoiAndIdUser(String idPoi, int idUser);
 
     public Integer findAcceptedOffer(Integer idItineraryDetail);
+
+    public int countOfferChoiceByUser(Integer idItineraryDetail);
 }
