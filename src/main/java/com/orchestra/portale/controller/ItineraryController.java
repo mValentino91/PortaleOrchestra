@@ -93,15 +93,17 @@ public class ItineraryController {
 
     @RequestMapping(value = "/addOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    void addOfferItinerary(@RequestParam int qta, @RequestParam String idPoi,@RequestParam Integer id_offer, @RequestParam float sum, @RequestParam String type, @RequestParam Integer idItinerary, @RequestParam String name, @RequestParam String desc) {
+    int addOfferItinerary(@RequestParam int qta, @RequestParam String idPoi,@RequestParam Integer id_offer, @RequestParam float sum, @RequestParam String type, @RequestParam Integer idItinerary, @RequestParam String name, @RequestParam String desc) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
+        int status=0;
         
         if(idItinerary != null){
-            ItineraryManager.addOffer(pm, idItinerary,idPoi,id_offer, qta, sum, type, name, desc);
+            status = ItineraryManager.addOffer(pm, idItinerary,idPoi,id_offer, qta, sum, type, name, desc);
             //se l'offerta ke inserisco e gia presente aggiorno solo qta e prezzo
         }
+        return status;
         
     }
     

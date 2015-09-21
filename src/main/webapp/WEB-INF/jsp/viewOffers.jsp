@@ -89,7 +89,7 @@
     <div class="modal-body">
         
         <%-- OFFERTE CARD --%>
-        Offerte OrchestraCard blabla
+        Offerte OrchestraCard
         <c:forEach var="off" items="${offers}"> 
             <div type="CARD" idItinerary="${idItinerary}" idOffer="${off.idOffer}" idPoi="${poi.id}" fullPrice="${off.fullPrice}" discountedPrice="${off.discountedPrice}" rateOffer="${off.rateDiscount}">
                 <c:choose>
@@ -99,8 +99,9 @@
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
                         <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
                         <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${map_userChoice_card.get(off.idOffer).qta}"/>
+                        
+                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
                         </span> 
                         <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">
@@ -115,13 +116,15 @@
                     </c:when>
                     <c:otherwise>
                         <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>    
-                        <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                        <span class="off del" style="visibility: hidden; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
                         <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
                         <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
+                            
+                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
+                            
                         </span> 
                         <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.fullPrice}</span>
                         <span class="off discPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${off.discountedPrice}</span>
@@ -145,9 +148,11 @@
                         <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
 
                         <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${map_userChoice_stock.get(stock.get('type')).qta}"/>
+                            
+                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
+                            
                         </span>                        
 
                         <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">
@@ -158,14 +163,16 @@
                     </c:when>
                     <c:otherwise>
                         <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
-                        <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                        <span class="off del" style="visibility: hidden; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
                         <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
 
                         <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
-                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="0"/>
+                            
+                            <span id="up" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">+</span>
                             <span id="down" class="control" style="cursor: pointer; text-align: center; font-weight: bold; float: left;border:1px solid; width:20%">-</span>
+                            
                         </span>                        
 
                         <span class="off fullPrice" style="text-align: center; float:left; width: 5%; border:1px solid;">${stock.get("price")}</span>
@@ -318,9 +325,10 @@
                     type: "GET",
                     url: "./addOfferItinerary",
                     data: "qta=" + qta.val() + "&idPoi=" + idPoi +"&id_offer=" + idOffer + "&sum=" + sum + "&type=" + type + "&idItinerary=" + idItinerary + "&name=" + name + "&desc=" + desc,
-                    success: function () {
+                    success: function (data) {
                         sel_name.text("V");
                         del.show();
+                        alert(data);
                     }
                 });
             });

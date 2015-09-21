@@ -59,11 +59,12 @@ public class ItineraryManager{
         }
     }
     
-    public static void addOffer(PersistenceManager pm, int idItinerary, String idPoi,Integer idOffer, int qta, float sum, String type, String name, String desc){
+    public static int addOffer(PersistenceManager pm, int idItinerary, String idPoi,Integer idOffer, int qta, float sum, String type, String name, String desc){
         
         float tot = sum*qta;
         Integer iddetail = pm.findItDetail(idItinerary, idPoi);
         Integer uc_id=null;
+        int status_new_offer=0;
         
         
         switch (type) {
@@ -71,6 +72,7 @@ public class ItineraryManager{
                 uc_id = pm.retreiveUserChoiceStock(name,iddetail);
                 if(uc_id != null){
                     pm.updateUserChoiceStock(qta,tot,name);
+                    status_new_offer=0;
                 }
                 else{
                     //insert
@@ -84,12 +86,16 @@ public class ItineraryManager{
                     uc.setDescription(desc);
                     uc.setPrice(sum);
                     pm.saveUserChoice(uc);
+                    status_new_offer=1;
+                    
+                    
                     
                 }   break;
             case "CARD":
                 uc_id = pm.retreiveUserChoiceCard(idOffer,iddetail);
                 if(uc_id != null){
                     pm.updateUserChoiceCard(qta,tot,idOffer);
+                    status_new_offer=0;
                 }
                 else{
                     UserOfferChoice uc = new UserOfferChoice();
@@ -100,9 +106,10 @@ public class ItineraryManager{
                     uc.setType(type);
                     uc.setIdOffer(idOffer);
                 pm.saveUserChoice(uc);  
+                    status_new_offer=1;
             }   break;
         }
-         
+        return status_new_offer;
     }
     
     
