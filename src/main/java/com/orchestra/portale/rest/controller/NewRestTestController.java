@@ -12,19 +12,20 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  *
  * @author antonio
  */
-@Controller
+@RestController
 public class NewRestTestController {
     @Autowired
     PersistenceManager pm;    
     
     @Secured("ROLE_DEALER")
     @RequestMapping(value = "/rest/dealer/prova2")
-    public @ResponseBody
+    public
     String dealertest3(HttpServletRequest request) {    
         String msg = "TestNEW: sono un dealer e funziona il token!";
         return msg;
