@@ -24,15 +24,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author antonio
+ * @author andzaccaro
  */
 @Entity
 @Table(name = "dealerOffer")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DealerOffer.findAll", query = "SELECT d FROM DealerOffer d"),
-    //@NamedQuery(name = "DealerOffer.findByIdOffer", query = "SELECT d FROM DealerOffer d WHERE d.idOffer = :idOffer"),
-    @NamedQuery(name = "DealerOffer.findByIdDealer", query = "SELECT d FROM DealerOffer d WHERE d.idDealer = :idDealer"),
+    @NamedQuery(name = "DealerOffer.findByIdOffer", query = "SELECT d FROM DealerOffer d WHERE d.idOffer = :idOffer"),
+    //@NamedQuery(name = "DealerOffer.findByIdDealer", query = "SELECT d FROM DealerOffer d WHERE d.idDealer = :idDealer"),
     @NamedQuery(name = "DealerOffer.findByIdPoi", query = "SELECT d FROM DealerOffer d WHERE d.idPoi = :idPoi"),
     @NamedQuery(name = "DealerOffer.findByNome", query = "SELECT d FROM DealerOffer d WHERE d.nome = :nome"),
     @NamedQuery(name = "DealerOffer.findByDesc", query = "SELECT d FROM DealerOffer d WHERE d.desc = :desc"),
@@ -51,9 +51,8 @@ public class DealerOffer implements Serializable {
     private Integer idOffer;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 100)
     @Column(name = "idDealer")
-    private String idDealer;
+    private int idDealer;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
@@ -103,7 +102,7 @@ public class DealerOffer implements Serializable {
         this.idOffer = idOffer;
     }
 
-    public DealerOffer(Integer idOffer, String idDealer, String idPoi, String nome, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd, int dealerCode) {
+    public DealerOffer(Integer idOffer, int idDealer, String idPoi, String nome, String desc, float fullPrice, float discountedPrice, int rateDiscount, Date dateStart, Date dateEnd, int dealerCode) {
         this.idOffer = idOffer;
         this.idDealer = idDealer;
         this.idPoi = idPoi;
@@ -125,11 +124,11 @@ public class DealerOffer implements Serializable {
         this.idOffer = idOffer;
     }
 
-    public String getIdDealer() {
+    public int getIdDealer() {
         return idDealer;
     }
 
-    public void setIdDealer(String idDealer) {
+    public void setIdDealer(int idDealer) {
         this.idDealer = idDealer;
     }
 

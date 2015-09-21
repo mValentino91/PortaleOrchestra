@@ -19,7 +19,7 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Integer> {
     @Query("select i.idUser from Itinerary i where i.idItinerary =?1")
     Long findUserByIdItinerary(Integer idItinerary);
     
-    //@Query("select * from Itinerary i where i.idUser =?1 ORDER BY i.idItinerary desc")
+    @Query("select i from Itinerary i where i.idUser =?1 ORDER BY i.idItinerary desc")
     Iterable<Itinerary> findByIdUser(int idUser);
     
     @Modifying
@@ -34,5 +34,13 @@ public interface ItineraryRepository extends JpaRepository<Itinerary, Integer> {
 
     @Query("select i.status from Itinerary i where i.idItinerary=?1 AND i.idUser=?2")
     int findStatusByIdItinerary(int idItinerary, int idUser);
+
+    @Query("select i.idItinerary from Itinerary i where i.keyString=?1")
+    Integer findByKeyString(String keyString);
+
+    Itinerary findByIdItinerary(int idItinerary);
+
+    @Query("select i from Itinerary i where i.idUser=?1 AND i.status=0")
+    Iterable<Itinerary> findActiveByIdItinerary(int idUser);
     
 }

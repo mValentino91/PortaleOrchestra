@@ -6,16 +6,18 @@
 package com.orchestra.portale.persistence.sql.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -29,11 +31,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Itinerary.findAll", query = "SELECT i FROM Itinerary i"),
-    @NamedQuery(name = "Itinerary.findByIdItinerary", query = "SELECT i FROM Itinerary i WHERE i.idItinerary = :idItinerary"),
+    //@NamedQuery(name = "Itinerary.findByIdItinerary", query = "SELECT i FROM Itinerary i WHERE i.idItinerary = :idItinerary"),
     //@NamedQuery(name = "Itinerary.findByIdUser", query = "SELECT i FROM Itinerary i WHERE i.idUser = :idUser"),
     @NamedQuery(name = "Itinerary.findByName", query = "SELECT i FROM Itinerary i WHERE i.name = :name"),
     @NamedQuery(name = "Itinerary.findByStatus", query = "SELECT i FROM Itinerary i WHERE i.status = :status"),
-    @NamedQuery(name = "Itinerary.findByKeyString", query = "SELECT i FROM Itinerary i WHERE i.keyString = :keyString")})
+    //@NamedQuery(name = "Itinerary.findByKeyString", query = "SELECT i FROM Itinerary i WHERE i.keyString = :keyString"),
+    @NamedQuery(name = "Itinerary.findByColor", query = "SELECT i FROM Itinerary i WHERE i.color = :color"),
+    @NamedQuery(name = "Itinerary.findByDateCreation", query = "SELECT i FROM Itinerary i WHERE i.dateCreation = :dateCreation")})
 public class Itinerary implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -57,10 +61,14 @@ public class Itinerary implements Serializable {
     @Size(max = 100)
     @Column(name = "keyString")
     private String keyString;
-    @Lob
-    @Size(max = 65535)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
     @Column(name = "color")
     private String color;
+    @Column(name = "date_creation")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateCreation;
 
     public Itinerary() {
     }
@@ -69,11 +77,12 @@ public class Itinerary implements Serializable {
         this.idItinerary = idItinerary;
     }
 
-    public Itinerary(Integer idItinerary, int idUser, String name, int status) {
+    public Itinerary(Integer idItinerary, int idUser, String name, int status, String color) {
         this.idItinerary = idItinerary;
         this.idUser = idUser;
         this.name = name;
         this.status = status;
+        this.color = color;
     }
 
     public Integer getIdItinerary() {
@@ -122,6 +131,14 @@ public class Itinerary implements Serializable {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Date getDateCreation() {
+        return dateCreation;
+    }
+
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 
     @Override

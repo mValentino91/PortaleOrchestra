@@ -19,9 +19,12 @@ public interface DealerOfferRepository extends JpaRepository<DealerOffer, Intege
     DealerOffer findOfferByIdOffer(int idOffer);
     List<DealerOffer> findOfferByIdDealer(String idDealer);
 
-    @Query("SELECT count(*) FROM DealerOffer d WHERE d.idDealer =?1")
+    @Query("SELECT count(*) FROM DealerOffer d WHERE d.idPoi =?1")
     int countOfferByIdPoi(String idPoi);
-
+   
     DealerOffer findByidOffer(Integer idOffer);
+   
+    @Query("SELECT DISTINCT d.idPoi FROM DealerOffer d WHERE d.idDealer=?1")
+    public List<String> findByIdDealer(int idDealer);
 
 }

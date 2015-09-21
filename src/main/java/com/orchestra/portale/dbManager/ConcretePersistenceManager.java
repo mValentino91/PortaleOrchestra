@@ -760,7 +760,6 @@ public class ConcretePersistenceManager implements PersistenceManager {
         return ucRepo.findByIdItineraryDetail(idItineraryDetail);
     }
 
-
     @Override
     public Iterable<Integer> findIdOfferByIdItineraryDetail(Integer idItineraryDetail) {
         return ucRepo.findIdOfferByIdItineraryDetail(idItineraryDetail);
@@ -772,7 +771,7 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi) {
+    public Integer findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi) {
         return itdRepo.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary,idPoi);
     }
 
@@ -816,4 +815,39 @@ public class ConcretePersistenceManager implements PersistenceManager {
         tokenRepo.updateToken(id, token, validity);
     }
 
+    @Override
+    public List<String> getDealerOwnPoi(int idDealer) {
+      return dealerRepo.findByIdDealer(idDealer);  
+    }
+
+    @Override
+    public Integer getUserItinerary(String keyString) {
+      return itRepo.findByKeyString(keyString);  
+    }
+/*
+    @Override
+    public Iterable<Integer> findIdDetailByIdItineraryByDealer(Integer idItinerary) {
+        return 
+    }
+*/
+
+    @Override
+    public Itinerary findItineraryByIdItinerary(int idItinerary) {
+        return itRepo.findByIdItinerary(idItinerary);
+    }
+
+    @Override
+    public Favorite getFavoriteByIdPoiAndIdUser(String idPoi,int idUser) {
+        return favoriteRepo.findByIdPoiAndIdUser(idPoi,idUser);
+    }
+
+    @Override
+    public Iterable<Itinerary> findActiveItinerariesByIdUser(int idUser) {
+        return itRepo.findActiveByIdItinerary(idUser);
+    }
+
+    @Override
+    public Integer findAcceptedOffer(Integer idItineraryDetail) {
+        return ucRepo.countOfferByIdItineraryDetail(idItineraryDetail);
+    }
 }

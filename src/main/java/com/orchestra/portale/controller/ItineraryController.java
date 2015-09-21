@@ -71,12 +71,15 @@ public class ItineraryController {
 
     @RequestMapping(value = "/addPoiItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    String addPoiNewItinerary() {
+    String addPoiNewItinerary(@RequestParam String idPoi, @RequestParam int idItinerary) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
-        ItineraryManager.addPoi(pm, 22, "5496cfecdf6ef624f2d63de7");
-        return "ok";
+        if(idItinerary!=-1){
+            ItineraryManager.addPoi(pm, idItinerary, idPoi);
+            return "ok";
+        }
+        return "no";
     }
     
     @RequestMapping(value = "/removePoiItinerary", method = RequestMethod.GET)

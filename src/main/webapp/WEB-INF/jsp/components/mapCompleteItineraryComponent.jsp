@@ -14,7 +14,7 @@
 <script type="text/javascript"src = "http://maps.googleapis.com/maps/api/js?key=AIzaSyBKbphxUcFrE24FYlwrs6K-yzXBguXRhhg&sensor=true" >
 </script>
 <article class="component component-product">
-    <div id="map" style="height: 274px;">
+    <div id="map" style="height: 210px;">
 
     </div>
 
@@ -74,7 +74,7 @@
         var mapOptions = {
             center: new google.maps.LatLng(40.852114, 14.268112),
             styles:mapStyle,
-                    zoom: 14,
+                    zoom: 11,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
         };
             

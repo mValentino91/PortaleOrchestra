@@ -74,6 +74,8 @@
                 <c:if test="${not empty fav_rating}">
                     <jsp:include page="components/FavoritePoiComponent.jsp"/>
                 </c:if>
+                
+                <jsp:include page="components/ItineraryPoiComponent.jsp"/>
 
                 <c:if test="${not empty imggallery}">
                     <jsp:include page="components/ImgGalleryComponent2.jsp"/> 

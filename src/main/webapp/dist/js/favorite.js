@@ -78,7 +78,6 @@ $(document).ready(function () {
     
     
     $(".sel").change(function(){
-       alert("hhh"); 
        if($(this).is(":checked")) {
            $(this).attr("checked", true);
        } 
@@ -115,5 +114,4 @@ function slideFavoritePoi(category_title) {
     }
     //son.slideUp("slow");
 }  
-
 

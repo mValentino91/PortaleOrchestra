@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author antonio
+ * @author andzaccaro
  */
 @Entity
 @Table(name = "token")

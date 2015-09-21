@@ -68,16 +68,15 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
         if(token==null) return null;  
 
         /* Verifica Esistenza/Validità Token */
-        System.out.println("TOKEN RICEVUTO: " + token);
         Token tokenObj = pm.getTokenByToken(token);
-        
+     
+        //se il token non è presente nel DB
         if(tokenObj==null){ 
-            System.out.println("TOKEN DAL DB é NULL");
             return null;
         }
-        
+   
+        //se il token è scaduto
         if(new Date().after(tokenObj.getValidity())){ 
-            System.out.println("TOKEN SCADUTO");
             return null;
         }
         
@@ -88,12 +87,6 @@ public class TokenAuthenticationFilter extends AbstractAuthenticationProcessingF
         }
         
         User principal = new User(domainUser.getUsername(), "", getAuthorities(domainUser.getRoles()));        
-        
-        /*
-        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();  
-        authorities.add(new SimpleGrantedAuthority(role));  
-        User principal = new User(username, "", authorities);   
-        */
         
         AbstractAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());  
 

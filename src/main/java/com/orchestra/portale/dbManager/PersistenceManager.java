@@ -133,7 +133,7 @@ public interface PersistenceManager {
     public List<UserOfferChoice> findByIdItineraryDetail(Integer idItineraryDetail);
     public Iterable<Integer> findIdOfferByIdItineraryDetail(Integer idItineraryDetail);
     public DealerOffer findDealerOfferByidOffer(Integer idOffer);
-    public int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
+    public Integer findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
     public void deletePoiItinerary(String idPoi, int idItinerary);
     public void deleteOffersPoi(Integer idItineraryDetail);
     public User findUserByUsernameAndPassword(String username, String password);
@@ -142,4 +142,16 @@ public interface PersistenceManager {
     public Token getTokenByToken(String token);
     public Token getTokenByIdUser(Integer id_user);
     public void updateToken(Integer id, String token, Date validity);
+
+    public List<String> getDealerOwnPoi(int idDealer);
+
+    public Integer getUserItinerary(String keyString);
+
+    public Itinerary findItineraryByIdItinerary(int idItinerary);
+    
+    public Iterable<Itinerary> findActiveItinerariesByIdUser(int idUser);
+
+    public Favorite getFavoriteByIdPoiAndIdUser(String idPoi, int idUser);
+
+    public Integer findAcceptedOffer(Integer idItineraryDetail);
 }

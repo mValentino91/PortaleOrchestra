@@ -9,112 +9,139 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--SCRIPT-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <!--<link href="./dist/css/bootstrap.min.css" rel="stylesheet">-->
+        <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
+        
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <!--CSS-->
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700'>
         <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600'>
-
-
-        <script type="text/javascript" src="./dist/nanoscroller/jquery.nanoscroller.min.js"></script>
-        <link rel="stylesheet" href="./dist/nanoscroller/nanoscroller.css" type="text/css" media="screen" />
         <link rel='stylesheet' href='./dist/css/bootstrap.min.css'>
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="./dist/css/poi_view.css" rel="stylesheet">
         <link href="./dist/css/OrchestraFontIcon.css" rel="stylesheet"> 
-        <link href="./dist/css/composite.css" rel="stylesheet">
-        <script src="./dist/js/section.js"></script>
-        <script src="./dist/js/composite.js"></script>
-        <script src="./dist/googlePlusDesign/js/bootstrap.min.js"></script>
-        <script src="./dist/js/readmore.js"></script>
-        <script src="./dist/js/favorite_ajax.js"></script>
-        <script src="./dist/js/favorite.js"></script>
-        <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
-        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
-        <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
-        <link rel="stylesheet" href="./dist/css/favorites.css" />
-
-        <title><spring:message code="label.favoritespoi"></spring:message></title>   
-            <style>
-                .new_it_button{
-                    user-drag: none; 
-                    -moz-user-select: none;
-                    -webkit-user-drag: none;
-                    background-color:#285E8E;
-                    color:#fff;
-                    height: 50px;
-                    text-align: center;
-                    vertical-align: middle;
-                    line-height: 50px; 
-                    font-weight: bold;
-                    cursor: pointer;
-                    margin-bottom: 20px;
-
-                }
-
-                .poi_it_container{
-                    width: 100%;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;  
-                    clear: both;
-                }
-
-                .poi_it_img{
-                    width: 60px;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;  
-                    float:left;
-                }
-
-                .poi_it_name_container{
-                    display: table;
-                    border:0px solid green;
-                    width: 180px;
-                    height: 60px;
-                    float: left;
-                    -moz-box-sizing: border-box;
-                    -webkit-box-sizing: border-box;
-                    box-sizing: border-box;				
-                    border: 0px solid red;
-                }
-
-                .poi_it_name{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                }
-
-                .poi_it_status{
-                    display: table-cell;
-                    overflow: hidden;
-                    vertical-align: middle;
-                    border: 0px solid red;
-                    color: green;
-                    font-weight: bold;
-                }
+        <link href="./dist/css/itinerary.css" rel="stylesheet">
+        
+        
+        <title>${Itinerary.name}</title>   
+        
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip(); 
                 
+                $("#complit").click(function () {
+                    
+                    $.ajax({
+
+                        type: "GET",
+                        url: "./completeItinerary",
+                        data: "idItinerary="+ ${itinerary.idItinerary},
+
+                        success: function(){
+                            alert("itinerario completato!");
+                            window.location="./myItinerary";
+                        }
+                    });
+                });
+
+                $("#delit").click(function () {
+                    $.ajax({    
+                        type: "GET",
+                        url: "./removeItinerary",
+                        data: "idItinerary="+ ${itinerary.idItinerary},
+
+                        success: function(){
+                            alert("itinerario cancellato!");
+                            window.location="./myItinerary";
+                        }
+                    });
+                });
+
+                $(".delPoi").each(function (index) {
+                    var sel = $(this);
+                    
+
+                    $(this).on("click", function () {
+                        var idPoi = sel.parent().parent().parent().attr("idPoi");
+                        
+                        $.ajax({
+                            type: "GET",
+                            url: "./removePoiItinerary",
+                            data: "idItinerary=" + ${itinerary.idItinerary} + "&idPoi=" + idPoi,
+                            success: function () {
+                                alert("Il poi è stato cancellato dall'itinerario");
+                                window.location="./myItineraryDetail?idItinerary=" + ${itinerary.idItinerary};
+                            }
+                       });
+                       
+                    });
+                });
 
 
-            </style>
+                $(".select_off").each(function (index) {
+                    var sel = $(this);
 
-        </head>
-        <body>
+                    $(this).on("click", function () {
+                         var parents = sel.parents();
+                         
+                         var idPoi = sel.parent().parent().attr("idPoi");
+                         var idItinerary = sel.parent().parent().attr("idItinerary");
+                         
+                         $.ajax({
+                            type: "GET",
+                            url: "./viewOfferPoi",
+                            data: "idPoi=" + idPoi + "&idItinerary=" + idItinerary,
+                            success: function (data) {
+                                 $("#modalContent").html(data);
+                                 $("#modalOffer").modal('show');
+                            }
+                        });
+                         
+                    });
+                });
+            });
+        </script>
+        
+        
+    </head>
+    
+    <body>
         <jsp:include page="components/topBar.jsp"/>
         <div class="container-fixed">
 
             <div class="col-md-12">
-                <div class="cover_favorite_img" style="background-color: #285E8E;">
-                    <div class="poi_it_img" style="line-height: 200px; margin-left: 100px;">
-                                            <img src="./dist/poi/img/${poi.id}/cover.jpg" style="width:30px; height:30px; border-radius: 50%; margin-top:5px;"/> 
-                                        </div>
-                    <span style="line-height: 200px; margin-right: 500px; color:#fff; border: 1px solid #fff;">Nome itinerario</span>
-                    <span style="color:#fff; border: 1px solid #fff;">Paga 50€</span>
+                <div class="cover_itinerary_detail">
+                	<div class="cover_itd cover_itd_sx">
+                            <div class="itinerary_det">
+                                <div class="img_poi_header">
+                                    <c:set var="itn" value="${itinerary.name}"/>
+                                    <c:set var="it_name" value="${fn:substring(itn, 0, 2)}" />
+                                    <c:set var="tx" value="${fn:toUpperCase(it_name)}" />
+                                    <div class="rnd" style="background-color:${itinerary.color};">
+                                        <span class="rnd-text">${tx}</span>
+                                    </div> 
+                                </div>
+                                <div class="it_det_info">${itinerary.name}</div>
+                                <div class="it_det_info it_det_date">Creato il: <fmt:formatDate value="${itinerary.dateCreation}" pattern="dd/MM/yyyy HH:mm"/></div>
+
+
+                            </div>
+                	</div>
+                	
+                	<div class="cover_itd cover_itd_dx">
+                		<div class="price_detail">
+                		</div>
+                	</div>
+
+
+
+                    
                 </div>
             </div>
 
@@ -132,55 +159,59 @@
                     </div>
                 </div>
 
-                <article class="component component-text">
-                    <div class="details">
-                        <div class="paragrafo">
-                            <div>
-                                <span id="complit"><i class="fa fa-check" style="font-size:14px;"></i> Completa itinerario</span>
-                            </div>
-                            
-                            <div>
-                                <span id="delit"><i class="fa fa-times" style="font-size:14px;"></i> Cancella itinerario</span>
-                            </div>
-                            
-                        </div>
+                <div class="it_detail_action">
+                    <div id="complit" class="it_detail_button it_detail_complete">
+                            <i class="fa fa-check"></i>
+                            completa
                     </div>
-                </article>
+
+                    <div id="delit" class="it_detail_button it_detail_delete">
+                            <i class="fa fa-times"></i>
+                            elimina
+                    </div>
+
+                </div>
+                
                 <article class="component component-text">
-                    <div class="details">
+                    <div class="details details_poi_itinerary" style="padding-left: 10px; padding-right: 10px;">
                         <div class="paragrafo">
                             <c:choose>
                                 <c:when test="${not empty pois}">
-                                    <div class="itinerary-container">
+                                    <div class="poi_container">
 
 
                                         <c:forEach var="poi" items="${pois}">
-                                            <div class="poi_it_container" idPoi="${poi.id}" idItinerary="${id}" style="border-bottom:1px solid #cdcdcd;">
-                                                <div class="poi_it_img">
-                                                    <%-- src="./dist/poi/img/${poi.id}/cover.jpg" --%>
-                                                    <img src="./dist/img/default_avatar.png" style="width:30px; height:30px; border-radius: 50%; margin-top:5px;"/> 
-                                                </div>
+                                            <div class="poi" idPoi="${poi.id}" idItinerary="${itinerary.idItinerary}">
+                                                <div class="img_poi">
 
-                                                <div class="poi_it_name_container" >
-                                                    <div class="poi_it_name">
-                                                        ${poi.name}       
-                                                        <div class="poiIcons" style="display:inline-block">
-                                                            <i class="fa fa-info-circle info" style="font-size:14px; color:#2980B9;"></i>
-                                                            <i class="fa fa-heart" style="font-size:14px; color:#ED5565"></i>
-                                                            <i class="fa fa-credit-card" style="font-size:14px;"></i>
+	                                                <img class="rnd_it_detail" src="./dist/img/default_avatar.png" /> 
+                                                </div>
+                                                
+                                               
+                                                
+                                                <div class="info_container">
+                                                	<div class="poi_name_container">${poi.name}</div>
+                                                	<div class="icons">
+                                                            <a href="./getPoi?id=${poi.id}" target="_blank"><i class="fa fa-info-circle info" style="font-size:14px; color:#2980B9;"></i></a>
+                                                            <c:set var="rat_fav" value="${fav_poi.get(poi.id)}"/>
+                                                            <c:if test="${rat_fav > 0}">
+                                                                <i class="fa fa-heart" style="font-size:14px; color:#ED5565" data-toggle="tooltip" data-original-title="E'tra i tuoi preferiti!"></i>
+                                                            </c:if>
+                                                            <c:set var="noff" value="${off_card.get(poi.id)}"/>
+                                                            <c:if test="${noff > 0}">
+                                                                <i class="fa fa-credit-card" style="font-size:14px;" data-toggle="tooltip" data-original-title="Orchestra Card"></i>
+                                                            </c:if>
                                                             <i class="fa fa-times delPoi" style="font-size:14px; color:#ED5565;"></i>
+                                                            
                                                         </div>
-                                                        <div class="selPoiOffer">Seleziona Offerte</div>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
+                                                        <span class="sum_off">Hai aggiunto ${poi_offc.get(poi.id)} offerte</span>
+                                                	<div class="select_off">Seleziona Offerte</div>
+                                                </div>    
+	                                    </div>
+                                            
+                                            
                                         </c:forEach>
 
-
-
-                                        <div class="clear"></div>    
                                     </div>
                                 </c:when>
                                 <c:otherwise>
@@ -206,80 +237,8 @@
             </div>
 
         </div>
-
-
-        <jsp:include page="access/loginModal.jsp" />
-        <script src="./dist/ion-range/js/ion.rangeSlider.js"></script>
         
-        <script>
-            $("#complit").click(function () {
-                $.ajax({
-                        
-                    type: "GET",
-                    url: "./completeItinerary",
-                    data: "idItinerary="+ ${id},
-
-                    success: function(){
-                        alert("itinerario completato!");
-                        window.location="./myItinerary";
-                    }
-                });
-            });
-            
-            $("#delit").click(function () {
-                $.ajax({    
-                    type: "GET",
-                    url: "./removeItinerary",
-                    data: "idItinerary="+ ${id},
-
-                    success: function(){
-                        alert("itinerario cancellato!");
-                        window.location="./myItinerary";
-                    }
-                });
-            });
-            
-            $(".delPoi").each(function (index) {
-                var sel = $(this);
-               
-                $(this).on("click", function () {
-                    var idPoi = sel.parent().parent().parent().parent().attr("idPoi");
-                    
-                    $.ajax({
-                        type: "GET",
-                        url: "./removePoiItinerary",
-                        data: "idItinerary=" + ${id} + "&idPoi=" + idPoi,
-                        success: function () {
-                            alert("Il poi è stato cancellato dall'itinerario");
-                            window.location="./myItineraryDetail?idItinerary=" + ${id};
-                        }
-                   });
-                });
-            });
-            
-            
-            $(".selPoiOffer").each(function (index) {
-                var sel = $(this);
-               
-                $(this).on("click", function () {
-                     var parents = sel.parents();
-                     var idPoi = sel.parent().parent().parent().attr("idPoi");
-                     var idItinerary = sel.parent().parent().parent().attr("idItinerary");
-                     
-                     $.ajax({
-                        type: "GET",
-                        url: "./viewOfferPoi",
-                        data: "idPoi=" + idPoi + "&idItinerary=" + idItinerary,
-                        success: function (data) {
-                             $("#modalContent").html(data);
-                             $("#modalOffer").modal('show');
-                        }
-                    });
-                });
-            });
-            
-            
-        </script>
-
+        
+        <jsp:include page="access/loginModal.jsp" />
     </body>
 </html>

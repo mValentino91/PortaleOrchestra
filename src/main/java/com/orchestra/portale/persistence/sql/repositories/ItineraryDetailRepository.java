@@ -39,7 +39,7 @@ public interface ItineraryDetailRepository extends JpaRepository<ItineraryDetail
    String findIdPoiByIdItineraryDetail(Integer idItineraryDetail);
 
    @Query("select i.idItineraryDetail from ItineraryDetail i where i.idItinerary=?1 AND i.idPoi=?2")
-   int findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
+   Integer findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
 
    
 }
