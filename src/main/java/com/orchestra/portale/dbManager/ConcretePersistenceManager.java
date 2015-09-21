@@ -850,4 +850,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public Integer findAcceptedOffer(Integer idItineraryDetail) {
         return ucRepo.countOfferByIdItineraryDetail(idItineraryDetail);
     }
+
+    @Override
+    public int countOfferChoiceByUser(Integer idItineraryDetail) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
