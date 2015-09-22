@@ -25,7 +25,7 @@
             </c:if>                   
 
             <div class="clear"></div>
-            <div class="fav_rating">
+            <div class="fav_rating" style="margin-left: 5px;">
                 <input id="fav_rating_bar" type="text" value="" name="rating" />
                 <span class="rating_subtitle"><spring:message code="label.interested"></spring:message></span>
             </div>

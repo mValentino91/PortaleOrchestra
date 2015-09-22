@@ -78,8 +78,7 @@
 
                 $("#btn_new_it").click(function () {
                     var content = $("#it_name").val();
-                    alert(content);
-
+                    
                     $.ajax({
                         type: "GET",
                         url: "./newItinerary",

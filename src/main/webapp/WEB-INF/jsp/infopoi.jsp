@@ -8,6 +8,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,7 +40,7 @@
         <link rel="stylesheet" href="./dist/ion-range/css/normalize.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.css" />
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
-        
+        <link href="./dist/css/itinerary.css" rel="stylesheet">
         <script>
             function loaded() {
                 adjustimgHeights();
