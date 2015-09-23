@@ -20,7 +20,9 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -54,6 +56,7 @@ public class PoiViewController {
     public ModelAndView getPoi(@RequestParam(value = "id") String id, HttpServletRequest request) throws FileNotFoundException {
         //Creo la view che sarÃ  mostrata all'utente
         pm.setLang(LocaleContextHolder.getLocale().toString());
+        Map<Integer,Boolean>poi_inItinerary = new HashMap<Integer,Boolean>();
         ModelAndView model = new ModelAndView("infopoi");
         ModelAndView error = new ModelAndView("errorViewPoi");
         CompletePOI poi =  pm.getCompletePoiById(id);
@@ -144,11 +147,25 @@ public class PoiViewController {
                if(userItinerary!=null){
                    model.addObject("userItinerary", userItinerary);
                }
+               
+               for(Itinerary u: userItinerary){
+                Iterable<Integer>details = pm.findIdDetailByIdItinerary(u.getIdItinerary());
+                for(Integer d: details){
+                     String id_poi = pm.findIdPoiByIdItineraryDetail(d);
+                     if(id_poi.equals(id)){
+                         poi_inItinerary.put(u.getIdItinerary(), true);
+                     } 
+                 }
+                   
+               }
+               
+               
+               
                    
             }
             
         }
-        
+        model.addObject("poi_inItinerary",poi_inItinerary);
         return model;
     }
 }

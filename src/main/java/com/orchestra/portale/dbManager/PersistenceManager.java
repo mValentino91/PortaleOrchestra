@@ -156,4 +156,11 @@ public interface PersistenceManager {
     public Integer findAcceptedOffer(Integer idItineraryDetail);
 
     public int countOfferChoiceByUser(Integer idItineraryDetail);
+
+    public void saveAllPoi(Poi poi);
+
+    public Iterable<Integer> findIdItineraryDetailByIdItinerary(Integer idItinerary);
+
+    public String findIdPoiByIdItineraryDetail(Integer idItineraryDetail);
+
 }

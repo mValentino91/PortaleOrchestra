@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author antonio
+ * @author andzaccaro
  */
 @Entity
 @Table(name = "poi")
@@ -51,9 +51,7 @@ public class Poi implements Serializable {
     @Column(name = "address")
     private String address;
     // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 100)
+    @Size(max = 100)
     @Column(name = "phone")
     private String phone;
     @Basic(optional = false)
@@ -69,11 +67,10 @@ public class Poi implements Serializable {
         this.id = id;
     }
 
-    public Poi(Integer id, String name, String address, String phone, String idMongo) {
+    public Poi(Integer id, String name, String address, String idMongo) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.phone = phone;
         this.idMongo = idMongo;
     }
 

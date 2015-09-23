@@ -116,7 +116,7 @@
                     </c:when>
                     <c:otherwise>
                         <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>    
-                        <span class="off del" style="visibility: hidden; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                        <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
                         <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
                         <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
@@ -163,7 +163,7 @@
                     </c:when>
                     <c:otherwise>
                         <span id="select"class="off add" style="float: left; text-align: center; width:5%; border: 1px solid">+</span>
-                        <span class="off del" style="visibility: hidden; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
+                        <span class="off del" style="display:none; float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("type")}">${stock.get("type")}</span>
                         <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${stock.get("desc")}">${stock.get("desc")}</span>
 
@@ -328,7 +328,10 @@
                     success: function (data) {
                         sel_name.text("V");
                         del.show();
-                        alert(data);
+                        
+                        var id_row = "sum_off_"+idPoi;
+                        var count_off = $("#"+id_row);
+                        count_off.text("Hai aggiunto "+data+" offerte");
                     }
                 });
             });

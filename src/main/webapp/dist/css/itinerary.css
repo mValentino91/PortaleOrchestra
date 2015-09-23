@@ -23,6 +23,21 @@
     cursor: pointer;
 }
 
+.addit_header{
+    color:#ED5565;
+    float: left;
+}
+
+.addit_content{
+    border: 0px solid red;
+    color:#ED5565;
+    float:left;
+    font-variant: small-caps;
+    padding-left: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
 .it_detail_action{
     height: 50px;
     background-color: #fff;
@@ -66,7 +81,7 @@
 
 .poi{
     border-bottom: 1px solid #cdcdcd; 
-    height:60px;
+    height:80px;
     margin-top: 5px;
 }
 
@@ -182,14 +197,6 @@
     height: 210px;
     overflow: scroll;
     overflow-x:hidden;
-}
-
-.details_poi_itinerary{
-    height: 210px;
-}
-
-.details_poi_offers{
-    
 }
 
 .details_infographic{

@@ -855,4 +855,19 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public int countOfferChoiceByUser(Integer idItineraryDetail) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public void saveAllPoi(Poi poi) {
+        poiRepository.save(poi);
+    }
+
+    @Override
+    public Iterable<Integer> findIdItineraryDetailByIdItinerary(Integer idItinerary) {
+        return itdRepo.findIdItineraryDetailByIdItinerary(idItinerary);
+    }
+
+    @Override
+    public String findIdPoiByIdItineraryDetail(Integer idItineraryDetail) {
+        return itdRepo.findIdPoiByIdItineraryDetail(idItineraryDetail);
+    }
 }

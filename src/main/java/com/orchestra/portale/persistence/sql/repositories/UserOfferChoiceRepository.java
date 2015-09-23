@@ -67,5 +67,4 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
 
     @Query("select count(*) from UserOfferChoice u where u.idItineraryDetail=?1")
     Integer countOfferByIdItineraryDetail(Integer idItineraryDetail);
-
 }

@@ -204,7 +204,7 @@
                                                             <i class="fa fa-times delPoi" style="font-size:14px; color:#ED5565;"></i>
                                                             
                                                         </div>
-                                                        <span class="sum_off">Hai aggiunto ${poi_offc.get(poi.id)} offerte</span>
+                                                        <span id="sum_off_${poi.id}" class="sum_off">Hai aggiunto ${poi_offc.get(poi.id)} offerte</span>
                                                 	<div class="select_off">Seleziona Offerte</div>
                                                 </div>    
 	                                    </div>

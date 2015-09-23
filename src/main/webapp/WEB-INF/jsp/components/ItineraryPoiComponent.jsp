@@ -21,8 +21,8 @@
 <article class="component component-text">
     <div class="details" style="overflow: scroll;overflow-x:hidden;">
         <div class="itinerary_header">
-            <i class="fa fa-map-marker favorite"></i>
-            <span class="add_favorite">Aggiungi il poi ai tuoi itinerari</span>
+            <i class="fa fa-map-marker addit_header" style="font-size: 20px;"></i>
+            <span class="addit_content">Aggiungi il poi ai tuoi itinerari</span>
             <div class="clear"></div>
         </div>
         
@@ -41,8 +41,19 @@
                             </div>
                         </div>
                         <a href="./myItineraryDetail?idItinerary=${itinerary.idItinerary}"><div class="it_list_name">${itinerary.name}</div></a>
-                        <div class="it_list_add"><i class="fa_list_itinerary_add fa fa-plus addToIt"></i></div>
-                        <div class="it_list_del"><i class="fa_list_itinerary_del delToIt fa fa-times"></i></div>
+                            <c:choose>
+                                <c:when test="${not empty poi_inItinerary.get(itinerary.idItinerary)}">
+                                    <div class="it_list_add"><i class="fa_list_itinerary_add fa fa-check addToIt"></i></div>
+                                    <div class="it_list_del"><i class="fa_list_itinerary_del delToIt fa fa-times"></i></div>
+                        
+                                </c:when>
+                                <c:otherwise>
+                                    <div class="it_list_add"><i class="fa_list_itinerary_add fa fa-plus addToIt"></i></div>
+                                    <div class="it_list_del"><i class="fa_list_itinerary_del delToIt fa fa-times" style="display:none;"></i></div>
+                        
+                                </c:otherwise>    
+                            </c:choose>
+                        
                         <div class="clear"></div>
                     </div>   
                 </c:forEach>
@@ -65,9 +76,12 @@
                 url: "./removePoiItinerary",
                 data: "idItinerary=" + idItinerary + "&idPoi=" + idPoi,
                 success: function () {
+                    var add = sel.parent().parent().find(".addToIt");
+                    add.removeClass("fa-check");
+                    add.addClass("fa-plus");
+                    sel.hide();
+                    
                     alert("poi rimosso dall'itinerario");
-                    sel.removeClass("fa-check");
-                    sel.addClass("fa-plus");
                 }
             });
         });            
@@ -85,7 +99,8 @@
                 success: function (data) {
                     sel.removeClass("fa-plus");
                     sel.addClass("fa-check");
-                    var del = sel.parent().find(".delToIt");
+                    var del = sel.parent().parent().find(".delToIt");
+                    del.show();
                     
                     alert("poi aggiunto dall'itinerario");
                 }

@@ -72,7 +72,7 @@ public class ItineraryManager{
                 uc_id = pm.retreiveUserChoiceStock(name,iddetail);
                 if(uc_id != null){
                     pm.updateUserChoiceStock(qta,tot,name);
-                    status_new_offer=0;
+                    //status_new_offer=0;
                 }
                 else{
                     //insert
@@ -86,7 +86,7 @@ public class ItineraryManager{
                     uc.setDescription(desc);
                     uc.setPrice(sum);
                     pm.saveUserChoice(uc);
-                    status_new_offer=1;
+                    //status_new_offer=pm.findAcceptedOffer(iddetail);
                     
                     
                     
@@ -95,7 +95,7 @@ public class ItineraryManager{
                 uc_id = pm.retreiveUserChoiceCard(idOffer,iddetail);
                 if(uc_id != null){
                     pm.updateUserChoiceCard(qta,tot,idOffer);
-                    status_new_offer=0;
+                    //status_new_offer=0;
                 }
                 else{
                     UserOfferChoice uc = new UserOfferChoice();
@@ -106,10 +106,11 @@ public class ItineraryManager{
                     uc.setType(type);
                     uc.setIdOffer(idOffer);
                 pm.saveUserChoice(uc);  
-                    status_new_offer=1;
+                    //status_new_offer=pm.findAcceptedOffer(iddetail);
             }   break;
         }
-        return status_new_offer;
+        
+        return pm.findAcceptedOffer(iddetail);
     }
     
     
