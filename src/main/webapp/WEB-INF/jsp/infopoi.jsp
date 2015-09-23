@@ -78,8 +78,9 @@
                     <jsp:include page="components/FavoritePoiComponent.jsp"/>
                 </c:if>
                 
-                <jsp:include page="components/ItineraryPoiComponent.jsp"/>
-
+                <c:if test="${not empty userItinerary}">
+                    <jsp:include page="components/ItineraryPoiComponent.jsp"/>
+                </c:if>
                 <c:if test="${not empty imggallery}">
                     <jsp:include page="components/ImgGalleryComponent2.jsp"/> 
                     <script>
