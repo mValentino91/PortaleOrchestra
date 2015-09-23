@@ -40,7 +40,7 @@
                                 <span class="rnd-text">${tx}</span>
                             </div>
                         </div>
-                        <div class="it_list_name">${itinerary.name}</div>
+                        <a href="./myItineraryDetail?idItinerary=${itinerary.idItinerary}"><div class="it_list_name">${itinerary.name}</div></a>
                         <div class="it_list_add"><i class="fa_list_itinerary_add fa fa-plus addToIt"></i></div>
                         <div class="it_list_del"><i class="fa_list_itinerary_del delToIt fa fa-times"></i></div>
                         <div class="clear"></div>
@@ -66,6 +66,8 @@
                 data: "idItinerary=" + idItinerary + "&idPoi=" + idPoi,
                 success: function () {
                     alert("poi rimosso dall'itinerario");
+                    sel.removeClass("fa-check");
+                    sel.addClass("fa-plus");
                 }
             });
         });            
@@ -80,7 +82,11 @@
                 type: "GET",
                 url: "./addPoiItinerary",
                 data: "idPoi=" + idPoi + "&idItinerary=" + idItinerary,
-                success: function () {
+                success: function (data) {
+                    sel.removeClass("fa-plus");
+                    sel.addClass("fa-check");
+                    var del = sel.parent().find(".delToIt");
+                    
                     alert("poi aggiunto dall'itinerario");
                 }
             });
