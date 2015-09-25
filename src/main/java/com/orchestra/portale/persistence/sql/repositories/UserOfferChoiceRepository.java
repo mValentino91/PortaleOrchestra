@@ -74,4 +74,7 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
     @Transactional(readOnly=false)
     @Query("update UserOfferChoice u set u.status=1 where u.idUserOfferChoice=?1")
     public void updateStatusOffer(int idUserOfferChoice);
+
+    @Query("SELECT u FROM UserOfferChoice u WHERE u.idItineraryDetail=?1 AND u.type = 'CARD' AND u.status=0")
+    public Iterable<UserOfferChoice> findActiveChoiceCardByUser(Integer idItineraryDetail);
 }

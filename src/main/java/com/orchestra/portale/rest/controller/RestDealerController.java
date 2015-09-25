@@ -146,7 +146,8 @@ public class RestDealerController {
             
             for(Integer iddetail: user_idd){
                 //trovare le scelte cn status 0
-                Iterable<UserOfferChoice>off = pm.findChoiceCardByUser(iddetail);
+                Iterable<UserOfferChoice>off = pm.findActiveChoiceCardByUser(iddetail);
+                //Iterable<UserOfferChoice>off = pm.findChoiceCardByUser(iddetail);
                 for(UserOfferChoice uc: off){
                     String off_name = pm.getOfferNameById(uc.getIdOffer());
                     userChoice_row.put(uc.getIdUserOfferChoice(), off_name);

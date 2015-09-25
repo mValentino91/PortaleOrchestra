@@ -171,4 +171,6 @@ public interface PersistenceManager {
 
     public void updateStatusOffer(int idUserOfferChoice);
 
+    public Iterable<UserOfferChoice> findActiveChoiceCardByUser(Integer idItineraryDetail);
+
 }

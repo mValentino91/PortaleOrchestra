@@ -892,4 +892,9 @@ public class ConcretePersistenceManager implements PersistenceManager {
         ucRepo.updateStatusOffer(idUserOfferChoice);
     }
 
+    @Override
+    public Iterable<UserOfferChoice> findActiveChoiceCardByUser(Integer idItineraryDetail) {
+        return ucRepo.findActiveChoiceCardByUser(idItineraryDetail);
+    }
+
 }
