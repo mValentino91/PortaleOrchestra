@@ -74,6 +74,7 @@ import org.springframework.data.mongodb.core.query.Query;
  */
 public class ConcretePersistenceManager implements PersistenceManager {
     
+    
     private String lang = "it";
 
     @Autowired
@@ -675,8 +676,8 @@ public class ConcretePersistenceManager implements PersistenceManager {
     }
 
     @Override
-    public Integer findItineraryByIdItineraryDetail(int idItineraryDetail) {
-      return itdRepo.findItineraryByIdItineraryDetail(idItineraryDetail);
+    public Integer findIdItineraryByIdItineraryDetail(int idItineraryDetail) {
+      return itdRepo.findIdItineraryByIdItineraryDetail(idItineraryDetail);
     }
 
     @Override
@@ -870,4 +871,25 @@ public class ConcretePersistenceManager implements PersistenceManager {
     public String findIdPoiByIdItineraryDetail(Integer idItineraryDetail) {
         return itdRepo.findIdPoiByIdItineraryDetail(idItineraryDetail);
     }
+
+    @Override
+    public String getOfferNameById(Integer idOffer) {
+        return dealerRepo.findNameByIdOffer(idOffer);
+    }
+
+    @Override
+    public UserOfferChoice findByIdUserOfferChoice(int idUserOfferChoice) {
+        return ucRepo.findByIdUserOfferChoice(idUserOfferChoice);
+    }
+
+    @Override
+    public String getDescById(Integer idOffer) {
+        return dealerRepo.findDescriptionByidOffer(idOffer);
+    }
+
+    @Override
+    public void updateStatusOffer(int idUserOfferChoice) {
+        ucRepo.updateStatusOffer(idUserOfferChoice);
+    }
+
 }

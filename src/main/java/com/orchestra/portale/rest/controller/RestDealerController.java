@@ -6,6 +6,8 @@
 package com.orchestra.portale.rest.controller;
 
 import com.orchestra.portale.dbManager.PersistenceManager;
+import com.orchestra.portale.persistence.sql.entities.DealerOffer;
+import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.Role;
 import com.orchestra.portale.persistence.sql.entities.User;
 import com.orchestra.portale.persistence.sql.entities.UserOfferChoice;
@@ -64,8 +66,65 @@ public class RestDealerController {
     }
     
     @Secured("ROLE_DEALER")
-    @RequestMapping(value = "/rest/dealer/getUserOffer")
-    List<UserOfferChoice> ViewUserChoices(HttpServletRequest request, @RequestParam String keyString){
+    @RequestMapping(value="/rest/dealer/validateOffer")
+    String validateOffer(HttpServletRequest request, @RequestParam int idUserOfferChoice, int codeValidity){
+        //Ricavo utente attuale
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        
+        UserOfferChoice uc = pm.findByIdUserOfferChoice(idUserOfferChoice);
+        int iddetail = uc.getIdItineraryDetail();
+        Integer idItinerary = pm.findIdItineraryByIdItineraryDetail(iddetail);
+        Itinerary itinerary = pm.findItineraryByIdItinerary(idItinerary);
+        
+        Integer id_user = itinerary.getIdUser();
+        User client_user = pm.findUserById(id_user.longValue());
+      
+        Integer v_code = client_user.getPin();
+        if(v_code !=null){
+            if(v_code == codeValidity){
+                pm.updateStatusOffer(idUserOfferChoice);
+                return "ok";
+            }
+        }
+        return "no";
+        
+    }
+    
+    
+    @Secured("ROLE_DEALER")
+    @RequestMapping(value="/rest/dealer/getUserOffer")
+    Map<String,String> viewUserChoice(HttpServletRequest request, @RequestParam int idUserOfferChoice){
+        //Ricavo utente attuale
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        Map<String,String>off_detail = new HashMap<String,String>();
+
+        UserOfferChoice uc = pm.findByIdUserOfferChoice(idUserOfferChoice);
+        String off_name = pm.getOfferNameById(uc.getIdOffer());
+        String off_desc = pm.getDescById(uc.getIdOffer());
+        DealerOffer d = pm.findDealerOfferByidOffer(uc.getIdOffer());
+        
+        
+        off_detail.put("Nome",off_name);
+        off_detail.put("Desc",off_desc);
+        off_detail.put("qta",Integer.toString(uc.getQta()));
+        off_detail.put("prezzo_intero",Float.toString(d.getFullPrice()));
+        off_detail.put("prezzo_ridotto",Float.toString(d.getDiscountedPrice()));
+        off_detail.put("totale", Float.toString(uc.getSum()));
+        off_detail.put("status",Integer.toString(uc.getStatus()));
+        
+        return off_detail;
+        
+    }
+    
+    @Secured("ROLE_DEALER")
+    @RequestMapping(value = "/rest/dealer/getUserOffers")
+    // List<UserOfferChoice> ViewUserChoices(HttpServletRequest request, @RequestParam String keyString){
+    List<Map<Integer,String>> ViewUserChoices(HttpServletRequest request, @RequestParam String keyString){
+        List<Map<Integer,String>>user_c = new ArrayList<Map<Integer,String>>();
+        Map<Integer,String> userChoice_row = new HashMap<Integer,String>();
+        
         List<UserOfferChoice>user_choices = new ArrayList<UserOfferChoice>();
         //Ricavo utente attuale
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -86,13 +145,23 @@ public class RestDealerController {
             }
             
             for(Integer iddetail: user_idd){
+                //trovare le scelte cn status 0
                 Iterable<UserOfferChoice>off = pm.findChoiceCardByUser(iddetail);
                 for(UserOfferChoice uc: off){
+                    String off_name = pm.getOfferNameById(uc.getIdOffer());
+                    userChoice_row.put(uc.getIdUserOfferChoice(), off_name);
+                    
+                    
                     user_choices.add(uc);
+                    
                 }
+                user_c.add(userChoice_row);
+                
             }
             
-            return user_choices;
+            
+            
+            return user_c;
         }
         else{
             throw new AccessDeniedException("Invalid User not found"); 

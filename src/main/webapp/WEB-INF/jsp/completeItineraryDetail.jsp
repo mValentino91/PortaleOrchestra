@@ -86,7 +86,7 @@
                                         <c:forEach var="poi" items="${map_poi.keySet()}">
                                             <div class="poi_off">
                                                 <div class="img_poi">
-                                                    <img class="rnd_it_detail" src="./dist/img/default_avatar.png" /> 
+                                                    <img class="rnd_it_detail" src="./dist/poi/img/${poi}/cover.jpg" /> 
                                                 </div>
                                                 
                                                 

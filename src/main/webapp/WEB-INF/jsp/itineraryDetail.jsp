@@ -184,7 +184,7 @@
                                             <div class="poi" idPoi="${poi.id}" idItinerary="${itinerary.idItinerary}">
                                                 <div class="img_poi">
 
-	                                                <img class="rnd_it_detail" src="./dist/img/default_avatar.png" /> 
+	                                                <img class="rnd_it_detail" src="./dist/poi/img/${poi.id}/cover.jpg" /> 
                                                 </div>
                                                 
                                                

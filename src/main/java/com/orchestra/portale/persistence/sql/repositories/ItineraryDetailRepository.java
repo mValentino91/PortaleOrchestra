@@ -5,6 +5,7 @@
  */
 package com.orchestra.portale.persistence.sql.repositories;
 
+import com.orchestra.portale.persistence.sql.entities.Itinerary;
 import com.orchestra.portale.persistence.sql.entities.ItineraryDetail;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -27,7 +28,7 @@ public interface ItineraryDetailRepository extends JpaRepository<ItineraryDetail
     Integer findItDetailByIdItineraryAndIdPoi(int idItinerary,String idPoi);
     
    @Query("select i.idItinerary from ItineraryDetail i where i.idItineraryDetail=?1")
-   Integer findItineraryByIdItineraryDetail(int idItineraryDetail);
+   Integer findIdItineraryByIdItineraryDetail(int idItineraryDetail);
    
    @Query("select i.idPoi from ItineraryDetail i where i.idItinerary=?1")
    Iterable<String>findPoiByIdItinerary(int idItinerary);
@@ -40,6 +41,7 @@ public interface ItineraryDetailRepository extends JpaRepository<ItineraryDetail
 
    @Query("select i.idItineraryDetail from ItineraryDetail i where i.idItinerary=?1 AND i.idPoi=?2")
    Integer findIdItineraryDetailByIdItineraryAndIdPoi(int idItinerary, String idPoi);
+
 
    
 }

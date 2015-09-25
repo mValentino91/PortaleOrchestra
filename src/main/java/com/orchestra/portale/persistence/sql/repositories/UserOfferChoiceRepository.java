@@ -67,4 +67,11 @@ public interface UserOfferChoiceRepository extends JpaRepository<UserOfferChoice
 
     @Query("select count(*) from UserOfferChoice u where u.idItineraryDetail=?1")
     Integer countOfferByIdItineraryDetail(Integer idItineraryDetail);
+
+    public UserOfferChoice findByIdUserOfferChoice(int idUserOfferChoice);
+    
+    @Modifying
+    @Transactional(readOnly=false)
+    @Query("update UserOfferChoice u set u.status=1 where u.idUserOfferChoice=?1")
+    public void updateStatusOffer(int idUserOfferChoice);
 }
