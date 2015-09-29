@@ -67,11 +67,11 @@ public class RestDealerController {
     
     @Secured("ROLE_DEALER")
     @RequestMapping(value="/rest/dealer/validateOffer")
-    String validateOffer(HttpServletRequest request, @RequestParam int idUserOfferChoice, int codeValidity){
+    Map<String,String> validateOffer(HttpServletRequest request, @RequestParam int idUserOfferChoice, int codeValidity){
         //Ricavo utente attuale
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user= pm.findUserByUsername(auth.getName());
-        
+        Map<String,String> s = new HashMap<String,String>();
         UserOfferChoice uc = pm.findByIdUserOfferChoice(idUserOfferChoice);
         int iddetail = uc.getIdItineraryDetail();
         Integer idItinerary = pm.findIdItineraryByIdItineraryDetail(iddetail);
@@ -84,11 +84,13 @@ public class RestDealerController {
         if(v_code !=null){
             if(v_code == codeValidity){
                 pm.updateStatusOffer(idUserOfferChoice);
-                return "ok";
+                s.put("status","ok");
+                
             }
+            else
+                s.put("status","no");
         }
-        return "no";
-        
+        return s;  
     }
     
     
@@ -165,7 +167,7 @@ public class RestDealerController {
             return user_c;
         }
         else{
-            throw new AccessDeniedException("Invalid User not found"); 
+            throw new RuntimeException("Errore itinerario non trovato"); 
         }  
         
     }    
