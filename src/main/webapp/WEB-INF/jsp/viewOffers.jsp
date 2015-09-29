@@ -1,85 +1,9 @@
-<%-- 
-    Document   : viewOffer
-    Created on : 9-ago-2015, 11.34.12
-    Author     : andrea
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
-
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Offerte disponibili per ${poi.name}</h4>
-
-    </div>
-    <!-- -inizio contenuti di view offer jsp -->
-    <div class="modal-body" style="padding:0px;">
-        <div class="offer_header"><span class="offer_header_text">Offerte per Pio Monte della Misericordia</span></div>
-        <div class="offer_container">
-            <div class="offer_container_header" style="width:100%">
-                <span style="min-width:50%; float:left; visibility:hidden;">HIDDEN</span>
-
-                <div style="width:50%; float:left;">
-                    <div class="off_header_info">ridotto</div>
-                    <div class="off_header_info">intero</div>
-                    <div class="off_header_info">%sconto</div>
-                    <div class="off_header_info">numero</div>
-                    <div class="off_header_info">totale</div>
-                </div>
-                <div class="clear"></div>
-            </div>
-
-
-            <div class="offer_container_row_card">
-                <div class="offer_container_row">
-                    <div class="offer_action">
-                        <i class="fa fa-plus" style="color:#4caf50; font-size:14px;  padding:2px;"></i>
-                        <i class="fa fa-times" style="color:#f44446; font-size:14px; padding:2px;"></i>
-                    </div>
-
-                    <div class="offer_poi_name">Prezzo ridotto del 20%</div>
-                    <div class="offer_action">
-                        <img src="./dist/img/iconcina-card.png" style="width:20px; height:19px;" data-toggle="tooltip" data-original-title="Orchestra Card"/>
-                    </div>
-                    <div class="offer_poi_date_end">scade il 11/12/2015</div>
-                    <div class="offer_poi_intero"><div class="offer_poi_int">1€</div></div>
-                    <div class="offer_poi_ridotto"><div class="offer_poi_int">3€</div></div>
-                    <div class="offer_poi_discrating"><div class="offer_poi_int">10%</div></div>
-                    <div class="offer_poi_controls">
-                        <div class="offer_poi_int_cont" style="width:20%; border-right:1px solid; float:left;">+</div>
-                        <div class="offer_poi_int_cont" style="width:60%; float:left;">0</div>
-                        <div class="offer_poi_int_cont" style="width:20%; border-left:1px solid; float:left;">-</div>
-                    </div>
-                    <div class="offer_poi_total"><div class="offer_poi_int">8€</div></div>
-                </div>
-            </div>
-
-            <div class="ok_btn" data-dismiss="modal">OK</div>
-            <div class="clear"></div>                                   
-
-        </div>
-
-
-
-
-        <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-    </div>
-
-    <!-- -fine contenuti di view offer jsp -->
-
-
-
-
-
-
-
-
-
-<%--
         <style>
 
             .modal-dialog {
@@ -158,7 +82,7 @@
     </div>
     <div class="modal-body">
         
-        <%--
+        
         Offerte OrchestraCard
         <c:forEach var="off" items="${offers}"> 
             <div type="CARD" idItinerary="${idItinerary}" idOffer="${off.idOffer}" idPoi="${poi.id}" fullPrice="${off.fullPrice}" discountedPrice="${off.discountedPrice}" rateOffer="${off.rateDiscount}">
@@ -168,6 +92,7 @@
                         <span class="off del" style="float: left; width: 5%; text-align: center; border: 1px solid">x</span>
                         <span class="off name" style="float:left; width: 20%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.nome}">${off.nome}</span>
                         <span class="off desc" style="float:left; width: 35%; border:1px solid;" data-placement="bottom" data-toggle="tooltip" title="${off.desc}">${off.desc}</span>
+                        
                         <span class="off-ctr" style="float:left; width: 10%; border:1px solid;">
                             <input id="qta" class="qta" style="text-align: center; float:left; width:60%; height:22px;" type="text" value="${map_userChoice_card.get(off.idOffer).qta}"/>
                         
@@ -205,6 +130,8 @@
                 </c:choose>
             </div> 
         </c:forEach>
+        
+        OFFERTE STOCK
         
         <c:forEach var="stock" items="${price_comp}">
             <div type="STOCK" idItinerary="${idItinerary}" idPoi="${poi.id}" fullPrice="${stock.get("price")}">
@@ -250,18 +177,19 @@
             </div>
         </c:forEach>
          
-        --%>
+        
     </div>   
         
         
+       
+        
+     
     <script>
 
         $('[data-toggle="tooltip"]').tooltip();
 
 
-        <%-- per attivare il box verde di successo aggiunta...
-        $("#add-off").toggle();
-        --%>
+       
 
         $(".control").each(function (index) {
             var sel = $(this);
@@ -404,4 +332,3 @@
         }
 
     </script>
-    

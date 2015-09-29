@@ -212,15 +212,27 @@ public class ItineraryManager{
             }
             if (cc != null) {
                 
-                for (PhoneContact p : cc.getPhoneList()) {
-                    telNumbers.add(p.getNumber());
+                if(cc.getPhoneList()!=null){
+                    for (PhoneContact p : cc.getPhoneList()) {
+                        if(p!=null){
+                            telNumbers.add(p.getNumber());
+                            poi_tel.put(pid, telNumbers);
+                        }
+
+                    }
                 }
-                poi_tel.put(pid, telNumbers);
                 
-                for (EmailContact e : cc.getEmailsList() ) {
-                    mailList.add(e.getEmail());
+                if(cc.getEmailsList()!=null){
+                
+                    for (EmailContact e : cc.getEmailsList() ) {
+                        if(e!=null){
+                            mailList.add(e.getEmail());
+                            poi_mail.put(pid, mailList);
+                        }
+
+                    }
                 }
-                poi_mail.put(pid, mailList);
+                
             }
             
             //recupero detail dato idpoi ed iditinerary

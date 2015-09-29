@@ -149,14 +149,13 @@
             <div class="col-md-4">
                  <!-- Modal -->
                 <div id="modalOffer" class="modal fade" role="dialog">
-                      
-                    <div class="modal-dialog modal-lg">
+                    <div class="modal-dialog">
+
                         <!-- Modal content-->
-                        <div class="modal-content">
+                        <div id="modalContent" class="modal-content">
                             
-                            ddd
-                        
                         </div>
+
                     </div>
                 </div>
 
