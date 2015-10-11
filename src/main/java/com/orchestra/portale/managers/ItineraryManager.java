@@ -122,7 +122,7 @@ public class ItineraryManager{
     }
 
     
-    public static void removeOffer(PersistenceManager pm, int idOffer, String idPoi, int idItinerary, String name, String type){
+    public static int removeOffer(PersistenceManager pm, int idOffer, String idPoi, int idItinerary, String name, String type){
        
         Integer iddetail = pm.findItDetail(idItinerary,idPoi);
         
@@ -135,7 +135,7 @@ public class ItineraryManager{
                 pm.deleteOfferStock(name,iddetail);
                 break;
         }
-        
+        return pm.findAcceptedOffer(iddetail);
         
     }
     

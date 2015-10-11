@@ -88,6 +88,7 @@ public class ItineraryController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
+        int status=0;
         ItineraryManager.removePoi(pm, idItinerary, idPoi);
     }
 
@@ -110,14 +111,16 @@ public class ItineraryController {
     
     @RequestMapping(value = "/removeOfferItinerary", method = RequestMethod.GET)
     public @ResponseBody
-    void removeOfferItinerary(@RequestParam Integer id_offer, @RequestParam Integer idItinerary, @RequestParam String idPoi, @RequestParam String name, @RequestParam String type) {
+    int removeOfferItinerary(@RequestParam Integer id_offer, @RequestParam Integer idItinerary, @RequestParam String idPoi, @RequestParam String name, @RequestParam String type) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = pm.findUserByUsername(auth.getName());
         String id_user = user.getId().toString();
+        int status=0;
         
         if(idItinerary != null){
-            ItineraryManager.removeOffer(pm, id_offer,idPoi,idItinerary, name,type);
+            status=ItineraryManager.removeOffer(pm, id_offer,idPoi,idItinerary, name,type);
         }
+        return status;
         
     }
     

@@ -149,7 +149,7 @@
             <div class="col-md-4">
                  <!-- Modal -->
                 <div id="modalOffer" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
+                    <div class="modal-dialog modal-lg">
 
                         <!-- Modal content-->
                         <div id="modalContent" class="modal-content">

@@ -172,4 +172,57 @@ public class RestDealerController {
         
     }    
     
+    @Secured("ROLE_DEALER")
+    @RequestMapping(value = "/rest/dealer/getUserOffers2")
+    // List<UserOfferChoice> ViewUserChoices(HttpServletRequest request, @RequestParam String keyString){
+    List<Map<Integer,String>> ViewUserChoices2(HttpServletRequest request, @RequestParam String keyString){
+        List<Map<Integer,String>>user_c = new ArrayList<Map<Integer,String>>();
+        Map<Integer,String> userChoice_row = new HashMap<Integer,String>();
+        
+        List<UserOfferChoice>user_choices = new ArrayList<UserOfferChoice>();
+        //Ricavo utente attuale
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user= pm.findUserByUsername(auth.getName());
+        
+        //Ricavo poi che gestisco
+        List<String>own_pois = pm.getDealerOwnPoi(user.getId().intValue());
+        List<Integer>user_idd= new ArrayList<Integer>();
+                
+        //recupero l'itinerario dell'utente recuperato dalla keystring
+        Integer idItinerary = pm.getUserItinerary(keyString);
+        if(idItinerary!=null){
+            
+            for(String idPoi: own_pois){
+                Integer idd = pm.findIdItineraryDetailByIdItineraryAndIdPoi(idItinerary, idPoi);
+                if(idd!=null)
+                    user_idd.add(idd);
+            }
+            
+            for(Integer iddetail: user_idd){
+                //trovare le scelte cn status 0
+                Iterable<UserOfferChoice>off = pm.findActiveChoiceCardByUser(iddetail);
+                //Iterable<UserOfferChoice>off = pm.findChoiceCardByUser(iddetail);
+                for(UserOfferChoice uc: off){
+                    String off_name = pm.getOfferNameById(uc.getIdOffer());
+                    userChoice_row.put(uc.getIdUserOfferChoice(), off_name);
+                    
+                    
+                    user_choices.add(uc);
+                    
+                }
+                user_c.add(userChoice_row);
+                
+            }
+            
+            
+            
+            return user_c;
+        }
+        else{
+            throw new RuntimeException("Errore itinerario non trovato"); 
+        }  
+        
+    }
+    
+    
 }
