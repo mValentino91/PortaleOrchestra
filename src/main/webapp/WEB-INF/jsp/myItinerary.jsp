@@ -36,7 +36,7 @@
         <link rel="stylesheet" href="./dist/ion-range/css/ion.rangeSlider.skinFlat.css" />
         <link href="./dist/css/itinerary.css" rel="stylesheet">
 
-        <title><spring:message code="label.favoritespoi"></spring:message></title>   
+        <title>I tuoi itinerari</title>   
             
         <script>
             $(document).ready(function () {
@@ -99,7 +99,7 @@
         <div class="container-fixed">
 
             <div class="col-md-12">
-                <jsp:include page="components/CoverComponentFavorites.jsp"/>
+                <jsp:include page="components/CoverComponentItinerary.jsp"/>
             </div>
 
             
@@ -194,6 +194,11 @@
 
             <div class="col-md-7">
                 <article class="component component-text">
+                    <div class="detail">
+                        <div class="card_infographic" style="background: url(./dist/img/card_info.jpg)"></div>
+                    </div>
+                    
+                    <%--
                     <div class="details details_infographic" style="margin-top:5px; margin-bottom:30px; margin-bottom:5px; padding-left:0px; padding-right:0px;">
                     	<div class="inf_row">
                     		<div class="inf_number">1</div>
@@ -211,6 +216,7 @@
                     	</div>
                         
                     </div>
+                    --%>
                 </article>
             </div>
 

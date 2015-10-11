@@ -116,22 +116,9 @@
         <div class="container-fixed">
 
             <div class="col-md-12">
-                <div class="cover_itinerary_detail">
+                <div class="cover_itinerary_detail" style="background: url(./dist/img/skyline.png); background-color:${itinerary.color};">
                 	<div class="cover_itd cover_itd_sx">
-                            <div class="itinerary_det">
-                                <div class="img_poi_header">
-                                    <c:set var="itn" value="${itinerary.name}"/>
-                                    <c:set var="it_name" value="${fn:substring(itn, 0, 2)}" />
-                                    <c:set var="tx" value="${fn:toUpperCase(it_name)}" />
-                                    <div class="rnd" style="background-color:${itinerary.color};">
-                                        <span class="rnd-text">${tx}</span>
-                                    </div> 
-                                </div>
-                                <div class="it_det_info">${itinerary.name}</div>
-                                <div class="it_det_info it_det_date">Creato il: <fmt:formatDate value="${itinerary.dateCreation}" pattern="dd/MM/yyyy HH:mm"/></div>
-
-
-                            </div>
+                            
                 	</div>
                 	
                 	<div class="cover_itd cover_itd_dx">
@@ -158,7 +145,12 @@
 
                     </div>
                 </div>
-
+                <article class="component component-text">
+                    <div class="details">
+                        <div class="it_det_info">${itinerary.name}</div>
+                        <div class="it_det_info it_det_date">Creato il: <fmt:formatDate value="${itinerary.dateCreation}" pattern="dd/MM/yyyy HH:mm"/></div>
+                    </div>
+                </article>     
                 <div class="it_detail_action">
                     <div id="complit" class="it_detail_button it_detail_complete">
                             <i class="fa fa-check"></i>

@@ -5,6 +5,6 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<div class="cover_favorite_img" style="background: url(./dist/img/cover_favorite.jpg)">
+<div class="cover_favorite_img" style="background: url(./dist/img/cover_itinerary.png)">
 
 </div>
