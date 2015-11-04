@@ -61,6 +61,11 @@
         width:25px;
         height:25px;
     }
+    
+    .google_translate_container{
+        margin-top: 13px;
+        margin-right: 10px;
+    }
 </style>
 <script src="./dist/js/jquery.autocomplete.js"></script>
 <script src="./dist/fb_js_pack/js_fb.js"></script>
@@ -104,11 +109,21 @@
                 <ul class="nav navbar-nav navbar-right">
                     
                     <li>
+                        <div class="google_translate_container">
+                            <div id="google_translate_element"></div><script type="text/javascript">
+                            function googleTranslateElementInit() {
+                              new google.translate.TranslateElement({pageLanguage: 'it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+                            }
+                            </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>  
+                        </div>
+                    </li>
+                    
+                    <li>
                         
                         <input style="margin-top: 8px" id="autocomplete" type="text" class="form-control" placeholder="<spring:message code='label.topsearch'></spring:message>" />
                     </li>
                     
-                    
+                    <!--
                     <li>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <img class="translate-icon" src="./dist/img/translate.png" />
@@ -139,7 +154,8 @@
                         </ul>
                         
                     </li>
-                   
+                    -->
+                    
                     
                     <li id="loginArea" class="dropdown">
                         <jsp:include page="../access/loginArea.jsp" />
